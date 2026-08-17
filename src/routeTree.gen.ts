@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConnectionsRouteImport } from './routes/connections'
+import { Route as DemoRouteImport } from './routes/demo'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SavedRouteImport } from './routes/saved'
@@ -21,8 +22,10 @@ import { Route as AthleteTournamentsRouteImport } from './routes/athlete.tournam
 import { Route as AthletesIdRouteImport } from './routes/athletes.$id'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer.index'
 import { Route as OrganizerCreateRouteImport } from './routes/organizer.create'
+import { Route as OrganizerResultsRouteImport } from './routes/organizer.results'
 import { Route as TournamentsIndexRouteImport } from './routes/tournaments.index'
 import { Route as TournamentsIdRouteImport } from './routes/tournaments.$id'
+import { Route as OrganizerManageIdRouteImport } from './routes/organizer.manage.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -32,6 +35,11 @@ const IndexRoute = IndexRouteImport.update({
 const ConnectionsRoute = ConnectionsRouteImport.update({
   id: '/connections',
   path: '/connections',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoRoute = DemoRouteImport.update({
+  id: '/demo',
+  path: '/demo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DiscoverRoute = DiscoverRouteImport.update({
@@ -84,6 +92,11 @@ const OrganizerCreateRoute = OrganizerCreateRouteImport.update({
   path: '/organizer/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrganizerResultsRoute = OrganizerResultsRouteImport.update({
+  id: '/organizer/results',
+  path: '/organizer/results',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TournamentsIndexRoute = TournamentsIndexRouteImport.update({
   id: '/tournaments/',
   path: '/tournaments/',
@@ -94,10 +107,16 @@ const TournamentsIdRoute = TournamentsIdRouteImport.update({
   path: '/tournaments/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
+  id: '/organizer/manage/$id',
+  path: '/organizer/manage/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/connections': typeof ConnectionsRoute
+  '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
   '/saved': typeof SavedRoute
@@ -106,14 +125,17 @@ export interface FileRoutesByFullPath {
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
   '/organizer/create': typeof OrganizerCreateRoute
+  '/organizer/results': typeof OrganizerResultsRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/athlete/': typeof AthleteIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
+  '/organizer/manage/$id': typeof OrganizerManageIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/connections': typeof ConnectionsRoute
+  '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
   '/saved': typeof SavedRoute
@@ -122,15 +144,18 @@ export interface FileRoutesByTo {
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
   '/organizer/create': typeof OrganizerCreateRoute
+  '/organizer/results': typeof OrganizerResultsRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/athlete': typeof AthleteIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/tournaments': typeof TournamentsIndexRoute
+  '/organizer/manage/$id': typeof OrganizerManageIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/connections': typeof ConnectionsRoute
+  '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
   '/saved': typeof SavedRoute
@@ -139,16 +164,19 @@ export interface FileRoutesById {
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
   '/organizer/create': typeof OrganizerCreateRoute
+  '/organizer/results': typeof OrganizerResultsRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/athlete/': typeof AthleteIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
+  '/organizer/manage/$id': typeof OrganizerManageIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/connections'
+    | '/demo'
     | '/discover'
     | '/login'
     | '/saved'
@@ -157,14 +185,17 @@ export interface FileRouteTypes {
     | '/athlete/tournaments'
     | '/athletes/$id'
     | '/organizer/create'
+    | '/organizer/results'
     | '/tournaments/$id'
     | '/athlete/'
     | '/organizer/'
     | '/tournaments/'
+    | '/organizer/manage/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/connections'
+    | '/demo'
     | '/discover'
     | '/login'
     | '/saved'
@@ -173,14 +204,17 @@ export interface FileRouteTypes {
     | '/athlete/tournaments'
     | '/athletes/$id'
     | '/organizer/create'
+    | '/organizer/results'
     | '/tournaments/$id'
     | '/athlete'
     | '/organizer'
     | '/tournaments'
+    | '/organizer/manage/$id'
   id:
     | '__root__'
     | '/'
     | '/connections'
+    | '/demo'
     | '/discover'
     | '/login'
     | '/saved'
@@ -189,15 +223,18 @@ export interface FileRouteTypes {
     | '/athlete/tournaments'
     | '/athletes/$id'
     | '/organizer/create'
+    | '/organizer/results'
     | '/tournaments/$id'
     | '/athlete/'
     | '/organizer/'
     | '/tournaments/'
+    | '/organizer/manage/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConnectionsRoute: typeof ConnectionsRoute
+  DemoRoute: typeof DemoRoute
   DiscoverRoute: typeof DiscoverRoute
   LoginRoute: typeof LoginRoute
   SavedRoute: typeof SavedRoute
@@ -206,10 +243,12 @@ export interface RootRouteChildren {
   AthleteTournamentsRoute: typeof AthleteTournamentsRoute
   AthletesIdRoute: typeof AthletesIdRoute
   OrganizerCreateRoute: typeof OrganizerCreateRoute
+  OrganizerResultsRoute: typeof OrganizerResultsRoute
   TournamentsIdRoute: typeof TournamentsIdRoute
   AthleteIndexRoute: typeof AthleteIndexRoute
   OrganizerIndexRoute: typeof OrganizerIndexRoute
   TournamentsIndexRoute: typeof TournamentsIndexRoute
+  OrganizerManageIdRoute: typeof OrganizerManageIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -226,6 +265,13 @@ declare module '@tanstack/react-router' {
       path: '/connections'
       fullPath: '/connections'
       preLoaderRoute: typeof ConnectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo': {
+      id: '/demo'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof DemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/discover': {
@@ -298,6 +344,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrganizerCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/organizer/results': {
+      id: '/organizer/results'
+      path: '/organizer/results'
+      fullPath: '/organizer/results'
+      preLoaderRoute: typeof OrganizerResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tournaments/': {
       id: '/tournaments/'
       path: '/tournaments'
@@ -312,12 +365,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TournamentsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/organizer/manage/$id': {
+      id: '/organizer/manage/$id'
+      path: '/organizer/manage/$id'
+      fullPath: '/organizer/manage/$id'
+      preLoaderRoute: typeof OrganizerManageIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConnectionsRoute: ConnectionsRoute,
+  DemoRoute: DemoRoute,
   DiscoverRoute: DiscoverRoute,
   LoginRoute: LoginRoute,
   SavedRoute: SavedRoute,
@@ -326,10 +387,12 @@ const rootRouteChildren: RootRouteChildren = {
   AthleteTournamentsRoute: AthleteTournamentsRoute,
   AthletesIdRoute: AthletesIdRoute,
   OrganizerCreateRoute: OrganizerCreateRoute,
+  OrganizerResultsRoute: OrganizerResultsRoute,
   TournamentsIdRoute: TournamentsIdRoute,
   AthleteIndexRoute: AthleteIndexRoute,
   OrganizerIndexRoute: OrganizerIndexRoute,
   TournamentsIndexRoute: TournamentsIndexRoute,
+  OrganizerManageIdRoute: OrganizerManageIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
