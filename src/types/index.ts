@@ -1,4 +1,9 @@
-export type Role = "ATHLETE" | "ORGANIZER" | "SCOUT";
+export type Role = "ATHLETE" | "ORGANIZER" | "SCOUT" | "COLLEGE" | "ADMIN";
+
+/** How far an athlete progressed in the college -> national selection ladder. */
+export type SelectionLevel = "COLLEGE" | "NODAL" | "STATE" | "NATIONAL";
+
+export type RecordStatus = "SUBMITTED" | "COLLEGE_VERIFIED" | "ADMIN_VERIFIED" | "REJECTED";
 
 export type VerificationStatus = "UNVERIFIED" | "PENDING" | "VERIFIED";
 
@@ -50,7 +55,49 @@ export interface Athlete {
   losses: number;
   goals: number;
   verifiedAchievementsCount: number;
+  collegeId?: string;
+  collegeName?: string;
+  enrollmentYear?: string;
   createdAt: string;
+  updatedAt: string;
+}
+
+export interface College {
+  id: string;
+  userId: string;
+  name: string;
+  shortName: string;
+  cityId: string;
+  cityName: string;
+  sportsEventName: string;
+  description: string;
+  verificationStatus: VerificationStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * A past sporting record from a college event (e.g. VARCHASVA annual sports meet),
+ * verified first by the college and then by the platform admin.
+ */
+export interface CollegeRecord {
+  id: string;
+  collegeId: string;
+  collegeName: string;
+  athleteId: string;
+  athleteName: string;
+  sportId: string;
+  sportName: string;
+  eventName: string;
+  season: string;
+  level: SelectionLevel;
+  title: string;
+  description: string;
+  representedFor: string;
+  status: RecordStatus;
+  collegeVerifiedBy: string;
+  adminVerifiedBy: string;
+  submittedAt: string;
   updatedAt: string;
 }
 
@@ -112,6 +159,8 @@ export interface Tournament {
   description: string;
   status: TournamentStatus;
   bannerImage: string;
+  /** Data-integrity flag set by the platform admin. */
+  adminVerified?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -221,6 +270,8 @@ export interface Database {
   users: User[];
   athletes: Athlete[];
   organizers: Organizer[];
+  colleges: College[];
+  collegeRecords: CollegeRecord[];
   sports: Sport[];
   cities: City[];
   tournaments: Tournament[];
