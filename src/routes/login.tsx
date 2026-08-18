@@ -20,7 +20,10 @@ export const Route = createFileRoute("/login")({
 
 const DEMO = [
   { label: "Athlete", email: "athlete@khelolocal.demo", to: "/athlete" as const },
+  { label: "Athlete (SGSITS — Drishti)", email: "drishti@sgsits.demo", to: "/athlete" as const },
   { label: "Organizer", email: "organizer@khelolocal.demo", to: "/organizer" as const },
+  { label: "College (SGSITS Sports Cell)", email: "college@khelolocal.demo", to: "/college" as const },
+  { label: "Admin (DB manager + verifier)", email: "admin@khelolocal.demo", to: "/admin" as const },
   { label: "Scout / Coach / Team", email: "scout@khelolocal.demo", to: "/discover" as const },
 ];
 
@@ -42,7 +45,15 @@ function LoginPage() {
     }
     toast.success(`Welcome back, ${user.name.split(" ")[0]}`);
     const target =
-      user.role === "ORGANIZER" ? "/organizer" : user.role === "SCOUT" ? "/discover" : "/athlete";
+      user.role === "ORGANIZER"
+        ? "/organizer"
+        : user.role === "SCOUT"
+          ? "/discover"
+          : user.role === "COLLEGE"
+            ? "/college"
+            : user.role === "ADMIN"
+              ? "/admin"
+              : "/athlete";
     navigate({ to: target });
   };
 
@@ -100,7 +111,7 @@ function LoginPage() {
       <div className="rounded-xl border border-border bg-card p-6">
         <h2 className="font-display text-lg font-bold">Demo access</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          One tap sign-in for the three KheloLocal roles.
+          One tap sign-in for every KheloLocal role.
         </p>
         <div className="mt-5 space-y-3">
           {DEMO.map((d) => (

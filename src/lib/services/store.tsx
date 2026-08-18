@@ -673,5 +673,10 @@ export function useCurrentOrganizer() {
   return currentUser ? (db.organizers.find((o) => o.userId === currentUser.id) ?? null) : null;
 }
 
+export function useCurrentCollege() {
+  const { db, currentUser } = useKhelo();
+  return currentUser ? (db.colleges.find((c) => c.userId === currentUser.id) ?? null) : null;
+}
+
 export { athleteById, matchById, tournamentById };
 export type { Match };
