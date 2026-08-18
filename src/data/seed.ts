@@ -1,4 +1,13 @@
-import type { Database, Athlete, Team, Match, Achievement, Registration } from "@/types";
+import type {
+  Database,
+  Athlete,
+  Team,
+  Match,
+  Achievement,
+  Registration,
+  College,
+  CollegeRecord,
+} from "@/types";
 
 const NOW = "2026-08-17T12:00:00.000Z";
 
@@ -19,6 +28,11 @@ const cities: Database["cities"] = [
 const sports: Database["sports"] = [
   { id: "football", name: "Football", icon: "football", active: true },
   { id: "kabaddi", name: "Kabaddi", icon: "kabaddi", active: true },
+  { id: "basketball", name: "Basketball", icon: "basketball", active: true },
+  { id: "khokho", name: "Kho-Kho", icon: "khokho", active: true },
+  { id: "badminton", name: "Badminton", icon: "badminton", active: true },
+  { id: "boxing", name: "Boxing", icon: "boxing", active: true },
+  { id: "yoga", name: "Yoga", icon: "yoga", active: true },
 ];
 
 const users: Database["users"] = [
@@ -57,6 +71,65 @@ const users: Database["users"] = [
     createdAt: NOW,
     updatedAt: NOW,
     isActive: true,
+  },
+  {
+    id: "u_college",
+    name: "SGSITS Sports Cell",
+    email: "college@khelolocal.demo",
+    phone: "+91 90000 00004",
+    role: "COLLEGE",
+    cityId: CITY_INDORE,
+    profileImage: "",
+    createdAt: NOW,
+    updatedAt: NOW,
+    isActive: true,
+  },
+  {
+    id: "u_admin",
+    name: "KheloLocal Admin",
+    email: "admin@khelolocal.demo",
+    phone: "+91 90000 00005",
+    role: "ADMIN",
+    cityId: CITY_INDORE,
+    profileImage: "",
+    createdAt: NOW,
+    updatedAt: NOW,
+    isActive: true,
+  },
+  ...[
+    ["u_drishti", "Drishti", "drishti@sgsits.demo"],
+    ["u_roshni", "Roshni", "roshni@sgsits.demo"],
+    ["u_gaurav", "Gaurav", "gaurav@sgsits.demo"],
+    ["u_prince", "Prince", "prince@sgsits.demo"],
+    ["u_arpita", "Arpita", "arpita@sgsits.demo"],
+  ].map(([id, name, email]) => ({
+    id: id!,
+    name: name!,
+    email: email!,
+    phone: "",
+    role: "ATHLETE" as const,
+    cityId: CITY_INDORE,
+    profileImage: "",
+    createdAt: NOW,
+    updatedAt: NOW,
+    isActive: true,
+  })),
+];
+
+const colleges: College[] = [
+  {
+    id: "clg_sgsits",
+    userId: "u_college",
+    name: "Shri G. S. Institute of Technology and Science",
+    shortName: "SGSITS Indore",
+    cityId: CITY_INDORE,
+    cityName: "Indore",
+    sportsEventName: "VARCHASVA — Annual Sports Event",
+    description:
+      "Sports cell of SGSITS Indore. Maintains the official VARCHASVA record book and verifies student athletes through the college → nodal → state → national (RGPV) selection ladder.",
+    verificationStatus: "VERIFIED",
+    createdAt: NOW,
+    updatedAt: NOW,
   },
 ];
 
