@@ -20,6 +20,7 @@ import { Route as AthleteIndexRouteImport } from './routes/athlete.index'
 import { Route as AthleteProfileRouteImport } from './routes/athlete.profile'
 import { Route as AthleteTournamentsRouteImport } from './routes/athlete.tournaments'
 import { Route as AthletesIdRouteImport } from './routes/athletes.$id'
+import { Route as CollegeIndexRouteImport } from './routes/college.index'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer.index'
 import { Route as OrganizerCreateRouteImport } from './routes/organizer.create'
 import { Route as OrganizerResultsRouteImport } from './routes/organizer.results'
@@ -82,6 +83,11 @@ const AthletesIdRoute = AthletesIdRouteImport.update({
   path: '/athletes/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollegeIndexRoute = CollegeIndexRouteImport.update({
+  id: '/college/',
+  path: '/college/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrganizerIndexRoute = OrganizerIndexRouteImport.update({
   id: '/organizer/',
   path: '/organizer/',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/organizer/results': typeof OrganizerResultsRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/athlete/': typeof AthleteIndexRoute
+  '/college/': typeof CollegeIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/organizer/results': typeof OrganizerResultsRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/athlete': typeof AthleteIndexRoute
+  '/college': typeof CollegeIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/tournaments': typeof TournamentsIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/organizer/results': typeof OrganizerResultsRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/athlete/': typeof AthleteIndexRoute
+  '/college/': typeof CollegeIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/organizer/results'
     | '/tournaments/$id'
     | '/athlete/'
+    | '/college/'
     | '/organizer/'
     | '/tournaments/'
     | '/organizer/manage/$id'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/organizer/results'
     | '/tournaments/$id'
     | '/athlete'
+    | '/college'
     | '/organizer'
     | '/tournaments'
     | '/organizer/manage/$id'
@@ -226,6 +237,7 @@ export interface FileRouteTypes {
     | '/organizer/results'
     | '/tournaments/$id'
     | '/athlete/'
+    | '/college/'
     | '/organizer/'
     | '/tournaments/'
     | '/organizer/manage/$id'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   OrganizerResultsRoute: typeof OrganizerResultsRoute
   TournamentsIdRoute: typeof TournamentsIdRoute
   AthleteIndexRoute: typeof AthleteIndexRoute
+  CollegeIndexRoute: typeof CollegeIndexRoute
   OrganizerIndexRoute: typeof OrganizerIndexRoute
   TournamentsIndexRoute: typeof TournamentsIndexRoute
   OrganizerManageIdRoute: typeof OrganizerManageIdRoute
@@ -330,6 +343,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AthletesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/college/': {
+      id: '/college/'
+      path: '/college'
+      fullPath: '/college/'
+      preLoaderRoute: typeof CollegeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/organizer/': {
       id: '/organizer/'
       path: '/organizer'
@@ -390,6 +410,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrganizerResultsRoute: OrganizerResultsRoute,
   TournamentsIdRoute: TournamentsIdRoute,
   AthleteIndexRoute: AthleteIndexRoute,
+  CollegeIndexRoute: CollegeIndexRoute,
   OrganizerIndexRoute: OrganizerIndexRoute,
   TournamentsIndexRoute: TournamentsIndexRoute,
   OrganizerManageIdRoute: OrganizerManageIdRoute,
