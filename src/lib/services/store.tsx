@@ -630,13 +630,6 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     [commit],
   );
 
-  const unusedResetPlaceholder = useCallback(() => {
-    clearDatabase();
-    const fresh = createSeedDatabase();
-    setDb(fresh);
-    saveDatabase(fresh);
-  }, []);
-
   const value: StoreValue = {
     db,
     hydrated,
