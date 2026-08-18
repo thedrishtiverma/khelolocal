@@ -1,10 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type {
   Achievement,
+  CollegeRecord,
   Database,
   Match,
   PlayerPerformance,
   Role,
+  SelectionLevel,
   Tournament,
   User,
 } from "@/types";
@@ -53,6 +55,22 @@ interface StoreValue {
   verifyMatch: (matchId: string, note?: string) => VerifyOutcome | null;
   toggleSaveAthlete: (athleteId: string) => void;
   requestConnection: (athleteId: string) => void;
+  submitCollegeRecord: (input: {
+    athleteId: string;
+    sportId: string;
+    eventName: string;
+    season: string;
+    level: SelectionLevel;
+    title: string;
+    description: string;
+    representedFor: string;
+    /** Set when the submitter is the college itself — skips straight to college-verified. */
+    autoCollegeVerify?: boolean;
+  }) => CollegeRecord | null;
+  collegeReviewRecord: (recordId: string, approve: boolean) => void;
+  adminReviewRecord: (recordId: string, approve: boolean) => void;
+  adminSetTournamentVerified: (tournamentId: string, verified: boolean) => void;
+  adminSetAthleteVerification: (athleteId: string, status: "VERIFIED" | "PENDING") => void;
   resetDemo: () => void;
 }
 
@@ -158,6 +176,21 @@ export function KheloProvider({ children }: { children: ReactNode }) {
             email,
             verificationStatus: "PENDING",
             tournamentsHosted: 0,
+            createdAt: now(),
+            updatedAt: now(),
+          });
+        }
+        if (role === "COLLEGE") {
+          draft.colleges.push({
+            id: uid("clg"),
+            userId: id,
+            name,
+            shortName: name,
+            cityId: "indore",
+            cityName: "Indore",
+            sportsEventName: "Annual Sports Event",
+            description: "",
+            verificationStatus: "PENDING",
             createdAt: now(),
             updatedAt: now(),
           });
@@ -500,6 +533,110 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     saveDatabase(fresh);
   }, []);
 
+  /** Athlete or college submits a past college-event record for verification. */
+  const submitCollegeRecord: StoreValue["submitCollegeRecord"] = useCallback(
+    (input) => {
+      const college =
+        db.colleges.find((c) => c.userId === userId) ??
+        db.colleges.find(
+          (c) => c.id === db.athletes.find((a) => a.id === input.athleteId)?.collegeId,
+        );
+      const athlete = db.athletes.find((a) => a.id === input.athleteId);
+      if (!college || !athlete) return null;
+      const record: CollegeRecord = {
+        id: uid("rec"),
+        collegeId: college.id,
+        collegeName: college.shortName,
+        athleteId: athlete.id,
+        athleteName: athlete.name,
+        sportId: input.sportId,
+        sportName: db.sports.find((s) => s.id === input.sportId)?.name ?? input.sportId,
+        eventName: input.eventName,
+        season: input.season,
+        level: input.level,
+        title: input.title,
+        description: input.description,
+        representedFor: input.representedFor,
+        status: input.autoCollegeVerify ? "COLLEGE_VERIFIED" : "SUBMITTED",
+        collegeVerifiedBy: input.autoCollegeVerify ? college.shortName : "",
+        adminVerifiedBy: "",
+        submittedAt: now(),
+        updatedAt: now(),
+      };
+      commit((draft) => {
+        draft.collegeRecords.push(record);
+      });
+      return record;
+    },
+    [commit, db.athletes, db.colleges, db.sports, userId],
+  );
+
+  const collegeReviewRecord: StoreValue["collegeReviewRecord"] = useCallback(
+    (recordId, approve) => {
+      commit((draft) => {
+        const rec = draft.collegeRecords.find((r) => r.id === recordId);
+        if (!rec) return;
+        const college = draft.colleges.find((c) => c.id === rec.collegeId);
+        rec.status = approve ? "COLLEGE_VERIFIED" : "REJECTED";
+        rec.collegeVerifiedBy = approve ? (college?.shortName ?? "College") : "";
+        rec.updatedAt = now();
+      });
+    },
+    [commit],
+  );
+
+  /** Final gate: an admin-verified record becomes public on the athlete profile. */
+  const adminReviewRecord: StoreValue["adminReviewRecord"] = useCallback(
+    (recordId, approve) => {
+      commit((draft) => {
+        const rec = draft.collegeRecords.find((r) => r.id === recordId);
+        if (!rec) return;
+        const wasVerified = rec.status === "ADMIN_VERIFIED";
+        rec.status = approve ? "ADMIN_VERIFIED" : "REJECTED";
+        rec.adminVerifiedBy = approve ? "KheloLocal Admin" : "";
+        rec.updatedAt = now();
+        const athlete = draft.athletes.find((a) => a.id === rec.athleteId);
+        if (athlete && approve && !wasVerified) {
+          athlete.verifiedAchievementsCount += 1;
+          athlete.verificationStatus = "VERIFIED";
+          athlete.updatedAt = now();
+        }
+      });
+    },
+    [commit],
+  );
+
+  const adminSetTournamentVerified: StoreValue["adminSetTournamentVerified"] = useCallback(
+    (tournamentId, verified) => {
+      commit((draft) => {
+        const t = draft.tournaments.find((x) => x.id === tournamentId);
+        if (!t) return;
+        t.adminVerified = verified;
+        t.updatedAt = now();
+      });
+    },
+    [commit],
+  );
+
+  const adminSetAthleteVerification: StoreValue["adminSetAthleteVerification"] = useCallback(
+    (athleteId, status) => {
+      commit((draft) => {
+        const a = draft.athletes.find((x) => x.id === athleteId);
+        if (!a) return;
+        a.verificationStatus = status;
+        a.updatedAt = now();
+      });
+    },
+    [commit],
+  );
+
+  const unusedResetPlaceholder = useCallback(() => {
+    clearDatabase();
+    const fresh = createSeedDatabase();
+    setDb(fresh);
+    saveDatabase(fresh);
+  }, []);
+
   const value: StoreValue = {
     db,
     hydrated,
@@ -516,6 +653,11 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     verifyMatch,
     toggleSaveAthlete,
     requestConnection,
+    submitCollegeRecord,
+    collegeReviewRecord,
+    adminReviewRecord,
+    adminSetTournamentVerified,
+    adminSetAthleteVerification,
     resetDemo,
   };
 
