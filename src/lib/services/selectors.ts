@@ -1,4 +1,4 @@
-import type { Athlete, Database, Match, Tournament } from "@/types";
+import type { Athlete, CollegeRecord, Database, Match, Tournament } from "@/types";
 
 export function athleteById(db: Database, id: string) {
   return db.athletes.find((a) => a.id === id);
@@ -8,6 +8,31 @@ export function athleteByUserId(db: Database, userId: string) {
 }
 export function organizerByUserId(db: Database, userId: string) {
   return db.organizers.find((o) => o.userId === userId);
+}
+export function collegeByUserId(db: Database, userId: string) {
+  return db.colleges.find((c) => c.userId === userId);
+}
+export function athletesOfCollege(db: Database, collegeId: string) {
+  return db.athletes.filter((a) => a.collegeId === collegeId);
+}
+export function recordsOfCollege(db: Database, collegeId: string): CollegeRecord[] {
+  return db.collegeRecords
+    .filter((r) => r.collegeId === collegeId)
+    .sort((a, b) => (a.season < b.season ? 1 : -1));
+}
+export function recordsOfAthlete(db: Database, athleteId: string): CollegeRecord[] {
+  return db.collegeRecords
+    .filter((r) => r.athleteId === athleteId)
+    .sort((a, b) => (a.season < b.season ? 1 : -1));
+}
+export function publicRecordsOfAthlete(db: Database, athleteId: string): CollegeRecord[] {
+  return recordsOfAthlete(db, athleteId).filter((r) => r.status === "ADMIN_VERIFIED");
+}
+export function pendingCollegeRecords(db: Database, collegeId: string) {
+  return recordsOfCollege(db, collegeId).filter((r) => r.status === "SUBMITTED");
+}
+export function pendingAdminRecords(db: Database) {
+  return db.collegeRecords.filter((r) => r.status === "COLLEGE_VERIFIED");
 }
 export function tournamentById(db: Database, id: string) {
   return db.tournaments.find((t) => t.id === id);
@@ -77,6 +102,8 @@ export interface AthleteFilters {
   ageCategory?: string;
   positionGroup?: string;
   minVerifiedTournaments?: number;
+  collegeId?: string;
+  hasCollegeRecords?: boolean;
   query?: string;
 }
 
@@ -86,6 +113,10 @@ export function searchAthletes(db: Database, f: AthleteFilters): Athlete[] {
     .filter((a) => (f.cityId ? a.cityId === f.cityId : true))
     .filter((a) => (f.ageCategory ? a.ageCategory === f.ageCategory : true))
     .filter((a) => (f.positionGroup ? a.positionGroup === f.positionGroup : true))
+    .filter((a) => (f.collegeId ? a.collegeId === f.collegeId : true))
+    .filter((a) =>
+      f.hasCollegeRecords ? publicRecordsOfAthlete(db, a.id).length > 0 : true,
+    )
     .filter((a) =>
       f.minVerifiedTournaments ? a.tournamentsPlayed >= f.minVerifiedTournaments : true,
     )
