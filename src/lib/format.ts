@@ -44,3 +44,25 @@ export function ageFromDob(dob: string) {
   const diff = Date.now() - d.getTime();
   return Math.floor(diff / (365.25 * 24 * 3600 * 1000));
 }
+
+const SPORT_LABELS: Record<string, string> = {
+  football: "Football",
+  kabaddi: "Kabaddi",
+  basketball: "Basketball",
+  khokho: "Kho-Kho",
+  badminton: "Badminton",
+  boxing: "Boxing",
+  yoga: "Yoga",
+  athletics: "Athletics",
+};
+
+export function sportLabel(sportId: string) {
+  return SPORT_LABELS[sportId] ?? sportId.charAt(0).toUpperCase() + sportId.slice(1);
+}
+
+export const LEVEL_LABELS: Record<string, string> = {
+  COLLEGE: "College level",
+  NODAL: "Nodal level",
+  STATE: "State level",
+  NATIONAL: "National level",
+};

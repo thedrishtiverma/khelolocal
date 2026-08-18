@@ -32,6 +32,17 @@ const NAV: Record<Role | "GUEST", NavItem[]> = {
     { to: "/saved", label: "Saved athletes" },
     { to: "/connections", label: "Connections" },
   ],
+  COLLEGE: [
+    { to: "/college", label: "College desk" },
+    { to: "/college/records", label: "Records" },
+    { to: "/discover", label: "Discover athletes" },
+    { to: "/tournaments", label: "Tournaments" },
+  ],
+  ADMIN: [
+    { to: "/admin", label: "Admin console" },
+    { to: "/discover", label: "Athletes" },
+    { to: "/tournaments", label: "Tournaments" },
+  ],
 };
 
 export function AppShell({ children }: { children: ReactNode }) {

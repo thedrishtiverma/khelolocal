@@ -8,7 +8,7 @@ import { createSeedDatabase } from "@/data/seed";
  * adapter. Swapping this file for Firestore (collection reads + a transaction
  * inside `verifyMatch`) does not require any UI change.
  */
-export const STORAGE_KEY = "khelolocal.db.v1";
+export const STORAGE_KEY = "khelolocal.db.v2";
 
 export function loadDatabase(): Database {
   if (typeof window === "undefined") return createSeedDatabase();
@@ -16,7 +16,7 @@ export function loadDatabase(): Database {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return createSeedDatabase();
     const parsed = JSON.parse(raw) as Database;
-    if (!parsed?.athletes?.length) return createSeedDatabase();
+    if (!parsed?.athletes?.length || !parsed?.colleges) return createSeedDatabase();
     return parsed;
   } catch {
     return createSeedDatabase();
