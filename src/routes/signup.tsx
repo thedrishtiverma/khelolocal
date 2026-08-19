@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, Trophy, User } from "lucide-react";
+import { GraduationCap, Search, Trophy, User } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +28,12 @@ export const Route = createFileRoute("/signup")({
 const ROLES: { role: Role; title: string; body: string; icon: typeof User }[] = [
   { role: "ATHLETE", title: "Athlete", body: "Join tournaments and build a verified record.", icon: User },
   { role: "ORGANIZER", title: "Organizer", body: "Run tournaments and verify results.", icon: Trophy },
+  {
+    role: "COLLEGE",
+    title: "College",
+    body: "Verify annual sports records and discover campus talent.",
+    icon: GraduationCap,
+  },
   { role: "SCOUT", title: "Scout / Coach / Team", body: "Discover local talent.", icon: Search },
 ];
 
@@ -45,7 +51,7 @@ function SignupPage() {
         Pick a role — you can fill in the rest of your profile later.
       </p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {ROLES.map((r) => (
           <button
             key={r.role}
@@ -72,13 +78,24 @@ function SignupPage() {
             const user = signup({ name, email, role });
             toast.success("Account created", { description: "Welcome to KheloLocal." });
             navigate({
-              to: user.role === "ORGANIZER" ? "/organizer" : user.role === "SCOUT" ? "/discover" : "/athlete",
+              to:
+                user.role === "ORGANIZER"
+                  ? "/organizer"
+                  : user.role === "SCOUT"
+                    ? "/discover"
+                    : user.role === "COLLEGE"
+                      ? "/college"
+                      : "/athlete",
             });
           }}
         >
           <div className="space-y-2">
             <Label htmlFor="name">
-              {role === "ORGANIZER" ? "Organization name" : "Full name"}
+              {role === "ORGANIZER"
+                ? "Organization name"
+                : role === "COLLEGE"
+                  ? "College name"
+                  : "Full name"}
             </Label>
             <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
           </div>

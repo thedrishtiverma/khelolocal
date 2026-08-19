@@ -3,6 +3,7 @@ import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { Initials } from "@/components/shared/Bits";
+import { sportLabel } from "@/lib/format";
 import type { Athlete } from "@/types";
 
 export function AthleteCard({ athlete }: { athlete: Athlete }) {
@@ -13,11 +14,14 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
         <div className="min-w-0 flex-1">
           <h3 className="font-display text-lg font-bold leading-tight">{athlete.name}</h3>
           <p className="text-sm text-muted-foreground">
-            {athlete.primarySport === "football" ? "Football" : "Kabaddi"} · {athlete.position || "—"}
+            {sportLabel(athlete.primarySport)} · {athlete.position || "—"}
           </p>
           <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
             <MapPin className="size-3.5" /> {athlete.cityName} · {athlete.ageCategory}
           </p>
+          {athlete.collegeName ? (
+            <p className="mt-1 text-xs font-semibold text-muted-foreground">{athlete.collegeName}</p>
+          ) : null}
         </div>
       </div>
 
