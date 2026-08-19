@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
-import { formatDate } from "@/lib/format";
+import { formatDate, sportLabel } from "@/lib/format";
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
-import { achievementsOfAthlete, tournamentsOfAthlete } from "@/lib/services/selectors";
+import { achievementsOfAthlete, recordsOfAthlete, tournamentsOfAthlete } from "@/lib/services/selectors";
+import { RecordCard } from "@/components/college/RecordCard";
 
 export const Route = createFileRoute("/athlete/")({
   head: () => ({
@@ -61,6 +62,7 @@ function AthleteDashboard() {
     )
     .slice(0, 3);
   const achievements = achievementsOfAthlete(db, athlete.id).slice(0, 4);
+  const collegeRecords = recordsOfAthlete(db, athlete.id);
 
   return (
     <Page>
@@ -81,8 +83,11 @@ function AthleteDashboard() {
             </p>
             <h2 className="mt-1 font-display text-2xl font-black">{athlete.name}</h2>
             <p className="text-sm text-surface-foreground/70">
-              {athlete.primarySport === "football" ? "Football" : "Kabaddi"} · {athlete.position}
+              {sportLabel(athlete.primarySport)} · {athlete.position}
             </p>
+            {athlete.collegeName ? (
+              <p className="text-sm text-surface-foreground/70">{athlete.collegeName}</p>
+            ) : null}
           </div>
           {athlete.verificationStatus === "VERIFIED" ? <VerifiedBadge /> : null}
         </div>
@@ -133,6 +138,22 @@ function AthleteDashboard() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {recommended.map((t) => (
               <TournamentCard key={t.id} tournament={t} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="mt-12">
+        <SectionHeading
+          title="Your college record"
+          subtitle="Past annual sports event performances, with their verification stage."
+        />
+        {collegeRecords.length === 0 ? (
+          <EmptyState title="No college records yet." description="Your college can add past results from its record book." />
+        ) : (
+          <div className="grid gap-4 lg:grid-cols-2">
+            {collegeRecords.map((r) => (
+              <RecordCard key={r.id} record={r} />
             ))}
           </div>
         )}

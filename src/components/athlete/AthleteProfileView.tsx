@@ -1,9 +1,10 @@
 import { Award, BadgeCheck, MapPin, Star, Trophy } from "lucide-react";
 import { Initials, Stat } from "@/components/shared/Bits";
 import { VerificationChip } from "@/components/shared/Badges";
-import { formatDate } from "@/lib/format";
+import { formatDate, sportLabel } from "@/lib/format";
 import { useKhelo } from "@/lib/services/store";
-import { achievementsOfAthlete } from "@/lib/services/selectors";
+import { achievementsOfAthlete, publicRecordsOfAthlete } from "@/lib/services/selectors";
+import { RecordCard } from "@/components/college/RecordCard";
 import type { Athlete } from "@/types";
 import type { ReactNode } from "react";
 
@@ -24,7 +25,8 @@ export function AthleteProfileView({
 }) {
   const { db } = useKhelo();
   const achievements = achievementsOfAthlete(db, athlete.id);
-  const sportName = athlete.primarySport === "football" ? "Football" : "Kabaddi";
+  const collegeRecords = publicRecordsOfAthlete(db, athlete.id);
+  const sportName = sportLabel(athlete.primarySport);
 
   return (
     <div className="space-y-8">
@@ -39,6 +41,12 @@ export function AthleteProfileView({
             <p className="mt-1 flex items-center gap-1 text-sm text-surface-foreground/70">
               <MapPin className="size-4" /> {athlete.cityName} · {athlete.ageCategory}
             </p>
+            {athlete.collegeName ? (
+              <p className="mt-1 text-sm text-surface-foreground/70">
+                {athlete.collegeName}
+                {athlete.enrollmentYear ? ` · batch ${athlete.enrollmentYear}` : ""}
+              </p>
+            ) : null}
             <div className="mt-3">
               <VerificationChip status={athlete.verificationStatus} />
             </div>
@@ -56,6 +64,20 @@ export function AthleteProfileView({
 
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <section className="rounded-xl border border-border bg-card p-6">
+          {collegeRecords.length ? (
+            <div className="mb-8">
+              <h2 className="font-display text-xl font-bold">College record (verified)</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Past annual sports event results confirmed by {athlete.collegeName ?? "the college"}{" "}
+                and verified by KheloLocal.
+              </p>
+              <div className="mt-4 grid gap-4">
+                {collegeRecords.map((r) => (
+                  <RecordCard key={r.id} record={r} />
+                ))}
+              </div>
+            </div>
+          ) : null}
           <h2 className="font-display text-xl font-bold">Verified achievements</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Every record below was confirmed by the tournament organizer.
