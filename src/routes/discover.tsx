@@ -113,6 +113,18 @@ function DiscoverPage() {
             onChange={(v) => set("sportId", v)}
           />
           <Chips
+            label="College"
+            options={db.colleges.map((c) => ({ value: c.id, label: c.shortName }))}
+            value={filters.collegeId}
+            onChange={(v) => set("collegeId", v)}
+          />
+          <Chips
+            label="Verified college record"
+            options={[{ value: "yes", label: "Has verified college records" }]}
+            value={filters.hasCollegeRecords ? "yes" : undefined}
+            onChange={(v) => set("hasCollegeRecords", v ? true : undefined)}
+          />
+          <Chips
             label="Age category"
             options={["U14", "U16", "U18", "U21", "Open"].map((a) => ({ value: a, label: a }))}
             value={filters.ageCategory}
