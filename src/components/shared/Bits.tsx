@@ -40,11 +40,13 @@ export function SectionHeading({
   title,
   subtitle,
   action,
+  as: As = "h2",
 }: {
   eyebrow?: string;
   title: string;
   subtitle?: string;
   action?: ReactNode;
+  as?: "h1" | "h2";
 }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
@@ -54,7 +56,7 @@ export function SectionHeading({
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
+        <As className="text-2xl font-bold sm:text-3xl">{title}</As>
         {subtitle ? <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p> : null}
       </div>
       {action}
