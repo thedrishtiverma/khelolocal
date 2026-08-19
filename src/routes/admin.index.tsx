@@ -28,7 +28,7 @@ export const Route = createFileRoute("/admin/")({
       },
     ],
   }),
-  component: AdminConsole;
+  component: AdminConsole,
 });
 
 type Tab = "records" | "tournaments" | "athletes";
