@@ -78,7 +78,14 @@ function SignupPage() {
             const user = signup({ name, email, role });
             toast.success("Account created", { description: "Welcome to KheloLocal." });
             navigate({
-              to: user.role === "ORGANIZER" ? "/organizer" : user.role === "SCOUT" ? "/discover" : "/athlete",
+              to:
+                user.role === "ORGANIZER"
+                  ? "/organizer"
+                  : user.role === "SCOUT"
+                    ? "/discover"
+                    : user.role === "COLLEGE"
+                      ? "/college"
+                      : "/athlete",
             });
           }}
         >
