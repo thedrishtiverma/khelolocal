@@ -4,8 +4,10 @@
 
 /*
  * KheloLocal design system.
- * Deep navy surfaces + electric lime accent. Archivo headings, Barlow body.
+ * Logo-derived brand: deep navy + sports orange + sports green on warm cream.
+ * Plus Jakarta Sans headings, Manrope body.
  */
+
 
 @custom-variant dark (&:is(.dark *));
 
