@@ -26,14 +26,18 @@
  */
 
 @theme inline {
-  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --color-lime: var(--lime);
   --color-lime-foreground: var(--lime-foreground);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-green: var(--brand-green);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
   --color-live: var(--live);
   --color-verified: var(--verified);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
