@@ -1,4 +1,4 @@
-export type Role = "ATHLETE" | "ORGANIZER" | "SCOUT" | "COLLEGE" | "ADMIN";
+export type Role = "ATHLETE" | "ORGANIZER" | "SCOUT" | "COLLEGE" | "VOLUNTEER" | "ADMIN";
 
 /** How far an athlete progressed in the college -> national selection ladder. */
 export type SelectionLevel = "COLLEGE" | "NODAL" | "STATE" | "NATIONAL";
@@ -266,8 +266,72 @@ export interface ConnectionRequest {
   status: "SENT";
 }
 
+/** A field-data zone of the city a volunteer is assigned to. */
+export interface Zone {
+  id: string;
+  name: string;
+  cityId: string;
+  cityName: string;
+  localities: string[];
+  latitude: number;
+  longitude: number;
+}
+
+export interface Volunteer {
+  id: string;
+  userId: string;
+  name: string;
+  zoneId: string;
+  zoneName: string;
+  cityId: string;
+  phone: string;
+  joinedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type SubmissionKind =
+  | "TOURNAMENT"
+  | "VENUE"
+  | "ACADEMY"
+  | "OPPORTUNITY"
+  | "ORGANIZER_INFO";
+
+export type SubmissionStatus = "DRAFT" | "SUBMITTED" | "VERIFIED" | "REJECTED";
+
+/** One piece of on-ground sports info collected by a volunteer in their zone. */
+export interface FieldSubmission {
+  id: string;
+  kind: SubmissionKind;
+  volunteerId: string;
+  zoneId: string;
+  zoneName: string;
+  title: string;
+  sportId: string;
+  locality: string;
+  address: string;
+  /** "lat, lng" captured from the device or typed in. */
+  gps: string;
+  contactName: string;
+  contactPhone: string;
+  startDate: string;
+  notes: string;
+  /** Data URL or file name of the supporting photo / document. */
+  attachmentName: string;
+  attachmentUrl: string;
+  status: SubmissionStatus;
+  reviewNote: string;
+  verifiedBy: string;
+  submittedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Database {
   users: User[];
+  zones: Zone[];
+  volunteers: Volunteer[];
+  fieldSubmissions: FieldSubmission[];
   athletes: Athlete[];
   organizers: Organizer[];
   colleges: College[];
