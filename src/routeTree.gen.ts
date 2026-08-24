@@ -28,6 +28,7 @@ import { Route as OrganizerCreateRouteImport } from './routes/organizer.create'
 import { Route as OrganizerResultsRouteImport } from './routes/organizer.results'
 import { Route as TournamentsIndexRouteImport } from './routes/tournaments.index'
 import { Route as TournamentsIdRouteImport } from './routes/tournaments.$id'
+import { Route as VolunteerIndexRouteImport } from './routes/volunteer.index'
 import { Route as OrganizerManageIdRouteImport } from './routes/organizer.manage.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -125,6 +126,11 @@ const TournamentsIdRoute = TournamentsIdRouteImport.update({
   path: '/tournaments/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VolunteerIndexRoute = VolunteerIndexRouteImport.update({
+  id: '/volunteer/',
+  path: '/volunteer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
   id: '/organizer/manage/$id',
   path: '/organizer/manage/$id',
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/college/': typeof CollegeIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
+  '/volunteer/': typeof VolunteerIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
 }
 export interface FileRoutesByTo {
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/college': typeof CollegeIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/tournaments': typeof TournamentsIndexRoute
+  '/volunteer': typeof VolunteerIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
 }
 export interface FileRoutesById {
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/college/': typeof CollegeIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
+  '/volunteer/': typeof VolunteerIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
 }
 export interface FileRouteTypes {
@@ -220,6 +229,7 @@ export interface FileRouteTypes {
     | '/college/'
     | '/organizer/'
     | '/tournaments/'
+    | '/volunteer/'
     | '/organizer/manage/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -242,6 +252,7 @@ export interface FileRouteTypes {
     | '/college'
     | '/organizer'
     | '/tournaments'
+    | '/volunteer'
     | '/organizer/manage/$id'
   id:
     | '__root__'
@@ -264,6 +275,7 @@ export interface FileRouteTypes {
     | '/college/'
     | '/organizer/'
     | '/tournaments/'
+    | '/volunteer/'
     | '/organizer/manage/$id'
   fileRoutesById: FileRoutesById
 }
@@ -287,6 +299,7 @@ export interface RootRouteChildren {
   CollegeIndexRoute: typeof CollegeIndexRoute
   OrganizerIndexRoute: typeof OrganizerIndexRoute
   TournamentsIndexRoute: typeof TournamentsIndexRoute
+  VolunteerIndexRoute: typeof VolunteerIndexRoute
   OrganizerManageIdRoute: typeof OrganizerManageIdRoute
 }
 
@@ -425,6 +438,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TournamentsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/volunteer/': {
+      id: '/volunteer/'
+      path: '/volunteer'
+      fullPath: '/volunteer/'
+      preLoaderRoute: typeof VolunteerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/organizer/manage/$id': {
       id: '/organizer/manage/$id'
       path: '/organizer/manage/$id'
@@ -455,6 +475,7 @@ const rootRouteChildren: RootRouteChildren = {
   CollegeIndexRoute: CollegeIndexRoute,
   OrganizerIndexRoute: OrganizerIndexRoute,
   TournamentsIndexRoute: TournamentsIndexRoute,
+  VolunteerIndexRoute: VolunteerIndexRoute,
   OrganizerManageIdRoute: OrganizerManageIdRoute,
 }
 export const routeTree = rootRouteImport
