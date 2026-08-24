@@ -38,6 +38,7 @@ KheloLocal starts with **Indore** and is designed to scale city-by-city across I
 - [Future Opportunities](#future-opportunities)
 - [Vision](#vision)
 - [Team](#team)
+- [Achievements](#achievements)
 
 ## Overview
 
@@ -567,30 +568,23 @@ Advanced features such as player auctions are considered future-stage capabiliti
 
 ## Technology
 
-The application is designed around a modern web architecture.
+The prototype is designed using an AI-app builder Lovable. No costs beared yet.
 
 ### Frontend
 
-Potential technologies to be used:
-
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
+* Lovable
 
 ### Backend
 
-* Node.js
-* REST/API-based architecture
+* Lovable
 
 ### Database
 
-* PostgreSQL
-* PostGIS for location-aware queries
+* Lovable Cloud
 
 ### Authentication
 
-* Supabse user authentication
+* Lovable user authentication
 * Role-based access
 * Athlete, organizer, institution, and admin permissions
 
@@ -622,9 +616,7 @@ Used for relevant:
                          |
               +----------+----------+
               |                     |
-          PostgreSQL             Storage
-              |
-           PostGIS
+          Lovable Cloud             Storage
               |
               v
         LOCAL SPORTS DATA
@@ -1067,9 +1059,20 @@ Build a stronger grassroots sports ecosystem across India.
 
 ## Team
 
-**KheloLocal**
-
+#### **KheloLocal**
+ 
 Built as a student-led sports technology initiative focused on strengthening grassroots sports discovery and participation in India.
+
+### Team Members -
+
+Drishti Verma (Team Leader) | Arpita Jamra | Prince Dhakad | Gaurav Madavi | Darshna Jain | Roshni Chouhan
+
+## Achievements
+
+* Selected in top 70 teams, ranked 21 amongst 143 teams in Internal Round at SGSITS college, Indore with 81/100 points (without prototype)
+* Selected for national level hackathon for SIH. Ranked 14 in top 50 teams and selected amongst 70 teams in Final Round (with prototype + sleek ppt)
+* Idea rated as a 10/10 (Perfect)
+* Approved for a startup idea
 
 ### Acknowledgements
 
@@ -1086,4 +1089,4 @@ KheloLocal's initial concept and prototype are informed by:
 
 **Play Local. Prove Your Game. Find Your People.**
 
-_Last updated: 19/08/2026_
+_Last updated: 24/08/2026_
