@@ -2,6 +2,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import type {
   Achievement,
   CollegeRecord,
+  FieldSubmission,
+  SubmissionKind,
   Database,
   Match,
   PlayerPerformance,
@@ -31,6 +33,24 @@ export interface PerformanceDraft {
   playerOfMatch: boolean;
   raidPoints?: number;
   tacklePoints?: number;
+}
+
+export interface SubmissionDraft {
+  id?: string;
+  kind: SubmissionKind;
+  title: string;
+  sportId: string;
+  locality: string;
+  address: string;
+  gps: string;
+  contactName: string;
+  contactPhone: string;
+  startDate: string;
+  notes: string;
+  attachmentName: string;
+  attachmentUrl: string;
+  /** When true the record goes straight from the form into the verification queue. */
+  submit?: boolean;
 }
 
 export interface VerifyOutcome {
@@ -71,6 +91,11 @@ interface StoreValue {
   adminReviewRecord: (recordId: string, approve: boolean) => void;
   adminSetTournamentVerified: (tournamentId: string, verified: boolean) => void;
   adminSetAthleteVerification: (athleteId: string, status: "VERIFIED" | "PENDING") => void;
+  /** Volunteer field data: create or update a record inside the volunteer's own zone. */
+  saveSubmission: (input: SubmissionDraft) => FieldSubmission | null;
+  submitSubmission: (submissionId: string) => void;
+  deleteSubmission: (submissionId: string) => void;
+  reviewSubmission: (submissionId: string, approve: boolean, note?: string) => void;
   resetDemo: () => void;
 }
 
@@ -176,6 +201,21 @@ export function KheloProvider({ children }: { children: ReactNode }) {
             email,
             verificationStatus: "PENDING",
             tournamentsHosted: 0,
+            createdAt: now(),
+            updatedAt: now(),
+          });
+        }
+        if (role === "VOLUNTEER") {
+          const zone = draft.zones[0]!;
+          draft.volunteers.push({
+            id: uid("vol"),
+            userId: id,
+            name,
+            zoneId: zone.id,
+            zoneName: zone.name,
+            cityId: zone.cityId,
+            phone: "",
+            joinedAt: now().slice(0, 10),
             createdAt: now(),
             updatedAt: now(),
           });
@@ -630,6 +670,117 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     [commit],
   );
 
+
+  const volunteerProfile = useMemo(
+    () => (userId ? (db.volunteers.find((v) => v.userId === userId) ?? null) : null),
+    [db.volunteers, userId],
+  );
+
+  /** Volunteers may only write inside the zone they are assigned to. */
+  const saveSubmission: StoreValue["saveSubmission"] = useCallback(
+    (input) => {
+      if (!volunteerProfile) return null;
+      const stamp = now();
+      let saved: FieldSubmission | null = null;
+      commit((draft) => {
+        const existing = input.id
+          ? draft.fieldSubmissions.find(
+              (f) => f.id === input.id && f.volunteerId === volunteerProfile.id,
+            )
+          : undefined;
+        const base: FieldSubmission = existing ?? {
+          id: uid("fs"),
+          kind: input.kind,
+          volunteerId: volunteerProfile.id,
+          zoneId: volunteerProfile.zoneId,
+          zoneName: volunteerProfile.zoneName,
+          title: "",
+          sportId: "",
+          locality: "",
+          address: "",
+          gps: "",
+          contactName: "",
+          contactPhone: "",
+          startDate: "",
+          notes: "",
+          attachmentName: "",
+          attachmentUrl: "",
+          status: "DRAFT",
+          reviewNote: "",
+          verifiedBy: "",
+          submittedAt: "",
+          createdAt: stamp,
+          updatedAt: stamp,
+        };
+        const next: FieldSubmission = {
+          ...base,
+          kind: input.kind,
+          title: input.title,
+          sportId: input.sportId,
+          locality: input.locality,
+          address: input.address,
+          gps: input.gps,
+          contactName: input.contactName,
+          contactPhone: input.contactPhone,
+          startDate: input.startDate,
+          notes: input.notes,
+          attachmentName: input.attachmentName,
+          attachmentUrl: input.attachmentUrl,
+          zoneId: volunteerProfile.zoneId,
+          zoneName: volunteerProfile.zoneName,
+          status: input.submit ? "SUBMITTED" : base.status === "DRAFT" ? "DRAFT" : base.status,
+          submittedAt: input.submit ? stamp : base.submittedAt,
+          updatedAt: stamp,
+        };
+        if (existing) Object.assign(existing, next);
+        else draft.fieldSubmissions.push(next);
+        saved = next;
+      });
+      return saved;
+    },
+    [commit, volunteerProfile],
+  );
+
+  const submitSubmission: StoreValue["submitSubmission"] = useCallback(
+    (submissionId) => {
+      commit((draft) => {
+        const rec = draft.fieldSubmissions.find(
+          (f) => f.id === submissionId && f.volunteerId === volunteerProfile?.id,
+        );
+        if (!rec || rec.status === "VERIFIED") return;
+        rec.status = "SUBMITTED";
+        rec.submittedAt = now();
+        rec.updatedAt = now();
+      });
+    },
+    [commit, volunteerProfile],
+  );
+
+  const deleteSubmission: StoreValue["deleteSubmission"] = useCallback(
+    (submissionId) => {
+      commit((draft) => {
+        draft.fieldSubmissions = draft.fieldSubmissions.filter(
+          (f) => !(f.id === submissionId && f.volunteerId === volunteerProfile?.id && f.status !== "VERIFIED"),
+        );
+      });
+    },
+    [commit, volunteerProfile],
+  );
+
+  const reviewSubmission: StoreValue["reviewSubmission"] = useCallback(
+    (submissionId, approve, note = "") => {
+      commit((draft) => {
+        const rec = draft.fieldSubmissions.find((f) => f.id === submissionId);
+        if (!rec) return;
+        rec.status = approve ? "VERIFIED" : "REJECTED";
+        rec.verifiedBy = approve ? "KheloLocal Admin" : "";
+        rec.reviewNote = note;
+        rec.updatedAt = now();
+      });
+    },
+    [commit],
+  );
+
   const value: StoreValue = {
     db,
     hydrated,
@@ -651,6 +802,10 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     adminReviewRecord,
     adminSetTournamentVerified,
     adminSetAthleteVerification,
+    saveSubmission,
+    submitSubmission,
+    deleteSubmission,
+    reviewSubmission,
     resetDemo,
   };
 
@@ -671,6 +826,11 @@ export function useCurrentAthlete() {
 export function useCurrentOrganizer() {
   const { db, currentUser } = useKhelo();
   return currentUser ? (db.organizers.find((o) => o.userId === currentUser.id) ?? null) : null;
+}
+
+export function useCurrentVolunteer() {
+  const { db, currentUser } = useKhelo();
+  return currentUser ? (db.volunteers.find((v) => v.userId === currentUser.id) ?? null) : null;
 }
 
 export function useCurrentCollege() {
