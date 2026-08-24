@@ -34,6 +34,7 @@ KheloLocal starts with **Indore** and is designed to scale city-by-city across I
 - [Sustainability](#sustainability)
 - [Roadmap](#roadmap)
 - [Current Prototype](#current-prototype)
+- [Quick Start](#quick-start)
 - [Future Opportunities](#future-opportunities)
 - [Vision](#vision)
 - [Team](#team)
@@ -963,8 +964,16 @@ Athlete Discovery
 Tournament / Opportunity Discovery
 ```
 
-
 The goal is to demonstrate that the core KheloLocal network can work.
+
+## Quick Start
+
+```bash
+git clone [https://github.com/thedrishtiverma/khelolocal.git](https://github.com/thedrishtiverma/khelolocal.git)
+cd khelolocal
+npm install
+npm run dev
+```
 
 ## Future Opportunities
 
