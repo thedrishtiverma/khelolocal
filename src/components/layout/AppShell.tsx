@@ -120,8 +120,11 @@ export function AppShell({ children }: { children: ReactNode }) {
             )}
           </div>
 
+          <div className="ml-auto flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+          </div>
           <button
-            className="ml-auto md:hidden"
+            className="md:hidden"
             aria-label="Toggle navigation"
             onClick={() => setOpen((v) => !v)}
           >
