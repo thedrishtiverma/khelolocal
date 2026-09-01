@@ -3,8 +3,9 @@
 @import "tw-animate-css";
 
 /*
- * KheloLocal design system.
- * Deep navy surfaces + electric lime accent. Archivo headings, Barlow body.
+ * KheloLocal design system — derived from the KheloLocal badge logo.
+ * Navy ink, saffron energy, field green, cream paper.
+ * Outfit headings, Plus Jakarta Sans body.
  */
 
 @custom-variant dark (&:is(.dark *));
@@ -24,10 +25,14 @@
  */
 
 @theme inline {
-  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --color-lime: var(--lime);
   --color-lime-foreground: var(--lime-foreground);
+  --color-saffron: var(--lime);
+  --color-saffron-foreground: var(--lime-foreground);
+  --color-field: var(--field);
+  --color-field-foreground: var(--field-foreground);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
   --color-live: var(--live);
