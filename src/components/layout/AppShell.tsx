@@ -61,12 +61,19 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur">
+        <div className="tricolor-rule h-0.5 w-full" />
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2">
-            <span className="flex size-8 items-center justify-center rounded bg-primary font-display text-sm font-black text-lime">
-              KL
+            <img
+              src={logo.url}
+              alt="KheloLocal logo"
+              className="size-9 rounded-full object-cover"
+              width={36}
+              height={36}
+            />
+            <span className="font-display text-lg font-black tracking-tight">
+              Khelo<span className="text-lime">Local</span>
             </span>
-            <span className="font-display text-lg font-black tracking-tight">KheloLocal</span>
           </Link>
 
           <nav className="hidden flex-1 items-center gap-1 md:flex">
