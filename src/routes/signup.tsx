@@ -57,7 +57,7 @@ function SignupPage() {
         Pick a role — you can fill in the rest of your profile later.
       </p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {ROLES.map((r) => (
           <button
             key={r.role}
@@ -91,7 +91,9 @@ function SignupPage() {
                     ? "/discover"
                     : user.role === "COLLEGE"
                       ? "/college"
-                      : "/athlete",
+                      : user.role === "VOLUNTEER"
+                        ? "/volunteer"
+                        : "/athlete",
             });
           }}
         >
