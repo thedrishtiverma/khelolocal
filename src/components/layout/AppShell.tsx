@@ -94,6 +94,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </nav>
 
           <div className="ml-auto hidden items-center gap-2 md:flex">
+            <ThemeToggle />
             {currentUser ? (
               <>
                 <div className="mr-1 text-right leading-tight">
