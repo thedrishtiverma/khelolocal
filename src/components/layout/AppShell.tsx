@@ -4,6 +4,8 @@ import { Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import logo from "@/assets/khelolocal-logo.png.asset.json";
 import type { Role } from "@/types";
 
 interface NavItem {
@@ -38,6 +40,11 @@ const NAV: Record<Role | "GUEST", NavItem[]> = {
     { to: "/discover", label: "Discover athletes" },
     { to: "/tournaments", label: "Tournaments" },
   ],
+  VOLUNTEER: [
+    { to: "/volunteer", label: "My zone" },
+    { to: "/tournaments", label: "Tournaments" },
+    { to: "/discover", label: "Athletes" },
+  ],
   ADMIN: [
     { to: "/admin", label: "Admin console" },
     { to: "/discover", label: "Athletes" },
@@ -56,12 +63,19 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur">
+        <div className="tricolor-rule h-0.5 w-full" />
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2">
-            <span className="flex size-8 items-center justify-center rounded bg-primary font-display text-sm font-black text-lime">
-              KL
+            <img
+              src={logo.url}
+              alt="KheloLocal logo"
+              className="size-9 rounded-full object-cover"
+              width={36}
+              height={36}
+            />
+            <span className="font-display text-lg font-black tracking-tight">
+              Khelo<span className="text-lime">Local</span>
             </span>
-            <span className="font-display text-lg font-black tracking-tight">KheloLocal</span>
           </Link>
 
           <nav className="hidden flex-1 items-center gap-1 md:flex">
@@ -80,6 +94,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </nav>
 
           <div className="ml-auto hidden items-center gap-2 md:flex">
+            <ThemeToggle />
             {currentUser ? (
               <>
                 <div className="mr-1 text-right leading-tight">
@@ -105,8 +120,11 @@ export function AppShell({ children }: { children: ReactNode }) {
             )}
           </div>
 
+          <div className="ml-auto flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+          </div>
           <button
-            className="ml-auto md:hidden"
+            className="md:hidden"
             aria-label="Toggle navigation"
             onClick={() => setOpen((v) => !v)}
           >

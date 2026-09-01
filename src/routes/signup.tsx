@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { GraduationCap, Search, Trophy, User } from "lucide-react";
+import { GraduationCap, MapPin, Search, Trophy, User } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,6 +34,12 @@ const ROLES: { role: Role; title: string; body: string; icon: typeof User }[] = 
     body: "Verify annual sports records and discover campus talent.",
     icon: GraduationCap,
   },
+  {
+    role: "VOLUNTEER",
+    title: "Volunteer",
+    body: "Map tournaments, turfs and academies in your zone.",
+    icon: MapPin,
+  },
   { role: "SCOUT", title: "Scout / Coach / Team", body: "Discover local talent.", icon: Search },
 ];
 
@@ -51,7 +57,7 @@ function SignupPage() {
         Pick a role — you can fill in the rest of your profile later.
       </p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {ROLES.map((r) => (
           <button
             key={r.role}
@@ -85,7 +91,9 @@ function SignupPage() {
                     ? "/discover"
                     : user.role === "COLLEGE"
                       ? "/college"
-                      : "/athlete",
+                      : user.role === "VOLUNTEER"
+                        ? "/volunteer"
+                        : "/athlete",
             });
           }}
         >

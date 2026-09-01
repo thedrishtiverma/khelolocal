@@ -23,6 +23,7 @@ const DEMO = [
   { label: "Athlete (SGSITS — Drishti)", email: "drishti@sgsits.demo", to: "/athlete" as const },
   { label: "Organizer", email: "organizer@khelolocal.demo", to: "/organizer" as const },
   { label: "College (SGSITS Sports Cell)", email: "college@khelolocal.demo", to: "/college" as const },
+  { label: "Volunteer (Vijay Nagar zone)", email: "volunteer@khelolocal.demo", to: "/volunteer" as const },
   { label: "Admin (DB manager + verifier)", email: "admin@khelolocal.demo", to: "/admin" as const },
   { label: "Scout / Coach / Team", email: "scout@khelolocal.demo", to: "/discover" as const },
 ];
@@ -51,9 +52,11 @@ function LoginPage() {
           ? "/discover"
           : user.role === "COLLEGE"
             ? "/college"
-            : user.role === "ADMIN"
-              ? "/admin"
-              : "/athlete";
+            : user.role === "VOLUNTEER"
+              ? "/volunteer"
+              : user.role === "ADMIN"
+                ? "/admin"
+                : "/athlete";
     navigate({ to: target });
   };
 
