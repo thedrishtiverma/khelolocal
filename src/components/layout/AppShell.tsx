@@ -4,6 +4,8 @@ import { Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import logo from "@/assets/khelolocal-logo.png.asset.json";
 import type { Role } from "@/types";
 
 interface NavItem {
