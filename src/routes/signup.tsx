@@ -34,6 +34,12 @@ const ROLES: { role: Role; title: string; body: string; icon: typeof User }[] = 
     body: "Verify annual sports records and discover campus talent.",
     icon: GraduationCap,
   },
+  {
+    role: "VOLUNTEER",
+    title: "Volunteer",
+    body: "Map tournaments, turfs and academies in your zone.",
+    icon: MapPin,
+  },
   { role: "SCOUT", title: "Scout / Coach / Team", body: "Discover local talent.", icon: Search },
 ];
 
