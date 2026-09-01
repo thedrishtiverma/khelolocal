@@ -38,6 +38,11 @@ const NAV: Record<Role | "GUEST", NavItem[]> = {
     { to: "/discover", label: "Discover athletes" },
     { to: "/tournaments", label: "Tournaments" },
   ],
+  VOLUNTEER: [
+    { to: "/volunteer", label: "My zone" },
+    { to: "/tournaments", label: "Tournaments" },
+    { to: "/discover", label: "Athletes" },
+  ],
   ADMIN: [
     { to: "/admin", label: "Admin console" },
     { to: "/discover", label: "Athletes" },
