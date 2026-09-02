@@ -6,7 +6,11 @@ import { VerifiedBadge } from "@/components/shared/Badges";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { formatDate, sportLabel } from "@/lib/format";
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
-import { achievementsOfAthlete, recordsOfAthlete, tournamentsOfAthlete } from "@/lib/services/selectors";
+import {
+  achievementsOfAthlete,
+  recordsOfAthlete,
+  tournamentsOfAthlete,
+} from "@/lib/services/selectors";
 import { RecordCard } from "@/components/college/RecordCard";
 
 export const Route = createFileRoute("/athlete/")({
@@ -18,7 +22,10 @@ export const Route = createFileRoute("/athlete/")({
         content: "Your verified sporting identity, upcoming tournaments and recent achievements.",
       },
       { property: "og:title", content: "Athlete home | KheloLocal" },
-      { property: "og:description", content: "Track your matches, wins and verified achievements." },
+      {
+        property: "og:description",
+        content: "Track your matches, wins and verified achievements.",
+      },
     ],
   }),
   component: AthleteDashboard,
@@ -95,7 +102,11 @@ function AthleteDashboard() {
           <Stat tone="invert" value={athlete.tournamentsPlayed} label="Tournaments" />
           <Stat tone="invert" value={athlete.matchesPlayed} label="Matches" />
           <Stat tone="invert" value={athlete.wins} label="Wins" />
-          <Stat tone="accent" value={athlete.verifiedAchievementsCount} label="Verified achievements" />
+          <Stat
+            tone="accent"
+            value={athlete.verifiedAchievementsCount}
+            label="Verified achievements"
+          />
         </div>
         <Button asChild className="mt-6" variant="secondary">
           <Link to="/athlete/profile">View full profile</Link>
@@ -131,7 +142,10 @@ function AthleteDashboard() {
       </div>
 
       <div className="mt-12">
-        <SectionHeading title="Local opportunities" subtitle="Open registrations for your sport in Indore." />
+        <SectionHeading
+          title="Local opportunities"
+          subtitle="Open registrations for your sport in Indore."
+        />
         {recommended.length === 0 ? (
           <EmptyState title="Nothing open right now." />
         ) : (
@@ -149,7 +163,10 @@ function AthleteDashboard() {
           subtitle="Past annual sports event performances, with their verification stage."
         />
         {collegeRecords.length === 0 ? (
-          <EmptyState title="No college records yet." description="Your college can add past results from its record book." />
+          <EmptyState
+            title="No college records yet."
+            description="Your college can add past results from its record book."
+          />
         ) : (
           <div className="grid gap-4 lg:grid-cols-2">
             {collegeRecords.map((r) => (

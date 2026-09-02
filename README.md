@@ -48,12 +48,12 @@ Athletes often build their sporting history through certificates, college record
 
 As a result:
 
-* Athletes struggle to build credible and discoverable sporting identities.
-* Local tournaments struggle to reach the right participants.
-* Teams and coaches have difficulty discovering relevant local talent.
-* Institutional sports records remain isolated.
-* Tournament results often disappear after an event instead of contributing to a continuing athlete record.
-* Sports opportunities remain highly dependent on personal networks.
+- Athletes struggle to build credible and discoverable sporting identities.
+- Local tournaments struggle to reach the right participants.
+- Teams and coaches have difficulty discovering relevant local talent.
+- Institutional sports records remain isolated.
+- Tournament results often disappear after an event instead of contributing to a continuing athlete record.
+- Sports opportunities remain highly dependent on personal networks.
 
 KheloLocal aims to create the missing **local sports network layer**.
 
@@ -100,15 +100,15 @@ This creates the foundation for:
 
 India has a large grassroots sports ecosystem, but much of its information remains fragmented across:
 
-* WhatsApp
-* Instagram
-* Personal contacts
-* Colleges
-* Schools
-* Academies
-* Clubs
-* Local organizers
-* Independent event platforms
+- WhatsApp
+- Instagram
+- Personal contacts
+- Colleges
+- Schools
+- Academies
+- Clubs
+- Local organizers
+- Independent event platforms
 
 This fragmentation creates a discovery problem.
 
@@ -196,68 +196,68 @@ This creates a continuous data loop rather than isolated events.
 
 Primary users include:
 
-* School athletes
-* College athletes
-* Grassroots athletes
-* Amateur competitive players
-* Academy players
-* Local sports participants
-* Emerging athletes
+- School athletes
+- College athletes
+- Grassroots athletes
+- Amateur competitive players
+- Academy players
+- Local sports participants
+- Emerging athletes
 
 Athletes can:
 
-* Build sporting profiles
-* Record achievements
-* Maintain tournament history
-* Discover tournaments
-* Discover other athletes
-* Find teams
-* Connect with relevant people
-* Build a verified sporting identity
+- Build sporting profiles
+- Record achievements
+- Maintain tournament history
+- Discover tournaments
+- Discover other athletes
+- Find teams
+- Connect with relevant people
+- Build a verified sporting identity
 
 ### 2. Tournament Organizers
 
 Organizers can:
 
-* Create tournaments
-* Publish tournament information
-* Reach local athletes
-* Manage participants
-* Manage tournament information
-* Publish results
-* Build organizer credibility
-* Contribute verified data to athlete records
+- Create tournaments
+- Publish tournament information
+- Reach local athletes
+- Manage participants
+- Manage tournament information
+- Publish results
+- Build organizer credibility
+- Contribute verified data to athlete records
 
 ### 3. Institutions
 
 Institutions can include:
 
-* Colleges
-* Schools
-* Academies
-* Clubs
-* Sports organizations
+- Colleges
+- Schools
+- Academies
+- Clubs
+- Sports organizations
 
 Institutions can:
 
-* Maintain athlete records
-* Manage sports events
-* Publish results
-* Verify achievements
-* Maintain institutional sports history
-* Build a trusted institutional presence
+- Maintain athlete records
+- Manage sports events
+- Publish results
+- Verify achievements
+- Maintain institutional sports history
+- Build a trusted institutional presence
 
 ### 4. Teams and Coaches
 
 Teams and coaches can:
 
-* Discover athletes
-* Search by sport
-* Search by location
-* Search by role or position
-* Review verified sporting records
-* Find potential players
-* Build teams
+- Discover athletes
+- Search by sport
+- Search by location
+- Search by role or position
+- Review verified sporting records
+- Find potential players
+- Build teams
 
 ### 5. KheloLocal Administrators
 
@@ -265,14 +265,14 @@ Administrators manage the integrity of the network.
 
 Responsibilities include:
 
-* Athlete data management
-* Tournament data management
-* Institution management
-* Organizer management
-* Verification
-* Moderation
-* Data quality
-* City-level information management
+- Athlete data management
+- Tournament data management
+- Institution management
+- Organizer management
+- Verification
+- Moderation
+- Data quality
+- City-level information management
 
 ## Core Features
 
@@ -280,20 +280,19 @@ Responsibilities include:
 
 Every athlete can have a persistent sporting identity containing:
 
-* Name
-* Profile photo
-* Sport
-* Location
-* Institution
-* Position or role
-* Skills
-* Tournament participation
-* Achievements
-* Sporting history
-* Verification status
+- Name
+- Profile photo
+- Sport
+- Location
+- Institution
+- Position or role
+- Skills
+- Tournament participation
+- Achievements
+- Sporting history
+- Verification status
 
 The profile is designed to function as a **digital sporting record**, rather than simply a social profile.
-
 
 ### Verified Sporting Records
 
@@ -309,11 +308,11 @@ SELF-REPORTED
 
 Verified achievements can display:
 
-* Verification source
-* Event
-* Date
-* Result
-* Verifier
+- Verification source
+- Event
+- Date
+- Result
+- Verifier
 
 This helps distinguish evidence-backed sporting records from self-reported information.
 
@@ -321,13 +320,13 @@ This helps distinguish evidence-backed sporting records from self-reported infor
 
 Users can discover tournaments based on:
 
-* Sport
-* Location
-* Date
-* Status
-* Eligibility
-* Organizer
-* Other relevant filters
+- Sport
+- Location
+- Date
+- Status
+- Eligibility
+- Organizer
+- Other relevant filters
 
 Tournament states can include:
 
@@ -343,13 +342,13 @@ COMPLETED
 
 Teams, coaches, organizers, and athletes can discover players based on structured information such as:
 
-* Sport
-* Location
-* Position
-* Age group where appropriate
-* Institution
-* Verification status
-* Tournament experience
+- Sport
+- Location
+- Position
+- Age group where appropriate
+- Institution
+- Verification status
+- Tournament experience
 
 The objective is to make local talent searchable.
 
@@ -357,12 +356,12 @@ The objective is to make local talent searchable.
 
 Institutions receive a dedicated dashboard for:
 
-* Athlete management
-* Event management
-* Tournament records
-* Results
-* Verification
-* Institutional sports history
+- Athlete management
+- Event management
+- Tournament records
+- Results
+- Verification
+- Institutional sports history
 
 The institution can act as a trusted source for relevant sporting records.
 
@@ -370,14 +369,14 @@ The institution can act as a trusted source for relevant sporting records.
 
 The admin system provides:
 
-* Athlete management
-* Organizer management
-* Institution management
-* Tournament management
-* Verification queue
-* Moderation
-* Data management
-* City information management
+- Athlete management
+- Organizer management
+- Institution management
+- Tournament management
+- Verification queue
+- Moderation
+- Data management
+- City information management
 
 A core workflow is:
 
@@ -505,11 +504,11 @@ The prototype is designed around real local data rather than a completely fictio
 
 The initial data strategy includes:
 
-* Previous SGSITS annual sports event data
-* Real athlete data from participating team members, where appropriate
-* Institution-verified historical records
-* Real local tournament information
-* Local sports ecosystem data
+- Previous SGSITS annual sports event data
+- Real athlete data from participating team members, where appropriate
+- Institution-verified historical records
+- Real local tournament information
+- Local sports ecosystem data
 
 The initial prototype therefore demonstrates the complete flow from:
 
@@ -538,31 +537,31 @@ The initial working prototype prioritizes the features that demonstrate the core
 
 ### Phase 1
 
-* Athlete profiles
-* Sporting records
-* Institution/College dashboard
-* Admin dashboard
-* Verification workflow
-* Tournament discovery
-* Athlete discovery
-* Indore-based data
+- Athlete profiles
+- Sporting records
+- Institution/College dashboard
+- Admin dashboard
+- Verification workflow
+- Tournament discovery
+- Athlete discovery
+- Indore-based data
 
 ### Phase 2
 
-* More sports
-* More institutions
-* More organizers
-* More local tournaments
-* Expanded athlete discovery
-* Team-building workflows
+- More sports
+- More institutions
+- More organizers
+- More local tournaments
+- Expanded athlete discovery
+- Team-building workflows
 
 ### Phase 3
 
-* Intelligent athlete matching
-* Advanced recommendations
-* Advanced scouting
-* League and competition features
-* Wider city network
+- Intelligent athlete matching
+- Advanced recommendations
+- Advanced scouting
+- League and competition features
+- Wider city network
 
 Advanced features such as player auctions are considered future-stage capabilities and are not required for the core MVP.
 
@@ -572,30 +571,30 @@ The prototype is designed using an AI-app builder Lovable. No costs beared yet.
 
 ### Frontend
 
-* Lovable
+- Lovable
 
 ### Backend
 
-* Lovable
+- Lovable
 
 ### Database
 
-* Lovable Cloud
+- Lovable Cloud
 
 ### Authentication
 
-* Lovable user authentication
-* Role-based access
-* Athlete, organizer, institution, and admin permissions
+- Lovable user authentication
+- Role-based access
+- Athlete, organizer, institution, and admin permissions
 
 ### Storage
 
 Used for relevant:
 
-* Profile media
-* Certificates/Acheivements
-* Event media
-* Supporting verification documents
+- Profile media
+- Certificates/Acheivements
+- Event media
+- Supporting verification documents
 
 ## High-Level Architecture
 
@@ -693,9 +692,9 @@ VERIFIED          REJECTED
 
 Verification can originate from appropriate trusted entities such as:
 
-* Institutions
-* Tournament organizers
-* Authorized administrators
+- Institutions
+- Tournament organizers
+- Authorized administrators
 
 The exact verification authority depends on the type of record.
 
@@ -705,13 +704,13 @@ KheloLocal is intended to serve young users, including potentially under-18 athl
 
 Therefore the platform must account for:
 
-* Age-sensitive experiences
-* Guardian/consent requirements where applicable
-* Privacy controls
-* Controlled communication
-* Safe athlete discovery
-* Reporting and moderation
-* Protection of sensitive personal information
+- Age-sensitive experiences
+- Guardian/consent requirements where applicable
+- Privacy controls
+- Controlled communication
+- Safe athlete discovery
+- Reporting and moderation
+- Protection of sensitive personal information
 
 The platform should expose only information necessary for sporting discovery and participation.
 
@@ -721,21 +720,21 @@ KheloLocal is designed for a young, digitally active Indian audience.
 
 The interface should feel:
 
-* Fast
-* Modern
-* Sport-focused
-* Local
-* Social
-* Credible
-* Mobile-first
-* Accessible
+- Fast
+- Modern
+- Sport-focused
+- Local
+- Social
+- Credible
+- Mobile-first
+- Accessible
 
 The product should not resemble:
 
-* A government portal
-* A traditional sports registration website
-* Enterprise management software
-* A generic social media platform
+- A government portal
+- A traditional sports registration website
+- Enterprise management software
+- A generic social media platform
 
 The core design principle is:
 
@@ -859,31 +858,31 @@ Potential revenue streams include:
 
 ### Organizer Tools
 
-* Tournament management
-* Registration
-* Promotion
-* Analytics
+- Tournament management
+- Registration
+- Promotion
+- Analytics
 
 ### Institutional Services
 
-* Sports record management
-* Event management
-* Verification
-* Institutional dashboards
+- Sports record management
+- Event management
+- Verification
+- Institutional dashboards
 
 ### Team and Scouting Services
 
-* Advanced athlete discovery
-* Talent search
-* Structured scouting
+- Advanced athlete discovery
+- Talent search
+- Structured scouting
 
 ### Partnerships
 
-* Sports organizations
-* Colleges
-* Academies
-* Sponsors
-* Local leagues
+- Sports organizations
+- Colleges
+- Academies
+- Sponsors
+- Local leagues
 
 The commercial strategy is designed to avoid making basic athlete participation dependent on payment.
 
@@ -891,42 +890,42 @@ The commercial strategy is designed to avoid making basic athlete participation 
 
 ### Stage 1: Local Data and Network
 
-* Indore pilot
-* Athlete profiles
-* Institutional data
-* Tournament discovery
-* Organizer onboarding
-* Verification
+- Indore pilot
+- Athlete profiles
+- Institutional data
+- Tournament discovery
+- Organizer onboarding
+- Verification
 
 ### Stage 2: Sporting Identity
 
-* Verified achievements
-* Sporting timelines
-* Athlete discovery
-* Team discovery
-* Institution records
+- Verified achievements
+- Sporting timelines
+- Athlete discovery
+- Team discovery
+- Institution records
 
 ### Stage 3: Local Sports Infrastructure
 
-* More cities
-* More institutions
-* More organizers
-* More sports
-* Team-building tools
+- More cities
+- More institutions
+- More organizers
+- More sports
+- Team-building tools
 
 ### Stage 4: Intelligent Discovery
 
-* Athlete recommendations
-* Team-player matching
-* Opportunity recommendations
-* Advanced scouting
+- Athlete recommendations
+- Team-player matching
+- Opportunity recommendations
+- Advanced scouting
 
 ### Stage 5: National Network
 
-* City-to-city connectivity
-* Regional discovery
-* National athlete visibility
-* Broader sports ecosystem partnerships
+- City-to-city connectivity
+- Regional discovery
+- National athlete visibility
+- Broader sports ecosystem partnerships
 
 ## Current Prototype
 
@@ -971,19 +970,19 @@ npm run dev
 
 KheloLocal can eventually expand into:
 
-* Local team formation
-* Athlete recommendations
-* Tournament recommendations
-* Structured scouting
-* League management
-* Live scores
-* Sports statistics
-* Institutional sports management
-* Local sports communities
-* Inter-city competition
-* Sponsorship discovery
-* Advanced tournament analytics
-* Player selection and auction mechanisms
+- Local team formation
+- Athlete recommendations
+- Tournament recommendations
+- Structured scouting
+- League management
+- Live scores
+- Sports statistics
+- Institutional sports management
+- Local sports communities
+- Inter-city competition
+- Sponsorship discovery
+- Advanced tournament analytics
+- Player selection and auction mechanisms
 
 These features should be introduced only after the underlying local sports network has sufficient data and participation.
 
@@ -1023,7 +1022,6 @@ NEW OPPORTUNITY
 
 Every new participant and every new tournament can make the local network more useful.
 
-
 ## Vision
 
 India does not lack young people who want to play sports.
@@ -1044,7 +1042,6 @@ Connect cities.
 
 Build a stronger grassroots sports ecosystem across India.
 
-
 ## Project Status
 
 **Status:** Prototype / Early Development
@@ -1060,7 +1057,7 @@ Build a stronger grassroots sports ecosystem across India.
 ## Team
 
 #### **KheloLocal**
- 
+
 Built as a student-led sports technology initiative focused on strengthening grassroots sports discovery and participation in India.
 
 ### Team Members -
@@ -1069,21 +1066,21 @@ Drishti Verma (Team Leader) | Arpita Jamra | Prince Dhakad | Gaurav Madavi | Dar
 
 ## Achievements
 
-* Selected in top 70 teams, ranked 21 amongst 143 teams in Internal Round at SGSITS college, Indore with 81/100 points (without prototype)
-* Selected for national level hackathon for SIH. Ranked 14 in top 50 teams and selected amongst 70 teams in Final Round (with prototype + sleek ppt)
-* Idea rated as a 10/10 (Perfect)
-* Approved for a startup idea
+- Selected in top 70 teams, ranked 21 amongst 143 teams in Internal Round at SGSITS college, Indore with 81/100 points (without prototype)
+- Selected for national level hackathon for SIH. Ranked 14 in top 50 teams and selected amongst 70 teams in Final Round (with prototype + sleek ppt)
+- Idea rated as a 10/10 (Perfect)
+- Approved for a startup idea
 
 ### Acknowledgements
 
 KheloLocal's initial concept and prototype are informed by:
 
-* Grassroots athlete experiences
-* College sports participation
-* Local tournament ecosystems
-* Institutional sports records
-* Research into existing sports discovery and tournament platforms
-* The broader Indian grassroots sports ecosystem
+- Grassroots athlete experiences
+- College sports participation
+- Local tournament ecosystems
+- Institutional sports records
+- Research into existing sports discovery and tournament platforms
+- The broader Indian grassroots sports ecosystem
 
 ## KheloLocal
 

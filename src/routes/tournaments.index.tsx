@@ -27,8 +27,7 @@ export const Route = createFileRoute("/tournaments/")({
   component: ExploreTournaments,
 });
 
-const SELECT =
-  "h-10 w-full rounded-md border border-input bg-background px-3 text-sm font-medium";
+const SELECT = "h-10 w-full rounded-md border border-input bg-background px-3 text-sm font-medium";
 
 function ExploreTournaments() {
   const { db } = useKhelo();

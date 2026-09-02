@@ -11,7 +11,13 @@ const STATUS_LABEL: Record<TournamentStatus, string> = {
   CANCELLED: "Cancelled",
 };
 
-export function StatusBadge({ status, className }: { status: TournamentStatus; className?: string }) {
+export function StatusBadge({
+  status,
+  className,
+}: {
+  status: TournamentStatus;
+  className?: string;
+}) {
   const tone =
     status === "LIVE"
       ? "bg-live/10 text-live border-live/30"
@@ -60,7 +66,8 @@ export function ResultBadge({ status }: { status: ResultStatus }) {
     VERIFIED: "border-verified/30 bg-verified/10 text-verified",
     REJECTED: "border-destructive/30 bg-destructive/10 text-destructive",
   };
-  const label = status === "PENDING" ? "Pending verification" : status === "VERIFIED" ? "Verified" : "Rejected";
+  const label =
+    status === "PENDING" ? "Pending verification" : status === "VERIFIED" ? "Verified" : "Rejected";
   return (
     <span
       className={cn(

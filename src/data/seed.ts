@@ -896,16 +896,18 @@ const regPairs: [string, string, string, Registration["status"]][] = [
   ["trn_u19_league", "ath_aarav", "team_strikers", "APPROVED"],
 ];
 
-const registrations: Registration[] = regPairs.map(([tournamentId, athleteId, teamId, status], i) => ({
-  id: `reg_${i + 1}`,
-  tournamentId,
-  athleteId,
-  teamId,
-  registrationDate: "2026-08-01T09:00:00.000Z",
-  status,
-  paymentStatus: "NOT_REQUIRED",
-  seedNumber: i + 1,
-}));
+const registrations: Registration[] = regPairs.map(
+  ([tournamentId, athleteId, teamId, status], i) => ({
+    id: `reg_${i + 1}`,
+    tournamentId,
+    athleteId,
+    teamId,
+    registrationDate: "2026-08-01T09:00:00.000Z",
+    status,
+    paymentStatus: "NOT_REQUIRED",
+    seedNumber: i + 1,
+  }),
+);
 
 const matches: Match[] = [
   {
@@ -1108,7 +1110,8 @@ const recordSeeds: RecordSeed[] = [
     season: "2023-24",
     level: "NATIONAL",
     title: "RGPV university representation — boxing",
-    description: "Second discipline: boxing at the RGPV national-level university contingent, 2024.",
+    description:
+      "Second discipline: boxing at the RGPV national-level university contingent, 2024.",
     representedFor: "RGPV University",
     status: "COLLEGE_VERIFIED",
     collegeVerifiedBy: "SGSITS Sports Cell",
@@ -1198,7 +1201,8 @@ const recordSeeds: RecordSeed[] = [
     season: "2024-25",
     level: "NODAL",
     title: "Nodal-level Kho-Kho squad",
-    description: "Submitted by the athlete — awaiting college confirmation of the nodal squad list.",
+    description:
+      "Submitted by the athlete — awaiting college confirmation of the nodal squad list.",
     representedFor: "SGSITS Indore",
     status: "SUBMITTED",
     collegeVerifiedBy: "",
@@ -1274,7 +1278,6 @@ const collegeRecords: CollegeRecord[] = recordSeeds.map((r) => ({
   submittedAt: NOW,
   updatedAt: NOW,
 }));
-
 
 const zones: Database["zones"] = [
   {

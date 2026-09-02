@@ -15,7 +15,10 @@ export const Route = createFileRoute("/demo")({
           "Run the KheloLocal demo: register for a tournament, verify a result, then discover the athlete as a scout.",
       },
       { property: "og:title", content: "Demo walkthrough | KheloLocal" },
-      { property: "og:description", content: "See the tournament-to-athlete-data loop in 3 minutes." },
+      {
+        property: "og:description",
+        content: "See the tournament-to-athlete-data loop in 3 minutes.",
+      },
     ],
   }),
   component: DemoPage,

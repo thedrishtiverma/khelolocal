@@ -19,15 +19,28 @@ export const Route = createFileRoute("/signup")({
           "Create a KheloLocal account as an athlete, tournament organizer, or scout/coach/team in Indore.",
       },
       { property: "og:title", content: "Join KheloLocal" },
-      { property: "og:description", content: "Pick your role and join your city's sports network." },
+      {
+        property: "og:description",
+        content: "Pick your role and join your city's sports network.",
+      },
     ],
   }),
   component: SignupPage,
 });
 
 const ROLES: { role: Role; title: string; body: string; icon: typeof User }[] = [
-  { role: "ATHLETE", title: "Athlete", body: "Join tournaments and build a verified record.", icon: User },
-  { role: "ORGANIZER", title: "Organizer", body: "Run tournaments and verify results.", icon: Trophy },
+  {
+    role: "ATHLETE",
+    title: "Athlete",
+    body: "Join tournaments and build a verified record.",
+    icon: User,
+  },
+  {
+    role: "ORGANIZER",
+    title: "Organizer",
+    body: "Run tournaments and verify results.",
+    icon: Trophy,
+  },
   {
     role: "COLLEGE",
     title: "College",

@@ -289,9 +289,7 @@ function AdminConsole() {
                           {a.primarySport} · {a.position || "—"}
                         </p>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">
-                        {a.collegeName ?? "—"}
-                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{a.collegeName ?? "—"}</td>
                       <td className="px-4 py-3">
                         <span className="stat-num">
                           {

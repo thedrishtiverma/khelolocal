@@ -10,7 +10,10 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Log in | KheloLocal" },
-      { name: "description", content: "Log in to KheloLocal to manage tournaments, results and your sporting profile." },
+      {
+        name: "description",
+        content: "Log in to KheloLocal to manage tournaments, results and your sporting profile.",
+      },
       { property: "og:title", content: "Log in | KheloLocal" },
       { property: "og:description", content: "Log in to your KheloLocal account." },
     ],
@@ -22,8 +25,16 @@ const DEMO = [
   { label: "Athlete", email: "athlete@khelolocal.demo", to: "/athlete" as const },
   { label: "Athlete (SGSITS — Drishti)", email: "drishti@sgsits.demo", to: "/athlete" as const },
   { label: "Organizer", email: "organizer@khelolocal.demo", to: "/organizer" as const },
-  { label: "College (SGSITS Sports Cell)", email: "college@khelolocal.demo", to: "/college" as const },
-  { label: "Volunteer (Vijay Nagar zone)", email: "volunteer@khelolocal.demo", to: "/volunteer" as const },
+  {
+    label: "College (SGSITS Sports Cell)",
+    email: "college@khelolocal.demo",
+    to: "/college" as const,
+  },
+  {
+    label: "Volunteer (Vijay Nagar zone)",
+    email: "volunteer@khelolocal.demo",
+    to: "/volunteer" as const,
+  },
   { label: "Admin (DB manager + verifier)", email: "admin@khelolocal.demo", to: "/admin" as const },
   { label: "Scout / Coach / Team", email: "scout@khelolocal.demo", to: "/discover" as const },
 ];

@@ -77,7 +77,11 @@ function MyTournaments() {
             ) : (
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {active.map((t) => (
-                  <TournamentCard key={t.id} tournament={t} footnote={`Registration: ${statusOf(t.id)}`} />
+                  <TournamentCard
+                    key={t.id}
+                    tournament={t}
+                    footnote={`Registration: ${statusOf(t.id)}`}
+                  />
                 ))}
               </div>
             )}

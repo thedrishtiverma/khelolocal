@@ -8,12 +8,7 @@ export type RecordStatus = "SUBMITTED" | "COLLEGE_VERIFIED" | "ADMIN_VERIFIED" |
 export type VerificationStatus = "UNVERIFIED" | "PENDING" | "VERIFIED";
 
 export type TournamentStatus =
-  | "DRAFT"
-  | "UPCOMING"
-  | "REGISTRATION_OPEN"
-  | "LIVE"
-  | "COMPLETED"
-  | "CANCELLED";
+  "DRAFT" | "UPCOMING" | "REGISTRATION_OPEN" | "LIVE" | "COMPLETED" | "CANCELLED";
 
 export type RegistrationStatus = "PENDING" | "APPROVED" | "REJECTED" | "WITHDRAWN";
 export type MatchStatus = "SCHEDULED" | "LIVE" | "COMPLETED";
@@ -44,7 +39,8 @@ export interface Athlete {
   primarySport: string;
   secondarySports: string[];
   position: string;
-  positionGroup: "FORWARD" | "MIDFIELD" | "DEFENCE" | "GOALKEEPER" | "RAIDER" | "DEFENDER" | "ALL_ROUNDER";
+  positionGroup:
+    "FORWARD" | "MIDFIELD" | "DEFENCE" | "GOALKEEPER" | "RAIDER" | "DEFENDER" | "ALL_ROUNDER";
   ageCategory: string;
   skills: string[];
   bio: string;
@@ -238,11 +234,7 @@ export interface Verification {
 }
 
 export type AchievementType =
-  | "TOURNAMENT_WIN"
-  | "RUNNER_UP"
-  | "PLAYER_OF_MATCH"
-  | "TOP_SCORER"
-  | "MATCH_PERFORMANCE";
+  "TOURNAMENT_WIN" | "RUNNER_UP" | "PLAYER_OF_MATCH" | "TOP_SCORER" | "MATCH_PERFORMANCE";
 
 export interface Achievement {
   id: string;
@@ -290,12 +282,7 @@ export interface Volunteer {
   updatedAt: string;
 }
 
-export type SubmissionKind =
-  | "TOURNAMENT"
-  | "VENUE"
-  | "ACADEMY"
-  | "OPPORTUNITY"
-  | "ORGANIZER_INFO";
+export type SubmissionKind = "TOURNAMENT" | "VENUE" | "ACADEMY" | "OPPORTUNITY" | "ORGANIZER_INFO";
 
 export type SubmissionStatus = "DRAFT" | "SUBMITTED" | "VERIFIED" | "REJECTED";
 

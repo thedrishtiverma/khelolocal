@@ -61,10 +61,20 @@ function Landing() {
                 Explore tournaments <ArrowRight className="size-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white/25 bg-transparent text-surface-foreground hover:bg-white/10">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-white/25 bg-transparent text-surface-foreground hover:bg-white/10"
+            >
               <Link to="/organizer/create">Host a tournament</Link>
             </Button>
-            <Button asChild size="lg" variant="ghost" className="text-surface-foreground hover:bg-white/10">
+            <Button
+              asChild
+              size="lg"
+              variant="ghost"
+              className="text-surface-foreground hover:bg-white/10"
+            >
               <Link to="/discover">Discover talent</Link>
             </Button>
           </div>
@@ -142,7 +152,10 @@ function Landing() {
               cta: "Find local talent",
             },
           ].map((c) => (
-            <div key={c.title} className="flex flex-col rounded-lg border border-border bg-card p-6">
+            <div
+              key={c.title}
+              className="flex flex-col rounded-lg border border-border bg-card p-6"
+            >
               <span className="flex size-10 items-center justify-center rounded bg-secondary">
                 {c.icon}
               </span>
@@ -165,8 +178,8 @@ function Landing() {
             Built locally. Designed to scale city by city.
           </h2>
           <p className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-            <BadgeCheck className="size-4 text-verified" /> Results are verified by the organizer who
-            ran the match — never self-reported.
+            <BadgeCheck className="size-4 text-verified" /> Results are verified by the organizer
+            who ran the match — never self-reported.
           </p>
         </div>
       </section>
