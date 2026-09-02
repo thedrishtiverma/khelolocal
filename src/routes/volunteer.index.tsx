@@ -63,11 +63,26 @@ const KINDS: {
   blurb: string;
   icon: typeof Trophy;
 }[] = [
-  { kind: "TOURNAMENT", label: "Tournament", blurb: "Local cup, league or one-day meet", icon: Trophy },
+  {
+    kind: "TOURNAMENT",
+    label: "Tournament",
+    blurb: "Local cup, league or one-day meet",
+    icon: Trophy,
+  },
   { kind: "VENUE", label: "Sports venue", blurb: "Ground, turf, court or hall", icon: MapPin },
   { kind: "ACADEMY", label: "Academy / club", blurb: "Coaching centre or club", icon: Dumbbell },
-  { kind: "OPPORTUNITY", label: "Opportunity", blurb: "Trials, camps, open slots", icon: Megaphone },
-  { kind: "ORGANIZER_INFO", label: "Organizer info", blurb: "Who runs it + contact", icon: Building2 },
+  {
+    kind: "OPPORTUNITY",
+    label: "Opportunity",
+    blurb: "Trials, camps, open slots",
+    icon: Megaphone,
+  },
+  {
+    kind: "ORGANIZER_INFO",
+    label: "Organizer info",
+    blurb: "Who runs it + contact",
+    icon: Building2,
+  },
 ];
 
 const KIND_LABEL: Record<SubmissionKind, string> = {
@@ -271,12 +286,7 @@ function VolunteerDashboard() {
             const done = i + 1 <= step;
             return (
               <li key={label} className="flex flex-col gap-2">
-                <span
-                  className={cn(
-                    "h-1.5 rounded-full",
-                    done ? "bg-lime" : "bg-border",
-                  )}
-                />
+                <span className={cn("h-1.5 rounded-full", done ? "bg-lime" : "bg-border")} />
                 <span
                   className={cn(
                     "flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide",

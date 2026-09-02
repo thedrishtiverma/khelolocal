@@ -125,8 +125,10 @@
   --sidebar-accent-foreground: oklch(0.31 0.075 258);
   --sidebar-border: oklch(0.905 0.008 110);
   --sidebar-ring: oklch(0.775 0.128 65);
-  --shadow-card: 0 1px 2px oklch(0.31 0.075 258 / 0.05), 0 8px 24px -16px oklch(0.31 0.075 258 / 0.18);
-  --shadow-lift: 0 2px 4px oklch(0.31 0.075 258 / 0.06), 0 18px 36px -20px oklch(0.31 0.075 258 / 0.28);
+  --shadow-card:
+    0 1px 2px oklch(0.31 0.075 258 / 0.05), 0 8px 24px -16px oklch(0.31 0.075 258 / 0.18);
+  --shadow-lift:
+    0 2px 4px oklch(0.31 0.075 258 / 0.06), 0 18px 36px -20px oklch(0.31 0.075 258 / 0.28);
 }
 
 .dark {
@@ -221,8 +223,16 @@
 
 @utility field-grid {
   background-image:
-    linear-gradient(0deg, color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--foreground) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--foreground) 5%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 28px 28px;
 }
 

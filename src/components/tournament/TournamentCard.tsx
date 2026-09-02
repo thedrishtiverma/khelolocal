@@ -54,7 +54,8 @@ export function TournamentCard({
       ) : null}
 
       <p className="mt-2 text-xs text-muted-foreground">
-        Organized by <span className="font-semibold text-foreground">{tournament.organizerName}</span>
+        Organized by{" "}
+        <span className="font-semibold text-foreground">{tournament.organizerName}</span>
       </p>
 
       <Button asChild className="mt-4" variant="secondary">

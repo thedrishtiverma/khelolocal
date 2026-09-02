@@ -151,16 +151,28 @@ export function AppShell({ children }: { children: ReactNode }) {
             </nav>
             <div className="mt-3 flex gap-2">
               {currentUser ? (
-                <Button variant="outline" size="sm" className="w-full" onClick={() => { logout(); setOpen(false); }}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => {
+                    logout();
+                    setOpen(false);
+                  }}
+                >
                   Log out
                 </Button>
               ) : (
                 <>
                   <Button asChild variant="outline" size="sm" className="flex-1">
-                    <Link to="/login" onClick={() => setOpen(false)}>Log in</Link>
+                    <Link to="/login" onClick={() => setOpen(false)}>
+                      Log in
+                    </Link>
                   </Button>
                   <Button asChild size="sm" className="flex-1">
-                    <Link to="/signup" onClick={() => setOpen(false)}>Join</Link>
+                    <Link to="/signup" onClick={() => setOpen(false)}>
+                      Join
+                    </Link>
                   </Button>
                 </>
               )}

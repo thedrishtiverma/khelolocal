@@ -20,7 +20,9 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
             <MapPin className="size-3.5" /> {athlete.cityName} · {athlete.ageCategory}
           </p>
           {athlete.collegeName ? (
-            <p className="mt-1 text-xs font-semibold text-muted-foreground">{athlete.collegeName}</p>
+            <p className="mt-1 text-xs font-semibold text-muted-foreground">
+              {athlete.collegeName}
+            </p>
           ) : null}
         </div>
       </div>

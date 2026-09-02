@@ -46,14 +46,8 @@ function CollegeRecordsPage() {
   const [description, setDescription] = useState("");
   const [representedFor, setRepresentedFor] = useState("SGSITS Indore");
 
-  const athletes = useMemo(
-    () => (college ? athletesOfCollege(db, college.id) : []),
-    [college, db],
-  );
-  const records = useMemo(
-    () => (college ? recordsOfCollege(db, college.id) : []),
-    [college, db],
-  );
+  const athletes = useMemo(() => (college ? athletesOfCollege(db, college.id) : []), [college, db]);
+  const records = useMemo(() => (college ? recordsOfCollege(db, college.id) : []), [college, db]);
 
   if (!college) {
     return (
@@ -141,11 +135,21 @@ function CollegeRecordsPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="event">Event</Label>
-            <Input id="event" value={eventName} onChange={(e) => setEventName(e.target.value)} required />
+            <Input
+              id="event"
+              value={eventName}
+              onChange={(e) => setEventName(e.target.value)}
+              required
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="season">Season</Label>
-            <Input id="season" value={season} onChange={(e) => setSeason(e.target.value)} required />
+            <Input
+              id="season"
+              value={season}
+              onChange={(e) => setSeason(e.target.value)}
+              required
+            />
           </div>
           <div className="space-y-2 sm:col-span-2">
             <Label>Selection level</Label>

@@ -16,7 +16,8 @@ export function loadDatabase(): Database {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return createSeedDatabase();
     const parsed = JSON.parse(raw) as Database;
-    if (!parsed?.athletes?.length || !parsed?.colleges || !parsed?.zones) return createSeedDatabase();
+    if (!parsed?.athletes?.length || !parsed?.colleges || !parsed?.zones)
+      return createSeedDatabase();
     return parsed;
   } catch {
     return createSeedDatabase();

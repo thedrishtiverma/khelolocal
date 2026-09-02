@@ -79,10 +79,7 @@ function DiscoverPage() {
   const [filters, setFilters] = useState<AthleteFilters>({});
   const [query, setQuery] = useState("");
 
-  const results = useMemo(
-    () => searchAthletes(db, { ...filters, query }),
-    [db, filters, query],
-  );
+  const results = useMemo(() => searchAthletes(db, { ...filters, query }), [db, filters, query]);
 
   const set = <K extends keyof AthleteFilters>(key: K, value: AthleteFilters[K]) =>
     setFilters((f) => ({ ...f, [key]: value }));
