@@ -13,17 +13,19 @@ import type {
   User,
 } from "@/types";
 import { createSeedDatabase } from "@/data/seed";
-import {
-  clearDatabase,
-  loadDatabase,
-  loadSession,
-  saveDatabase,
-  saveSession,
-} from "./db";
+import { supabase } from "@/integrations/supabase/client";
+import { fetchRemoteDatabase, pushRemoteChanges } from "./remote";
 import { athleteById, matchById, tournamentById } from "./selectors";
 
 const now = () => new Date().toISOString();
 const uid = (prefix: string) => `${prefix}_${Math.random().toString(36).slice(2, 9)}`;
+
+const emptyDatabase = (): Database => {
+  const seed = createSeedDatabase();
+  return Object.fromEntries(
+    Object.keys(seed).map((key) => [key, []]),
+  ) as unknown as Database;
+};
 
 export interface PerformanceDraft {
   athleteId: string;
