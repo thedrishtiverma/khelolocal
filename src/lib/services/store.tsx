@@ -104,45 +104,86 @@ interface StoreValue {
 const StoreContext = createContext<StoreValue | null>(null);
 
 export function KheloProvider({ children }: { children: ReactNode }) {
-  const [db, setDb] = useState<Database>(() => createSeedDatabase());
-  const [userId, setUserId] = useState<string | null>(null);
+  const [db, setDb] = useState<Database>(() => emptyDatabase());
+  const [authUserId, setAuthUserId] = useState<string | null>(null);
+  const [authEmail, setAuthEmail] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
 
-  useEffect(() => {
-    setDb(loadDatabase());
-    setUserId(loadSession());
-    setHydrated(true);
+  const applyRemote = useCallback(async (uid_: string | null) => {
+    const remote = await fetchRemoteDatabase(uid_);
+    setDb((prev) => ({ ...prev, ...remote }) as Database);
+    return remote;
   }, []);
 
-  const commit = useCallback((updater: (draft: Database) => void) => {
-    setDb((prev) => {
-      const next = structuredClone(prev) as Database;
-      updater(next);
-      saveDatabase(next);
-      return next;
+  useEffect(() => {
+    let active = true;
+    void supabase.auth.getSession().then(async ({ data }) => {
+      const user = data.session?.user ?? null;
+      if (!active) return;
+      setAuthUserId(user?.id ?? null);
+      setAuthEmail(user?.email ?? null);
+      try {
+        await applyRemote(user?.id ?? null);
+      } catch {
+        /* offline — the UI shows empty states */
+      }
+      if (active) setHydrated(true);
     });
-  }, []);
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
+      const user = session?.user ?? null;
+      setAuthUserId(user?.id ?? null);
+      setAuthEmail(user?.email ?? null);
+      void applyRemote(user?.id ?? null).catch(() => undefined);
+    });
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
+  }, [applyRemote]);
+
+  const commit = useCallback(
+    (updater: (draft: Database) => void) => {
+      setDb((prev) => {
+        const next = structuredClone(prev) as Database;
+        updater(next);
+        void pushRemoteChanges(prev, next, authUserId).catch(() => undefined);
+        return next;
+      });
+    },
+    [authUserId],
+  );
 
   const currentUser = useMemo(
-    () => db.users.find((u) => u.id === userId) ?? null,
-    [db.users, userId],
+    () =>
+      authEmail
+        ? (db.users.find((u) => u.email.toLowerCase() === authEmail.toLowerCase()) ?? null)
+        : null,
+    [db.users, authEmail],
   );
 
   const login: StoreValue["login"] = useCallback(
-    (email) => {
-      const user = db.users.find((u) => u.email.toLowerCase() === email.toLowerCase().trim());
-      if (!user) return null;
-      setUserId(user.id);
-      saveSession(user.id);
-      return user;
+    async (email, password) => {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
+      if (error || !data.user) return null;
+      setAuthUserId(data.user.id);
+      setAuthEmail(data.user.email ?? null);
+      const remote = await applyRemote(data.user.id);
+      const mail = (data.user.email ?? "").toLowerCase();
+      return remote.users?.find((u) => u.email.toLowerCase() === mail) ?? null;
     },
-    [db.users],
+    [applyRemote],
   );
 
-  const logout = useCallback(() => {
-    setUserId(null);
-    saveSession(null);
-  }, []);
+  const logout = useCallback(async () => {
+    await supabase.auth.signOut();
+    setAuthUserId(null);
+    setAuthEmail(null);
+    await applyRemote(null).catch(() => undefined);
+  }, [applyRemote]);
 
   const signup: StoreValue["signup"] = useCallback(
     ({ name, email, role }) => {
