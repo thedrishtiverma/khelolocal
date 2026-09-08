@@ -61,15 +61,15 @@ function Landing() {
                 Explore tournaments <ArrowRight className="size-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white/25 bg-transparent text-surface-foreground hover:bg-white/10">
+            <Button asChild size="lg" variant="outline" className="border-surface-foreground/25 bg-transparent text-surface-foreground hover:bg-surface-foreground/10">
               <Link to="/organizer/create">Host a tournament</Link>
             </Button>
-            <Button asChild size="lg" variant="ghost" className="text-surface-foreground hover:bg-white/10">
+            <Button asChild size="lg" variant="ghost" className="text-surface-foreground hover:bg-surface-foreground/10">
               <Link to="/discover">Discover talent</Link>
             </Button>
           </div>
 
-          <div className="mt-14 grid grid-cols-2 gap-8 border-t border-white/10 pt-8 sm:grid-cols-4">
+          <div className="mt-14 grid grid-cols-2 gap-8 border-t border-surface-foreground/15 pt-8 sm:grid-cols-4">
             <Stat tone="invert" value={db.athletes.length} label="Athletes in Indore" />
             <Stat tone="invert" value={db.tournaments.length} label="Tournaments" />
             <Stat tone="invert" value={db.teams.length} label="Local teams" />

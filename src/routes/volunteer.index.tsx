@@ -80,7 +80,7 @@ const KIND_LABEL: Record<SubmissionKind, string> = {
 
 const STATUS_STYLE: Record<SubmissionStatus, string> = {
   DRAFT: "border-border bg-secondary text-muted-foreground",
-  SUBMITTED: "border-amber-400/40 bg-amber-400/10 text-amber-500",
+  SUBMITTED: "border-warning/40 bg-warning/12 text-warning-ink",
   VERIFIED: "border-lime/40 bg-lime/10 text-lime",
   REJECTED: "border-destructive/40 bg-destructive/10 text-destructive",
 };

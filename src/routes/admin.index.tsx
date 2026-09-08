@@ -85,7 +85,7 @@ function AdminConsole() {
           The single source of truth: nothing becomes a public verified record until it clears this
           desk.
         </p>
-        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-white/10 pt-6 sm:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-surface-foreground/15 pt-6 sm:grid-cols-4">
           <Stat tone="accent" value={queue.length} label="Records to verify" />
           <Stat tone="invert" value={verifiedRecords.length} label="Verified records" />
           <Stat tone="invert" value={unverifiedTournaments.length} label="Tournaments to check" />

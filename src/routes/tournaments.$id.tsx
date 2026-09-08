@@ -105,7 +105,7 @@ function TournamentDetails() {
               </Button>
             )}
             {!currentUser ? (
-              <Button asChild size="lg" variant="ghost" className="text-surface-foreground hover:bg-white/10">
+              <Button asChild size="lg" variant="ghost" className="text-surface-foreground hover:bg-surface-foreground/10">
                 <Link to="/login">Log in to register</Link>
               </Button>
             ) : null}

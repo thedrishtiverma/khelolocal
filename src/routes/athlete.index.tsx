@@ -91,7 +91,7 @@ function AthleteDashboard() {
           </div>
           {athlete.verificationStatus === "VERIFIED" ? <VerifiedBadge /> : null}
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-white/10 pt-6 sm:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-surface-foreground/15 pt-6 sm:grid-cols-4">
           <Stat tone="invert" value={athlete.tournamentsPlayed} label="Tournaments" />
           <Stat tone="invert" value={athlete.matchesPlayed} label="Matches" />
           <Stat tone="invert" value={athlete.wins} label="Wins" />

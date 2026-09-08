@@ -14,16 +14,16 @@ const STATUS_LABEL: Record<TournamentStatus, string> = {
 export function StatusBadge({ status, className }: { status: TournamentStatus; className?: string }) {
   const tone =
     status === "LIVE"
-      ? "bg-live/10 text-live border-live/30"
+      ? "bg-live/12 text-live border-live/35"
       : status === "REGISTRATION_OPEN"
-        ? "bg-lime/20 text-lime-foreground border-lime/40"
-        : status === "COMPLETED"
-          ? "bg-muted text-muted-foreground border-border"
-          : "bg-primary/5 text-primary border-primary/20";
+        ? "bg-verified/12 text-verified border-verified/35"
+        : status === "COMPLETED" || status === "CANCELLED"
+          ? "bg-muted text-done border-border"
+          : "bg-upcoming/10 text-upcoming border-upcoming/25";
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider",
+        "font-ui inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider",
         tone,
         className,
       )}
@@ -44,7 +44,7 @@ export function VerifiedBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border border-verified/30 bg-verified/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-verified",
+        "font-ui inline-flex items-center gap-1 rounded-full border border-verified/30 bg-verified/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-verified",
         className,
       )}
     >
@@ -56,7 +56,7 @@ export function VerifiedBadge({
 
 export function ResultBadge({ status }: { status: ResultStatus }) {
   const map: Record<ResultStatus, string> = {
-    PENDING: "border-amber-500/30 bg-amber-500/10 text-amber-700",
+    PENDING: "border-warning/35 bg-warning/12 text-warning-ink",
     VERIFIED: "border-verified/30 bg-verified/10 text-verified",
     REJECTED: "border-destructive/30 bg-destructive/10 text-destructive",
   };

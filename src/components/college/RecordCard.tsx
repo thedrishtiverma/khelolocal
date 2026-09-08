@@ -7,7 +7,7 @@ import type { CollegeRecord, RecordStatus } from "@/types";
 const STATUS_META: Record<RecordStatus, { label: string; tone: string; icon: ReactNode }> = {
   SUBMITTED: {
     label: "Awaiting college check",
-    tone: "border-amber-500/30 bg-amber-500/10 text-amber-700",
+    tone: "border-warning/35 bg-warning/12 text-warning-ink",
     icon: <Clock className="size-3.5" />,
   },
   COLLEGE_VERIFIED: {

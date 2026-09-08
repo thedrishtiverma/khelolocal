@@ -54,7 +54,7 @@ export function AthleteProfileView({
           {actions ? <div className="flex flex-wrap gap-2 sm:flex-col">{actions}</div> : null}
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-white/10 pt-6 sm:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-surface-foreground/15 pt-6 sm:grid-cols-4">
           <Stat tone="invert" value={athlete.tournamentsPlayed} label="Tournaments" />
           <Stat tone="invert" value={athlete.matchesPlayed} label="Matches" />
           <Stat tone="invert" value={athlete.wins} label="Wins" />

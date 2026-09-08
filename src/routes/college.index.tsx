@@ -66,7 +66,7 @@ function CollegeDashboard() {
         <p className="mt-2 max-w-2xl text-sm text-surface-foreground/70">
           {college.sportsEventName} · {college.cityName}
         </p>
-        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-white/10 pt-6 sm:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-surface-foreground/15 pt-6 sm:grid-cols-4">
           <Stat tone="invert" value={athletes.length} label="Student athletes" />
           <Stat tone="invert" value={records.length} label="Records on file" />
           <Stat tone="accent" value={verified.length} label="Fully verified" />
