@@ -309,8 +309,10 @@
 @utility motif-pitch {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   &::after {
     content: "";
+    z-index: -1;
     position: absolute;
     inset: auto -20% -60% auto;
     right: -12%;
@@ -327,8 +329,10 @@
 @utility motif-court {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   &::after {
     content: "";
+    z-index: -1;
     position: absolute;
     top: -30%;
     right: -18%;
@@ -347,8 +351,10 @@
 @utility motif-track {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   &::after {
     content: "";
+    z-index: -1;
     position: absolute;
     inset: 0 0 auto 0;
     height: 100%;
