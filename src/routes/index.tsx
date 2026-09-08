@@ -41,7 +41,7 @@ function Landing() {
     <div>
       <section className="surface-panel">
         <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-          <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-lime">
+          <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-surface-foreground/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-lime">
             <MapPin className="size-3.5" /> Starting in Indore, MP
           </p>
           <h1 className="max-w-3xl font-display text-4xl font-black uppercase leading-[0.95] sm:text-6xl lg:text-7xl">
