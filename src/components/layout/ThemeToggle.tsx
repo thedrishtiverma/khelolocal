@@ -9,6 +9,7 @@ function apply(dark: boolean) {
 
 export function ThemeToggle({ className }: { className?: string }) {
   const [dark, setDark] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem(KEY);
@@ -17,6 +18,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       (stored === null && window.matchMedia("(prefers-color-scheme: dark)").matches);
     setDark(next);
     apply(next);
+    setReady(true);
   }, []);
 
   const toggle = () => {
@@ -32,11 +34,25 @@ export function ThemeToggle({ className }: { className?: string }) {
       onClick={toggle}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
       className={
-        "inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-lime hover:text-lime " +
+        "inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-accent hover:text-accent-ink " +
+        (ready ? "" : "opacity-0 ") +
         (className ?? "")
       }
     >
-      {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+      <span className="relative block size-4">
+        <Sun
+          className={
+            "absolute inset-0 size-4 transition-all duration-300 " +
+            (dark ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0")
+          }
+        />
+        <Moon
+          className={
+            "absolute inset-0 size-4 transition-all duration-300 " +
+            (dark ? "rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100")
+          }
+        />
+      </span>
     </button>
   );
 }

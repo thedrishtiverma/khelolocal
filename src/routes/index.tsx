@@ -25,10 +25,34 @@ export const Route = createFileRoute("/")({
 });
 
 const STEPS = [
-  { n: "01", title: "Participate", body: "Find and join local tournaments." },
-  { n: "02", title: "Record", body: "Matches generate structured sporting data." },
-  { n: "03", title: "Verify", body: "Organizers confirm results and achievements." },
-  { n: "04", title: "Discover", body: "Verified sporting identities become discoverable." },
+  {
+    n: "01",
+    title: "Participate",
+    body: "Find and join local tournaments.",
+    chip: "bg-secondary text-foreground",
+    ring: "border-border",
+  },
+  {
+    n: "02",
+    title: "Record",
+    body: "Matches generate structured sporting data.",
+    chip: "bg-secondary text-foreground",
+    ring: "border-border",
+  },
+  {
+    n: "03",
+    title: "Verify",
+    body: "Organizers confirm results and achievements.",
+    chip: "bg-verified/15 text-verified",
+    ring: "border-verified/35",
+  },
+  {
+    n: "04",
+    title: "Discover",
+    body: "Verified sporting identities become discoverable.",
+    chip: "bg-primary text-primary-foreground",
+    ring: "border-primary/35",
+  },
 ];
 
 function Landing() {
@@ -69,16 +93,20 @@ function Landing() {
             </Button>
           </div>
 
-          <div className="mt-14 grid grid-cols-2 gap-8 border-t border-surface-foreground/15 pt-8 sm:grid-cols-4">
-            <Stat tone="invert" value={db.athletes.length} label="Athletes in Indore" />
-            <Stat tone="invert" value={db.tournaments.length} label="Tournaments" />
-            <Stat tone="invert" value={db.teams.length} label="Local teams" />
-            <Stat
-              tone="accent"
-              value={db.achievements.filter((a) => a.verified).length}
-              label="Verified achievements"
-            />
-          </div>
+        </div>
+      </section>
+
+      {/* Scoreboard strip — the one place the cream brand tone is used. */}
+      <section className="cream-band border-y border-border">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-6 px-4 py-7 sm:grid-cols-4 sm:px-6">
+          <Stat value={db.athletes.length} label="Athletes in Indore" />
+          <Stat value={db.tournaments.length} label="Tournaments" />
+          <Stat value={db.teams.length} label="Local teams" />
+          <Stat
+            tone="accent"
+            value={db.achievements.filter((a) => a.verified).length}
+            label="Verified achievements"
+          />
         </div>
       </section>
 
@@ -88,14 +116,25 @@ function Landing() {
           title="Participate → Record → Verify → Discover"
           subtitle="Tournaments are the engine. Verified results become an athlete's record."
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((s) => (
-            <div key={s.n} className="rounded-lg border border-border bg-card p-6">
-              <p className="stat-num text-3xl text-lime">{s.n}</p>
-              <h3 className="mt-3 font-display text-lg font-bold">{s.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{s.body}</p>
-            </div>
-          ))}
+        <div className="relative">
+          {/* connecting line — the pipeline, not four separate boxes */}
+          <div className="pointer-events-none absolute left-0 right-0 top-11 hidden h-px bg-border lg:block" />
+          <ol className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((step) => (
+              <li
+                key={step.n}
+                className={`rounded-lg border bg-card p-6 theme-fade ${step.ring}`}
+              >
+                <span
+                  className={`font-num inline-flex size-9 items-center justify-center rounded-full text-sm font-bold ${step.chip}`}
+                >
+                  {step.n}
+                </span>
+                <h3 className="mt-3 font-heading text-lg font-semibold">{step.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{step.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </Page>
 
