@@ -4,13 +4,17 @@ import { Button } from "@/components/ui/button";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { Initials } from "@/components/shared/Bits";
 import { sportLabel } from "@/lib/format";
+import { sportMotif, sportTint } from "@/lib/sport-visuals";
 import type { Athlete } from "@/types";
 
 export function AthleteCard({ athlete }: { athlete: Athlete }) {
+  const motif = sportMotif(athlete.primarySport);
   return (
-    <article className="flex flex-col rounded-lg border border-border bg-card p-5">
+    <article
+      className={`flex flex-col rounded-lg border border-border bg-card p-5 theme-fade ${motif}`}
+    >
       <div className="flex items-start gap-4">
-        <Initials name={athlete.name} className="size-14 text-lg" />
+        <Initials name={athlete.name} tint={sportTint(athlete.primarySport)} className="size-14 text-lg" />
         <div className="min-w-0 flex-1">
           <h3 className="font-display text-lg font-bold leading-tight">{athlete.name}</h3>
           <p className="text-sm text-muted-foreground">

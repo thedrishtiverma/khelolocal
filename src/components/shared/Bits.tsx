@@ -25,7 +25,7 @@ export function Stat({
       </span>
       <span
         className={cn(
-          "text-[11px] font-semibold uppercase tracking-widest",
+          "font-ui text-[11px] font-semibold uppercase tracking-widest",
           tone === "invert" ? "text-surface-foreground/60" : "text-muted-foreground",
         )}
       >
@@ -91,7 +91,16 @@ export function LoadingBlock({ label = "Loading…" }: { label?: string }) {
   );
 }
 
-export function Initials({ name, className }: { name: string; className?: string }) {
+export function Initials({
+  name,
+  className,
+  tint,
+}: {
+  name: string;
+  className?: string;
+  /** Optional sport tint (see lib/sport-visuals). Defaults to navy. */
+  tint?: string;
+}) {
   const initials = name
     .split(" ")
     .slice(0, 2)
@@ -100,7 +109,8 @@ export function Initials({ name, className }: { name: string; className?: string
   return (
     <div
       className={cn(
-        "flex items-center justify-center rounded-md bg-primary font-display font-bold text-primary-foreground",
+        "flex items-center justify-center rounded-md font-heading font-bold",
+        tint ?? "bg-primary text-primary-foreground",
         className,
       )}
     >
