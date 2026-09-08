@@ -25,8 +25,11 @@
  */
 
 @theme inline {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Big Shoulders Display", "Inter", ui-sans-serif, sans-serif;
+  --font-heading: "Big Shoulders Text", "Inter", ui-sans-serif, sans-serif;
+  --font-ui: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --color-lime: var(--lime);
   --color-lime-foreground: var(--lime-foreground);
   --color-saffron: var(--lime);
@@ -36,7 +39,15 @@
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
   --color-live: var(--live);
+  --color-live-foreground: var(--live-foreground);
   --color-verified: var(--verified);
+  --color-warning: var(--warning);
+  --color-warning-ink: var(--warning-ink);
+  --color-accent-ink: var(--accent-ink);
+  --color-upcoming: var(--upcoming);
+  --color-done: var(--done);
+  --color-cream: var(--cream);
+  --color-cream-foreground: var(--cream-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -105,9 +116,16 @@
   --field-foreground: oklch(0.99 0.003 110);
   --surface: oklch(0.265 0.068 258);
   --surface-foreground: oklch(0.975 0.006 110);
-  --live: oklch(0.58 0.21 27);
+  --live: oklch(0.575 0.163 32);
+  --live-foreground: oklch(0.99 0.003 110);
   --verified: oklch(0.492 0.13 143);
+  --accent-ink: oklch(0.52 0.13 58);
   --warning: oklch(0.6 0.13 62);
+  --warning-ink: oklch(0.47 0.11 58);
+  --upcoming: oklch(0.48 0.06 250);
+  --done: oklch(0.65 0.02 250);
+  --cream: oklch(0.977 0.023 100);
+  --cream-foreground: oklch(0.31 0.075 258);
   --destructive: oklch(0.577 0.225 27);
   --destructive-foreground: oklch(0.99 0.003 110);
   /* subtle grey-blue hairlines */
@@ -155,9 +173,15 @@
   --field-foreground: oklch(0.16 0.05 142);
   --surface: oklch(0.212 0.052 262);
   --surface-foreground: oklch(0.962 0.012 92);
-  --live: oklch(0.7 0.2 27);
+  --live: oklch(0.69 0.17 32);
+  --live-foreground: oklch(0.18 0.05 30);
   --verified: oklch(0.755 0.15 143);
   --warning: oklch(0.83 0.12 72);
+  --warning-ink: oklch(0.86 0.11 78);
+  --upcoming: oklch(0.75 0.07 255);
+  --done: oklch(0.7 0.025 255);
+  --cream: oklch(0.262 0.05 262);
+  --cream-foreground: oklch(0.962 0.012 92);
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.98 0.01 92);
   /* subtle navy hairlines */
@@ -194,11 +218,25 @@
   }
 
   h1,
-  h2,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+
   h3,
   h4 {
-    font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  html {
+    transition: background-color 240ms ease;
+  }
+
+  body {
+    transition: background-color 240ms ease, color 240ms ease;
   }
 }
 
@@ -207,11 +245,29 @@
 }
 
 @utility stat-num {
-  font-family: var(--font-display);
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
   line-height: 1;
+}
+
+@utility font-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@utility font-ui {
+  font-family: var(--font-ui);
+}
+
+@utility font-heading {
+  font-family: var(--font-heading);
+}
+
+@utility cream-band {
+  background-color: var(--cream);
+  color: var(--cream-foreground);
 }
 
 @utility surface-panel {
@@ -247,4 +303,64 @@
   box-shadow:
     0 0 0 2px var(--card),
     0 0 0 4px color-mix(in oklab, var(--lime) 55%, transparent);
+}
+
+/* Sport motifs — faint, decorative only. */
+@utility motif-pitch {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: auto -20% -60% auto;
+    right: -12%;
+    bottom: -55%;
+    width: 190px;
+    height: 190px;
+    border-radius: 9999px;
+    border: 1.5px solid color-mix(in oklab, var(--field) 22%, transparent);
+    box-shadow: inset 0 0 0 24px transparent, 0 0 0 26px color-mix(in oklab, var(--field) 8%, transparent);
+    pointer-events: none;
+  }
+}
+
+@utility motif-court {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    right: -18%;
+    width: 180px;
+    height: 180px;
+    background-image:
+      linear-gradient(0deg, color-mix(in oklab, var(--accent) 20%, transparent) 1.5px, transparent 1.5px),
+      linear-gradient(90deg, color-mix(in oklab, var(--accent) 20%, transparent) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    transform: rotate(12deg);
+    pointer-events: none;
+    opacity: 0.7;
+  }
+}
+
+@utility motif-track {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--primary) 7%, transparent) 0 1.5px,
+      transparent 1.5px 34px
+    );
+    pointer-events: none;
+  }
+}
+
+@utility theme-fade {
+  transition: background-color 240ms ease, border-color 240ms ease, color 240ms ease;
 }
