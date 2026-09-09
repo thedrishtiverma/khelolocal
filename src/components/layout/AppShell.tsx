@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { Menu, X, LogOut } from "lucide-react";
+import { ChevronDown, LogOut, Menu, UserRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
@@ -12,52 +12,41 @@ interface NavItem {
   label: string;
 }
 
-const NAV: Record<Role | "GUEST", NavItem[]> = {
-  GUEST: [
-    { to: "/map", label: "Sports map" },
-    { to: "/stories", label: "Stories" },
-    { to: "/tournaments", label: "Tournaments" },
-    { to: "/discover", label: "Discover talent" },
-  ],
+const PUBLIC_NAV: NavItem[] = [
+  { to: "/explore", label: "Explore" },
+  { to: "/tournaments", label: "Tournaments" },
+  { to: "/athletes", label: "Athletes" },
+  { to: "/sports", label: "Sports" },
+  { to: "/organizers", label: "For organizers" },
+];
+
+const PROFILE_NAV: Record<Role, NavItem[]> = {
   ATHLETE: [
-    { to: "/athlete", label: "Home" },
-    { to: "/tournaments", label: "Tournaments" },
-    { to: "/athlete/tournaments", label: "My sports" },
-    { to: "/athlete/profile", label: "Profile" },
+    { to: "/athlete/profile", label: "My profile" },
+    { to: "/athlete/tournaments", label: "My tournaments" },
   ],
   ORGANIZER: [
-    { to: "/organizer", label: "Dashboard" },
-    { to: "/organizer/create", label: "Create tournament" },
+    { to: "/organizer", label: "Organizer profile" },
     { to: "/organizer/results", label: "Results" },
   ],
   SCOUT: [
-    { to: "/discover", label: "Discover" },
+    { to: "/discover", label: "Discover athletes" },
     { to: "/saved", label: "Saved athletes" },
     { to: "/connections", label: "Connections" },
   ],
   COLLEGE: [
-    { to: "/college", label: "College desk" },
+    { to: "/college", label: "Institution profile" },
     { to: "/college/records", label: "Records" },
-    { to: "/discover", label: "Discover athletes" },
-    { to: "/tournaments", label: "Tournaments" },
   ],
-  VOLUNTEER: [
-    { to: "/volunteer", label: "My zone" },
-    { to: "/tournaments", label: "Tournaments" },
-    { to: "/discover", label: "Athletes" },
-  ],
-  ADMIN: [
-    { to: "/admin", label: "Admin console" },
-    { to: "/discover", label: "Athletes" },
-    { to: "/tournaments", label: "Tournaments" },
-  ],
+  VOLUNTEER: [{ to: "/volunteer", label: "My field desk" }],
+  ADMIN: [{ to: "/admin", label: "Admin console" }],
 };
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { currentUser, logout } = useKhelo();
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const items = NAV[currentUser?.role ?? "GUEST"];
+  const profileItems = currentUser ? PROFILE_NAV[currentUser.role] : [];
 
   const isActive = (to: string) => pathname === to || pathname.startsWith(`${to}/`);
 
@@ -83,7 +72,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </Link>
 
           <nav className="hidden flex-1 items-center gap-1 md:flex">
-            {items.map((item) => (
+            {PUBLIC_NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
@@ -102,19 +91,25 @@ export function AppShell({ children }: { children: ReactNode }) {
             <ThemeToggle />
             {currentUser ? (
               <>
-                <div className="mr-1 text-right leading-tight">
-                  <p className="text-sm font-semibold">{currentUser.name}</p>
-                  <p className="text-[11px] uppercase tracking-widest text-muted-foreground">
-                    {currentUser.role}
-                  </p>
-                </div>
-                <Button variant="outline" size="sm" onClick={logout}>
-                  <LogOut className="size-4" />
-                  Log out
+                <Button asChild size="sm">
+                  <Link to="/tournaments/create"><span className="text-lg leading-none">+</span> Create tournament</Link>
                 </Button>
+                <details className="relative">
+                  <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm font-semibold hover:border-lime">
+                    <UserRound className="size-4" /> Profile <ChevronDown className="size-4" />
+                  </summary>
+                  <div className="absolute right-0 top-11 z-50 min-w-52 rounded-xl border border-border bg-card p-2 shadow-xl">
+                    <p className="border-b border-border px-3 pb-2 text-xs text-muted-foreground">{currentUser.name}</p>
+                    {profileItems.map((item) => <Link key={item.to} to={item.to} className="mt-1 block rounded-md px-3 py-2 text-sm font-semibold hover:bg-secondary">{item.label}</Link>)}
+                    <button type="button" onClick={logout} className="mt-1 flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-semibold text-destructive hover:bg-destructive/10"><LogOut className="size-4" /> Log out</button>
+                  </div>
+                </details>
               </>
             ) : (
               <>
+                <Button asChild size="sm">
+                  <Link to="/tournaments/create"><span className="text-lg leading-none">+</span> Create tournament</Link>
+                </Button>
                 <Button asChild variant="ghost" size="sm">
                   <Link to="/login">Log in</Link>
                 </Button>
@@ -140,7 +135,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {open ? (
           <div className="border-t border-border bg-background px-4 py-3 md:hidden">
             <nav className="flex flex-col">
-              {items.map((item) => (
+              {PUBLIC_NAV.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
@@ -157,9 +152,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             </nav>
             <div className="mt-3 flex gap-2">
               {currentUser ? (
-                <Button variant="outline" size="sm" className="w-full" onClick={() => { logout(); setOpen(false); }}>
-                  Log out
-                </Button>
+                <>
+                  <Button asChild size="sm" className="flex-1"><Link to="/tournaments/create" onClick={() => setOpen(false)}>+ Create tournament</Link></Button>
+                  <Button variant="outline" size="sm" className="flex-1" onClick={() => { logout(); setOpen(false); }}>Log out</Button>
+                </>
               ) : (
                 <>
                   <Button asChild variant="outline" size="sm" className="flex-1">
@@ -179,7 +175,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {/* Mobile bottom navigation */}
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-flow-col border-t border-border bg-background/95 backdrop-blur md:hidden">
-        {items.slice(0, 4).map((item) => (
+        {PUBLIC_NAV.slice(0, 5).map((item) => (
           <Link
             key={item.to}
             to={item.to}
@@ -220,6 +216,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">About</p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
+              <Link to="/how-it-works" className="hover:text-lime">How it works</Link>
               <Link to="/team" className="hover:text-lime">Founders team</Link>
               <Link to="/vision" className="hover:text-lime">Vision</Link>
               <Link to="/contact" className="hover:text-lime">Contact</Link>
