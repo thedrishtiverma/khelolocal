@@ -11,12 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AthletesRouteImport } from './routes/athletes'
+import { Route as CitiesRouteImport } from './routes/cities'
 import { Route as ConnectionsRouteImport } from './routes/connections'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as InstitutionsRouteImport } from './routes/institutions'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as OrganizersRouteImport } from './routes/organizers'
@@ -26,7 +28,9 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as TeamsRouteImport } from './routes/teams'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as VerificationRouteImport } from './routes/verification'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AthleteIndexRouteImport } from './routes/athlete.index'
@@ -38,6 +42,7 @@ import { Route as CollegeRecordsRouteImport } from './routes/college.records'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer.index'
 import { Route as OrganizerCreateRouteImport } from './routes/organizer.create'
 import { Route as OrganizerResultsRouteImport } from './routes/organizer.results'
+import { Route as SportsSportRouteImport } from './routes/sports.$sport'
 import { Route as TournamentsIndexRouteImport } from './routes/tournaments.index'
 import { Route as TournamentsIdRouteImport } from './routes/tournaments.$id'
 import { Route as TournamentsCreateRouteImport } from './routes/tournaments.create'
@@ -52,6 +57,11 @@ const IndexRoute = IndexRouteImport.update({
 const AthletesRoute = AthletesRouteImport.update({
   id: '/athletes',
   path: '/athletes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CitiesRoute = CitiesRouteImport.update({
+  id: '/cities',
+  path: '/cities',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnectionsRoute = ConnectionsRouteImport.update({
@@ -82,6 +92,11 @@ const ExploreRoute = ExploreRouteImport.update({
 const HowItWorksRoute = HowItWorksRouteImport.update({
   id: '/how-it-works',
   path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstitutionsRoute = InstitutionsRouteImport.update({
+  id: '/institutions',
+  path: '/institutions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -129,9 +144,19 @@ const TeamRoute = TeamRouteImport.update({
   path: '/team',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeamsRoute = TeamsRouteImport.update({
+  id: '/teams',
+  path: '/teams',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerificationRoute = VerificationRouteImport.update({
+  id: '/verification',
+  path: '/verification',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VisionRoute = VisionRouteImport.update({
@@ -189,6 +214,11 @@ const OrganizerResultsRoute = OrganizerResultsRouteImport.update({
   path: '/organizer/results',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SportsSportRoute = SportsSportRouteImport.update({
+  id: '/$sport',
+  path: '/$sport',
+  getParentRoute: () => SportsRoute,
+} as any)
 const TournamentsIndexRoute = TournamentsIndexRouteImport.update({
   id: '/tournaments/',
   path: '/tournaments/',
@@ -218,22 +248,26 @@ const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/athletes': typeof AthletesRouteWithChildren
+  '/cities': typeof CitiesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
-  '/sports': typeof SportsRoute
+  '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
   '/team': typeof TeamRoute
+  '/teams': typeof TeamsRoute
   '/terms': typeof TermsRoute
+  '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
@@ -241,6 +275,7 @@ export interface FileRoutesByFullPath {
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
+  '/sports/$sport': typeof SportsSportRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/admin/': typeof AdminIndexRoute
@@ -254,22 +289,26 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/athletes': typeof AthletesRouteWithChildren
+  '/cities': typeof CitiesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
-  '/sports': typeof SportsRoute
+  '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
   '/team': typeof TeamRoute
+  '/teams': typeof TeamsRoute
   '/terms': typeof TermsRoute
+  '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
@@ -277,6 +316,7 @@ export interface FileRoutesByTo {
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
+  '/sports/$sport': typeof SportsSportRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/admin': typeof AdminIndexRoute
@@ -291,22 +331,26 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/athletes': typeof AthletesRouteWithChildren
+  '/cities': typeof CitiesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
-  '/sports': typeof SportsRoute
+  '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
   '/team': typeof TeamRoute
+  '/teams': typeof TeamsRoute
   '/terms': typeof TermsRoute
+  '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
@@ -314,6 +358,7 @@ export interface FileRoutesById {
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
+  '/sports/$sport': typeof SportsSportRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/admin/': typeof AdminIndexRoute
@@ -329,12 +374,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/athletes'
+    | '/cities'
     | '/connections'
     | '/contact'
     | '/demo'
     | '/discover'
     | '/explore'
     | '/how-it-works'
+    | '/institutions'
     | '/login'
     | '/map'
     | '/organizers'
@@ -344,7 +391,9 @@ export interface FileRouteTypes {
     | '/sports'
     | '/stories'
     | '/team'
+    | '/teams'
     | '/terms'
+    | '/verification'
     | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
@@ -352,6 +401,7 @@ export interface FileRouteTypes {
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
+    | '/sports/$sport'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/admin/'
@@ -365,12 +415,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/athletes'
+    | '/cities'
     | '/connections'
     | '/contact'
     | '/demo'
     | '/discover'
     | '/explore'
     | '/how-it-works'
+    | '/institutions'
     | '/login'
     | '/map'
     | '/organizers'
@@ -380,7 +432,9 @@ export interface FileRouteTypes {
     | '/sports'
     | '/stories'
     | '/team'
+    | '/teams'
     | '/terms'
+    | '/verification'
     | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
@@ -388,6 +442,7 @@ export interface FileRouteTypes {
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
+    | '/sports/$sport'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/admin'
@@ -401,12 +456,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/athletes'
+    | '/cities'
     | '/connections'
     | '/contact'
     | '/demo'
     | '/discover'
     | '/explore'
     | '/how-it-works'
+    | '/institutions'
     | '/login'
     | '/map'
     | '/organizers'
@@ -416,7 +473,9 @@ export interface FileRouteTypes {
     | '/sports'
     | '/stories'
     | '/team'
+    | '/teams'
     | '/terms'
+    | '/verification'
     | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
@@ -424,6 +483,7 @@ export interface FileRouteTypes {
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
+    | '/sports/$sport'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/admin/'
@@ -438,22 +498,26 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AthletesRoute: typeof AthletesRouteWithChildren
+  CitiesRoute: typeof CitiesRoute
   ConnectionsRoute: typeof ConnectionsRoute
   ContactRoute: typeof ContactRoute
   DemoRoute: typeof DemoRoute
   DiscoverRoute: typeof DiscoverRoute
   ExploreRoute: typeof ExploreRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  InstitutionsRoute: typeof InstitutionsRoute
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   OrganizersRoute: typeof OrganizersRoute
   PrivacyRoute: typeof PrivacyRoute
   SavedRoute: typeof SavedRoute
   SignupRoute: typeof SignupRoute
-  SportsRoute: typeof SportsRoute
+  SportsRoute: typeof SportsRouteWithChildren
   StoriesRoute: typeof StoriesRoute
   TeamRoute: typeof TeamRoute
+  TeamsRoute: typeof TeamsRoute
   TermsRoute: typeof TermsRoute
+  VerificationRoute: typeof VerificationRoute
   VisionRoute: typeof VisionRoute
   AthleteProfileRoute: typeof AthleteProfileRoute
   AthleteTournamentsRoute: typeof AthleteTournamentsRoute
@@ -485,6 +549,13 @@ declare module '@tanstack/react-router' {
       path: '/athletes'
       fullPath: '/athletes'
       preLoaderRoute: typeof AthletesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cities': {
+      id: '/cities'
+      path: '/cities'
+      fullPath: '/cities'
+      preLoaderRoute: typeof CitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connections': {
@@ -527,6 +598,13 @@ declare module '@tanstack/react-router' {
       path: '/how-it-works'
       fullPath: '/how-it-works'
       preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/institutions': {
+      id: '/institutions'
+      path: '/institutions'
+      fullPath: '/institutions'
+      preLoaderRoute: typeof InstitutionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -592,11 +670,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/teams': {
+      id: '/teams'
+      path: '/teams'
+      fullPath: '/teams'
+      preLoaderRoute: typeof TeamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verification': {
+      id: '/verification'
+      path: '/verification'
+      fullPath: '/verification'
+      preLoaderRoute: typeof VerificationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vision': {
@@ -676,6 +768,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrganizerResultsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sports/$sport': {
+      id: '/sports/$sport'
+      path: '/$sport'
+      fullPath: '/sports/$sport'
+      preLoaderRoute: typeof SportsSportRouteImport
+      parentRoute: typeof SportsRoute
+    }
     '/tournaments/': {
       id: '/tournaments/'
       path: '/tournaments'
@@ -726,25 +825,40 @@ const AthletesRouteWithChildren = AthletesRoute._addFileChildren(
   AthletesRouteChildren,
 )
 
+interface SportsRouteChildren {
+  SportsSportRoute: typeof SportsSportRoute
+}
+
+const SportsRouteChildren: SportsRouteChildren = {
+  SportsSportRoute: SportsSportRoute,
+}
+
+const SportsRouteWithChildren =
+  SportsRoute._addFileChildren(SportsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AthletesRoute: AthletesRouteWithChildren,
+  CitiesRoute: CitiesRoute,
   ConnectionsRoute: ConnectionsRoute,
   ContactRoute: ContactRoute,
   DemoRoute: DemoRoute,
   DiscoverRoute: DiscoverRoute,
   ExploreRoute: ExploreRoute,
   HowItWorksRoute: HowItWorksRoute,
+  InstitutionsRoute: InstitutionsRoute,
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   OrganizersRoute: OrganizersRoute,
   PrivacyRoute: PrivacyRoute,
   SavedRoute: SavedRoute,
   SignupRoute: SignupRoute,
-  SportsRoute: SportsRoute,
+  SportsRoute: SportsRouteWithChildren,
   StoriesRoute: StoriesRoute,
   TeamRoute: TeamRoute,
+  TeamsRoute: TeamsRoute,
   TermsRoute: TermsRoute,
+  VerificationRoute: VerificationRoute,
   VisionRoute: VisionRoute,
   AthleteProfileRoute: AthleteProfileRoute,
   AthleteTournamentsRoute: AthleteTournamentsRoute,

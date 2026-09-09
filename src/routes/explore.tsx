@@ -7,31 +7,207 @@ import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/explore")({
-  head: () => ({ meta: [{ title: "Explore local sport | KheloLocal" }, { name: "description", content: "Discover tournaments, athletes, sports and verified sporting opportunities around Indore." }] }),
+  head: () => ({
+    meta: [
+      { title: "Explore local sport | KheloLocal" },
+      {
+        name: "description",
+        content:
+          "Discover tournaments, athletes, sports and verified sporting opportunities around Indore.",
+      },
+    ],
+  }),
   component: ExplorePage,
 });
 
 function ExplorePage() {
   const { db } = useKhelo();
-  const tournaments = db.tournaments.filter((t) => t.status === "LIVE" || t.status === "REGISTRATION_OPEN").slice(0, 3);
+  const tournaments = db.tournaments
+    .filter((t) => t.status === "LIVE" || t.status === "REGISTRATION_OPEN")
+    .slice(0, 3);
   const athletes = db.athletes.filter((a) => a.verificationStatus === "VERIFIED").slice(0, 3);
   const sports = db.sports.slice(0, 6);
+  const upcoming = db.tournaments
+    .filter((t) => t.status === "UPCOMING" || t.status === "REGISTRATION_OPEN")
+    .slice(0, 3);
+  const verifiedAchievements = db.achievements.filter((a) => a.verified).slice(0, 3);
 
-  return <div>
-    <section className="surface-panel">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-lime">Explore Indore</p>
-        <h1 className="mt-5 max-w-4xl font-display text-5xl font-black uppercase leading-[0.9] sm:text-8xl">Your city is full of talent. Find them all here.</h1>
-        <p className="mt-8 max-w-2xl text-lg leading-8 text-surface-foreground/70">Discover tournaments, athletes, teams and sporting opportunities around you.</p>
-        <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/sports">Explore sports <ArrowRight className="size-4" /></Link></Button><Button asChild size="lg" variant="outline" className="border-surface-foreground/25 bg-transparent text-surface-foreground"><Link to="/tournaments/create">Create a tournament</Link></Button></div>
-      </div>
-    </section>
-    <Page className="py-14 sm:py-20">
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4"><Stat value={db.tournaments.length} label="Tournaments" /><Stat value={db.athletes.length} label="Athletes" /><Stat value={db.teams.length} label="Local teams" /><Stat tone="accent" value={db.achievements.filter((a) => a.verified).length} label="Verified achievements" /></div>
-      <div className="mt-16"><SectionHeading eyebrow="Play now" title="Featured tournaments" action={<Button asChild variant="outline"><Link to="/tournaments">All tournaments</Link></Button>} /><div className="grid gap-4 md:grid-cols-3">{tournaments.map((t) => <TournamentCard key={t.id} tournament={t} />)}</div></div>
-      <div className="mt-16"><SectionHeading eyebrow="Find your people" title="Athletes near you" action={<Button asChild variant="outline"><Link to="/athletes">All athletes</Link></Button>} /><div className="grid gap-4 md:grid-cols-3">{athletes.map((a) => <AthleteCard key={a.id} athlete={a} />)}</div></div>
-      <div className="mt-16"><SectionHeading eyebrow="Choose a lane" title="Popular sports" /><div className="grid gap-3 sm:grid-cols-3">{sports.map((sport) => <Link key={sport.id} to="/sports" className="data-card-muted rounded-xl border border-border p-5 hover:border-lime"><Trophy className="size-5 text-lime" /><h3 className="mt-5 font-display text-xl font-bold uppercase">{sport.name}</h3><p className="mt-1 text-sm text-muted-foreground">Find {sport.name.toLowerCase()} in Indore</p></Link>)}</div></div>
-      <div className="mt-16 grid gap-4 md:grid-cols-3"><Link to="/map" className="data-card rounded-xl p-6"><MapPin className="size-5 text-lime" /><h2 className="mt-6 font-display text-2xl font-bold uppercase">Sports map</h2><p className="mt-2 text-sm text-muted-foreground">Explore verified venues and opportunities by zone.</p></Link><Link to="/stories" className="data-card rounded-xl p-6"><Users className="size-5 text-lime" /><h2 className="mt-6 font-display text-2xl font-bold uppercase">Community stories</h2><p className="mt-2 text-sm text-muted-foreground">Meet the people making local sport happen.</p></Link><Link to="/vision" className="data-card rounded-xl p-6"><BadgeCheck className="size-5 text-lime" /><h2 className="mt-6 font-display text-2xl font-bold uppercase">Verified records</h2><p className="mt-2 text-sm text-muted-foreground">See how results become trusted sporting identity.</p></Link></div>
-    </Page>
-  </div>;
+  return (
+    <div>
+      <section className="surface-panel">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
+            Explore Indore
+          </p>
+          <h1 className="mt-5 max-w-4xl font-display text-5xl font-black uppercase leading-[0.9] sm:text-8xl">
+            Your city is full of talent. Find them all here.
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-surface-foreground/70">
+            Discover tournaments, athletes, teams and sporting opportunities around you.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <Link to="/sports">
+                Explore sports <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-surface-foreground/25 bg-transparent text-surface-foreground"
+            >
+              <Link to="/tournaments/create">Create a tournament</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+      <Page className="py-14 sm:py-20">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <Stat value={db.tournaments.length} label="Tournaments" />
+          <Stat value={db.athletes.length} label="Athletes" />
+          <Stat value={db.teams.length} label="Local teams" />
+          <Stat
+            tone="accent"
+            value={db.achievements.filter((a) => a.verified).length}
+            label="Verified achievements"
+          />
+        </div>
+        <div className="mt-16">
+          <SectionHeading
+            eyebrow="Play now"
+            title="Featured tournaments"
+            action={
+              <Button asChild variant="outline">
+                <Link to="/tournaments">All tournaments</Link>
+              </Button>
+            }
+          />
+          <div className="grid gap-4 md:grid-cols-3">
+            {tournaments.map((t) => (
+              <TournamentCard key={t.id} tournament={t} />
+            ))}
+          </div>
+        </div>
+        <div className="mt-16">
+          <SectionHeading
+            eyebrow="Close to home"
+            title="Tournaments near you"
+            action={
+              <Link to="/map" className="text-sm font-bold hover:text-lime">
+                View sports map
+              </Link>
+            }
+          />
+          <div className="grid gap-4 md:grid-cols-3">
+            {upcoming.map((t) => (
+              <TournamentCard key={t.id} tournament={t} />
+            ))}
+          </div>
+        </div>
+        <div className="mt-16">
+          <SectionHeading
+            eyebrow="Find your people"
+            title="Athletes near you"
+            action={
+              <Button asChild variant="outline">
+                <Link to="/athletes">All athletes</Link>
+              </Button>
+            }
+          />
+          <div className="grid gap-4 md:grid-cols-3">
+            {athletes.map((a) => (
+              <AthleteCard key={a.id} athlete={a} />
+            ))}
+          </div>
+        </div>
+        <div className="mt-16">
+          <SectionHeading eyebrow="Choose a lane" title="Popular sports" />
+          <div className="grid gap-3 sm:grid-cols-3">
+            {sports.map((sport) => (
+              <Link
+                key={sport.id}
+                to="/sports/$sport"
+                params={{ sport: sport.id }}
+                className="data-card-muted rounded-xl border border-border p-5 hover:border-lime"
+              >
+                <Trophy className="size-5 text-lime" />
+                <h3 className="mt-5 font-display text-xl font-bold uppercase">{sport.name}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Find {sport.name.toLowerCase()} in Indore
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="mt-16">
+          <SectionHeading eyebrow="The local network" title="Institutions building sport" />
+          <div className="grid gap-4 md:grid-cols-3">
+            {db.colleges.map((college) => (
+              <Link key={college.id} to="/institutions" className="data-card rounded-xl p-6">
+                <BadgeCheck className="size-5 text-lime" />
+                <h2 className="mt-6 font-display text-2xl font-bold uppercase">
+                  {college.shortName}
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">{college.sportsEventName}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="mt-16">
+          <SectionHeading eyebrow="This week" title="Upcoming events" />
+          <div className="grid gap-4 md:grid-cols-3">
+            {upcoming.map((t) => (
+              <TournamentCard key={t.id} tournament={t} />
+            ))}
+          </div>
+        </div>
+        <div className="mt-16">
+          <SectionHeading eyebrow="Proof matters" title="Recently verified achievements" />
+          <div className="grid gap-4 md:grid-cols-3">
+            {verifiedAchievements.map((achievement) => (
+              <Link
+                key={achievement.id}
+                to="/athletes/$id"
+                params={{ id: achievement.athleteId }}
+                className="data-card rounded-xl p-6"
+              >
+                <BadgeCheck className="size-5 text-verified" />
+                <h2 className="mt-6 font-display text-xl font-bold uppercase">
+                  {achievement.title}
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">{achievement.description}</p>
+                <p className="mt-4 text-xs font-semibold text-verified">
+                  Verified by {achievement.verifiedBy}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="mt-16 grid gap-4 md:grid-cols-3">
+          <Link to="/map" className="data-card rounded-xl p-6">
+            <MapPin className="size-5 text-lime" />
+            <h2 className="mt-6 font-display text-2xl font-bold uppercase">Sports map</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Explore verified venues and opportunities by zone.
+            </p>
+          </Link>
+          <Link to="/stories" className="data-card rounded-xl p-6">
+            <Users className="size-5 text-lime" />
+            <h2 className="mt-6 font-display text-2xl font-bold uppercase">Community stories</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Meet the people making local sport happen.
+            </p>
+          </Link>
+          <Link to="/verification" className="data-card rounded-xl p-6">
+            <BadgeCheck className="size-5 text-lime" />
+            <h2 className="mt-6 font-display text-2xl font-bold uppercase">Verified records</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              See how results become trusted sporting identity.
+            </p>
+          </Link>
+        </div>
+      </Page>
+    </div>
+  );
 }

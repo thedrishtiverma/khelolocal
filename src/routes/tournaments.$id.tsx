@@ -9,11 +9,7 @@ import { ResultBadge, StatusBadge, VerifiedBadge } from "@/components/shared/Bad
 import { EmptyState, Page, Stat } from "@/components/shared/Bits";
 import { formatDate, formatDateRange, formatDateTime, formatINR } from "@/lib/format";
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
-import {
-  matchesOfTournament,
-  registrationsOfTournament,
-  teamById,
-} from "@/lib/services/selectors";
+import { matchesOfTournament, registrationsOfTournament, teamById } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/tournaments/$id")({
   head: () => ({
@@ -21,7 +17,8 @@ export const Route = createFileRoute("/tournaments/$id")({
       { title: "Tournament details | KheloLocal" },
       {
         name: "description",
-        content: "Fixtures, teams, verified results and registration for local tournaments in Indore.",
+        content:
+          "Fixtures, teams, verified results and registration for local tournaments in Indore.",
       },
       { property: "og:title", content: "Tournament details | KheloLocal" },
       {
@@ -46,9 +43,7 @@ function TournamentDetails() {
   const regs = registrationsOfTournament(db, tournament.id);
   const matches = matchesOfTournament(db, tournament.id);
   const myReg = athlete ? regs.find((r) => r.athleteId === athlete.id) : undefined;
-  const teams = Array.from(
-    new Set(regs.filter((r) => r.teamId).map((r) => r.teamId as string)),
-  );
+  const teams = Array.from(new Set(regs.filter((r) => r.teamId).map((r) => r.teamId as string)));
   const registrationClosed =
     tournament.status !== "REGISTRATION_OPEN" ||
     tournament.currentParticipants >= tournament.maxParticipants;
@@ -120,7 +115,12 @@ function TournamentDetails() {
               </Button>
             )}
             {!currentUser ? (
-              <Button asChild size="lg" variant="ghost" className="text-surface-foreground hover:bg-surface-foreground/10">
+              <Button
+                asChild
+                size="lg"
+                variant="ghost"
+                className="text-surface-foreground hover:bg-surface-foreground/10"
+              >
                 <Link to="/login">Log in to register</Link>
               </Button>
             ) : null}
@@ -135,6 +135,7 @@ function TournamentDetails() {
             <TabsTrigger value="teams">Teams</TabsTrigger>
             <TabsTrigger value="fixtures">Fixtures</TabsTrigger>
             <TabsTrigger value="results">Results</TabsTrigger>
+            <TabsTrigger value="verification">Verification</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
@@ -145,14 +146,18 @@ function TournamentDetails() {
               </p>
               <dl className="mt-6 grid gap-4 sm:grid-cols-2">
                 {[
-                  ["Venue", `${tournament.venue}, ${tournament.address}`],
+                  [
+                    "Date and venue",
+                    `${formatDateRange(tournament.startDate, tournament.endDate)} · ${tournament.venue}, ${tournament.address}`,
+                  ],
                   ["Registration deadline", formatDate(tournament.registrationDeadline)],
-                  ["Age category", tournament.ageCategory],
-                  ["Gender category", tournament.genderCategory],
+                  ["Eligibility", `${tournament.ageCategory} · ${tournament.genderCategory}`],
                   ["Format", tournament.format],
                   [
                     "Entry fee",
-                    tournament.registrationFee ? formatINR(tournament.registrationFee) : "Free entry",
+                    tournament.registrationFee
+                      ? formatINR(tournament.registrationFee)
+                      : "Free entry",
                   ],
                 ].map(([k, v]) => (
                   <div key={k} className="rounded-md border border-border bg-background p-3">
@@ -181,7 +186,9 @@ function TournamentDetails() {
               </div>
               <div className="rounded-xl border border-border bg-card p-6">
                 <h2 className="font-display text-lg font-bold">Prize pool</h2>
-                <p className="stat-num mt-3 text-4xl text-lime">{formatINR(tournament.prizePool)}</p>
+                <p className="stat-num mt-3 text-4xl text-lime">
+                  {formatINR(tournament.prizePool)}
+                </p>
               </div>
             </div>
           </TabsContent>
@@ -240,7 +247,8 @@ function TournamentDetails() {
                         {m.round} · Match {m.matchNumber}
                       </p>
                       <p className="mt-1 font-display text-lg font-bold">
-                        {teamById(db, m.teamAId)?.name} <span className="text-muted-foreground">vs</span>{" "}
+                        {teamById(db, m.teamAId)?.name}{" "}
+                        <span className="text-muted-foreground">vs</span>{" "}
                         {teamById(db, m.teamBId)?.name}
                       </p>
                       <p className="text-sm text-muted-foreground">
@@ -302,6 +310,27 @@ function TournamentDetails() {
                   })}
               </div>
             )}
+          </TabsContent>
+
+          <TabsContent value="verification" className="mt-6">
+            <div className="rounded-xl border border-border bg-card p-6 sm:p-8">
+              <h2 className="font-display text-2xl font-bold">Verified results</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
+                This tournament’s results are confirmed by the organizer before they become part of
+                an athlete’s KheloLocal sporting record.
+              </p>
+              {tournament.status === "COMPLETED" ? (
+                <p className="mt-6 rounded-lg border border-verified/30 bg-verified/10 p-4 text-sm font-semibold text-verified">
+                  This tournament is complete. Its verified results remain part of the KheloLocal
+                  sporting record.
+                </p>
+              ) : (
+                <p className="mt-6 rounded-lg border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
+                  Verified results will appear here once tournament matches are completed and
+                  confirmed.
+                </p>
+              )}
+            </div>
           </TabsContent>
         </Tabs>
       </Page>

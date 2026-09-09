@@ -26,7 +26,7 @@ const PROFILE_NAV: Record<Role, NavItem[]> = {
     { to: "/athlete/tournaments", label: "My tournaments" },
   ],
   ORGANIZER: [
-    { to: "/organizer", label: "Organizer profile" },
+    { to: "/organizer", label: "Organizer dashboard" },
     { to: "/organizer/results", label: "Results" },
   ],
   SCOUT: [
@@ -35,10 +35,10 @@ const PROFILE_NAV: Record<Role, NavItem[]> = {
     { to: "/connections", label: "Connections" },
   ],
   COLLEGE: [
-    { to: "/college", label: "Institution profile" },
+    { to: "/college", label: "Institution dashboard" },
     { to: "/college/records", label: "Records" },
   ],
-  VOLUNTEER: [{ to: "/volunteer", label: "My field desk" }],
+  VOLUNTEER: [{ to: "/volunteer", label: "Field desk" }],
   ADMIN: [{ to: "/admin", label: "Admin console" }],
 };
 
@@ -92,23 +92,43 @@ export function AppShell({ children }: { children: ReactNode }) {
             {currentUser ? (
               <>
                 <Button asChild size="sm">
-                  <Link to="/tournaments/create"><span className="text-lg leading-none">+</span> Create tournament</Link>
+                  <Link to="/tournaments/create">
+                    <span className="text-lg leading-none">+</span> Create tournament
+                  </Link>
                 </Button>
                 <details className="relative">
                   <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm font-semibold hover:border-lime">
                     <UserRound className="size-4" /> Profile <ChevronDown className="size-4" />
                   </summary>
                   <div className="absolute right-0 top-11 z-50 min-w-52 rounded-xl border border-border bg-card p-2 shadow-xl">
-                    <p className="border-b border-border px-3 pb-2 text-xs text-muted-foreground">{currentUser.name}</p>
-                    {profileItems.map((item) => <Link key={item.to} to={item.to} className="mt-1 block rounded-md px-3 py-2 text-sm font-semibold hover:bg-secondary">{item.label}</Link>)}
-                    <button type="button" onClick={logout} className="mt-1 flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-semibold text-destructive hover:bg-destructive/10"><LogOut className="size-4" /> Log out</button>
+                    <p className="border-b border-border px-3 pb-2 text-xs text-muted-foreground">
+                      {currentUser.name}
+                    </p>
+                    {profileItems.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        className="mt-1 block rounded-md px-3 py-2 text-sm font-semibold hover:bg-secondary"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={logout}
+                      className="mt-1 flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-semibold text-destructive hover:bg-destructive/10"
+                    >
+                      <LogOut className="size-4" /> Log out
+                    </button>
                   </div>
                 </details>
               </>
             ) : (
               <>
                 <Button asChild size="sm">
-                  <Link to="/tournaments/create"><span className="text-lg leading-none">+</span> Create tournament</Link>
+                  <Link to="/tournaments/create">
+                    <span className="text-lg leading-none">+</span> Create tournament
+                  </Link>
                 </Button>
                 <Button asChild variant="ghost" size="sm">
                   <Link to="/login">Log in</Link>
@@ -153,16 +173,34 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="mt-3 flex gap-2">
               {currentUser ? (
                 <>
-                  <Button asChild size="sm" className="flex-1"><Link to="/tournaments/create" onClick={() => setOpen(false)}>+ Create tournament</Link></Button>
-                  <Button variant="outline" size="sm" className="flex-1" onClick={() => { logout(); setOpen(false); }}>Log out</Button>
+                  <Button asChild size="sm" className="flex-1">
+                    <Link to="/tournaments/create" onClick={() => setOpen(false)}>
+                      + Create tournament
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => {
+                      logout();
+                      setOpen(false);
+                    }}
+                  >
+                    Log out
+                  </Button>
                 </>
               ) : (
                 <>
                   <Button asChild variant="outline" size="sm" className="flex-1">
-                    <Link to="/login" onClick={() => setOpen(false)}>Log in</Link>
+                    <Link to="/login" onClick={() => setOpen(false)}>
+                      Log in
+                    </Link>
                   </Button>
                   <Button asChild size="sm" className="flex-1">
-                    <Link to="/signup" onClick={() => setOpen(false)}>Join</Link>
+                    <Link to="/signup" onClick={() => setOpen(false)}>
+                      Join
+                    </Link>
                   </Button>
                 </>
               )}
@@ -174,8 +212,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       <main className="flex-1 pb-20 md:pb-0">{children}</main>
 
       {/* Mobile bottom navigation */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-flow-col border-t border-border bg-background/95 backdrop-blur md:hidden">
-        {PUBLIC_NAV.slice(0, 5).map((item) => (
+      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t border-border bg-background/95 backdrop-blur md:hidden">
+        {PUBLIC_NAV.slice(0, 4).map((item) => (
           <Link
             key={item.to}
             to={item.to}
@@ -188,6 +226,19 @@ export function AppShell({ children }: { children: ReactNode }) {
             {item.label}
           </Link>
         ))}
+        <Link
+          to={currentUser ? (profileItems[0]?.to ?? "/") : "/login"}
+          aria-current={
+            pathname.startsWith("/athlete") ||
+            pathname.startsWith("/organizer") ||
+            pathname.startsWith("/college")
+              ? "page"
+              : undefined
+          }
+          className="py-3 text-center text-[11px] font-semibold uppercase tracking-wide text-muted-foreground"
+        >
+          Profile
+        </Link>
       </nav>
 
       <footer className="border-t border-border bg-card pb-20 md:pb-0">
@@ -204,30 +255,95 @@ export function AppShell({ children }: { children: ReactNode }) {
             </p>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Explore</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              Explore
+            </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
-              <Link to="/tournaments" className="hover:text-lime">Tournaments</Link>
-              <Link to="/map" className="hover:text-lime">Sports map</Link>
-              <Link to="/stories" className="hover:text-lime">Community stories</Link>
-              <Link to="/discover" className="hover:text-lime">Discover talent</Link>
-              <Link to="/signup" className="hover:text-lime">Join KheloLocal</Link>
+              <Link to="/explore" className="hover:text-lime">
+                Explore
+              </Link>
+              <Link to="/tournaments" className="hover:text-lime">
+                Tournaments
+              </Link>
+              <Link to="/athletes" className="hover:text-lime">
+                Athletes
+              </Link>
+              <Link to="/sports" className="hover:text-lime">
+                Sports
+              </Link>
+              <Link to="/institutions" className="hover:text-lime">
+                Institutions
+              </Link>
+              <Link to="/teams" className="hover:text-lime">
+                Teams
+              </Link>
+              <Link to="/map" className="hover:text-lime">
+                Sports map
+              </Link>
+              <Link to="/stories" className="hover:text-lime">
+                Community stories
+              </Link>
             </nav>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">About</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              For organizations
+            </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
-              <Link to="/how-it-works" className="hover:text-lime">How it works</Link>
-              <Link to="/team" className="hover:text-lime">Founders team</Link>
-              <Link to="/vision" className="hover:text-lime">Vision</Link>
-              <Link to="/contact" className="hover:text-lime">Contact</Link>
-              <Link to="/demo" className="hover:text-lime">Demo tools</Link>
+              <Link to="/organizers" className="hover:text-lime">
+                For organizers
+              </Link>
+              <Link to="/institutions" className="hover:text-lime">
+                For institutions
+              </Link>
+              <Link to="/tournaments/create" className="hover:text-lime">
+                Create tournament
+              </Link>
+              <Link to="/verification" className="hover:text-lime">
+                Verify records
+              </Link>
+            </nav>
+            <p className="mt-8 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              KheloLocal
+            </p>
+            <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
+              <Link to="/vision" className="hover:text-lime">
+                About
+              </Link>
+              <Link to="/how-it-works" className="hover:text-lime">
+                How it works
+              </Link>
+              <Link to="/cities" className="hover:text-lime">
+                Our cities
+              </Link>
+              <Link to="/team" className="hover:text-lime">
+                Founders team
+              </Link>
+              <Link to="/contact" className="hover:text-lime">
+                Contact
+              </Link>
+              <a href="mailto:hello@khelolocal.in" className="hover:text-lime">
+                Careers
+              </a>
+              <Link to="/demo" className="hover:text-lime">
+                Demo tools
+              </Link>
             </nav>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Legal</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              Legal
+            </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
-              <Link to="/terms" className="hover:text-lime">Terms</Link>
-              <Link to="/privacy" className="hover:text-lime">Privacy policy</Link>
+              <Link to="/terms" className="hover:text-lime">
+                Terms
+              </Link>
+              <Link to="/privacy" className="hover:text-lime">
+                Privacy policy
+              </Link>
+              <Link to="/terms" className="hover:text-lime">
+                Community guidelines
+              </Link>
             </nav>
           </div>
         </div>
