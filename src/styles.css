@@ -92,20 +92,20 @@
 
 :root {
   --radius: 0.875rem;
-  /* #F7F8F5 warm off-white paper */
-  --background: oklch(0.978 0.006 95);
+  /* Warm paper canvas with clear white content surfaces. */
+  --background: oklch(0.958 0.012 95);
   /* #12345B deep navy ink */
   --foreground: oklch(0.31 0.075 258);
-  --card: oklch(1 0 0);
+  --card: oklch(0.995 0.003 95);
   --card-foreground: oklch(0.31 0.075 258);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.31 0.075 258);
   --primary: oklch(0.31 0.075 258);
   --primary-foreground: oklch(0.99 0.003 110);
-  --secondary: oklch(0.958 0.007 250);
+  --secondary: oklch(0.925 0.014 95);
   --secondary-foreground: oklch(0.31 0.075 258);
-  --muted: oklch(0.958 0.007 250);
-  --muted-foreground: oklch(0.5 0.035 258);
+  --muted: oklch(0.925 0.014 95);
+  --muted-foreground: oklch(0.46 0.04 258);
   /* #F4A340 sport orange */
   --accent: oklch(0.775 0.128 65);
   --accent-foreground: oklch(0.27 0.07 60);
@@ -124,29 +124,29 @@
   --warning-ink: oklch(0.47 0.11 58);
   --upcoming: oklch(0.48 0.06 250);
   --done: oklch(0.65 0.02 250);
-  --cream: oklch(0.977 0.023 100);
+  --cream: oklch(0.94 0.035 92);
   --cream-foreground: oklch(0.31 0.075 258);
   --destructive: oklch(0.577 0.225 27);
   --destructive-foreground: oklch(0.99 0.003 110);
   /* subtle grey-blue hairlines */
-  --border: oklch(0.9 0.012 250);
-  --input: oklch(0.9 0.012 250);
+  --border: oklch(0.84 0.018 250);
+  --input: oklch(0.79 0.022 250);
   --ring: oklch(0.775 0.128 65);
   --chart-1: oklch(0.775 0.128 65);
   --chart-2: oklch(0.552 0.145 143);
   --chart-3: oklch(0.31 0.075 258);
   --chart-4: oklch(0.83 0.12 82);
   --chart-5: oklch(0.63 0.1 235);
-  --sidebar: oklch(1 0 0);
+  --sidebar: oklch(0.985 0.006 95);
   --sidebar-foreground: oklch(0.31 0.075 258);
   --sidebar-primary: oklch(0.31 0.075 258);
   --sidebar-primary-foreground: oklch(0.99 0.003 110);
-  --sidebar-accent: oklch(0.958 0.007 250);
+  --sidebar-accent: oklch(0.925 0.014 95);
   --sidebar-accent-foreground: oklch(0.31 0.075 258);
-  --sidebar-border: oklch(0.9 0.012 250);
+  --sidebar-border: oklch(0.84 0.018 250);
   --sidebar-ring: oklch(0.775 0.128 65);
-  --shadow-card: 0 1px 2px oklch(0.31 0.075 258 / 0.05), 0 8px 24px -16px oklch(0.31 0.075 258 / 0.18);
-  --shadow-lift: 0 2px 4px oklch(0.31 0.075 258 / 0.06), 0 18px 36px -20px oklch(0.31 0.075 258 / 0.28);
+  --shadow-card: 0 1px 2px oklch(0.31 0.075 258 / 0.06), 0 10px 24px -18px oklch(0.31 0.075 258 / 0.24);
+  --shadow-lift: 0 3px 8px oklch(0.31 0.075 258 / 0.08), 0 22px 42px -22px oklch(0.31 0.075 258 / 0.3);
 }
 
 
@@ -215,6 +215,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    background-image: linear-gradient(135deg, color-mix(in oklab, var(--background) 92%, var(--accent)) 0%, transparent 38%);
   }
 
   h1,
@@ -237,6 +238,10 @@
 
   body {
     transition: background-color 240ms ease, color 240ms ease;
+  }
+
+  .dark body {
+    background-image: none;
   }
 }
 

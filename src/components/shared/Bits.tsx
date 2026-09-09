@@ -74,9 +74,9 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-dashed border-border bg-card px-6 py-14 text-center">
-      <p className="font-display text-lg font-bold">{title}</p>
-      {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
+    <div className="data-card-muted rounded-xl border border-dashed border-border px-6 py-16 text-center">
+      <p className="font-display text-xl font-bold">{title}</p>
+      {description ? <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">{description}</p> : null}
       {action ? <div className="mt-5 flex justify-center">{action}</div> : null}
     </div>
   );
@@ -84,7 +84,7 @@ export function EmptyState({
 
 export function LoadingBlock({ label = "Loading…" }: { label?: string }) {
   return (
-    <div className="flex items-center justify-center gap-3 rounded-lg border border-border bg-card px-6 py-16 text-sm text-muted-foreground">
+    <div className="data-card-muted flex items-center justify-center gap-3 rounded-xl border border-border px-6 py-16 text-sm text-muted-foreground">
       <span className="size-3 animate-pulse rounded-full bg-lime" />
       {label}
     </div>

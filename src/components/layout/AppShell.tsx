@@ -61,7 +61,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-40 border-b border-border/80 bg-background/92 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-border/90 bg-background/95 shadow-[0_4px_18px_-14px_var(--foreground)] backdrop-blur-xl">
         <div className="tricolor-rule h-0.5 w-full" />
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6">
           <Link to="/" className="group flex items-center gap-2">
@@ -86,8 +86,8 @@ export function AppShell({ children }: { children: ReactNode }) {
                 key={item.to}
                 to={item.to}
                 className={cn(
-                  "rounded px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground",
-                  isActive(item.to) && "bg-secondary text-foreground",
+                  "rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-foreground",
+                  isActive(item.to) && "bg-card text-foreground shadow-sm ring-1 ring-border",
                 )}
               >
                 {item.label}
