@@ -15,9 +15,11 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MapRouteImport } from './routes/map'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as VisionRouteImport } from './routes/vision'
@@ -66,6 +68,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -79,6 +86,11 @@ const SavedRoute = SavedRouteImport.update({
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoriesRoute = StoriesRouteImport.update({
+  id: '/stories',
+  path: '/stories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TeamRoute = TeamRouteImport.update({
@@ -174,9 +186,11 @@ export interface FileRoutesByFullPath {
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
+  '/map': typeof MapRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/stories': typeof StoriesRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/vision': typeof VisionRoute
@@ -202,9 +216,11 @@ export interface FileRoutesByTo {
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
+  '/map': typeof MapRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/stories': typeof StoriesRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/vision': typeof VisionRoute
@@ -231,9 +247,11 @@ export interface FileRoutesById {
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
+  '/map': typeof MapRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/stories': typeof StoriesRoute
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/vision': typeof VisionRoute
@@ -261,9 +279,11 @@ export interface FileRouteTypes {
     | '/demo'
     | '/discover'
     | '/login'
+    | '/map'
     | '/privacy'
     | '/saved'
     | '/signup'
+    | '/stories'
     | '/team'
     | '/terms'
     | '/vision'
@@ -289,9 +309,11 @@ export interface FileRouteTypes {
     | '/demo'
     | '/discover'
     | '/login'
+    | '/map'
     | '/privacy'
     | '/saved'
     | '/signup'
+    | '/stories'
     | '/team'
     | '/terms'
     | '/vision'
@@ -317,9 +339,11 @@ export interface FileRouteTypes {
     | '/demo'
     | '/discover'
     | '/login'
+    | '/map'
     | '/privacy'
     | '/saved'
     | '/signup'
+    | '/stories'
     | '/team'
     | '/terms'
     | '/vision'
@@ -346,9 +370,11 @@ export interface RootRouteChildren {
   DemoRoute: typeof DemoRoute
   DiscoverRoute: typeof DiscoverRoute
   LoginRoute: typeof LoginRoute
+  MapRoute: typeof MapRoute
   PrivacyRoute: typeof PrivacyRoute
   SavedRoute: typeof SavedRoute
   SignupRoute: typeof SignupRoute
+  StoriesRoute: typeof StoriesRoute
   TeamRoute: typeof TeamRoute
   TermsRoute: typeof TermsRoute
   VisionRoute: typeof VisionRoute
@@ -412,6 +438,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -431,6 +464,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stories': {
+      id: '/stories'
+      path: '/stories'
+      fullPath: '/stories'
+      preLoaderRoute: typeof StoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/team': {
@@ -562,9 +602,11 @@ const rootRouteChildren: RootRouteChildren = {
   DemoRoute: DemoRoute,
   DiscoverRoute: DiscoverRoute,
   LoginRoute: LoginRoute,
+  MapRoute: MapRoute,
   PrivacyRoute: PrivacyRoute,
   SavedRoute: SavedRoute,
   SignupRoute: SignupRoute,
+  StoriesRoute: StoriesRoute,
   TeamRoute: TeamRoute,
   TermsRoute: TermsRoute,
   VisionRoute: VisionRoute,

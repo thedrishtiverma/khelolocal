@@ -453,6 +453,33 @@
   transform-origin: bottom;
 }
 
+.city-map {
+  background-color: color-mix(in oklab, var(--color-secondary) 72%, var(--color-card));
+  background-image:
+    linear-gradient(24deg, transparent 0 47%, color-mix(in oklab, var(--field) 18%, transparent) 48% 49%, transparent 50%),
+    linear-gradient(112deg, transparent 0 37%, color-mix(in oklab, var(--accent) 16%, transparent) 38% 39%, transparent 40%),
+    linear-gradient(0deg, color-mix(in oklab, var(--color-foreground) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-foreground) 7%, transparent) 1px, transparent 1px);
+  background-size: auto, auto, 36px 36px, 36px 36px;
+}
+
+.map-pin {
+  border-color: var(--color-border);
+  background: color-mix(in oklab, var(--color-card) 90%, transparent);
+  color: var(--color-muted-foreground);
+}
+
+.map-pin.active {
+  border-color: var(--lime);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  transform: scale(1.05);
+}
+
+.story-card-field { border-top: 3px solid var(--field); }
+.story-card-accent { border-top: 3px solid var(--accent); }
+.story-card-navy { border-top: 3px solid var(--primary); }
+
 @utility live-dot {
   display: inline-block;
   width: 7px;

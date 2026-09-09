@@ -14,6 +14,8 @@ interface NavItem {
 
 const NAV: Record<Role | "GUEST", NavItem[]> = {
   GUEST: [
+    { to: "/map", label: "Sports map" },
+    { to: "/stories", label: "Stories" },
     { to: "/tournaments", label: "Tournaments" },
     { to: "/discover", label: "Discover talent" },
   ],
@@ -209,6 +211,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Explore</p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
               <Link to="/tournaments" className="hover:text-lime">Tournaments</Link>
+              <Link to="/map" className="hover:text-lime">Sports map</Link>
+              <Link to="/stories" className="hover:text-lime">Community stories</Link>
               <Link to="/discover" className="hover:text-lime">Discover talent</Link>
               <Link to="/signup" className="hover:text-lime">Join KheloLocal</Link>
             </nav>
