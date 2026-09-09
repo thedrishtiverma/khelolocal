@@ -307,8 +307,109 @@
   overflow: hidden;
   isolation: isolate;
   background:
-    radial-gradient(circle at 76% 42%, color-mix(in oklab, var(--field) 18%, transparent), transparent 28%),
+    radial-gradient(circle at 76% 42%, color-mix(in oklab, var(--field) 24%, transparent), transparent 28%),
+    linear-gradient(135deg, color-mix(in oklab, var(--surface) 94%, var(--accent)) 0%, var(--surface) 62%),
     var(--surface);
+}
+
+.hero-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(120deg, transparent 0 48%, color-mix(in oklab, var(--accent) 18%, transparent) 48.2% 48.5%, transparent 48.7%),
+    repeating-linear-gradient(90deg, transparent 0 72px, color-mix(in oklab, var(--surface-foreground) 6%, transparent) 73px 74px);
+  pointer-events: none;
+}
+
+.hero-stage::after {
+  content: "";
+  position: absolute;
+  right: -12%;
+  bottom: -42%;
+  z-index: -1;
+  width: 430px;
+  height: 430px;
+  border: 1px solid color-mix(in oklab, var(--lime) 22%, transparent);
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 32px color-mix(in oklab, var(--lime) 5%, transparent),
+    0 0 0 84px color-mix(in oklab, var(--field) 5%, transparent);
+  pointer-events: none;
+}
+
+.hero-orbit {
+  position: absolute;
+  top: 12%;
+  right: 34%;
+  z-index: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: var(--lime);
+  box-shadow: 0 0 0 7px color-mix(in oklab, var(--lime) 13%, transparent), 0 0 30px color-mix(in oklab, var(--lime) 30%, transparent);
+  animation: orbit-pulse 3.2s ease-in-out infinite;
+}
+
+.city-pulse-band {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.city-pulse-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.32;
+  background-image: repeating-linear-gradient(-45deg, transparent 0 18px, color-mix(in oklab, var(--cream-foreground) 7%, transparent) 19px 20px);
+  pointer-events: none;
+}
+
+.loop-section {
+  position: relative;
+}
+
+.loop-step {
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.loop-step::after {
+  content: "";
+  position: absolute;
+  right: -24px;
+  bottom: -34px;
+  width: 110px;
+  height: 110px;
+  border: 1px solid color-mix(in oklab, var(--lime) 28%, transparent);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.dark .hero-stage::before,
+.dark .hero-stage::after,
+.dark .city-pulse-band::after,
+.dark .loop-step::after {
+  opacity: 0.6;
+}
+
+@media (max-width: 640px) {
+  .hero-stage::after {
+    right: -40%;
+    bottom: -28%;
+    width: 300px;
+    height: 300px;
+  }
+
+  .hero-orbit {
+    top: 9%;
+    right: 18%;
+  }
 }
 
 @utility scoreboard-panel {
@@ -467,5 +568,17 @@
   50% {
     opacity: 0.62;
     transform: scale(0.82);
+  }
+}
+
+@keyframes orbit-pulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(14px) scale(1.25);
+    opacity: 1;
   }
 }

@@ -65,7 +65,8 @@ function Landing() {
   return (
     <div>
       <section className="hero-stage surface-panel field-grid">
-        <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:py-24">
+        <div className="hero-orbit" aria-hidden="true" />
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:py-24">
           <div className="relative z-10">
             <p className="mb-6 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
               <span className="live-dot" /> Live from Indore, Madhya Pradesh
@@ -110,7 +111,7 @@ function Landing() {
         </div>
       </section>
 
-      <section className="cream-band border-y border-border">
+      <section className="cream-band city-pulse-band border-y border-border">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-7 px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:gap-12 lg:py-9">
           <div className="shrink-0 lg:w-44">
             <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-cream-foreground/55">
@@ -134,7 +135,7 @@ function Landing() {
         </div>
       </section>
 
-      <Page className="py-14 sm:py-20">
+      <Page className="loop-section py-14 sm:py-20">
         <SectionHeading
           eyebrow="The KheloLocal loop"
           title="Play hard. Leave a record."
@@ -147,7 +148,7 @@ function Landing() {
             {STEPS.map((step) => (
               <li
                 key={step.n}
-                className={`rounded-lg border bg-card p-6 theme-fade ${step.ring}`}
+                className={`loop-step rounded-lg border bg-card p-6 theme-fade ${step.ring}`}
               >
                 <span
                   className={`font-num inline-flex size-9 items-center justify-center rounded-full text-sm font-bold ${step.chip}`}
