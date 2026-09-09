@@ -11,11 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConnectionsRouteImport } from './routes/connections'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as TeamRouteImport } from './routes/team'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as VisionRouteImport } from './routes/vision'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AthleteIndexRouteImport } from './routes/athlete.index'
 import { Route as AthleteProfileRouteImport } from './routes/athlete.profile'
@@ -41,6 +46,11 @@ const ConnectionsRoute = ConnectionsRouteImport.update({
   path: '/connections',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoRoute = DemoRouteImport.update({
   id: '/demo',
   path: '/demo',
@@ -56,6 +66,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -64,6 +79,21 @@ const SavedRoute = SavedRouteImport.update({
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VisionRoute = VisionRouteImport.update({
+  id: '/vision',
+  path: '/vision',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -140,11 +170,16 @@ const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/connections': typeof ConnectionsRoute
+  '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
+  '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
@@ -163,11 +198,16 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/connections': typeof ConnectionsRoute
+  '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
+  '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
@@ -187,11 +227,16 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/connections': typeof ConnectionsRoute
+  '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
+  '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
@@ -212,11 +257,16 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/connections'
+    | '/contact'
     | '/demo'
     | '/discover'
     | '/login'
+    | '/privacy'
     | '/saved'
     | '/signup'
+    | '/team'
+    | '/terms'
+    | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
     | '/athletes/$id'
@@ -235,11 +285,16 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/connections'
+    | '/contact'
     | '/demo'
     | '/discover'
     | '/login'
+    | '/privacy'
     | '/saved'
     | '/signup'
+    | '/team'
+    | '/terms'
+    | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
     | '/athletes/$id'
@@ -258,11 +313,16 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/connections'
+    | '/contact'
     | '/demo'
     | '/discover'
     | '/login'
+    | '/privacy'
     | '/saved'
     | '/signup'
+    | '/team'
+    | '/terms'
+    | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
     | '/athletes/$id'
@@ -282,11 +342,16 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConnectionsRoute: typeof ConnectionsRoute
+  ContactRoute: typeof ContactRoute
   DemoRoute: typeof DemoRoute
   DiscoverRoute: typeof DiscoverRoute
   LoginRoute: typeof LoginRoute
+  PrivacyRoute: typeof PrivacyRoute
   SavedRoute: typeof SavedRoute
   SignupRoute: typeof SignupRoute
+  TeamRoute: typeof TeamRoute
+  TermsRoute: typeof TermsRoute
+  VisionRoute: typeof VisionRoute
   AthleteProfileRoute: typeof AthleteProfileRoute
   AthleteTournamentsRoute: typeof AthleteTournamentsRoute
   AthletesIdRoute: typeof AthletesIdRoute
@@ -319,6 +384,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConnectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo': {
       id: '/demo'
       path: '/demo'
@@ -340,6 +412,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/saved': {
       id: '/saved'
       path: '/saved'
@@ -352,6 +431,27 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vision': {
+      id: '/vision'
+      path: '/vision'
+      fullPath: '/vision'
+      preLoaderRoute: typeof VisionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -458,11 +558,16 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConnectionsRoute: ConnectionsRoute,
+  ContactRoute: ContactRoute,
   DemoRoute: DemoRoute,
   DiscoverRoute: DiscoverRoute,
   LoginRoute: LoginRoute,
+  PrivacyRoute: PrivacyRoute,
   SavedRoute: SavedRoute,
   SignupRoute: SignupRoute,
+  TeamRoute: TeamRoute,
+  TermsRoute: TermsRoute,
+  VisionRoute: VisionRoute,
   AthleteProfileRoute: AthleteProfileRoute,
   AthleteTournamentsRoute: AthleteTournamentsRoute,
   AthletesIdRoute: AthletesIdRoute,
