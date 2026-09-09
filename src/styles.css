@@ -265,6 +265,20 @@
   font-family: var(--font-heading);
 }
 
+.prose-content h2 {
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.prose-content p {
+  margin-top: 0.75rem;
+  max-width: 48rem;
+}
+
 @utility cream-band {
   background-color: var(--cream);
   color: var(--cream-foreground);
