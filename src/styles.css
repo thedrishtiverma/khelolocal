@@ -340,6 +340,225 @@
     var(--surface);
 }
 
+/* Discovery entry heroes: a light-mode field graphic becomes a deeper, lower-glare
+ * network in dark mode. The foreground remains on the surface color in both. */
+.network-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(
+    128deg,
+    var(--surface) 0%,
+    color-mix(in oklab, var(--surface) 82%, var(--primary)) 56%,
+    color-mix(in oklab, var(--primary) 72%, var(--field)) 100%
+  );
+  color: var(--surface-foreground);
+}
+
+.network-hero-explore {
+  background: linear-gradient(
+    128deg,
+    var(--surface) 0%,
+    color-mix(in oklab, var(--surface) 78%, var(--field)) 52%,
+    color-mix(in oklab, var(--primary) 72%, var(--accent)) 100%
+  );
+}
+
+.network-hero-organizers {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--primary) 88%, var(--accent)) 0%,
+    var(--surface) 56%,
+    color-mix(in oklab, var(--surface) 74%, var(--field)) 100%
+  );
+}
+
+.network-hero-tournaments {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 52%, var(--surface)) 0%,
+    var(--surface) 58%,
+    color-mix(in oklab, var(--primary) 76%, var(--accent)) 100%
+  );
+}
+
+.network-hero-athletes {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--primary) 88%, var(--field)) 0%,
+    var(--surface) 54%,
+    color-mix(in oklab, var(--surface) 70%, var(--accent)) 100%
+  );
+}
+
+.network-hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.52;
+  background-image:
+    linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--surface-foreground) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--surface-foreground) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      128deg,
+      transparent 0 49%,
+      color-mix(in oklab, var(--lime) 22%, transparent) 49.2% 49.6%,
+      transparent 49.8%
+    );
+  background-size:
+    30px 30px,
+    30px 30px,
+    auto;
+}
+
+.network-hero-orbit {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 20%, transparent);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.network-hero-orbit-one {
+  right: -7rem;
+  bottom: -11rem;
+  width: 30rem;
+  height: 30rem;
+  box-shadow:
+    0 0 0 44px color-mix(in oklab, var(--lime) 5%, transparent),
+    0 0 0 104px color-mix(in oklab, var(--field) 5%, transparent);
+}
+
+.network-hero-orbit-two {
+  top: -11rem;
+  right: 22%;
+  width: 17rem;
+  height: 17rem;
+  border-color: color-mix(in oklab, var(--lime) 38%, transparent);
+}
+
+.network-hero-eyebrow {
+  display: inline-flex;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 23%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--surface) 76%, transparent);
+  padding: 0.45rem 0.7rem;
+  color: var(--surface-foreground);
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.network-hero-console {
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 18%, transparent);
+  background: color-mix(in oklab, var(--surface) 54%, transparent);
+  box-shadow:
+    0 24px 54px -34px oklch(0 0 0 / 0.85),
+    inset 0 1px 0 color-mix(in oklab, var(--surface-foreground) 9%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+.network-hero-console::after {
+  content: "";
+  position: absolute;
+  right: -2.5rem;
+  bottom: -3rem;
+  width: 12rem;
+  height: 12rem;
+  border: 1px solid color-mix(in oklab, var(--lime) 38%, transparent);
+  border-radius: 9999px;
+}
+
+.network-hero-console-line {
+  position: absolute;
+  top: 3.85rem;
+  right: 2.4rem;
+  left: 2.4rem;
+  height: 1px;
+  background: color-mix(in oklab, var(--surface-foreground) 14%, transparent);
+}
+
+.network-hero-node {
+  min-height: 7.5rem;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 16%, transparent);
+  border-radius: 0.75rem;
+  background: color-mix(in oklab, var(--surface-foreground) 7%, transparent);
+  padding: 0.8rem;
+}
+
+.dark .network-hero {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--surface) 92%, var(--field)) 0%,
+    var(--surface) 55%,
+    color-mix(in oklab, var(--surface) 82%, var(--primary)) 100%
+  );
+}
+
+.dark .network-hero-explore {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 35%, var(--surface)) 0%,
+    var(--surface) 53%,
+    color-mix(in oklab, var(--primary) 48%, var(--surface)) 100%
+  );
+}
+
+.dark .network-hero-organizers {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 28%, var(--surface)) 0%,
+    var(--surface) 55%,
+    color-mix(in oklab, var(--field) 25%, var(--surface)) 100%
+  );
+}
+
+.dark .network-hero-tournaments {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 38%, var(--surface)) 0%,
+    var(--surface) 56%,
+    color-mix(in oklab, var(--accent) 21%, var(--surface)) 100%
+  );
+}
+
+.dark .network-hero-athletes {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--primary) 42%, var(--surface)) 0%,
+    var(--surface) 55%,
+    color-mix(in oklab, var(--accent) 21%, var(--surface)) 100%
+  );
+}
+
+.dark .network-hero-grid {
+  opacity: 0.7;
+}
+
+@media (max-width: 1023px) {
+  .network-hero-orbit-two {
+    right: -5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .network-hero-orbit-one {
+    right: -13rem;
+    bottom: -14rem;
+  }
+}
+
 .hero-stage::before {
   content: "";
   position: absolute;
