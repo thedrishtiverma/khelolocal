@@ -275,6 +275,32 @@
   color: var(--surface-foreground);
 }
 
+@utility hero-stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 76% 42%, color-mix(in oklab, var(--field) 18%, transparent), transparent 28%),
+    var(--surface);
+}
+
+@utility scoreboard-panel {
+  background-image:
+    linear-gradient(135deg, color-mix(in oklab, var(--card) 10%, transparent), transparent 54%),
+    repeating-linear-gradient(90deg, transparent 0 47px, color-mix(in oklab, var(--surface-foreground) 4%, transparent) 47px 48px);
+  backdrop-filter: blur(12px);
+}
+
+@utility live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background-color: var(--live);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--live) 18%, transparent);
+  animation: live-pulse 1.8s ease-in-out infinite;
+}
+
 @utility tricolor-rule {
   background-image: linear-gradient(
     90deg,
@@ -369,4 +395,16 @@
 
 @utility theme-fade {
   transition: background-color 240ms ease, border-color 240ms ease, color 240ms ease;
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.62;
+    transform: scale(0.82);
+  }
 }

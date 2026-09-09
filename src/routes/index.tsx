@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, MapPin, Search, Trophy, Users } from "lucide-react";
+import { ArrowRight, BadgeCheck, CalendarDays, ChevronRight, MapPin, Search, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
@@ -60,39 +60,58 @@ function Landing() {
   const featured = db.tournaments
     .filter((t) => t.status === "LIVE" || t.status === "REGISTRATION_OPEN")
     .slice(0, 3);
+  const liveTournament = featured[0];
 
   return (
     <div>
-      <section className="surface-panel">
-        <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-          <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-surface-foreground/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-lime">
-            <MapPin className="size-3.5" /> Starting in Indore, MP
-          </p>
-          <h1 className="max-w-3xl font-display text-4xl font-black uppercase leading-[0.95] sm:text-6xl lg:text-7xl">
-            Your city's <span className="text-lime">sports</span> network.
-          </h1>
-          <p className="mt-5 max-w-xl text-lg text-surface-foreground/80">
-            Discover athletes. Find tournaments. Build your sporting identity.
-          </p>
-          <p className="mt-3 max-w-2xl text-sm text-surface-foreground/60">
-            KheloLocal connects the athletes, tournaments, organizers and teams that make grassroots
-            sports happen.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg">
-              <Link to="/tournaments">
-                Explore tournaments <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-surface-foreground/25 bg-transparent text-surface-foreground hover:bg-surface-foreground/10">
-              <Link to="/organizer/create">Host a tournament</Link>
-            </Button>
-            <Button asChild size="lg" variant="ghost" className="text-surface-foreground hover:bg-surface-foreground/10">
-              <Link to="/discover">Discover talent</Link>
-            </Button>
+      <section className="hero-stage surface-panel field-grid">
+        <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:py-24">
+          <div className="relative z-10">
+            <p className="mb-6 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
+              <span className="live-dot" /> Live from Indore, Madhya Pradesh
+            </p>
+            <h1 className="max-w-3xl font-display text-5xl font-black uppercase leading-[0.86] tracking-tight sm:text-7xl lg:text-8xl">
+              Your city is <span className="text-lime">playing.</span>
+            </h1>
+            <p className="mt-7 max-w-lg text-base leading-7 text-surface-foreground/72 sm:text-lg">
+              The verified home ground for athletes, tournaments and the people who make local sport happen.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild size="lg" className="group">
+                <Link to="/tournaments">
+                  Find your next game <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-surface-foreground/25 bg-transparent text-surface-foreground hover:bg-surface-foreground/10">
+                <Link to="/discover">Scout local talent</Link>
+              </Button>
+            </div>
+            <div className="mt-12 flex flex-wrap gap-x-8 gap-y-4 border-t border-surface-foreground/15 pt-5">
+              <div><span className="stat-num text-2xl text-lime">{db.athletes.length}+</span><p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/55">Athletes tracked</p></div>
+              <div><span className="stat-num text-2xl text-surface-foreground">{db.tournaments.length}</span><p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/55">Local tournaments</p></div>
+              <div><span className="stat-num text-2xl text-surface-foreground">{db.achievements.filter((a) => a.verified).length}</span><p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/55">Verified wins</p></div>
+            </div>
           </div>
 
+          <div className="scoreboard-panel relative z-10 overflow-hidden rounded-xl border border-surface-foreground/15 bg-surface-foreground/6 p-5 shadow-2xl sm:p-7">
+            <div className="flex items-start justify-between border-b border-surface-foreground/15 pb-5">
+              <div><p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-surface-foreground/55">KheloLocal / Match centre</p><p className="mt-2 font-display text-2xl font-bold uppercase">On the ground</p></div>
+              <span className="rounded-full bg-live/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-live">Live</span>
+            </div>
+            <div className="py-7">
+              <p className="font-ui text-[10px] font-bold uppercase tracking-[0.2em] text-lime">Featured fixture</p>
+              <p className="mt-2 font-display text-4xl font-black uppercase leading-none sm:text-5xl">{liveTournament?.sportName ?? "Local sport"}</p>
+              <div className="mt-5 flex items-center gap-3 text-sm text-surface-foreground/65"><MapPin className="size-4 text-lime" />{liveTournament?.venue ?? "Indore sports grounds"}</div>
+              <div className="mt-2 flex items-center gap-3 text-sm text-surface-foreground/65"><CalendarDays className="size-4 text-lime" />{liveTournament?.name ?? "Open registration now"}</div>
+            </div>
+            <div className="grid grid-cols-2 gap-3 border-t border-surface-foreground/15 pt-5">
+              <div><p className="font-num text-2xl font-bold">{liveTournament?.currentParticipants ?? 0}</p><p className="mt-1 text-[10px] uppercase tracking-widest text-surface-foreground/50">Players in</p></div>
+              <div><p className="font-num text-2xl font-bold text-lime">{liveTournament?.maxParticipants ?? 0}</p><p className="mt-1 text-[10px] uppercase tracking-widest text-surface-foreground/50">Total slots</p></div>
+            </div>
+            <Link to="/tournaments" className="mt-6 flex items-center justify-between border-t border-surface-foreground/15 pt-4 text-xs font-bold uppercase tracking-widest text-lime hover:text-surface-foreground">
+              See all fixtures <ChevronRight className="size-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -110,11 +129,11 @@ function Landing() {
         </div>
       </section>
 
-      <Page>
+      <Page className="py-14 sm:py-20">
         <SectionHeading
-          eyebrow="How it works"
-          title="Participate → Record → Verify → Discover"
-          subtitle="Tournaments are the engine. Verified results become an athlete's record."
+          eyebrow="The KheloLocal loop"
+          title="Play hard. Leave a record."
+          subtitle="Every match is a chance to make your sporting identity more visible."
         />
         <div className="relative">
           {/* connecting line — the pipeline, not four separate boxes */}
@@ -138,10 +157,10 @@ function Landing() {
         </div>
       </Page>
 
-      <Page className="pt-0">
+      <Page className="pt-0 pb-14 sm:pb-20">
         <SectionHeading
-          eyebrow="Sports near you"
-          title="Live and open in Indore"
+          eyebrow="The local calendar"
+          title="Your next game is closer than you think"
           action={
             <Button asChild variant="outline">
               <Link to="/tournaments">See all tournaments</Link>

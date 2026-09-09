@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
-import logo from "@/assets/khelolocal-logo.png.asset.json";
 import type { Role } from "@/types";
 
 interface NavItem {
@@ -62,19 +61,22 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-border/80 bg-background/92 backdrop-blur-xl">
         <div className="tricolor-rule h-0.5 w-full" />
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="group flex items-center gap-2">
             <img
-              src={logo.url}
+              src="/android-chrome-192x192.png"
               alt="KheloLocal logo"
-              className="size-9 rounded-full object-cover"
+              className="size-9 rounded-full object-cover ring-2 ring-transparent transition group-hover:ring-lime/60"
               width={36}
               height={36}
             />
             <span className="font-display text-lg font-black tracking-tight">
               Khelo<span className="text-lime">Local</span>
+            </span>
+            <span className="hidden border-l border-border pl-3 font-ui text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground lg:inline">
+              Indore / 01
             </span>
           </Link>
 
