@@ -145,10 +145,11 @@
   --sidebar-accent-foreground: oklch(0.31 0.075 258);
   --sidebar-border: oklch(0.84 0.018 250);
   --sidebar-ring: oklch(0.775 0.128 65);
-  --shadow-card: 0 1px 2px oklch(0.31 0.075 258 / 0.06), 0 10px 24px -18px oklch(0.31 0.075 258 / 0.24);
-  --shadow-lift: 0 3px 8px oklch(0.31 0.075 258 / 0.08), 0 22px 42px -22px oklch(0.31 0.075 258 / 0.3);
+  --shadow-card:
+    0 1px 2px oklch(0.31 0.075 258 / 0.06), 0 10px 24px -18px oklch(0.31 0.075 258 / 0.24);
+  --shadow-lift:
+    0 3px 8px oklch(0.31 0.075 258 / 0.08), 0 22px 42px -22px oklch(0.31 0.075 258 / 0.3);
 }
-
 
 .dark {
   /* deep navy canvas, navy elevated surfaces, warm white ink */
@@ -202,7 +203,8 @@
   --sidebar-border: oklch(0.335 0.045 262);
   --sidebar-ring: oklch(0.78 0.15 62);
   --shadow-card: 0 1px 2px oklch(0.08 0.03 262 / 0.5), 0 10px 28px -18px oklch(0.05 0.02 262 / 0.7);
-  --shadow-lift: 0 2px 6px oklch(0.08 0.03 262 / 0.55), 0 20px 40px -22px oklch(0.05 0.02 262 / 0.8);
+  --shadow-lift:
+    0 2px 6px oklch(0.08 0.03 262 / 0.55), 0 20px 40px -22px oklch(0.05 0.02 262 / 0.8);
 }
 
 @layer base {
@@ -220,7 +222,11 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    background-image: linear-gradient(135deg, color-mix(in oklab, var(--background) 92%, var(--accent)) 0%, transparent 38%);
+    background-image: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--background) 92%, var(--accent)) 0%,
+      transparent 38%
+    );
   }
 
   h1,
@@ -242,14 +248,28 @@
   }
 
   body {
-    transition: background-color 240ms ease, color 240ms ease;
+    transition:
+      background-color 240ms ease,
+      color 240ms ease;
   }
 
   .dark body {
     background-image:
-      radial-gradient(circle at 12% 0%, color-mix(in oklab, var(--field) 12%, transparent), transparent 28%),
-      radial-gradient(circle at 88% 8%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 24%),
-      linear-gradient(180deg, color-mix(in oklab, var(--background) 88%, var(--primary)) 0%, var(--background) 42%);
+      radial-gradient(
+        circle at 12% 0%,
+        color-mix(in oklab, var(--field) 12%, transparent),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 88% 8%,
+        color-mix(in oklab, var(--accent) 10%, transparent),
+        transparent 24%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--background) 88%, var(--primary)) 0%,
+        var(--background) 42%
+      );
   }
 }
 
@@ -307,8 +327,16 @@
   overflow: hidden;
   isolation: isolate;
   background:
-    radial-gradient(circle at 76% 42%, color-mix(in oklab, var(--field) 24%, transparent), transparent 28%),
-    linear-gradient(135deg, color-mix(in oklab, var(--surface) 94%, var(--accent)) 0%, var(--surface) 62%),
+    radial-gradient(
+      circle at 76% 42%,
+      color-mix(in oklab, var(--field) 24%, transparent),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--surface) 94%, var(--accent)) 0%,
+      var(--surface) 62%
+    ),
     var(--surface);
 }
 
@@ -319,8 +347,17 @@
   z-index: -1;
   opacity: 0.34;
   background-image:
-    linear-gradient(120deg, transparent 0 48%, color-mix(in oklab, var(--accent) 18%, transparent) 48.2% 48.5%, transparent 48.7%),
-    repeating-linear-gradient(90deg, transparent 0 72px, color-mix(in oklab, var(--surface-foreground) 6%, transparent) 73px 74px);
+    linear-gradient(
+      120deg,
+      transparent 0 48%,
+      color-mix(in oklab, var(--accent) 18%, transparent) 48.2% 48.5%,
+      transparent 48.7%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 72px,
+      color-mix(in oklab, var(--surface-foreground) 6%, transparent) 73px 74px
+    );
   pointer-events: none;
 }
 
@@ -349,7 +386,9 @@
   height: 10px;
   border-radius: 9999px;
   background: var(--lime);
-  box-shadow: 0 0 0 7px color-mix(in oklab, var(--lime) 13%, transparent), 0 0 30px color-mix(in oklab, var(--lime) 30%, transparent);
+  box-shadow:
+    0 0 0 7px color-mix(in oklab, var(--lime) 13%, transparent),
+    0 0 30px color-mix(in oklab, var(--lime) 30%, transparent);
   animation: orbit-pulse 3.2s ease-in-out infinite;
 }
 
@@ -365,7 +404,11 @@
   inset: 0;
   z-index: -1;
   opacity: 0.32;
-  background-image: repeating-linear-gradient(-45deg, transparent 0 18px, color-mix(in oklab, var(--cream-foreground) 7%, transparent) 19px 20px);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 18px,
+    color-mix(in oklab, var(--cream-foreground) 7%, transparent) 19px 20px
+  );
   pointer-events: none;
 }
 
@@ -415,24 +458,39 @@
 @utility scoreboard-panel {
   background-image:
     linear-gradient(135deg, color-mix(in oklab, var(--card) 10%, transparent), transparent 54%),
-    repeating-linear-gradient(90deg, transparent 0 47px, color-mix(in oklab, var(--surface-foreground) 4%, transparent) 47px 48px);
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 47px,
+      color-mix(in oklab, var(--surface-foreground) 4%, transparent) 47px 48px
+    );
   backdrop-filter: blur(12px);
 }
 
 .dark .scoreboard-panel {
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--lime) 12%, transparent), 0 18px 48px -28px oklch(0 0 0 / 0.9);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--lime) 12%, transparent),
+    0 18px 48px -28px oklch(0 0 0 / 0.9);
 }
 
 .dark .data-card {
-  background-image: linear-gradient(145deg, color-mix(in oklab, var(--card) 96%, var(--primary)), var(--card));
-  box-shadow: var(--shadow-card), inset 0 1px 0 color-mix(in oklab, var(--surface-foreground) 5%, transparent);
+  background-image: linear-gradient(
+    145deg,
+    color-mix(in oklab, var(--card) 96%, var(--primary)),
+    var(--card)
+  );
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 color-mix(in oklab, var(--surface-foreground) 5%, transparent);
 }
 
 @utility data-card {
   border: 1px solid var(--color-border);
   background-color: var(--color-card);
   box-shadow: var(--shadow-card);
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
   &:hover {
     border-color: color-mix(in oklab, var(--lime) 45%, var(--color-border));
     box-shadow: var(--shadow-lift);
@@ -446,21 +504,283 @@
 
 .profile-banner-lines {
   background-image:
-    linear-gradient(0deg, transparent 0 23px, color-mix(in oklab, white 16%, transparent) 24px, transparent 25px),
-    linear-gradient(90deg, transparent 0 23px, color-mix(in oklab, white 12%, transparent) 24px, transparent 25px);
+    linear-gradient(
+      0deg,
+      transparent 0 23px,
+      color-mix(in oklab, white 16%, transparent) 24px,
+      transparent 25px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0 23px,
+      color-mix(in oklab, white 12%, transparent) 24px,
+      transparent 25px
+    );
   background-size: 24px 24px;
   transform: perspective(420px) rotateX(55deg) scale(1.5) translateY(20%);
   transform-origin: bottom;
 }
 
+/* Profile banners deliberately have separate treatments per appearance mode.
+ * Text is always on a solid, high-contrast chip so it cannot disappear into artwork. */
+.profile-banner {
+  isolation: isolate;
+}
+
+.profile-banner-art,
+.organizer-banner-art {
+  isolation: isolate;
+  background: linear-gradient(
+    128deg,
+    var(--surface) 0%,
+    var(--primary) 56%,
+    color-mix(in oklab, var(--primary) 78%, var(--field)) 100%
+  );
+}
+
+.profile-banner-field .profile-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 72%, var(--surface)) 0%,
+    var(--primary) 60%,
+    var(--surface) 100%
+  );
+}
+
+.profile-banner-accent .profile-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 68%, var(--primary)) 0%,
+    var(--primary) 57%,
+    var(--surface) 100%
+  );
+}
+
+.profile-banner-art::after,
+.organizer-banner-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.6;
+  background:
+    linear-gradient(
+      110deg,
+      transparent 0 47%,
+      color-mix(in oklab, var(--surface-foreground) 18%, transparent) 47.2% 47.7%,
+      transparent 48%
+    ),
+    radial-gradient(
+      circle at 84% 26%,
+      color-mix(in oklab, var(--lime) 30%, transparent),
+      transparent 20%
+    );
+}
+
+.profile-banner-lines {
+  opacity: 0.72;
+}
+
+.profile-banner-orbit {
+  position: absolute;
+  right: -4rem;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 28%, transparent);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.profile-banner-orbit-one {
+  top: -8rem;
+  width: 18rem;
+  height: 18rem;
+}
+
+.profile-banner-orbit-two {
+  top: -4.5rem;
+  right: 2rem;
+  width: 11rem;
+  height: 11rem;
+  border-color: color-mix(in oklab, var(--lime) 46%, transparent);
+}
+
+.profile-banner-eyebrow {
+  z-index: 2;
+  max-width: calc(100% - 2.5rem);
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 28%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--surface) 82%, transparent);
+  padding: 0.38rem 0.62rem;
+  color: var(--surface-foreground);
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.profile-banner-avatar {
+  border-color: var(--card);
+}
+
+.organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 62%, var(--primary)) 0%,
+    var(--primary) 62%,
+    var(--surface) 100%
+  );
+}
+
+.athlete-card-banner {
+  position: relative;
+  height: 5.75rem;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(125deg, var(--surface), var(--primary));
+}
+
+.athlete-card-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.64;
+  background:
+    radial-gradient(
+      circle at 88% 10%,
+      color-mix(in oklab, var(--lime) 36%, transparent),
+      transparent 27%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 0 51%,
+      color-mix(in oklab, var(--surface-foreground) 16%, transparent) 51.2% 52%,
+      transparent 52.2%
+    );
+}
+
+.athlete-card-banner-field {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--field) 76%, var(--surface)),
+    var(--primary)
+  );
+}
+.athlete-card-banner-accent {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--accent) 62%, var(--primary)),
+    var(--primary)
+  );
+}
+
+.athlete-card-sport {
+  position: absolute;
+  top: 1rem;
+  left: 1.25rem;
+  z-index: 2;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 25%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  padding: 0.32rem 0.55rem;
+  color: var(--surface-foreground);
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.dark .profile-banner-art,
+.dark .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--surface) 92%, var(--field)) 0%,
+    var(--surface) 57%,
+    color-mix(in oklab, var(--primary) 62%, var(--surface)) 100%
+  );
+}
+
+.dark .profile-banner-field .profile-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 48%, var(--surface)) 0%,
+    var(--surface) 62%,
+    var(--primary) 100%
+  );
+}
+
+.dark .profile-banner-accent .profile-banner-art,
+.dark .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 38%, var(--surface)) 0%,
+    var(--surface) 58%,
+    color-mix(in oklab, var(--field) 36%, var(--surface)) 100%
+  );
+}
+
+.dark .athlete-card-banner {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--surface) 85%, var(--field)),
+    var(--surface)
+  );
+}
+
+.dark .athlete-card-banner-field {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--field) 43%, var(--surface)),
+    var(--surface)
+  );
+}
+.dark .athlete-card-banner-accent {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--accent) 35%, var(--surface)),
+    var(--surface)
+  );
+}
+
+@media (max-width: 640px) {
+  .profile-banner-eyebrow {
+    max-width: calc(100% - 1.5rem);
+  }
+}
+
 .city-map {
   background-color: color-mix(in oklab, var(--color-secondary) 72%, var(--color-card));
   background-image:
-    linear-gradient(24deg, transparent 0 47%, color-mix(in oklab, var(--field) 18%, transparent) 48% 49%, transparent 50%),
-    linear-gradient(112deg, transparent 0 37%, color-mix(in oklab, var(--accent) 16%, transparent) 38% 39%, transparent 40%),
-    linear-gradient(0deg, color-mix(in oklab, var(--color-foreground) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--color-foreground) 7%, transparent) 1px, transparent 1px);
-  background-size: auto, auto, 36px 36px, 36px 36px;
+    linear-gradient(
+      24deg,
+      transparent 0 47%,
+      color-mix(in oklab, var(--field) 18%, transparent) 48% 49%,
+      transparent 50%
+    ),
+    linear-gradient(
+      112deg,
+      transparent 0 37%,
+      color-mix(in oklab, var(--accent) 16%, transparent) 38% 39%,
+      transparent 40%
+    ),
+    linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--color-foreground) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-foreground) 7%, transparent) 1px,
+      transparent 1px
+    );
+  background-size:
+    auto,
+    auto,
+    36px 36px,
+    36px 36px;
 }
 
 .map-pin {
@@ -476,9 +796,15 @@
   transform: scale(1.05);
 }
 
-.story-card-field { border-top: 3px solid var(--field); }
-.story-card-accent { border-top: 3px solid var(--accent); }
-.story-card-navy { border-top: 3px solid var(--primary); }
+.story-card-field {
+  border-top: 3px solid var(--field);
+}
+.story-card-accent {
+  border-top: 3px solid var(--accent);
+}
+.story-card-navy {
+  border-top: 3px solid var(--primary);
+}
 
 @utility live-dot {
   display: inline-block;
@@ -501,8 +827,16 @@
 
 @utility field-grid {
   background-image:
-    linear-gradient(0deg, color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--foreground) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--foreground) 5%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 28px 28px;
 }
 
@@ -536,7 +870,9 @@
     height: 190px;
     border-radius: 9999px;
     border: 1.5px solid color-mix(in oklab, var(--field) 15%, transparent);
-    box-shadow: inset 0 0 0 24px transparent, 0 0 0 26px color-mix(in oklab, var(--field) 8%, transparent);
+    box-shadow:
+      inset 0 0 0 24px transparent,
+      0 0 0 26px color-mix(in oklab, var(--field) 8%, transparent);
     pointer-events: none;
   }
 }
@@ -554,8 +890,16 @@
     width: 180px;
     height: 180px;
     background-image:
-      linear-gradient(0deg, color-mix(in oklab, var(--accent) 11%, transparent) 1.5px, transparent 1.5px),
-      linear-gradient(90deg, color-mix(in oklab, var(--accent) 11%, transparent) 1.5px, transparent 1.5px);
+      linear-gradient(
+        0deg,
+        color-mix(in oklab, var(--accent) 11%, transparent) 1.5px,
+        transparent 1.5px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--accent) 11%, transparent) 1.5px,
+        transparent 1.5px
+      );
     background-size: 30px 30px;
     transform: rotate(12deg);
     pointer-events: none;
@@ -583,7 +927,10 @@
 }
 
 @utility theme-fade {
-  transition: background-color 240ms ease, border-color 240ms ease, color 240ms ease;
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    color 240ms ease;
 }
 
 @keyframes live-pulse {

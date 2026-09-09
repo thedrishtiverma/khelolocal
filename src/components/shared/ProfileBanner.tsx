@@ -14,12 +14,6 @@ interface ProfileBannerProps {
   accent?: "field" | "accent" | "navy";
 }
 
-const ACCENT_STYLES = {
-  field: "from-verified/35 via-primary to-primary",
-  accent: "from-accent/45 via-primary to-primary",
-  navy: "from-primary/80 via-surface to-surface",
-};
-
 export function ProfileBanner({
   name,
   image,
@@ -32,12 +26,17 @@ export function ProfileBanner({
   accent = "navy",
 }: ProfileBannerProps) {
   return (
-    <section className="data-card overflow-hidden rounded-2xl p-0">
-      <div className={cn("relative h-32 overflow-hidden bg-gradient-to-br sm:h-40", ACCENT_STYLES[accent])}>
-        <div className="profile-banner-lines absolute inset-0 opacity-50" />
-        <div className="absolute -right-10 -top-20 size-64 rounded-full border border-white/15" />
-        <div className="absolute -right-2 -top-12 size-48 rounded-full border border-white/10" />
-        <span className="absolute bottom-4 left-5 font-ui text-[10px] font-bold uppercase tracking-[0.24em] text-white/65 sm:left-8">
+    <section
+      className={cn(
+        "profile-banner data-card overflow-hidden rounded-2xl p-0",
+        `profile-banner-${accent}`,
+      )}
+    >
+      <div className="profile-banner-art relative h-36 overflow-hidden sm:h-44">
+        <div className="profile-banner-lines absolute inset-0" />
+        <div className="profile-banner-orbit profile-banner-orbit-one" aria-hidden="true" />
+        <div className="profile-banner-orbit profile-banner-orbit-two" aria-hidden="true" />
+        <span className="profile-banner-eyebrow absolute left-5 top-5 sm:left-8 sm:top-6">
           {eyebrow}
         </span>
       </div>
@@ -47,17 +46,19 @@ export function ProfileBanner({
             <img
               src={image}
               alt={`${name} profile`}
-              className="size-24 rounded-2xl border-4 border-card object-cover shadow-lg sm:size-28"
+              className="profile-banner-avatar size-24 rounded-2xl border-4 object-cover shadow-lg sm:size-28"
             />
           ) : (
             <Initials
               name={name}
-              className="size-24 rounded-2xl border-4 border-card bg-lime text-3xl text-lime-foreground shadow-lg sm:size-28"
+              className="profile-banner-avatar size-24 rounded-2xl border-4 bg-lime text-3xl text-lime-foreground shadow-lg sm:size-28"
             />
           )}
           <div className="min-w-0 flex-1 pb-0.5">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="font-display text-3xl font-black leading-none sm:text-4xl">{title ?? name}</h1>
+              <h1 className="font-display text-3xl font-black leading-none sm:text-4xl">
+                {title ?? name}
+              </h1>
               {status}
             </div>
             {subtitle ? <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p> : null}

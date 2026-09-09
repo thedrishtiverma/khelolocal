@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { ResultBadge, StatusBadge, VerifiedBadge } from "@/components/shared/Badges";
 import { EmptyState, Page, Stat } from "@/components/shared/Bits";
+import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
 import { formatDate, formatDateRange, formatDateTime, formatINR } from "@/lib/format";
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
 import { matchesOfTournament, registrationsOfTournament, teamById } from "@/lib/services/selectors";
@@ -190,6 +191,7 @@ function TournamentDetails() {
                   {formatINR(tournament.prizePool)}
                 </p>
               </div>
+              {organizer ? <OrganizerBanner organizer={organizer} /> : null}
             </div>
           </TabsContent>
 

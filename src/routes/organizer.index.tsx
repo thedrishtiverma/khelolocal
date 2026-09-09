@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
-import { ProfileBanner } from "@/components/shared/ProfileBanner";
+import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
 import { StatusBadge } from "@/components/shared/Badges";
 import { formatDateRange } from "@/lib/format";
 import { useCurrentOrganizer, useKhelo } from "@/lib/services/store";
@@ -56,15 +56,11 @@ function OrganizerDashboard() {
 
   return (
     <Page>
-      <ProfileBanner
-        name={organizer.organizationName}
-        image={organizer.logo}
-        eyebrow={`${organizer.organizationType} · ${organizer.cityName}`}
-        subtitle={organizer.description}
-        status={organizer.verificationStatus === "VERIFIED" ? <span className="rounded-full border border-verified/30 bg-verified/10 px-2.5 py-1 text-xs font-semibold text-verified">Verified organizer</span> : null}
+      <OrganizerBanner
+        organizer={organizer}
         actions={
           <Button asChild>
-            <Link to="/organizer/create">
+            <Link to="/tournaments/create">
               <Plus className="size-4" />
               Create tournament
             </Link>
