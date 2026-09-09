@@ -58,6 +58,8 @@ function Chips<T extends string>({
         {options.map((o) => (
           <button
             key={o.value}
+            type="button"
+            aria-pressed={value === o.value}
             onClick={() => onChange(value === o.value ? undefined : o.value)}
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",

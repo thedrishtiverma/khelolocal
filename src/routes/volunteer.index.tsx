@@ -19,7 +19,6 @@ import {
   Trophy,
 } from "lucide-react";
 import { toast } from "sonner";
-import { AppShell } from "@/components/layout/AppShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -211,36 +210,31 @@ function VolunteerDashboard() {
 
   if (!hydrated) {
     return (
-      <AppShell>
-        <div className="mx-auto w-full max-w-3xl px-4 py-10">
-          <LoadingBlock label="Loading your zone…" />
-        </div>
-      </AppShell>
+      <div className="mx-auto w-full max-w-3xl px-4 py-10">
+        <LoadingBlock label="Loading your zone…" />
+      </div>
     );
   }
 
   if (!currentUser || !volunteer) {
     return (
-      <AppShell>
-        <div className="mx-auto w-full max-w-md px-4 py-16 text-center">
-          <ShieldAlert className="mx-auto size-8 text-muted-foreground" />
-          <h1 className="mt-4 font-display text-2xl font-black">Volunteer access only</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Log in with a volunteer account to collect sports data for your zone.
-          </p>
-          <Button asChild className="mt-6 w-full">
-            <Link to="/login">Go to log in</Link>
-          </Button>
-        </div>
-      </AppShell>
+      <div className="mx-auto w-full max-w-md px-4 py-16 text-center">
+        <ShieldAlert className="mx-auto size-8 text-muted-foreground" />
+        <h1 className="mt-4 font-display text-2xl font-black">Volunteer access only</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Log in with a volunteer account to collect sports data for your zone.
+        </p>
+        <Button asChild className="mt-6 w-full">
+          <Link to="/login">Go to log in</Link>
+        </Button>
+      </div>
     );
   }
 
   const step = counts.verified ? 4 : counts.submitted ? 3 : counts.all ? 2 : 1;
 
   return (
-    <AppShell>
-      <div className="mx-auto w-full max-w-3xl px-4 pb-10 pt-5 sm:px-6">
+    <div className="mx-auto w-full max-w-3xl px-4 pb-10 pt-5 sm:px-6">
         {/* Zone header */}
         <section className="rounded-2xl bg-primary p-5 text-primary-foreground">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-lime">
@@ -446,7 +440,6 @@ function VolunteerDashboard() {
             ))
           )}
         </div>
-      </div>
 
       {/* Add / edit form */}
       <Dialog open={openKind !== null} onOpenChange={(o) => !o && setOpenKind(null)}>
@@ -617,6 +610,6 @@ function VolunteerDashboard() {
           </div>
         </DialogContent>
       </Dialog>
-    </AppShell>
+    </div>
   );
 }

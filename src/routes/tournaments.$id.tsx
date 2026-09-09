@@ -49,6 +49,17 @@ function TournamentDetails() {
   const teams = Array.from(
     new Set(regs.filter((r) => r.teamId).map((r) => r.teamId as string)),
   );
+  const registrationClosed =
+    tournament.status !== "REGISTRATION_OPEN" ||
+    tournament.currentParticipants >= tournament.maxParticipants;
+  const registrationLabel =
+    tournament.currentParticipants >= tournament.maxParticipants
+      ? "Tournament full"
+      : tournament.status === "LIVE"
+        ? "Registration closed"
+        : tournament.status === "COMPLETED"
+          ? "Tournament completed"
+          : "Registration closed";
 
   const handleRegister = () => {
     if (!athlete) {
@@ -98,6 +109,10 @@ function TournamentDetails() {
             {myReg ? (
               <span className="rounded-md border border-lime/40 bg-lime/15 px-4 py-2 text-sm font-semibold text-lime">
                 Registered · {myReg.status.toLowerCase()}
+              </span>
+            ) : registrationClosed ? (
+              <span className="rounded-md border border-surface-foreground/20 bg-surface-foreground/10 px-4 py-2 text-sm font-semibold text-surface-foreground/65">
+                {registrationLabel}
               </span>
             ) : (
               <Button size="lg" onClick={handleRegister}>

@@ -210,6 +210,11 @@
     border-color: var(--color-border);
   }
 
+  :where(a, button, input, select, textarea):focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -241,7 +246,10 @@
   }
 
   .dark body {
-    background-image: none;
+    background-image:
+      radial-gradient(circle at 12% 0%, color-mix(in oklab, var(--field) 12%, transparent), transparent 28%),
+      radial-gradient(circle at 88% 8%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 24%),
+      linear-gradient(180deg, color-mix(in oklab, var(--background) 88%, var(--primary)) 0%, var(--background) 42%);
   }
 }
 
@@ -308,6 +316,15 @@
     linear-gradient(135deg, color-mix(in oklab, var(--card) 10%, transparent), transparent 54%),
     repeating-linear-gradient(90deg, transparent 0 47px, color-mix(in oklab, var(--surface-foreground) 4%, transparent) 47px 48px);
   backdrop-filter: blur(12px);
+}
+
+.dark .scoreboard-panel {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--lime) 12%, transparent), 0 18px 48px -28px oklch(0 0 0 / 0.9);
+}
+
+.dark .data-card {
+  background-image: linear-gradient(145deg, color-mix(in oklab, var(--card) 96%, var(--primary)), var(--card));
+  box-shadow: var(--shadow-card), inset 0 1px 0 color-mix(in oklab, var(--surface-foreground) 5%, transparent);
 }
 
 @utility data-card {

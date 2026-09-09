@@ -85,6 +85,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link
                 key={item.to}
                 to={item.to}
+                aria-current={isActive(item.to) ? "page" : undefined}
                 className={cn(
                   "rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-foreground",
                   isActive(item.to) && "bg-card text-foreground shadow-sm ring-1 ring-border",
@@ -141,6 +142,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <Link
                   key={item.to}
                   to={item.to}
+                  aria-current={isActive(item.to) ? "page" : undefined}
                   onClick={() => setOpen(false)}
                   className={cn(
                     "rounded px-3 py-2.5 text-sm font-semibold",
@@ -179,6 +181,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Link
             key={item.to}
             to={item.to}
+            aria-current={isActive(item.to) ? "page" : undefined}
             className={cn(
               "py-3 text-center text-[11px] font-semibold uppercase tracking-wide",
               isActive(item.to) ? "text-foreground" : "text-muted-foreground",

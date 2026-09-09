@@ -183,8 +183,8 @@ function AdminConsole() {
               </Button>
             }
           />
-          <div className="overflow-hidden rounded-xl border border-border">
-            <table className="w-full text-left text-sm">
+          <div className="overflow-x-auto rounded-xl border border-border">
+            <table className="min-w-[760px] w-full text-left text-sm">
               <thead className="bg-secondary text-[11px] uppercase tracking-widest text-muted-foreground">
                 <tr>
                   <th className="px-4 py-3">Tournament</th>
@@ -261,8 +261,8 @@ function AdminConsole() {
             placeholder="Search athletes by name"
             className="mb-4 max-w-sm"
           />
-          <div className="overflow-hidden rounded-xl border border-border">
-            <table className="w-full text-left text-sm">
+          <div className="overflow-x-auto rounded-xl border border-border">
+            <table className="min-w-[760px] w-full text-left text-sm">
               <thead className="bg-secondary text-[11px] uppercase tracking-widest text-muted-foreground">
                 <tr>
                   <th className="px-4 py-3">Athlete</th>
