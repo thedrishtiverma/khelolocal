@@ -3,15 +3,14 @@ import { Button } from "@/components/ui/button";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { Initials } from "@/components/shared/Bits";
 import { sportLabel } from "@/lib/format";
-import { sportMotif, sportTint, sportTone } from "@/lib/sport-visuals";
+import { sportMotif, sportTint } from "@/lib/sport-visuals";
 import type { Athlete } from "@/types";
 
 export function AthleteCard({ athlete }: { athlete: Athlete }) {
   const motif = sportMotif(athlete.primarySport);
-  const tone = sportTone(athlete.primarySport);
   return (
     <article className={`data-card overflow-hidden rounded-xl p-0 theme-fade ${motif}`}>
-      <div className={`athlete-card-banner athlete-card-banner-${tone}`}>
+      <div className={`athlete-card-banner athlete-card-banner-${athlete.primarySport}`}>
         <div className="profile-banner-lines absolute inset-0" />
         <span className="athlete-card-sport">
           {sportLabel(athlete.primarySport)} · {athlete.cityName}

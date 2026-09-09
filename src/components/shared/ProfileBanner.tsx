@@ -12,6 +12,7 @@ interface ProfileBannerProps {
   status?: ReactNode;
   actions?: ReactNode;
   accent?: "field" | "accent" | "navy";
+  sport?: string;
 }
 
 export function ProfileBanner({
@@ -24,12 +25,14 @@ export function ProfileBanner({
   status,
   actions,
   accent = "navy",
+  sport,
 }: ProfileBannerProps) {
   return (
     <section
       className={cn(
         "profile-banner data-card overflow-hidden rounded-2xl p-0",
         `profile-banner-${accent}`,
+        sport ? `profile-banner-sport-${sport}` : undefined,
       )}
     >
       <div className="profile-banner-art relative h-36 overflow-hidden sm:h-44">

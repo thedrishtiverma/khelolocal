@@ -51,7 +51,7 @@ function OrganizersPage() {
               asChild
               size="lg"
               variant="outline"
-              className="border-surface-foreground/30 bg-surface-foreground/5 text-surface-foreground hover:bg-surface-foreground/12"
+              className="network-hero-secondary-action"
             >
               <Link to="/contact">Talk to KheloLocal</Link>
             </Button>

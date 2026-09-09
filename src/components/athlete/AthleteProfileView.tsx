@@ -40,6 +40,7 @@ export function AthleteProfileView({
         status={<VerificationChip status={athlete.verificationStatus} />}
         actions={actions}
         accent={athlete.primarySport === "football" ? "field" : "accent"}
+        sport={athlete.primarySport}
       />
       <section className="surface-panel rounded-xl p-6 sm:p-8">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">

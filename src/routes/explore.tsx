@@ -56,7 +56,7 @@ function ExplorePage() {
               asChild
               size="lg"
               variant="outline"
-              className="border-surface-foreground/25 bg-transparent text-surface-foreground"
+              className="network-hero-secondary-action"
             >
               <Link to="/tournaments/create">Create a tournament</Link>
             </Button>

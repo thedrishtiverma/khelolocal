@@ -29,27 +29,27 @@ export function NetworkHero({
           <h1 className="mt-6 max-w-4xl font-display text-5xl font-black uppercase leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
             {title}
           </h1>
-          <p className="mt-7 max-w-2xl text-base leading-7 text-surface-foreground/78 sm:text-lg sm:leading-8">
+          <p className="network-hero-description mt-7 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8">
             {description}
           </p>
           {actions ? <div className="mt-8 flex flex-wrap gap-3">{actions}</div> : null}
         </div>
         <div className="network-hero-console relative z-10 hidden overflow-hidden rounded-2xl p-5 sm:p-6 lg:block">
           <div className="network-hero-console-line" />
-          <p className="relative text-[10px] font-bold uppercase tracking-[0.22em] text-surface-foreground/60">
+          <p className="network-hero-console-kicker relative text-[10px] font-bold uppercase tracking-[0.22em]">
             KheloLocal / Indore
           </p>
           <div className="relative mt-8 grid grid-cols-3 gap-3">
             {highlights.map((item, index) => (
               <div key={item} className="network-hero-node">
                 <span className="font-num text-xs text-lime">0{index + 1}</span>
-                <p className="mt-5 text-sm font-bold leading-tight text-surface-foreground">
+                <p className="network-hero-node-label mt-5 text-sm font-bold leading-tight">
                   {item}
                 </p>
               </div>
             ))}
           </div>
-          <p className="relative mt-7 border-t border-surface-foreground/15 pt-4 text-xs leading-5 text-surface-foreground/65">
+          <p className="network-hero-console-copy relative mt-7 border-t border-current/15 pt-4 text-xs leading-5">
             Local sport, connected by a verified record.
           </p>
         </div>
