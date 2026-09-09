@@ -86,11 +86,6 @@ function Landing() {
                 <Link to="/discover">Scout local talent</Link>
               </Button>
             </div>
-            <div className="mt-12 flex flex-wrap gap-x-8 gap-y-4 border-t border-surface-foreground/15 pt-5">
-              <div><span className="stat-num text-2xl text-lime">{db.athletes.length}+</span><p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/55">Athletes tracked</p></div>
-              <div><span className="stat-num text-2xl text-surface-foreground">{db.tournaments.length}</span><p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/55">Local tournaments</p></div>
-              <div><span className="stat-num text-2xl text-surface-foreground">{db.achievements.filter((a) => a.verified).length}</span><p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/55">Verified wins</p></div>
-            </div>
           </div>
 
           <div className="scoreboard-panel relative z-10 overflow-hidden rounded-xl border border-surface-foreground/15 bg-surface-foreground/6 p-5 shadow-2xl sm:p-7">
