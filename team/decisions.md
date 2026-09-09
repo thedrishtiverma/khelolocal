@@ -60,3 +60,13 @@
 > Database collection tournaments.
 >
 > Prototype working condition - live tournament hosting + generations
+
+## 09 September 2026
+
+### ORGANIZERS MEET
+
+* Date - **12-09-2026**
+* Day - **Saturday**
+* Time - **10 AM - 5 PM**
+* Places / Area - _tbd tommorow*_
+
