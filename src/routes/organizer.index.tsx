@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
+import { ProfileBanner } from "@/components/shared/ProfileBanner";
 import { StatusBadge } from "@/components/shared/Badges";
 import { formatDateRange } from "@/lib/format";
 import { useCurrentOrganizer, useKhelo } from "@/lib/services/store";
@@ -55,10 +56,13 @@ function OrganizerDashboard() {
 
   return (
     <Page>
-      <SectionHeading
-        eyebrow={organizer.organizationName}
-        title="Organizer dashboard"
-        action={
+      <ProfileBanner
+        name={organizer.organizationName}
+        image={organizer.logo}
+        eyebrow={`${organizer.organizationType} · ${organizer.cityName}`}
+        subtitle={organizer.description}
+        status={organizer.verificationStatus === "VERIFIED" ? <span className="rounded-full border border-verified/30 bg-verified/10 px-2.5 py-1 text-xs font-semibold text-verified">Verified organizer</span> : null}
+        actions={
           <Button asChild>
             <Link to="/organizer/create">
               <Plus className="size-4" />
@@ -66,7 +70,10 @@ function OrganizerDashboard() {
             </Link>
           </Button>
         }
+        accent="accent"
       />
+
+      <SectionHeading title="Organizer dashboard" />
 
       <div className="surface-panel grid grid-cols-2 gap-6 rounded-xl p-6 sm:grid-cols-4">
         <Stat tone="invert" value={mine.length} label="Tournaments" />

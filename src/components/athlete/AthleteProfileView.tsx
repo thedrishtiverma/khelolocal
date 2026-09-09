@@ -1,5 +1,6 @@
 import { Award, BadgeCheck, MapPin, Star, Trophy } from "lucide-react";
-import { Initials, Stat } from "@/components/shared/Bits";
+import { Stat } from "@/components/shared/Bits";
+import { ProfileBanner } from "@/components/shared/ProfileBanner";
 import { VerificationChip } from "@/components/shared/Badges";
 import { formatDate, sportLabel } from "@/lib/format";
 import { useKhelo } from "@/lib/services/store";
@@ -30,31 +31,18 @@ export function AthleteProfileView({
 
   return (
     <div className="space-y-8">
+      <ProfileBanner
+        name={athlete.name}
+        image={athlete.profileImage}
+        eyebrow={`${sportName} · ${athlete.ageCategory}`}
+        subtitle={`${athlete.position || "Position not set"}${athlete.collegeName ? ` · ${athlete.collegeName}` : ""}`}
+        meta={<span className="flex items-center gap-1.5"><MapPin className="size-4" />{athlete.cityName}</span>}
+        status={<VerificationChip status={athlete.verificationStatus} />}
+        actions={actions}
+        accent={athlete.primarySport === "football" ? "field" : "accent"}
+      />
       <section className="surface-panel rounded-xl p-6 sm:p-8">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-          <Initials name={athlete.name} className="size-20 bg-lime text-2xl text-lime-foreground" />
-          <div className="flex-1">
-            <h1 className="font-display text-3xl font-black sm:text-4xl">{athlete.name}</h1>
-            <p className="mt-1 text-sm text-surface-foreground/70">
-              {sportName} · {athlete.position || "Position not set"}
-            </p>
-            <p className="mt-1 flex items-center gap-1 text-sm text-surface-foreground/70">
-              <MapPin className="size-4" /> {athlete.cityName} · {athlete.ageCategory}
-            </p>
-            {athlete.collegeName ? (
-              <p className="mt-1 text-sm text-surface-foreground/70">
-                {athlete.collegeName}
-                {athlete.enrollmentYear ? ` · batch ${athlete.enrollmentYear}` : ""}
-              </p>
-            ) : null}
-            <div className="mt-3">
-              <VerificationChip status={athlete.verificationStatus} />
-            </div>
-          </div>
-          {actions ? <div className="flex flex-wrap gap-2 sm:flex-col">{actions}</div> : null}
-        </div>
-
-        <div className="mt-8 grid grid-cols-2 gap-6 border-t border-surface-foreground/15 pt-6 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           <Stat tone="invert" value={athlete.tournamentsPlayed} label="Tournaments" />
           <Stat tone="invert" value={athlete.matchesPlayed} label="Matches" />
           <Stat tone="invert" value={athlete.wins} label="Wins" />

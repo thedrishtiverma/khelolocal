@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
+import { ProfileBanner } from "@/components/shared/ProfileBanner";
 import { RecordCard } from "@/components/college/RecordCard";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { useCurrentCollege, useKhelo } from "@/lib/services/store";
@@ -58,14 +59,15 @@ function CollegeDashboard() {
 
   return (
     <Page>
+      <ProfileBanner
+        name={college.shortName}
+        eyebrow={`College sports desk · ${college.cityName}`}
+        title={college.shortName}
+        subtitle={college.sportsEventName}
+        status={college.verificationStatus === "VERIFIED" ? <span className="rounded-full border border-verified/30 bg-verified/10 px-2.5 py-1 text-xs font-semibold text-verified">Verified institution</span> : null}
+        accent="navy"
+      />
       <section className="surface-panel rounded-xl p-6 sm:p-8">
-        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
-          College sports desk
-        </p>
-        <h1 className="mt-1 font-display text-3xl font-black sm:text-4xl">{college.shortName}</h1>
-        <p className="mt-2 max-w-2xl text-sm text-surface-foreground/70">
-          {college.sportsEventName} · {college.cityName}
-        </p>
         <div className="mt-8 grid grid-cols-2 gap-6 border-t border-surface-foreground/15 pt-6 sm:grid-cols-4">
           <Stat tone="invert" value={athletes.length} label="Student athletes" />
           <Stat tone="invert" value={records.length} label="Records on file" />

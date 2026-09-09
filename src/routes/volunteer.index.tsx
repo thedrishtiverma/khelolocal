@@ -31,6 +31,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { EmptyState, LoadingBlock } from "@/components/shared/Bits";
+import { ProfileBanner } from "@/components/shared/ProfileBanner";
 import { cn } from "@/lib/utils";
 import { useCurrentVolunteer, useKhelo, type SubmissionDraft } from "@/lib/services/store";
 import type { FieldSubmission, SubmissionKind, SubmissionStatus } from "@/types";
@@ -235,14 +236,15 @@ function VolunteerDashboard() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pb-10 pt-5 sm:px-6">
-        {/* Zone header */}
-        <section className="rounded-2xl bg-primary p-5 text-primary-foreground">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-lime">
-            Field desk · Indore
-          </p>
-          <h1 className="mt-1 font-display text-2xl font-black leading-tight sm:text-3xl">
-            {volunteer.name.split(" ")[0]}, your zone is {volunteer.zoneName}
-          </h1>
+        <ProfileBanner
+          name={volunteer.name}
+          eyebrow={`Field desk · ${volunteer.cityId === "indore" ? "Indore" : volunteer.cityId}`}
+          title={`${volunteer.name.split(" ")[0]} · ${volunteer.zoneName}`}
+          subtitle="On-ground sports data volunteer"
+          meta={<span className="flex items-center gap-1.5"><MapPin className="size-4" />Zone locked to {volunteer.zoneName}</span>}
+          accent="field"
+        />
+        <section className="mt-4 rounded-xl border border-border bg-card p-5">
           <div className="mt-3 flex flex-wrap gap-1.5">
             {(zone?.localities ?? []).map((l) => (
               <span
@@ -253,7 +255,7 @@ function VolunteerDashboard() {
               </span>
             ))}
           </div>
-          <p className="mt-4 flex items-center gap-1.5 text-xs text-primary-foreground/70">
+          <p className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground">
             <MapPin className="size-3.5" />
             Zone locked — you can only add and edit data inside {volunteer.zoneName}.
           </p>
