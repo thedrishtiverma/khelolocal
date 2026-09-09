@@ -305,6 +305,22 @@
   backdrop-filter: blur(12px);
 }
 
+@utility data-card {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-card);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  &:hover {
+    border-color: color-mix(in oklab, var(--lime) 45%, var(--color-border));
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-2px);
+  }
+}
+
+@utility data-card-muted {
+  background-color: color-mix(in oklab, var(--color-card) 72%, var(--color-secondary));
+}
+
 @utility live-dot {
   display: inline-block;
   width: 7px;

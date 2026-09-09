@@ -11,12 +11,12 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
   const motif = sportMotif(athlete.primarySport);
   return (
     <article
-      className={`flex flex-col rounded-lg border border-border bg-card p-5 theme-fade ${motif}`}
+      className={`data-card flex flex-col rounded-xl p-6 theme-fade ${motif}`}
     >
       <div className="flex items-start gap-4">
         <Initials name={athlete.name} tint={sportTint(athlete.primarySport)} className="size-14 text-lg" />
         <div className="min-w-0 flex-1">
-          <h3 className="font-display text-lg font-bold leading-tight">{athlete.name}</h3>
+          <h3 className="font-display text-xl font-bold leading-tight">{athlete.name}</h3>
           <p className="text-sm text-muted-foreground">
             {sportLabel(athlete.primarySport)} · {athlete.position || "—"}
           </p>
@@ -29,7 +29,7 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-2 rounded-md bg-secondary/60 px-3 py-3 text-center">
+      <div className="data-card-muted mt-5 grid grid-cols-3 gap-2 rounded-lg border border-border/70 px-3 py-4 text-center">
         <div>
           <p className="stat-num text-xl">{athlete.matchesPlayed}</p>
           <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
@@ -52,7 +52,7 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
         </div>
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-2">
+      <div className="mt-5 flex min-h-6 items-center justify-between gap-2">
         {athlete.verifiedAchievementsCount > 0 ? (
           <VerifiedBadge label={`${athlete.verifiedAchievementsCount} verified achievements`} />
         ) : (
@@ -60,7 +60,7 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
         )}
       </div>
 
-      <Button asChild variant="secondary" className="mt-4">
+      <Button asChild variant="secondary" className="mt-5">
         <Link to="/athletes/$id" params={{ id: athlete.id }}>
           View profile
         </Link>

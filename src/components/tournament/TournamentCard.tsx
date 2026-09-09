@@ -19,19 +19,19 @@ export function TournamentCard({
 
   return (
     <article
-      className={`flex flex-col rounded-lg border border-border bg-card p-5 theme-fade transition-shadow hover:shadow-md ${sportMotif(tournament.sportId)}`}
+      className={`data-card flex flex-col rounded-xl p-6 theme-fade ${sportMotif(tournament.sportId)}`}
     >
-      <div className="mb-3 flex items-start justify-between gap-3">
+      <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <p className="font-ui text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
             {tournament.sportName} · {tournament.ageCategory}
           </p>
-          <h3 className="mt-1 font-display text-lg font-bold leading-tight">{tournament.name}</h3>
+          <h3 className="mt-2 font-display text-xl font-bold leading-tight">{tournament.name}</h3>
         </div>
         <StatusBadge status={tournament.status} />
       </div>
 
-      <dl className="grid grid-cols-2 gap-3 text-sm">
+      <dl className="grid grid-cols-2 gap-x-4 gap-y-4 border-y border-border/70 py-4 text-sm">
         <div className="flex items-center gap-2 text-muted-foreground">
           <MapPin className="size-4 shrink-0" />
           <span className="truncate">
@@ -54,7 +54,7 @@ export function TournamentCard({
         </div>
       </dl>
 
-      <div className="mt-4">
+      <div className="mt-5">
         <div className="mb-1.5 flex items-center justify-between text-[11px] font-semibold uppercase tracking-widest text-muted-foreground font-ui">
           <span>Spots filled</span>
           <span className="font-num">{filled}%</span>
@@ -84,11 +84,11 @@ export function TournamentCard({
         </p>
       ) : null}
 
-      <p className="mt-2 text-xs text-muted-foreground">
+      <p className="mt-4 text-xs leading-5 text-muted-foreground">
         Organized by <span className="font-semibold text-foreground">{tournament.organizerName}</span>
       </p>
 
-      <Button asChild className="mt-4" variant="secondary">
+      <Button asChild className="mt-5" variant="secondary">
         <Link to="/tournaments/$id" params={{ id: tournament.id }}>
           View tournament
         </Link>
