@@ -110,17 +110,27 @@ function Landing() {
         </div>
       </section>
 
-      {/* Scoreboard strip — the one place the cream brand tone is used. */}
       <section className="cream-band border-y border-border">
-        <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-6 px-4 py-7 sm:grid-cols-4 sm:px-6">
-          <Stat value={db.athletes.length} label="Athletes in Indore" />
-          <Stat value={db.tournaments.length} label="Tournaments" />
-          <Stat value={db.teams.length} label="Local teams" />
-          <Stat
-            tone="accent"
-            value={db.achievements.filter((a) => a.verified).length}
-            label="Verified achievements"
-          />
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-7 px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:gap-12 lg:py-9">
+          <div className="shrink-0 lg:w-44">
+            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-cream-foreground/55">
+              Indore / 01
+            </p>
+            <p className="mt-2 font-display text-2xl font-black uppercase leading-none">
+              City pulse
+            </p>
+          </div>
+          <div className="grid flex-1 grid-cols-2 divide-x divide-y divide-cream-foreground/15 border-y border-cream-foreground/15 sm:grid-cols-4 sm:divide-y-0 sm:border-y-0">
+            <Stat className="px-4 py-4 sm:px-5 sm:py-1" value={db.athletes.length} label="Athletes" />
+            <Stat className="px-4 py-4 sm:px-5 sm:py-1" value={db.tournaments.length} label="Tournaments" />
+            <Stat className="px-4 py-4 sm:px-5 sm:py-1" value={db.teams.length} label="Local teams" />
+            <Stat
+              className="px-4 py-4 sm:px-5 sm:py-1"
+              tone="accent"
+              value={db.achievements.filter((a) => a.verified).length}
+              label="Verified achievements"
+            />
+          </div>
         </div>
       </section>
 
@@ -169,9 +179,20 @@ function Landing() {
         </div>
       </Page>
 
-      <Page className="pt-0">
-        <SectionHeading eyebrow="Built for" title="One network, three roles" />
-        <div className="grid gap-4 md:grid-cols-3">
+      <section className="border-y border-border bg-secondary/35">
+        <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+          <div className="max-w-2xl">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
+              Built for
+            </p>
+            <h2 className="font-display text-4xl font-black uppercase leading-none sm:text-6xl">
+              One network, three roles.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
+              Everyone gets a clearer way to participate, organize, or find the next player who belongs on their team.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
           {[
             {
               icon: <Users className="size-5" />,
@@ -195,32 +216,38 @@ function Landing() {
               cta: "Find local talent",
             },
           ].map((c) => (
-            <div key={c.title} className="flex flex-col rounded-lg border border-border bg-card p-6">
-              <span className="flex size-10 items-center justify-center rounded bg-secondary">
+            <div key={c.title} className="flex min-h-72 flex-col border-t-2 border-foreground/15 bg-card p-7 transition-colors hover:border-lime sm:p-8">
+              <span className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 {c.icon}
               </span>
-              <h3 className="mt-4 font-display text-xl font-bold">{c.title}</h3>
-              <p className="mt-2 flex-1 text-sm text-muted-foreground">{c.body}</p>
-              <Button asChild variant="secondary" className="mt-5">
+              <h3 className="mt-7 font-display text-2xl font-bold uppercase">{c.title}</h3>
+              <p className="mt-3 flex-1 max-w-xs text-sm leading-6 text-muted-foreground">{c.body}</p>
+              <Button asChild variant="link" className="mt-7 w-fit px-0 font-bold">
                 <Link to={c.to}>{c.cta}</Link>
               </Button>
             </div>
           ))}
+          </div>
         </div>
-      </Page>
+      </section>
 
-      <section className="border-t border-border bg-card">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-            Starting in Indore
-          </p>
-          <h2 className="mt-2 max-w-2xl font-display text-3xl font-black">
-            Built locally. Designed to scale city by city.
-          </h2>
-          <p className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-            <BadgeCheck className="size-4 text-verified" /> Results are verified by the organizer who
-            ran the match — never self-reported.
-          </p>
+      <section className="surface-panel">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[0.75fr_1.25fr] lg:items-end lg:gap-20">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-lime">Starting in Indore</p>
+            <h2 className="mt-4 font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
+              Built locally.<br />Designed to scale.
+            </h2>
+          </div>
+          <div className="border-l border-surface-foreground/20 pl-6 sm:pl-10">
+            <p className="max-w-2xl text-xl leading-8 text-surface-foreground/85 sm:text-2xl sm:leading-9">
+              City by city, KheloLocal turns everyday games into a trusted sporting network.
+            </p>
+            <p className="mt-6 flex max-w-xl items-start gap-3 text-sm leading-6 text-surface-foreground/60">
+              <BadgeCheck className="mt-0.5 size-5 shrink-0 text-verified" />
+              Results are verified by the organizer who ran the match, never self-reported.
+            </p>
+          </div>
         </div>
       </section>
     </div>

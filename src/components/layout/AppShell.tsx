@@ -189,15 +189,49 @@ export function AppShell({ children }: { children: ReactNode }) {
         ))}
       </nav>
 
-      <footer className="hidden border-t border-border bg-card md:block">
-        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-8 text-sm text-muted-foreground">
-          <p>
-            <span className="font-display font-bold text-foreground">KheloLocal</span> — your city's
-            sports network. Starting in Indore, Madhya Pradesh.
-          </p>
-          <Link to="/demo" className="text-xs uppercase tracking-widest hover:text-foreground">
-            Demo tools
-          </Link>
+      <footer className="border-t border-border bg-card pb-20 md:pb-0">
+        <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:py-16">
+          <div className="max-w-xs">
+            <Link to="/" className="font-display text-2xl font-black tracking-tight">
+              Khelo<span className="text-lime">Local</span>
+            </Link>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">
+              Your city's sports network. Starting in Indore, Madhya Pradesh.
+            </p>
+            <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              Play local. Prove your game.
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Explore</p>
+            <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
+              <Link to="/tournaments" className="hover:text-lime">Tournaments</Link>
+              <Link to="/discover" className="hover:text-lime">Discover talent</Link>
+              <Link to="/signup" className="hover:text-lime">Join KheloLocal</Link>
+            </nav>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">About</p>
+            <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
+              <Link to="/team" className="hover:text-lime">Founders team</Link>
+              <Link to="/vision" className="hover:text-lime">Vision</Link>
+              <Link to="/contact" className="hover:text-lime">Contact</Link>
+              <Link to="/demo" className="hover:text-lime">Demo tools</Link>
+            </nav>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Legal</p>
+            <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
+              <Link to="/terms" className="hover:text-lime">Terms</Link>
+              <Link to="/privacy" className="hover:text-lime">Privacy policy</Link>
+            </nav>
+          </div>
+        </div>
+        <div className="border-t border-border">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <p>© 2026 KheloLocal. Built for grassroots sport.</p>
+            <p>Indore, Madhya Pradesh</p>
+          </div>
         </div>
       </footer>
     </div>
