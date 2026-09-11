@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
-import { BrandName } from "@/components/shared/BrandName";
 import type { Role } from "@/types";
 
 interface NavItem {
@@ -134,9 +133,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   <Link to="/login">Log in</Link>
                 </Button>
                 <Button asChild size="sm">
-                  <Link to="/signup">
-                    Join <BrandName />
-                  </Link>
+                  <Link to="/signup">Join KheloLocal</Link>
                 </Button>
               </>
             )}

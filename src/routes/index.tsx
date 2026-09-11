@@ -11,7 +11,6 @@ import { Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
 import { NetworkHero } from "@/components/shared/NetworkHero";
-import { BrandName } from "@/components/shared/BrandName";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -117,7 +116,7 @@ function Landing() {
 
       <Page className="loop-section py-14 sm:py-20">
         <SectionHeading
-          eyebrow={<>The <BrandName /> loop</>}
+          eyebrow="The KheloLocal loop"
           title="Play hard. Leave a record."
           subtitle="Every match is a chance to make your sporting identity more visible."
         />
@@ -167,7 +166,7 @@ function Landing() {
               Built for
             </p>
             <h2 className="font-display text-4xl font-black uppercase leading-none sm:text-6xl">
-              <span className="text-primary">One network, three roles.</span>
+              <span className="text-lime">One network, three roles.</span>
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
               Everyone gets a clearer way to participate, organize, or find the next player who
@@ -253,7 +252,7 @@ function Landing() {
               <span className="text-primary">Start here</span>
             </p>
             <h2 className="mt-3 font-display text-4xl font-black uppercase leading-none sm:text-6xl">
-              <span className="text-lime">One home ground.</span> Every way in.
+              <span className="text-primary">One home ground.</span> Every way in.
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-foreground">
               Follow the path that fits you: learn the network, find the map, join a game, support

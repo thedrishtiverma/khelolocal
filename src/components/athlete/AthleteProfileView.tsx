@@ -1,7 +1,6 @@
 import { Award, BadgeCheck, MapPin, Star, Trophy } from "lucide-react";
 import { Stat } from "@/components/shared/Bits";
 import { ProfileBanner } from "@/components/shared/ProfileBanner";
-import { BrandName } from "@/components/shared/BrandName";
 import { VerificationChip } from "@/components/shared/Badges";
 import { formatDate, sportLabel } from "@/lib/format";
 import { useKhelo } from "@/lib/services/store";
@@ -37,12 +36,7 @@ export function AthleteProfileView({
         image={athlete.profileImage}
         eyebrow={`${sportName} · ${athlete.ageCategory}`}
         subtitle={`${athlete.position || "Position not set"}${athlete.collegeName ? ` · ${athlete.collegeName}` : ""}`}
-        meta={
-          <span className="flex items-center gap-1.5">
-            <MapPin className="size-4" />
-            {athlete.cityName}
-          </span>
-        }
+        meta={<span className="flex items-center gap-1.5"><MapPin className="size-4" />{athlete.cityName}</span>}
         status={<VerificationChip status={athlete.verificationStatus} />}
         actions={actions}
         accent={athlete.primarySport === "football" ? "field" : "accent"}
@@ -64,7 +58,7 @@ export function AthleteProfileView({
               <h2 className="font-display text-xl font-bold">College record (verified)</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Past annual sports event results confirmed by {athlete.collegeName ?? "the college"}{" "}
-                and verified by <BrandName />.
+                and verified by KheloLocal.
               </p>
               <div className="mt-4 grid gap-4">
                 {collegeRecords.map((r) => (

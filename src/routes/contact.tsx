@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Instagram, Linkedin, Mail, MapPin } from "lucide-react";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
-import { BrandName } from "@/components/shared/BrandName";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -25,12 +24,7 @@ function ContactPage() {
             Let’s make local sport <span className="text-lime">easier to find.</span>
           </>
         }
-        description={
-          <>
-            Have a tournament, a team, an institution, or an idea for <BrandName />? We would like
-            to hear from you.
-          </>
-        }
+        description="Have a tournament, a team, an institution, or an idea for KheloLocal? We would like to hear from you."
         highlights={["Athletes", "Partners", "Ideas"]}
       />
       <Page className="py-14 sm:py-20">
@@ -75,42 +69,15 @@ function ContactPage() {
           </div>
         </div>
         <section className="mt-16 border-t border-border pt-10">
-          <SectionHeading
-            eyebrow="Follow the local game"
-            title={
-              <>
-                <BrandName /> online
-              </>
-            }
-          />
+          <SectionHeading eyebrow="Follow the local game" title="KheloLocal online" />
           <div className="grid gap-3 sm:grid-cols-2">
-            <a
-              href="https://www.instagram.com/khelolocal"
-              target="_blank"
-              rel="noreferrer"
-              className="data-card flex items-center gap-4 rounded-xl p-5 hover:text-lime"
-            >
+            <a href="https://www.instagram.com/khelolocal" target="_blank" rel="noreferrer" className="data-card flex items-center gap-4 rounded-xl p-5 hover:text-lime">
               <Instagram className="size-6 text-lime" />
-              <span>
-                <strong className="block">Instagram</strong>
-                <span className="text-sm text-muted-foreground">
-                  Daily sport, people and places from Indore.
-                </span>
-              </span>
+              <span><strong className="block">Instagram</strong><span className="text-sm text-muted-foreground">Daily sport, people and places from Indore.</span></span>
             </a>
-            <a
-              href="https://www.linkedin.com/company/khelolocal"
-              target="_blank"
-              rel="noreferrer"
-              className="data-card flex items-center gap-4 rounded-xl p-5 hover:text-lime"
-            >
+            <a href="https://www.linkedin.com/company/khelolocal" target="_blank" rel="noreferrer" className="data-card flex items-center gap-4 rounded-xl p-5 hover:text-lime">
               <Linkedin className="size-6 text-lime" />
-              <span>
-                <strong className="block">LinkedIn</strong>
-                <span className="text-sm text-muted-foreground">
-                  The people and partners building <BrandName />.
-                </span>
-              </span>
+              <span><strong className="block">LinkedIn</strong><span className="text-sm text-muted-foreground">The people and partners building KheloLocal.</span></span>
             </a>
           </div>
         </section>

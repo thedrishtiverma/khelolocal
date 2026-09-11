@@ -3,7 +3,6 @@ import { ArrowRight, ClipboardCheck, MapPin, ShieldCheck, UsersRound } from "luc
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
-import { BrandName } from "@/components/shared/BrandName";
 
 export const Route = createFileRoute("/volunteer/")({
   head: () => ({
@@ -41,11 +40,7 @@ function VolunteerPage() {
     <div>
       <NetworkHero
         tone="volunteer"
-        eyebrow={
-          <>
-            <BrandName /> volunteers
-          </>
-        }
+        eyebrow="KheloLocal volunteers"
         title={
           <>
             Know your neighbourhood? <span className="text-lime">Put sport on the map.</span>

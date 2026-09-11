@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BadgeCheck, Building2, ShieldCheck, UserRound } from "lucide-react";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
-import { BrandName } from "@/components/shared/BrandName";
 
 export const Route = createFileRoute("/verification")({
   head: () => ({
@@ -32,12 +31,7 @@ function VerificationPage() {
             Can I trust this <span className="text-lime">sporting record?</span>
           </>
         }
-        description={
-          <>
-            {" "}
-            <BrandName /> makes it clear where a result came from and who confirmed it.
-          </>
-        }
+        description="KheloLocal makes it clear where a result came from and who confirmed it."
         highlights={["Source", "Review", "Trust"]}
       />
       <Page className="py-14 sm:py-20">

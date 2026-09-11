@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { BrandName } from "@/components/shared/BrandName";
 
 type HeroTone =
   | "explore"
@@ -21,7 +20,7 @@ export function NetworkHero({
   highlights,
   tone,
 }: {
-  eyebrow: ReactNode;
+  eyebrow: string;
   title: ReactNode;
   description: ReactNode;
   actions?: ReactNode;
@@ -47,7 +46,7 @@ export function NetworkHero({
         <div className="network-hero-console relative z-10 hidden overflow-hidden rounded-2xl p-5 sm:p-6 lg:block">
           <div className="network-hero-console-line" />
           <p className="network-hero-console-kicker relative text-[10px] font-bold uppercase tracking-[0.22em]">
-            <BrandName /> / Indore
+            KheloLocal / Indore
           </p>
           <div className="relative mt-8 grid grid-cols-3 gap-3">
             {highlights.map((item, index) => (

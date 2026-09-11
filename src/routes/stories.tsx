@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, MapPin, Trophy, Users } from "lucide-react";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
-import { BrandName } from "@/components/shared/BrandName";
 import { useKhelo } from "@/lib/services/store";
 import { formatDate, sportLabel } from "@/lib/format";
 
@@ -118,7 +117,7 @@ function StoriesPage() {
             to="/contact"
             className="inline-flex items-center gap-2 font-semibold hover:text-lime"
           >
-            Share with <BrandName /> <ArrowRight className="size-4" />
+            Share with KheloLocal <ArrowRight className="size-4" />
           </Link>
         </div>
       </Page>
