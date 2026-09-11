@@ -3,6 +3,7 @@ import { ArrowRight, MapPin } from "lucide-react";
 import { Page } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
+import { BrandName } from "@/components/shared/BrandName";
 
 export const Route = createFileRoute("/cities")({
   head: () => ({
@@ -23,7 +24,11 @@ function CitiesPage() {
     <div>
       <NetworkHero
         tone="community"
-        eyebrow="KheloLocal cities"
+        eyebrow={
+          <>
+            <BrandName /> cities
+          </>
+        }
         title={
           <>
             A sporting network, built <span className="text-lime">city by city.</span>
@@ -31,8 +36,8 @@ function CitiesPage() {
         }
         description={
           <>
-            City by city, <span className="text-lime font-semibold">KheloLocal</span> turns
-            everyday games into a trusted sporting network. Indore is home ground.
+            City by city, <BrandName /> turns everyday games into a trusted sporting network. Indore
+            is home ground.
           </>
         }
         highlights={["Local", "Connected", "Growing"]}
@@ -42,7 +47,11 @@ function CitiesPage() {
           {db.cities
             .filter((city) => city.active)
             .map((city) => (
-              <Link key={city.id} to={city.id === "indore" ? "/cities/indore" : "/map"} className="data-card group rounded-2xl p-7">
+              <Link
+                key={city.id}
+                to={city.id === "indore" ? "/cities/indore" : "/map"}
+                className="data-card group rounded-2xl p-7"
+              >
                 <MapPin className="size-7 text-lime" />
                 <h2 className="mt-12 font-display text-3xl font-black uppercase">{city.name}</h2>
                 <p className="mt-2 text-sm text-muted-foreground">

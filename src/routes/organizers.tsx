@@ -5,6 +5,7 @@ import { NetworkHero } from "@/components/shared/NetworkHero";
 import { Button } from "@/components/ui/button";
 import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
 import { useKhelo } from "@/lib/services/store";
+import { BrandName } from "@/components/shared/BrandName";
 
 export const Route = createFileRoute("/organizers")({
   head: () => ({
@@ -50,13 +51,10 @@ function OrganizersPage() {
             <Button asChild size="lg">
               <Link to="/tournaments/create">Create a tournament</Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="network-hero-secondary-action"
-            >
-              <Link to="/contact">Talk to KheloLocal</Link>
+            <Button asChild size="lg" variant="outline" className="network-hero-secondary-action">
+              <Link to="/contact">
+                Talk to <BrandName />
+              </Link>
             </Button>
           </>
         }
@@ -73,7 +71,10 @@ function OrganizersPage() {
           ))}
         </div>
         <section className="mt-16">
-          <SectionHeading eyebrow="The people behind the fixtures" title="Organizations in Indore." />
+          <SectionHeading
+            eyebrow="The people behind the fixtures"
+            title="Organizations in Indore."
+          />
           <div className="grid gap-5 lg:grid-cols-2">
             {db.organizers.map((organizer) => (
               <OrganizerBanner key={organizer.id} organizer={organizer} />

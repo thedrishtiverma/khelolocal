@@ -11,6 +11,7 @@ import { Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { BrandName } from "@/components/shared/BrandName";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -116,7 +117,7 @@ function Landing() {
 
       <Page className="loop-section py-14 sm:py-20">
         <SectionHeading
-          eyebrow="The KheloLocal loop"
+          eyebrow={<>The <BrandName /> loop</>}
           title="Play hard. Leave a record."
           subtitle="Every match is a chance to make your sporting identity more visible."
         />

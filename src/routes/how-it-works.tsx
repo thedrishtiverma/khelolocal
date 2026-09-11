@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, Search, Trophy, Users } from "lucide-react";
 import { Page } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { BrandName } from "@/components/shared/BrandName";
 
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
@@ -34,7 +35,11 @@ function HowItWorksPage() {
     <div>
       <NetworkHero
         tone="community"
-        eyebrow="How KheloLocal works"
+        eyebrow={
+          <>
+            How <BrandName /> works
+          </>
+        }
         title={
           <>
             Play locally. Build something that <span className="text-lime">lasts.</span>

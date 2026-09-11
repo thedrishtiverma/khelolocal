@@ -303,6 +303,14 @@
   font-family: var(--font-heading);
 }
 
+.brand-name {
+  color: var(--foreground);
+}
+
+.brand-name > span {
+  color: var(--lime);
+}
+
 .prose-content h2 {
   color: var(--color-foreground);
   font-family: var(--font-display);
@@ -1805,6 +1813,123 @@
   background: var(--primary);
   color: var(--primary-foreground);
   transform: scale(1.05);
+}
+
+/* Country → city → neighbourhood: the map is intentionally quiet so the motion
+ * tells the story without feeling like a dashboard animation. */
+.india-map-story {
+  display: grid;
+  min-height: 38rem;
+  background: var(--surface);
+  color: var(--surface-foreground);
+}
+
+.india-map-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.india-map-kicker,
+.india-map-status {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.india-map-kicker { color: var(--lime); }
+
+.india-map-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.india-map-steps button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 24%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  padding: 0.55rem 0.75rem;
+  color: color-mix(in oklab, var(--surface-foreground) 72%, transparent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+.india-map-steps button span { color: var(--lime); font-family: var(--font-num); }
+.india-map-steps button.active { border-color: var(--lime); background: var(--lime); color: var(--lime-foreground); }
+.india-map-steps button.active span { color: var(--lime-foreground); }
+
+.india-map-viewport {
+  position: relative;
+  min-height: 26rem;
+  overflow: hidden;
+  border-top: 1px solid color-mix(in oklab, var(--surface-foreground) 15%, transparent);
+  background:
+    radial-gradient(circle at 52% 47%, color-mix(in oklab, var(--lime) 15%, transparent), transparent 23%),
+    linear-gradient(135deg, color-mix(in oklab, var(--surface) 92%, var(--field)), var(--surface));
+}
+
+.india-map-viewport::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background-image: linear-gradient(color-mix(in oklab, var(--surface-foreground) 11%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab, var(--surface-foreground) 11%, transparent) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  pointer-events: none;
+}
+
+.india-map-status { position: absolute; z-index: 3; top: 1.25rem; right: 1.25rem; color: color-mix(in oklab, var(--surface-foreground) 68%, transparent); }
+.india-map-svg { position: absolute; inset: 1rem; width: calc(100% - 2rem); height: calc(100% - 2rem); overflow: visible; }
+.india-map-shape { transform-origin: 0 0; transition: transform 1250ms cubic-bezier(0.22, 1, 0.36, 1); }
+.india-map-viewport[data-stage="india"] .india-map-shape { transform: translate(0, 0) scale(1); }
+.india-map-viewport[data-stage="indore"] .india-map-shape { transform: translate(-282px, -420px) scale(2.4); }
+.india-map-viewport[data-stage="areas"] .india-map-shape { transform: translate(-527px, -752px) scale(3.4); }
+
+.india-state { fill: color-mix(in oklab, var(--surface-foreground) 8%, var(--surface)); stroke: color-mix(in oklab, var(--surface-foreground) 45%, transparent); stroke-width: 0.7; vector-effect: non-scaling-stroke; transition: fill 700ms ease, opacity 700ms ease; }
+.indore-state { fill: color-mix(in oklab, var(--field) 54%, var(--surface)); }
+.india-map-viewport[data-stage="india"] .indore-state { fill: color-mix(in oklab, var(--lime) 50%, var(--surface)); }
+.india-map-viewport[data-stage="indore"] .india-state:not(.indore-state), .india-map-viewport[data-stage="areas"] .india-state:not(.indore-state) { opacity: 0.25; }
+
+.indore-marker { opacity: 0; transition: opacity 400ms ease 450ms; pointer-events: none; }
+.indore-marker circle:first-child { fill: var(--lime); stroke: var(--surface); stroke-width: 2.5; }
+.indore-marker-pulse { fill: none; stroke: var(--lime); stroke-width: 1.5; transform-origin: 244px 323px; animation: india-location-pulse 1800ms ease-out infinite; }
+.indore-marker text, .india-area-markers text { fill: var(--surface-foreground); font-family: var(--font-ui); font-size: 5px; font-weight: 800; letter-spacing: 0.35px; paint-order: stroke; stroke: var(--surface); stroke-width: 2px; }
+.india-map-viewport[data-stage="indore"] .indore-marker, .india-map-viewport[data-stage="areas"] .indore-marker { opacity: 1; }
+
+.india-area-markers { opacity: 0; transition: opacity 350ms ease 450ms; }
+.india-area-markers > g { cursor: pointer; }
+.india-area-markers circle { fill: var(--surface); stroke: var(--lime); stroke-width: 1.5; transition: fill 180ms ease, r 180ms ease; }
+.india-area-markers > g:hover circle, .india-area-markers > g.active circle { fill: var(--lime); r: 5px; }
+.india-map-viewport[data-stage="areas"] .india-area-markers { opacity: 1; }
+
+.india-map-caption { position: absolute; z-index: 3; bottom: 1.25rem; left: 1.25rem; max-width: 17rem; color: color-mix(in oklab, var(--surface-foreground) 72%, transparent); font-size: 0.78rem; line-height: 1.45; }
+.india-map-direction { position: absolute; right: 1.25rem; bottom: 1.1rem; color: var(--lime); }
+.india-map-detail { background: linear-gradient(125deg, var(--card), color-mix(in oklab, var(--card) 74%, var(--secondary))); }
+
+@keyframes india-location-pulse { 0% { opacity: 0.8; transform: scale(0.55); } 80%, 100% { opacity: 0; transform: scale(1.8); } }
+
+@media (min-width: 1024px) {
+  .india-map-story { grid-template-columns: minmax(19rem, 0.78fr) minmax(30rem, 1.22fr); }
+  .india-map-copy { padding: 3.5rem; }
+  .india-map-viewport { min-height: 38rem; border-top: 0; border-left: 1px solid color-mix(in oklab, var(--surface-foreground) 15%, transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .india-map-shape, .india-state, .indore-marker, .india-area-markers { transition: none; }
+  .indore-marker-pulse { animation: none; }
 }
 
 .story-card-field {
