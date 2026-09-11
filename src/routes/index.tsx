@@ -194,7 +194,8 @@ function Landing() {
               Built for
             </p>
             <h2 className="font-display text-4xl font-black uppercase leading-none sm:text-6xl">
-              <span className="text-primary">One network, three roles.</span>
+              <span className="text-accent">One network,</span>{" "}
+              <span className="text-primary">three roles.</span>
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
               Everyone gets a clearer way to participate, organize, or find the next player who

@@ -941,7 +941,7 @@
 
 .made-with-love span {
   display: inline-block;
-  color: var(--live);
+  color: var(--accent);
   animation: heart-beat 1.2s ease-in-out infinite;
 }
 
