@@ -56,7 +56,7 @@ export function SectionHeading({
             {eyebrow}
           </p>
         ) : null}
-        <As className="font-display text-xl font-black uppercase leading-tight sm:text-2xl">
+        <As className="font-display text-4xl font-black uppercase leading-[0.92] sm:text-6xl">
           {title}
         </As>
         {subtitle ? <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p> : null}

@@ -423,8 +423,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="border-t border-border">
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <p>© 2026 KheloLocal. Built for grassroots sport.</p>
-            <p className="made-with-love font-bold text-foreground">
-              Made with <span aria-label="love">♥</span>
+            <p className="made-with-love font-display text-sm font-black uppercase tracking-[0.14em] text-foreground">
+              Made with{" "}
+              <span className="brand-inline">
+                Khelo<span>Local</span>
+              </span>{" "}
+              <span aria-label="love">♥</span>
             </p>
             <p>Indore, Madhya Pradesh</p>
           </div>

@@ -945,6 +945,18 @@
   animation: heart-beat 1.2s ease-in-out infinite;
 }
 
+.made-with-love .brand-inline {
+  display: inline;
+  color: var(--foreground);
+  animation: none;
+}
+
+.made-with-love .brand-inline span {
+  display: inline;
+  color: var(--lime);
+  animation: none;
+}
+
 @keyframes heart-beat {
   0%, 100% { transform: scale(1); }
   15% { transform: scale(1.22); }
@@ -1129,6 +1141,35 @@
   box-shadow: none;
   transform: none;
 }
+
+.team-card-banner {
+  isolation: isolate;
+  color: var(--surface-foreground);
+  background: linear-gradient(125deg, var(--surface), var(--primary));
+}
+
+.team-card-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.7;
+  background:
+    radial-gradient(circle at 84% 18%, color-mix(in oklab, var(--lime) 35%, transparent), transparent 25%),
+    linear-gradient(115deg, transparent 0 48%, color-mix(in oklab, var(--surface-foreground) 18%, transparent) 48.5% 49%, transparent 49.5%);
+}
+
+.team-card-banner-football,
+.team-card-banner-khokho,
+.team-card-banner-athletics { background: linear-gradient(125deg, color-mix(in oklab, var(--field) 68%, var(--surface)), var(--primary)); }
+.team-card-banner-kabaddi,
+.team-card-banner-boxing,
+.team-card-banner-badminton { background: linear-gradient(125deg, color-mix(in oklab, var(--live) 65%, var(--surface)), var(--primary)); }
+.team-card-banner-cricket,
+.team-card-banner-basketball,
+.team-card-banner-volleyball { background: linear-gradient(125deg, color-mix(in oklab, var(--accent) 62%, var(--surface)), var(--primary)); }
+
+.team-card:hover .team-card-name { color: var(--lime); }
 
 
 .profile-banner-lines {

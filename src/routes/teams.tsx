@@ -3,6 +3,7 @@ import { ArrowRight, Shield, Trophy, Users } from "lucide-react";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
+import { SportIcon } from "@/components/shared/SportIcon";
 
 export const Route = createFileRoute("/teams")({
   head: () => ({
@@ -35,20 +36,36 @@ function TeamsPage() {
       <Page className="py-14 sm:py-20">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {db.teams.map((team) => (
-            <article key={team.id} className="data-card rounded-2xl p-6">
-              <Shield className="size-7 text-lime" />
-              <h2 className="mt-8 font-display text-2xl font-black uppercase">{team.name}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {team.sportName} · {team.cityName}
-              </p>
-              <div className="mt-7 flex gap-6 border-t border-border pt-5 text-sm">
-                <span>
-                  <strong>{team.players.length}</strong> players
-                </span>
-                <span>
-                  <strong>{db.tournaments.filter((t) => t.sportId === team.sportId).length}</strong>{" "}
-                  tournaments
-                </span>
+            <article key={team.id} className="team-card data-card overflow-hidden rounded-2xl p-0">
+              <div
+                className={`team-card-banner team-card-banner-${team.sportId} relative flex min-h-32 items-end justify-between overflow-hidden px-6 pb-5`}
+              >
+                <div className="relative z-10 flex items-center gap-3 text-surface-foreground">
+                  <SportIcon sportId={team.sportId} className="size-8" aria-hidden="true" />
+                  <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em]">
+                    {team.sportName}
+                  </span>
+                </div>
+                <Shield className="relative z-10 size-7 text-lime" />
+              </div>
+              <div className="p-6">
+                <h2 className="team-card-name font-display text-2xl font-black uppercase transition-colors">
+                  {team.name}
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {team.sportName} · {team.cityName}
+                </p>
+                <div className="mt-7 flex gap-6 border-t border-border pt-5 text-sm">
+                  <span>
+                    <strong>{team.players.length}</strong> players
+                  </span>
+                  <span>
+                    <strong>
+                      {db.tournaments.filter((t) => t.sportId === team.sportId).length}
+                    </strong>{" "}
+                    tournaments
+                  </span>
+                </div>
               </div>
             </article>
           ))}
