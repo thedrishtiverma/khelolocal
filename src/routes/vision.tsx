@@ -35,7 +35,11 @@ function VisionPage() {
       <Page className="py-14 sm:py-20">
         <SectionHeading
           eyebrow="The long view"
-          title="From one city to a connected sports network."
+          title={
+            <>
+              From one city to a connected <span className="text-lime">sports network.</span>
+            </>
+          }
         />
         <div className="grid gap-6 md:grid-cols-3">
           {[

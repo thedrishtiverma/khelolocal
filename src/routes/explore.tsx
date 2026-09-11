@@ -69,7 +69,14 @@ function ExplorePage() {
           />
         </div>
         <section className="mt-16">
-          <SectionHeading eyebrow="Choose your starting point" title="Explore the local network" />
+          <SectionHeading
+            eyebrow="Choose your starting point"
+            title={
+              <>
+                Explore the <span className="text-lime">local network</span>
+              </>
+            }
+          />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {startingPoints.map(([Icon, title, body, to]) => (
               <Link key={title} to={to} className="data-card group rounded-2xl p-6">
@@ -86,7 +93,11 @@ function ExplorePage() {
         <section className="mt-16">
           <SectionHeading
             eyebrow="Play now"
-            title="Featured tournaments"
+            title={
+              <>
+                Featured <span className="text-lime">tournaments</span>
+              </>
+            }
             action={
               <Link to="/tournaments" className="text-sm font-bold hover:text-lime">
                 All tournaments <ArrowRight className="inline size-4" />
@@ -102,7 +113,11 @@ function ExplorePage() {
         <section className="mt-16">
           <SectionHeading
             eyebrow="Find your people"
-            title="Verified athletes near you"
+            title={
+              <>
+                Verified <span className="text-lime">athletes near you</span>
+              </>
+            }
             action={
               <Link to="/athletes" className="text-sm font-bold hover:text-lime">
                 All athletes <ArrowRight className="inline size-4" />
@@ -118,7 +133,11 @@ function ExplorePage() {
         <section className="mt-16">
           <SectionHeading
             eyebrow="Pick a game"
-            title="Sports with a local signal"
+            title={
+              <>
+                Sports with a <span className="text-lime">local signal</span>
+              </>
+            }
             action={
               <Link to="/sports" className="text-sm font-bold hover:text-lime">
                 All sports <ArrowRight className="inline size-4" />
@@ -131,10 +150,12 @@ function ExplorePage() {
                 key={sport.id}
                 to="/sports/$sport"
                 params={{ sport: sport.id }}
-                className="data-card-muted rounded-xl border border-border p-5 transition-colors hover:border-lime hover:bg-lime/10"
+                className="sport-discovery-card rounded-xl border border-border bg-card p-5 transition-colors hover:border-lime"
               >
                 <SportIcon sportId={sport.id} className="size-6 text-lime" />
-                <h2 className="mt-5 font-display text-lg font-bold uppercase">{sport.name}</h2>
+                <h2 className="sport-discovery-name mt-5 font-display text-lg font-bold uppercase transition-colors">
+                  {sport.name}
+                </h2>
               </Link>
             ))}
           </div>
@@ -142,7 +163,11 @@ function ExplorePage() {
         <section className="mt-16">
           <SectionHeading
             eyebrow="The people behind the fixtures"
-            title="Organizations in Indore"
+            title={
+              <>
+                Organizations <span className="text-lime">in Indore.</span>
+              </>
+            }
           />
           <div className="grid gap-4 md:grid-cols-3">
             {organizers.map((organizer) => (

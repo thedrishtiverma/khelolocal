@@ -59,7 +59,11 @@ function VolunteerPage() {
       <Page className="py-14 sm:py-20">
         <SectionHeading
           eyebrow="A stronger sporting city"
-          title="Local knowledge makes the network work."
+          title={
+            <>
+              Local knowledge makes the <span className="text-lime">network work.</span>
+            </>
+          }
         />
         <div className="grid gap-5 md:grid-cols-3">
           {STEPS.map(([Icon, title, body], index) => (

@@ -50,19 +50,21 @@ function OrganizersPage() {
             <Button asChild size="lg">
               <Link to="/tournaments/create">Create a tournament</Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="network-hero-secondary-action"
-            >
+            <Button asChild size="lg" variant="outline" className="network-hero-secondary-action">
               <Link to="/contact">Talk to KheloLocal</Link>
             </Button>
           </>
         }
       />
       <Page className="py-14 sm:py-24">
-        <SectionHeading eyebrow="One workflow" title="From announcement to sporting record." />
+        <SectionHeading
+          eyebrow="One workflow"
+          title={
+            <>
+              From announcement to <span className="text-lime">sporting record.</span>
+            </>
+          }
+        />
         <div className="grid gap-5 md:grid-cols-4">
           {WORKFLOW.map(({ icon: Icon, title, body }) => (
             <article key={title} className="data-card rounded-xl border-t-2 border-lime p-6">
@@ -73,7 +75,14 @@ function OrganizersPage() {
           ))}
         </div>
         <section className="mt-16">
-          <SectionHeading eyebrow="The people behind the fixtures" title="Organizations in Indore." />
+          <SectionHeading
+            eyebrow="The people behind the fixtures"
+            title={
+              <>
+                Organizations <span className="text-lime">in Indore.</span>
+              </>
+            }
+          />
           <div className="grid gap-5 lg:grid-cols-2">
             {db.organizers.map((organizer) => (
               <OrganizerBanner key={organizer.id} organizer={organizer} />

@@ -1121,6 +1121,15 @@
   opacity: 0.78;
 }
 
+.sport-discovery-card:hover .sport-discovery-name {
+  color: var(--lime);
+}
+
+.sport-discovery-card:hover {
+  box-shadow: none;
+  transform: none;
+}
+
 
 .profile-banner-lines {
   background-image:
