@@ -339,9 +339,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/volunteer" className="hover:text-lime">
                 Volunteer with us
               </Link>
-              <a href="mailto:khelolocal@gmail.com" className="hover:text-lime">
+              <Link to="/careers" className="hover:text-lime">
                 Careers
-              </a>
+              </Link>
               <Link to="/demo" className="hover:text-lime">
                 Demo tools
               </Link>

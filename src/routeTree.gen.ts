@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AthletesRouteImport } from './routes/athletes'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CitiesRouteImport } from './routes/cities'
 import { Route as ConnectionsRouteImport } from './routes/connections'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -44,6 +45,7 @@ import { Route as OrganizerIndexRouteImport } from './routes/organizer.index'
 import { Route as OrganizerCreateRouteImport } from './routes/organizer.create'
 import { Route as OrganizerResultsRouteImport } from './routes/organizer.results'
 import { Route as SportsSportRouteImport } from './routes/sports.$sport'
+import { Route as TeamMemberRouteImport } from './routes/team.$member'
 import { Route as TournamentsIndexRouteImport } from './routes/tournaments.index'
 import { Route as TournamentsIdRouteImport } from './routes/tournaments.$id'
 import { Route as TournamentsCreateRouteImport } from './routes/tournaments.create'
@@ -59,6 +61,11 @@ const IndexRoute = IndexRouteImport.update({
 const AthletesRoute = AthletesRouteImport.update({
   id: '/athletes',
   path: '/athletes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CitiesRoute = CitiesRouteImport.update({
@@ -226,6 +233,11 @@ const SportsSportRoute = SportsSportRouteImport.update({
   path: '/$sport',
   getParentRoute: () => SportsRoute,
 } as any)
+const TeamMemberRoute = TeamMemberRouteImport.update({
+  id: '/$member',
+  path: '/$member',
+  getParentRoute: () => TeamRoute,
+} as any)
 const TournamentsIndexRoute = TournamentsIndexRouteImport.update({
   id: '/tournaments/',
   path: '/tournaments/',
@@ -260,6 +272,7 @@ const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/athletes': typeof AthletesRouteWithChildren
+  '/careers': typeof CareersRoute
   '/cities': typeof CitiesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
@@ -277,7 +290,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
-  '/team': typeof TeamRoute
+  '/team': typeof TeamRouteWithChildren
   '/teams': typeof TeamsRoute
   '/terms': typeof TermsRoute
   '/verification': typeof VerificationRoute
@@ -289,6 +302,7 @@ export interface FileRoutesByFullPath {
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
   '/sports/$sport': typeof SportsSportRoute
+  '/team/$member': typeof TeamMemberRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/volunteer/desk': typeof VolunteerDeskRoute
@@ -303,6 +317,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/athletes': typeof AthletesRouteWithChildren
+  '/careers': typeof CareersRoute
   '/cities': typeof CitiesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
@@ -320,7 +335,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
-  '/team': typeof TeamRoute
+  '/team': typeof TeamRouteWithChildren
   '/teams': typeof TeamsRoute
   '/terms': typeof TermsRoute
   '/verification': typeof VerificationRoute
@@ -332,6 +347,7 @@ export interface FileRoutesByTo {
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
   '/sports/$sport': typeof SportsSportRoute
+  '/team/$member': typeof TeamMemberRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/volunteer/desk': typeof VolunteerDeskRoute
@@ -347,6 +363,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/athletes': typeof AthletesRouteWithChildren
+  '/careers': typeof CareersRoute
   '/cities': typeof CitiesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
@@ -364,7 +381,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
-  '/team': typeof TeamRoute
+  '/team': typeof TeamRouteWithChildren
   '/teams': typeof TeamsRoute
   '/terms': typeof TermsRoute
   '/verification': typeof VerificationRoute
@@ -376,6 +393,7 @@ export interface FileRoutesById {
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
   '/sports/$sport': typeof SportsSportRoute
+  '/team/$member': typeof TeamMemberRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/volunteer/desk': typeof VolunteerDeskRoute
@@ -392,6 +410,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/athletes'
+    | '/careers'
     | '/cities'
     | '/connections'
     | '/contact'
@@ -421,6 +440,7 @@ export interface FileRouteTypes {
     | '/organizer/create'
     | '/organizer/results'
     | '/sports/$sport'
+    | '/team/$member'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/volunteer/desk'
@@ -435,6 +455,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/athletes'
+    | '/careers'
     | '/cities'
     | '/connections'
     | '/contact'
@@ -464,6 +485,7 @@ export interface FileRouteTypes {
     | '/organizer/create'
     | '/organizer/results'
     | '/sports/$sport'
+    | '/team/$member'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/volunteer/desk'
@@ -478,6 +500,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/athletes'
+    | '/careers'
     | '/cities'
     | '/connections'
     | '/contact'
@@ -507,6 +530,7 @@ export interface FileRouteTypes {
     | '/organizer/create'
     | '/organizer/results'
     | '/sports/$sport'
+    | '/team/$member'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/volunteer/desk'
@@ -522,6 +546,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AthletesRoute: typeof AthletesRouteWithChildren
+  CareersRoute: typeof CareersRoute
   CitiesRoute: typeof CitiesRoute
   ConnectionsRoute: typeof ConnectionsRoute
   ContactRoute: typeof ContactRoute
@@ -539,7 +564,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   SportsRoute: typeof SportsRouteWithChildren
   StoriesRoute: typeof StoriesRoute
-  TeamRoute: typeof TeamRoute
+  TeamRoute: typeof TeamRouteWithChildren
   TeamsRoute: typeof TeamsRoute
   TermsRoute: typeof TermsRoute
   VerificationRoute: typeof VerificationRoute
@@ -575,6 +600,13 @@ declare module '@tanstack/react-router' {
       path: '/athletes'
       fullPath: '/athletes'
       preLoaderRoute: typeof AthletesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cities': {
@@ -808,6 +840,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SportsSportRouteImport
       parentRoute: typeof SportsRoute
     }
+    '/team/$member': {
+      id: '/team/$member'
+      path: '/$member'
+      fullPath: '/team/$member'
+      preLoaderRoute: typeof TeamMemberRouteImport
+      parentRoute: typeof TeamRoute
+    }
     '/tournaments/': {
       id: '/tournaments/'
       path: '/tournaments'
@@ -876,9 +915,20 @@ const SportsRouteChildren: SportsRouteChildren = {
 const SportsRouteWithChildren =
   SportsRoute._addFileChildren(SportsRouteChildren)
 
+interface TeamRouteChildren {
+  TeamMemberRoute: typeof TeamMemberRoute
+}
+
+const TeamRouteChildren: TeamRouteChildren = {
+  TeamMemberRoute: TeamMemberRoute,
+}
+
+const TeamRouteWithChildren = TeamRoute._addFileChildren(TeamRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AthletesRoute: AthletesRouteWithChildren,
+  CareersRoute: CareersRoute,
   CitiesRoute: CitiesRoute,
   ConnectionsRoute: ConnectionsRoute,
   ContactRoute: ContactRoute,
@@ -896,7 +946,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   SportsRoute: SportsRouteWithChildren,
   StoriesRoute: StoriesRoute,
-  TeamRoute: TeamRoute,
+  TeamRoute: TeamRouteWithChildren,
   TeamsRoute: TeamsRoute,
   TermsRoute: TermsRoute,
   VerificationRoute: VerificationRoute,

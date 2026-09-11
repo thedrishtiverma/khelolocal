@@ -1,0 +1,68 @@
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { ArrowLeft, Mail, Target } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Page } from "@/components/shared/Bits";
+import { NetworkHero } from "@/components/shared/NetworkHero";
+import { founderBySlug } from "@/lib/founders";
+
+export const Route = createFileRoute("/team/$member")({
+  head: ({ params }) => {
+    const founder = founderBySlug(params.member);
+    return { meta: [{ title: founder ? `${founder.name} | KheloLocal` : "Founder | KheloLocal" }] };
+  },
+  component: FounderProfilePage,
+});
+
+function FounderProfilePage() {
+  const { member } = Route.useParams();
+  const founder = founderBySlug(member);
+  if (!founder) throw notFound();
+
+  return (
+    <div>
+      <NetworkHero
+        tone="community"
+        eyebrow={`Founders team / ${founder.focus}`}
+        title={
+          <>
+            {founder.name.split(" ")[0]} <span className="text-lime">at KheloLocal.</span>
+          </>
+        }
+        description={founder.role}
+        highlights={[founder.focus, "Indore / 01", "Grassroots sport"]}
+      />
+      <Page className="py-14 sm:py-20">
+        <Link
+          to="/team"
+          className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-lime"
+        >
+          <ArrowLeft className="size-4" /> All founders
+        </Link>
+        <div className="mt-8 grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-start">
+          <aside className="surface-panel rounded-2xl p-7 sm:p-8">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-lime">Focus</p>
+            <Target className="mt-6 size-8 text-lime" />
+            <p className="mt-5 font-display text-3xl font-black uppercase">{founder.focus}</p>
+          </aside>
+          <article className="data-card rounded-2xl p-7 sm:p-10">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              Building KheloLocal
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-black uppercase leading-none">
+              Local sport deserves infrastructure.
+            </h2>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{founder.bio}</p>
+            <p className="mt-7 border-l-2 border-lime pl-5 text-base font-semibold leading-7">
+              {founder.impact}
+            </p>
+            <Button asChild variant="outline" className="mt-9">
+              <a href="mailto:khelolocal@gmail.com?subject=KheloLocal%20founders%20team">
+                <Mail className="size-4" /> Connect with the team
+              </a>
+            </Button>
+          </article>
+        </div>
+      </Page>
+    </div>
+  );
+}

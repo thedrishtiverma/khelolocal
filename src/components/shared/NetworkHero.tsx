@@ -9,7 +9,8 @@ type HeroTone =
   | "sports"
   | "institutions"
   | "volunteer"
-  | "shop";
+  | "shop"
+  | "community";
 
 export function NetworkHero({
   eyebrow,

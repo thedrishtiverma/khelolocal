@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Page, SectionHeading } from "@/components/shared/Bits";
+import { Page } from "@/components/shared/Bits";
+import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/demo")({
@@ -15,7 +16,10 @@ export const Route = createFileRoute("/demo")({
           "Run the KheloLocal demo: register for a tournament, verify a result, then discover the athlete as a scout.",
       },
       { property: "og:title", content: "Demo walkthrough | KheloLocal" },
-      { property: "og:description", content: "See the tournament-to-athlete-data loop in 3 minutes." },
+      {
+        property: "og:description",
+        content: "See the tournament-to-athlete-data loop in 3 minutes.",
+      },
     ],
   }),
   component: DemoPage,
@@ -52,41 +56,49 @@ function DemoPage() {
   const { resetDemo } = useKhelo();
 
   return (
-    <Page className="max-w-3xl">
-      <SectionHeading
+    <div>
+      <NetworkHero
+        tone="community"
         eyebrow="Demo tools"
-        title="The tournament-to-athlete-data loop"
-        subtitle="Four steps, three roles, one verified record."
+        title={
+          <>
+            The tournament-to-athlete-data <span className="text-lime">loop.</span>
+          </>
+        }
+        description="Four steps, three roles, one verified record."
+        highlights={["Register", "Verify", "Discover"]}
       />
-      <ol className="space-y-4">
-        {STEPS.map((s) => (
-          <li key={s.title} className="rounded-xl border border-border bg-card p-5">
-            <p className="font-display text-lg font-bold">{s.title}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{s.body}</p>
-            <Button asChild variant="secondary" size="sm" className="mt-4">
-              <Link to={s.to}>{s.cta}</Link>
-            </Button>
-          </li>
-        ))}
-      </ol>
+      <Page className="max-w-3xl py-14 sm:py-20">
+        <ol className="space-y-4">
+          {STEPS.map((s) => (
+            <li key={s.title} className="rounded-xl border border-border bg-card p-5">
+              <p className="font-display text-lg font-bold">{s.title}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{s.body}</p>
+              <Button asChild variant="secondary" size="sm" className="mt-4">
+                <Link to={s.to}>{s.cta}</Link>
+              </Button>
+            </li>
+          ))}
+        </ol>
 
-      <div className="mt-8 rounded-xl border border-border bg-card p-5">
-        <p className="font-display font-bold">Reset demo data</p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Restores the original Indore dataset, clearing any results you verified.
-        </p>
-        <Button
-          variant="outline"
-          className="mt-4"
-          onClick={() => {
-            resetDemo();
-            toast.success("Demo data reset");
-          }}
-        >
-          <RotateCcw className="size-4" />
-          Reset
-        </Button>
-      </div>
-    </Page>
+        <div className="mt-8 rounded-xl border border-border bg-card p-5">
+          <p className="font-display font-bold">Reset demo data</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Restores the original Indore dataset, clearing any results you verified.
+          </p>
+          <Button
+            variant="outline"
+            className="mt-4"
+            onClick={() => {
+              resetDemo();
+              toast.success("Demo data reset");
+            }}
+          >
+            <RotateCcw className="size-4" />
+            Reset
+          </Button>
+        </div>
+      </Page>
+    </div>
   );
 }

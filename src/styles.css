@@ -437,6 +437,21 @@
     );
 }
 
+.network-hero-community {
+  background:
+    radial-gradient(
+      circle at 84% 14%,
+      color-mix(in oklab, var(--lime) 28%, transparent),
+      transparent 25%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 76%, var(--primary)) 52%,
+      color-mix(in oklab, var(--cream) 76%, var(--field)) 100%
+    );
+}
+
 .network-hero-grid {
   position: absolute;
   inset: 0;
@@ -613,6 +628,15 @@
     color-mix(in oklab, var(--accent) 27%, var(--surface)) 0%,
     var(--surface) 55%,
     color-mix(in oklab, var(--field) 28%, var(--surface)) 100%
+  );
+}
+
+.dark .network-hero-community {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--primary) 42%, var(--surface)) 0%,
+    var(--surface) 55%,
+    color-mix(in oklab, var(--field) 30%, var(--surface)) 100%
   );
 }
 
