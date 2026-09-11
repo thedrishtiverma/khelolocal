@@ -17,7 +17,7 @@ import { useKhelo } from "@/lib/services/store";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "KheloLocal — Your city's sports network" },
+      { title: "KheloLocal" },
       {
         name: "description",
         content:
@@ -81,7 +81,7 @@ function Landing() {
               <span className="live-dot" /> Live from Indore, Madhya Pradesh
             </p>
             <h1 className="max-w-3xl font-display text-5xl font-black uppercase leading-[0.86] tracking-tight sm:text-7xl lg:text-8xl">
-              Your city is <span className="text-lime">playing.</span>
+              Your city's sports <span className="text-lime">network.</span>
             </h1>
             <p className="mt-7 max-w-lg text-base leading-7 text-surface-foreground/72 sm:text-lg">
               The verified home ground for athletes, tournaments and the people who make local sport
