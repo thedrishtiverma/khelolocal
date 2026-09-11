@@ -1,18 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  CircleDot,
-  Dumbbell,
-  Goal,
-  Hand,
-  PersonStanding,
-  Swords,
-  Target,
-  Volleyball,
-  Wind,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Page } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { SportIcon } from "@/components/shared/SportIcon";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/sports")({
@@ -51,23 +41,6 @@ function SportsPage() {
         name,
       },
   );
-  const sportIcon = (id: string) => {
-    const icons: Record<string, typeof CircleDot> = {
-      cricket: CircleDot,
-      football: Goal,
-      volleyball: Volleyball,
-      kabaddi: Hand,
-      badminton: Target,
-      boxing: Swords,
-      basketball: CircleDot,
-      "table-tennis": CircleDot,
-      tennis: CircleDot,
-      athletics: PersonStanding,
-      "kho-kho": Wind,
-      yoga: Dumbbell,
-    };
-    return icons[id] ?? CircleDot;
-  };
   return (
     <div>
       <NetworkHero
@@ -84,7 +57,6 @@ function SportsPage() {
       <Page className="py-14 sm:py-20">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {sports.map((sport) => {
-            const Icon = sportIcon(sport.id);
             return (
               <Link
                 key={sport.id}
@@ -94,7 +66,7 @@ function SportsPage() {
               >
                 <div className="sport-card-banner">
                   <div className="profile-banner-lines absolute inset-0" />
-                  <Icon className="relative z-10 size-10" aria-hidden="true" />
+                  <SportIcon sportId={sport.id} className="relative z-10 size-10" aria-hidden="true" />
                   <span className="relative z-10 ml-auto font-ui text-[10px] font-bold uppercase tracking-[0.18em]">
                     {sport.name} / Indore
                   </span>

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
-import { BadgeCheck, Database as DbIcon, ShieldCheck } from "lucide-react";
+import { BadgeCheck, Database as DbIcon, MapPin, ShieldCheck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/admin/")({
   component: AdminConsole,
 });
 
-type Tab = "records" | "tournaments" | "athletes";
+type Tab = "records" | "tournaments" | "athletes" | "volunteers";
 
 function AdminConsole() {
   const {
@@ -70,6 +70,7 @@ function AdminConsole() {
     { id: "records", label: "Record verification", count: queue.length },
     { id: "tournaments", label: "Tournament data", count: unverifiedTournaments.length },
     { id: "athletes", label: "Athlete identities", count: db.athletes.length },
+    { id: "volunteers", label: "Volunteer map", count: db.volunteers.length },
   ];
 
   return (
@@ -323,6 +324,30 @@ function AdminConsole() {
                   ))}
               </tbody>
             </table>
+          </div>
+        </div>
+      ) : null}
+
+      {tab === "volunteers" ? (
+        <div className="mt-8">
+          <SectionHeading
+            eyebrow="Indore field network"
+            title="Volunteer coverage by area"
+            subtitle="See who is assigned to each zone and how much verified field data they have contributed."
+          />
+          <div className="city-map relative min-h-[420px] overflow-hidden rounded-2xl border border-border p-6 sm:p-8">
+            <div className="city-map-canvas" />
+            {db.zones.map((zone, index) => {
+              const zoneVolunteers = db.volunteers.filter((volunteer) => volunteer.zoneId === zone.id);
+              const verified = db.fieldSubmissions.filter((record) => record.zoneId === zone.id && record.status === "VERIFIED").length;
+              return (
+                <div key={zone.id} className="absolute z-10 rounded-xl border border-border bg-card/95 p-4 shadow-lg" style={{ left: `${10 + (index % 3) * 29}%`, top: `${18 + Math.floor(index / 3) * 36}%` }}>
+                  <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider"><MapPin className="size-3.5 text-lime" />{zone.name}</p>
+                  <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground"><Users className="size-3.5" />{zoneVolunteers.length} volunteer{zoneVolunteers.length === 1 ? "" : "s"}</p>
+                  <p className="mt-1 text-xs text-verified">{verified} verified reports</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       ) : null}

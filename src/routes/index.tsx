@@ -327,6 +327,41 @@ function Landing() {
           </div>
         </div>
       </section>
+
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
+              Start here
+            </p>
+            <h2 className="mt-3 font-display text-4xl font-black uppercase leading-none sm:text-6xl">
+              One home ground. Every way in.
+            </h2>
+            <p className="mt-5 text-base leading-7 text-muted-foreground">
+              Follow the path that fits you: learn the network, find the map, join a game, support
+              the field, or explore what Indore is building.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["How it works", "See how a match becomes a trusted sporting record.", "/how-it-works"],
+              ["Indore city", "Explore the people and places on our home ground.", "/cities/indore"],
+              ["Sports map", "Focus an area, then reveal its events and athletes.", "/map"],
+              ["Sports", "Choose a game and find its local network.", "/sports"],
+              ["Institutions", "See the colleges and sports cells building records.", "/institutions"],
+              ["For organizers", "Publish, manage and verify the next tournament.", "/organizers"],
+              ["Volunteer", "Put the sport you know on the city map.", "/volunteer"],
+              ["KheloLocal merch", "Carry the local game beyond the boundary.", "/shop"],
+            ].map(([title, body, to]) => (
+              <Link key={title} to={to as "/map"} className="data-card group rounded-xl p-5">
+                <h3 className="font-display text-xl font-bold uppercase">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+                <ArrowRight className="mt-5 size-4 text-lime transition-transform group-hover:translate-x-1" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Building2, Shield, Trophy, Users } from "lucide-react";
+import { Building2, Shield, Users } from "lucide-react";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { EmptyState, Page, SectionHeading } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { SportIcon } from "@/components/shared/SportIcon";
 
 export const Route = createFileRoute("/sports/$sport")({
   head: () => ({ meta: [{ title: "Sport in Indore | KheloLocal" }] }),
@@ -38,7 +39,8 @@ function SportHub() {
         eyebrow={`${name} × Indore`}
         title={
           <>
-            {name} <span className="text-lime">in Indore.</span>
+            <SportIcon sportId={sport} className="mb-2 inline-block size-10 align-middle text-lime" aria-hidden="true" /> {name}{" "}
+            <span className="text-lime">in Indore.</span>
           </>
         }
         description={`The local ${name.toLowerCase()} network: players, competitions and the organizations behind them.`}
@@ -87,8 +89,8 @@ function SportHub() {
             [Shield, `${name} teams`, teams.length, "/teams"],
             [Building2, `${name} institutions`, db.colleges.length, "/institutions"],
             [Users, `${name} organizers`, organizers.length, "/organizers"],
-            [
-              Trophy,
+              [
+              SportIcon,
               `Recent ${name} results`,
               tournaments.filter((item) => item.status === "COMPLETED").length,
               "/tournaments",

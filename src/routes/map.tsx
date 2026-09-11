@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Building2, MapPin, Trophy, Users } from "lucide-react";
+import { Building2, MapPin, Minus, Plus, Trophy, Users } from "lucide-react";
 import { useState } from "react";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
@@ -33,6 +33,8 @@ function SportsMapPage() {
   const { db } = useKhelo();
   const [filter, setFilter] = useState<"ALL" | SubmissionKind>("ALL");
   const [zoneId, setZoneId] = useState("zone_vijay_nagar");
+  const [zoom, setZoom] = useState(1);
+  const [layer, setLayer] = useState<"network" | "tournaments" | "athletes">("network");
   const zone = db.zones.find((item) => item.id === zoneId) ?? db.zones[0];
   const records = db.fieldSubmissions.filter(
     (record) =>
@@ -58,13 +60,20 @@ function SportsMapPage() {
       <Page className="py-10 sm:py-16">
         <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <section className="data-card overflow-hidden rounded-2xl p-0">
-            <div className="city-map relative min-h-[420px] overflow-hidden p-6 sm:p-8">
-              <div className="absolute inset-0 opacity-50" aria-hidden="true" />
+            <div className="city-map relative min-h-[520px] overflow-hidden p-6 sm:p-8">
+              <div className="absolute right-5 top-5 z-20 flex flex-col gap-2">
+                <button type="button" className="map-control" onClick={() => setZoom((value) => Math.min(1.8, value + 0.2))} aria-label="Zoom in"><Plus className="size-4" /></button>
+                <button type="button" className="map-control" onClick={() => setZoom((value) => Math.max(1, value - 0.2))} aria-label="Zoom out"><Minus className="size-4" /></button>
+              </div>
+              <div className="absolute left-5 top-5 z-20 flex flex-wrap gap-2">
+                {[['network', 'Areas'], ['tournaments', 'Tournaments'], ['athletes', 'Athletes']].map(([value, label]) => <button key={value} type="button" onClick={() => setLayer(value as typeof layer)} className={`map-layer-button ${layer === value ? "active" : ""}`}>{label}</button>)}
+              </div>
+              <div className="city-map-canvas" style={{ transform: `scale(${zoom})` }}>
               {db.zones.map((item, index) => (
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => setZoneId(item.id)}
+                  onClick={() => { setZoneId(item.id); setZoom((value) => Math.max(value, 1.35)); }}
                   className={`map-pin absolute flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-bold shadow-sm transition-transform hover:scale-105 ${zoneId === item.id ? "active" : ""}`}
                   style={{ left: `${18 + (index % 2) * 43}%`, top: `${20 + index * 17}%` }}
                   aria-pressed={zoneId === item.id}
@@ -72,6 +81,9 @@ function SportsMapPage() {
                   <MapPin className="size-3.5" /> {item.name}
                 </button>
               ))}
+              {layer === "tournaments" ? db.tournaments.slice(0, 8).map((tournament, index) => <span key={tournament.id} className="map-popover map-popover-tournament" style={{ left: `${10 + (index * 19) % 75}%`, top: `${34 + (index * 13) % 45}%` }}><Trophy className="size-3" /> {tournament.sportName}</span>) : null}
+              {layer === "athletes" ? db.athletes.slice(0, 8).map((athlete, index) => <span key={athlete.id} className="map-popover map-popover-athlete" style={{ left: `${8 + (index * 23) % 78}%`, top: `${30 + (index * 17) % 48}%` }}><Users className="size-3" /> {athlete.name}</span>) : null}
+              </div>
               <div className="absolute bottom-6 left-6 max-w-xs sm:left-8">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   Indore / live field map
@@ -107,6 +119,7 @@ function SportsMapPage() {
                 </Button>
               ))}
             </div>
+            <p className="mt-4 text-xs leading-5 text-muted-foreground">Click an area to focus it. Zoom in to reveal the organizations, sports and events appearing across that part of Indore.</p>
             <div className="mt-8 grid grid-cols-2 gap-3 border-y border-border py-5">
               <div>
                 <p className="stat-num text-2xl">{records.length}</p>
