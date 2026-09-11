@@ -6,7 +6,10 @@ export const Route = createFileRoute("/team")({
   head: () => ({
     meta: [
       { title: "Founders team | KheloLocal" },
-      { name: "description", content: "Meet the student-led team building KheloLocal for grassroots sports in India." },
+      {
+        name: "description",
+        content: "Meet the student-led team building KheloLocal for grassroots sports in India.",
+      },
     ],
   }),
   component: TeamPage,
@@ -41,8 +44,12 @@ function TeamPage() {
         ))}
       </div>
       <div className="mt-14 flex flex-wrap items-center gap-4 border-t border-border pt-8 text-sm text-muted-foreground">
-        <Users className="size-5 text-lime" /> Built from Indore, for the next generation of grassroots athletes.
-        <a className="inline-flex items-center gap-2 font-semibold text-foreground hover:text-lime" href="mailto:hello@khelolocal.in">
+        <Users className="size-5 text-lime" /> Built from Indore, for the next generation of
+        grassroots athletes.
+        <a
+          className="inline-flex items-center gap-2 font-semibold text-foreground hover:text-lime"
+          href="mailto:khelolocal@gmail.com"
+        >
           <Mail className="size-4" /> Say hello
         </a>
       </div>

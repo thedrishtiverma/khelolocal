@@ -16,15 +16,17 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
           {sportLabel(athlete.primarySport)} · {athlete.cityName}
         </span>
       </div>
-      <div className="relative px-6 pb-6">
-        <div className="-mt-8 flex items-start gap-4">
+      <div className="relative px-6 pb-6 pt-4">
+        <div className="flex items-start gap-4">
           <Initials
             name={athlete.name}
             tint={sportTint(athlete.primarySport)}
-            className="profile-banner-avatar size-16 rounded-xl border-4 text-lg shadow-lg"
+            className="profile-banner-avatar -mt-12 size-16 rounded-xl border-4 text-lg shadow-lg"
           />
-          <div className="min-w-0 flex-1">
-            <h3 className="font-display text-xl font-bold leading-tight">{athlete.name}</h3>
+          <div className="min-w-0 flex-1 pt-1">
+            <h3 className="font-display text-xl font-bold leading-tight text-foreground">
+              {athlete.name}
+            </h3>
             <p className="text-sm text-muted-foreground">
               {sportLabel(athlete.primarySport)} · {athlete.collegeName ?? "Independent"} ·{" "}
               {athlete.cityName}

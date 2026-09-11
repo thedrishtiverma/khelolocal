@@ -1,7 +1,15 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type HeroTone = "explore" | "organizers" | "tournaments" | "athletes";
+type HeroTone =
+  | "explore"
+  | "organizers"
+  | "tournaments"
+  | "athletes"
+  | "sports"
+  | "institutions"
+  | "volunteer"
+  | "shop";
 
 export function NetworkHero({
   eyebrow,

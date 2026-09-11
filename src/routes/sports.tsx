@@ -1,6 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Trophy } from "lucide-react";
-import { Page, SectionHeading } from "@/components/shared/Bits";
+import {
+  ArrowRight,
+  CircleDot,
+  Dumbbell,
+  Goal,
+  Hand,
+  PersonStanding,
+  Swords,
+  Target,
+  Volleyball,
+  Wind,
+} from "lucide-react";
+import { Page } from "@/components/shared/Bits";
+import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/sports")({
@@ -39,30 +51,68 @@ function SportsPage() {
         name,
       },
   );
+  const sportIcon = (id: string) => {
+    const icons: Record<string, typeof CircleDot> = {
+      cricket: CircleDot,
+      football: Goal,
+      volleyball: Volleyball,
+      kabaddi: Hand,
+      badminton: Target,
+      boxing: Swords,
+      basketball: CircleDot,
+      "table-tennis": CircleDot,
+      tennis: CircleDot,
+      athletics: PersonStanding,
+      "kho-kho": Wind,
+      yoga: Dumbbell,
+    };
+    return icons[id] ?? CircleDot;
+  };
   return (
-    <Page className="py-14 sm:py-24">
-      <SectionHeading
+    <div>
+      <NetworkHero
+        tone="sports"
         eyebrow="Sport × city"
-        title="Find your sport. Find your people."
-        subtitle="Explore tournaments, athletes, teams and institutions by sport in Indore."
+        title={
+          <>
+            Find your <span className="text-lime">sport.</span> Find your people.
+          </>
+        }
+        description="Explore the local tournaments, athletes, teams and institutions behind every game in Indore."
+        highlights={["Players", "Fixtures", "Teams"]}
       />
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {sports.map((sport) => (
-          <Link
-            key={sport.id}
-            to="/sports/$sport"
-            params={{ sport: sport.id }}
-            className="data-card group rounded-2xl p-6"
-          >
-            <Trophy className="size-7 text-lime" />
-            <h2 className="mt-10 font-display text-2xl font-black uppercase">{sport.name}</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Tournaments and athletes in Indore</p>
-            <span className="mt-7 inline-flex items-center gap-2 text-sm font-bold group-hover:text-lime">
-              Explore <ArrowRight className="size-4" />
-            </span>
-          </Link>
-        ))}
-      </div>
-    </Page>
+      <Page className="py-14 sm:py-20">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {sports.map((sport) => {
+            const Icon = sportIcon(sport.id);
+            return (
+              <Link
+                key={sport.id}
+                to="/sports/$sport"
+                params={{ sport: sport.id }}
+                className={`sport-card sport-card-${sport.id} data-card group overflow-hidden rounded-2xl p-0`}
+              >
+                <div className="sport-card-banner">
+                  <div className="profile-banner-lines absolute inset-0" />
+                  <Icon className="relative z-10 size-10" aria-hidden="true" />
+                  <span className="relative z-10 ml-auto font-ui text-[10px] font-bold uppercase tracking-[0.18em]">
+                    Indore / 01
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h2 className="font-display text-2xl font-black uppercase">{sport.name}</h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Players, fixtures and local teams
+                  </p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold group-hover:text-lime">
+                    Explore {sport.name} <ArrowRight className="size-4" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </Page>
+    </div>
   );
 }

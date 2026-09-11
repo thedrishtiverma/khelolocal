@@ -314,7 +314,11 @@ function Landing() {
           </div>
           <div className="border-l border-surface-foreground/20 pl-6 sm:pl-10">
             <p className="max-w-2xl text-xl leading-8 text-surface-foreground/85 sm:text-2xl sm:leading-9">
-              City by city, KheloLocal turns everyday games into a trusted sporting network.
+              City by city,{" "}
+              <span className="font-display font-black tracking-tight">
+                Khelo<span className="text-lime">Local</span>
+              </span>{" "}
+              turns everyday games into a trusted sporting network.
             </p>
             <p className="mt-6 flex max-w-xl items-start gap-3 text-sm leading-6 text-surface-foreground/60">
               <BadgeCheck className="mt-0.5 size-5 shrink-0 text-verified" />

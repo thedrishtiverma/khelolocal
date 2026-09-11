@@ -391,6 +391,52 @@
   );
 }
 
+.network-hero-sports,
+.network-hero-volunteer {
+  background:
+    radial-gradient(
+      circle at 84% 14%,
+      color-mix(in oklab, var(--lime) 28%, transparent),
+      transparent 25%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 76%, var(--field)) 54%,
+      color-mix(in oklab, var(--cream) 72%, var(--primary)) 100%
+    );
+}
+
+.network-hero-institutions {
+  background:
+    radial-gradient(
+      circle at 82% 12%,
+      color-mix(in oklab, var(--accent) 28%, transparent),
+      transparent 26%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 76%, var(--primary)) 54%,
+      color-mix(in oklab, var(--cream) 78%, var(--accent)) 100%
+    );
+}
+
+.network-hero-shop {
+  background:
+    radial-gradient(
+      circle at 85% 14%,
+      color-mix(in oklab, var(--lime) 28%, transparent),
+      transparent 25%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 72%, var(--accent)) 55%,
+      color-mix(in oklab, var(--cream) 75%, var(--field)) 100%
+    );
+}
+
 .network-hero-grid {
   position: absolute;
   inset: 0;
@@ -542,6 +588,34 @@
   );
 }
 
+.dark .network-hero-sports,
+.dark .network-hero-volunteer {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 35%, var(--surface)) 0%,
+    var(--surface) 55%,
+    color-mix(in oklab, var(--primary) 45%, var(--surface)) 100%
+  );
+}
+
+.dark .network-hero-institutions {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--primary) 40%, var(--surface)) 0%,
+    var(--surface) 55%,
+    color-mix(in oklab, var(--accent) 23%, var(--surface)) 100%
+  );
+}
+
+.dark .network-hero-shop {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 27%, var(--surface)) 0%,
+    var(--surface) 55%,
+    color-mix(in oklab, var(--field) 28%, var(--surface)) 100%
+  );
+}
+
 .dark .network-hero-grid {
   opacity: 0.7;
 }
@@ -549,41 +623,99 @@
 /* Light mode is intentionally paper-and-ink rather than a muted version of dark mode. */
 .network-hero {
   background:
-    radial-gradient(circle at 86% 14%, color-mix(in oklab, var(--lime) 28%, transparent), transparent 25%),
-    linear-gradient(128deg, var(--card) 0%, var(--cream) 55%, color-mix(in oklab, var(--cream) 72%, var(--field)) 100%);
+    radial-gradient(
+      circle at 86% 14%,
+      color-mix(in oklab, var(--lime) 28%, transparent),
+      transparent 25%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      var(--cream) 55%,
+      color-mix(in oklab, var(--cream) 72%, var(--field)) 100%
+    );
   color: var(--foreground);
 }
 
 .network-hero-explore {
   background:
-    radial-gradient(circle at 84% 14%, color-mix(in oklab, var(--lime) 30%, transparent), transparent 25%),
-    linear-gradient(128deg, var(--card) 0%, color-mix(in oklab, var(--cream) 78%, var(--field)) 58%, var(--cream) 100%);
+    radial-gradient(
+      circle at 84% 14%,
+      color-mix(in oklab, var(--lime) 30%, transparent),
+      transparent 25%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 78%, var(--field)) 58%,
+      var(--cream) 100%
+    );
 }
 
 .network-hero-organizers {
   background:
-    radial-gradient(circle at 82% 12%, color-mix(in oklab, var(--accent) 36%, transparent), transparent 28%),
-    linear-gradient(128deg, var(--card) 0%, color-mix(in oklab, var(--cream) 76%, var(--accent)) 55%, color-mix(in oklab, var(--cream) 78%, var(--field)) 100%);
+    radial-gradient(
+      circle at 82% 12%,
+      color-mix(in oklab, var(--accent) 36%, transparent),
+      transparent 28%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 76%, var(--accent)) 55%,
+      color-mix(in oklab, var(--cream) 78%, var(--field)) 100%
+    );
 }
 
 .network-hero-tournaments {
   background:
-    radial-gradient(circle at 84% 16%, color-mix(in oklab, var(--field) 28%, transparent), transparent 26%),
-    linear-gradient(128deg, var(--card) 0%, color-mix(in oklab, var(--cream) 72%, var(--field)) 55%, color-mix(in oklab, var(--cream) 78%, var(--accent)) 100%);
+    radial-gradient(
+      circle at 84% 16%,
+      color-mix(in oklab, var(--field) 28%, transparent),
+      transparent 26%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 72%, var(--field)) 55%,
+      color-mix(in oklab, var(--cream) 78%, var(--accent)) 100%
+    );
 }
 
 .network-hero-athletes {
   background:
-    radial-gradient(circle at 85% 12%, color-mix(in oklab, var(--accent) 32%, transparent), transparent 25%),
-    linear-gradient(128deg, var(--card) 0%, color-mix(in oklab, var(--cream) 74%, var(--primary)) 50%, color-mix(in oklab, var(--cream) 78%, var(--field)) 100%);
+    radial-gradient(
+      circle at 85% 12%,
+      color-mix(in oklab, var(--accent) 32%, transparent),
+      transparent 25%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 74%, var(--primary)) 50%,
+      color-mix(in oklab, var(--cream) 78%, var(--field)) 100%
+    );
 }
 
 .network-hero-grid {
   opacity: 0.7;
   background-image:
-    linear-gradient(0deg, color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(128deg, transparent 0 49%, color-mix(in oklab, var(--field) 30%, transparent) 49.2% 49.6%, transparent 49.8%);
+    linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--foreground) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--foreground) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      128deg,
+      transparent 0 49%,
+      color-mix(in oklab, var(--field) 30%, transparent) 49.2% 49.6%,
+      transparent 49.8%
+    );
 }
 
 .network-hero-orbit {
@@ -596,18 +728,32 @@
   color: var(--foreground);
 }
 
-.network-hero-description { color: color-mix(in oklab, var(--foreground) 76%, transparent); }
+.network-hero-description {
+  color: color-mix(in oklab, var(--foreground) 76%, transparent);
+}
 
 .network-hero-console {
   border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
   background: color-mix(in oklab, var(--card) 76%, transparent);
-  box-shadow: var(--shadow-lift), inset 0 1px 0 color-mix(in oklab, white 76%, transparent);
+  box-shadow:
+    var(--shadow-lift),
+    inset 0 1px 0 color-mix(in oklab, white 76%, transparent);
 }
 
-.network-hero-console-line { background: color-mix(in oklab, var(--foreground) 13%, transparent); }
-.network-hero-node { border-color: color-mix(in oklab, var(--foreground) 13%, transparent); background: color-mix(in oklab, var(--card) 72%, var(--cream)); }
-.network-hero-console-kicker, .network-hero-console-copy { color: color-mix(in oklab, var(--foreground) 65%, transparent); }
-.network-hero-node-label { color: var(--foreground); }
+.network-hero-console-line {
+  background: color-mix(in oklab, var(--foreground) 13%, transparent);
+}
+.network-hero-node {
+  border-color: color-mix(in oklab, var(--foreground) 13%, transparent);
+  background: color-mix(in oklab, var(--card) 72%, var(--cream));
+}
+.network-hero-console-kicker,
+.network-hero-console-copy {
+  color: color-mix(in oklab, var(--foreground) 65%, transparent);
+}
+.network-hero-node-label {
+  color: var(--foreground);
+}
 
 .network-hero-secondary-action {
   border-color: color-mix(in oklab, var(--foreground) 24%, transparent);
@@ -620,16 +766,46 @@
   background: color-mix(in oklab, var(--field) 12%, var(--card));
 }
 
-.dark .network-hero { color: var(--surface-foreground); }
-.dark .network-hero-eyebrow { border-color: color-mix(in oklab, var(--surface-foreground) 23%, transparent); background: color-mix(in oklab, var(--surface) 76%, transparent); color: var(--surface-foreground); }
-.dark .network-hero-description { color: color-mix(in oklab, var(--surface-foreground) 78%, transparent); }
-.dark .network-hero-console { border-color: color-mix(in oklab, var(--surface-foreground) 18%, transparent); background: color-mix(in oklab, var(--surface) 54%, transparent); box-shadow: 0 24px 54px -34px oklch(0 0 0 / 0.85), inset 0 1px 0 color-mix(in oklab, var(--surface-foreground) 9%, transparent); }
-.dark .network-hero-console-line { background: color-mix(in oklab, var(--surface-foreground) 14%, transparent); }
-.dark .network-hero-node { border-color: color-mix(in oklab, var(--surface-foreground) 16%, transparent); background: color-mix(in oklab, var(--surface-foreground) 7%, transparent); }
-.dark .network-hero-console-kicker, .dark .network-hero-console-copy { color: color-mix(in oklab, var(--surface-foreground) 65%, transparent); }
-.dark .network-hero-node-label { color: var(--surface-foreground); }
-.dark .network-hero-secondary-action { border-color: color-mix(in oklab, var(--surface-foreground) 30%, transparent); background: color-mix(in oklab, var(--surface-foreground) 5%, transparent); color: var(--surface-foreground); }
-.dark .network-hero-secondary-action:hover { background: color-mix(in oklab, var(--surface-foreground) 12%, transparent); }
+.dark .network-hero {
+  color: var(--surface-foreground);
+}
+.dark .network-hero-eyebrow {
+  border-color: color-mix(in oklab, var(--surface-foreground) 23%, transparent);
+  background: color-mix(in oklab, var(--surface) 76%, transparent);
+  color: var(--surface-foreground);
+}
+.dark .network-hero-description {
+  color: color-mix(in oklab, var(--surface-foreground) 78%, transparent);
+}
+.dark .network-hero-console {
+  border-color: color-mix(in oklab, var(--surface-foreground) 18%, transparent);
+  background: color-mix(in oklab, var(--surface) 54%, transparent);
+  box-shadow:
+    0 24px 54px -34px oklch(0 0 0 / 0.85),
+    inset 0 1px 0 color-mix(in oklab, var(--surface-foreground) 9%, transparent);
+}
+.dark .network-hero-console-line {
+  background: color-mix(in oklab, var(--surface-foreground) 14%, transparent);
+}
+.dark .network-hero-node {
+  border-color: color-mix(in oklab, var(--surface-foreground) 16%, transparent);
+  background: color-mix(in oklab, var(--surface-foreground) 7%, transparent);
+}
+.dark .network-hero-console-kicker,
+.dark .network-hero-console-copy {
+  color: color-mix(in oklab, var(--surface-foreground) 65%, transparent);
+}
+.dark .network-hero-node-label {
+  color: var(--surface-foreground);
+}
+.dark .network-hero-secondary-action {
+  border-color: color-mix(in oklab, var(--surface-foreground) 30%, transparent);
+  background: color-mix(in oklab, var(--surface-foreground) 5%, transparent);
+  color: var(--surface-foreground);
+}
+.dark .network-hero-secondary-action:hover {
+  background: color-mix(in oklab, var(--surface-foreground) 12%, transparent);
+}
 
 @media (max-width: 1023px) {
   .network-hero-orbit-two {
@@ -1052,62 +1228,148 @@
 /* In light mode, profiles carry their sport's color on a bright surface. */
 .profile-banner-art {
   background:
-    radial-gradient(circle at 85% 18%, color-mix(in oklab, var(--lime) 35%, transparent), transparent 24%),
-    linear-gradient(128deg, var(--card) 0%, color-mix(in oklab, var(--cream) 80%, var(--primary)) 100%);
+    radial-gradient(
+      circle at 85% 18%,
+      color-mix(in oklab, var(--lime) 35%, transparent),
+      transparent 24%
+    ),
+    linear-gradient(
+      128deg,
+      var(--card) 0%,
+      color-mix(in oklab, var(--cream) 80%, var(--primary)) 100%
+    );
 }
 
 .profile-banner-field .profile-banner-art,
 .profile-banner-sport-football .profile-banner-art,
 .profile-banner-sport-khokho .profile-banner-art,
 .profile-banner-sport-athletics .profile-banner-art {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 84%, var(--field)) 0%, color-mix(in oklab, var(--cream) 72%, var(--field)) 58%, var(--card) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 84%, var(--field)) 0%,
+    color-mix(in oklab, var(--cream) 72%, var(--field)) 58%,
+    var(--card) 100%
+  );
 }
 
 .profile-banner-accent .profile-banner-art,
 .profile-banner-sport-kabaddi .profile-banner-art,
 .profile-banner-sport-boxing .profile-banner-art,
 .profile-banner-sport-badminton .profile-banner-art {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 82%, var(--accent)) 0%, color-mix(in oklab, var(--cream) 70%, var(--accent)) 58%, var(--card) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 82%, var(--accent)) 0%,
+    color-mix(in oklab, var(--cream) 70%, var(--accent)) 58%,
+    var(--card) 100%
+  );
 }
 
 .profile-banner-sport-basketball .profile-banner-art,
 .profile-banner-sport-cricket .profile-banner-art,
 .profile-banner-sport-volleyball .profile-banner-art {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 79%, var(--primary)) 0%, color-mix(in oklab, var(--cream) 82%, var(--primary)) 55%, var(--card) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 79%, var(--primary)) 0%,
+    color-mix(in oklab, var(--cream) 82%, var(--primary)) 55%,
+    var(--card) 100%
+  );
 }
 
 .profile-banner-sport-yoga .profile-banner-art {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 82%, var(--chart-5)) 0%, color-mix(in oklab, var(--cream) 78%, var(--chart-5)) 58%, var(--card) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 82%, var(--chart-5)) 0%,
+    color-mix(in oklab, var(--cream) 78%, var(--chart-5)) 58%,
+    var(--card) 100%
+  );
 }
 
 .organizer-banner-art {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 82%, var(--accent)) 0%, color-mix(in oklab, var(--cream) 72%, var(--accent)) 54%, color-mix(in oklab, var(--card) 80%, var(--primary)) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 82%, var(--accent)) 0%,
+    color-mix(in oklab, var(--cream) 72%, var(--accent)) 54%,
+    color-mix(in oklab, var(--card) 80%, var(--primary)) 100%
+  );
+}
+
+.profile-banner-sport-football .organizer-banner-art,
+.profile-banner-sport-kho-kho .organizer-banner-art,
+.profile-banner-sport-athletics .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 80%, var(--field)) 0%,
+    color-mix(in oklab, var(--cream) 68%, var(--field)) 55%,
+    var(--card) 100%
+  );
+}
+
+.profile-banner-sport-kabaddi .organizer-banner-art,
+.profile-banner-sport-boxing .organizer-banner-art,
+.profile-banner-sport-badminton .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 80%, var(--accent)) 0%,
+    color-mix(in oklab, var(--cream) 67%, var(--accent)) 55%,
+    var(--card) 100%
+  );
+}
+
+.profile-banner-sport-cricket .organizer-banner-art,
+.profile-banner-sport-basketball .organizer-banner-art,
+.profile-banner-sport-volleyball .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 80%, var(--primary)) 0%,
+    color-mix(in oklab, var(--cream) 72%, var(--primary)) 55%,
+    var(--card) 100%
+  );
 }
 
 .athlete-card-banner {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 82%, var(--primary)) 0%, color-mix(in oklab, var(--cream) 78%, var(--primary)) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 82%, var(--primary)) 0%,
+    color-mix(in oklab, var(--cream) 78%, var(--primary)) 100%
+  );
 }
 
 .athlete-card-banner-football,
 .athlete-card-banner-khokho,
 .athlete-card-banner-athletics {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 77%, var(--field)) 0%, color-mix(in oklab, var(--cream) 65%, var(--field)) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 77%, var(--field)) 0%,
+    color-mix(in oklab, var(--cream) 65%, var(--field)) 100%
+  );
 }
 
 .athlete-card-banner-kabaddi,
 .athlete-card-banner-boxing,
 .athlete-card-banner-badminton {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 75%, var(--accent)) 0%, color-mix(in oklab, var(--cream) 66%, var(--accent)) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 75%, var(--accent)) 0%,
+    color-mix(in oklab, var(--cream) 66%, var(--accent)) 100%
+  );
 }
 
 .athlete-card-banner-basketball,
 .athlete-card-banner-cricket,
 .athlete-card-banner-volleyball {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 76%, var(--primary)) 0%, color-mix(in oklab, var(--cream) 76%, var(--primary)) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 76%, var(--primary)) 0%,
+    color-mix(in oklab, var(--cream) 76%, var(--primary)) 100%
+  );
 }
 
 .athlete-card-banner-yoga {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--card) 78%, var(--chart-5)) 0%, color-mix(in oklab, var(--cream) 75%, var(--chart-5)) 100%);
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--card) 78%, var(--chart-5)) 0%,
+    color-mix(in oklab, var(--cream) 75%, var(--chart-5)) 100%
+  );
 }
 
 .athlete-card-sport {
@@ -1116,14 +1378,216 @@
   color: var(--foreground);
 }
 
-.dark .profile-banner-art { background: linear-gradient(128deg, color-mix(in oklab, var(--surface) 92%, var(--field)) 0%, var(--surface) 57%, color-mix(in oklab, var(--primary) 62%, var(--surface)) 100%); }
-.dark .profile-banner-field .profile-banner-art, .dark .profile-banner-sport-football .profile-banner-art, .dark .profile-banner-sport-khokho .profile-banner-art, .dark .profile-banner-sport-athletics .profile-banner-art { background: linear-gradient(128deg, color-mix(in oklab, var(--field) 48%, var(--surface)) 0%, var(--surface) 62%, var(--primary) 100%); }
-.dark .profile-banner-accent .profile-banner-art, .dark .profile-banner-sport-kabaddi .profile-banner-art, .dark .profile-banner-sport-boxing .profile-banner-art, .dark .profile-banner-sport-badminton .profile-banner-art { background: linear-gradient(128deg, color-mix(in oklab, var(--accent) 38%, var(--surface)) 0%, var(--surface) 58%, color-mix(in oklab, var(--field) 36%, var(--surface)) 100%); }
-.dark .organizer-banner-art { background: linear-gradient(128deg, color-mix(in oklab, var(--accent) 38%, var(--surface)) 0%, var(--surface) 58%, color-mix(in oklab, var(--field) 36%, var(--surface)) 100%); }
-.dark .athlete-card-banner { background: linear-gradient(125deg, color-mix(in oklab, var(--surface) 85%, var(--field)), var(--surface)); }
-.dark .athlete-card-banner-football, .dark .athlete-card-banner-khokho, .dark .athlete-card-banner-athletics { background: linear-gradient(125deg, color-mix(in oklab, var(--field) 43%, var(--surface)), var(--surface)); }
-.dark .athlete-card-banner-kabaddi, .dark .athlete-card-banner-boxing, .dark .athlete-card-banner-badminton { background: linear-gradient(125deg, color-mix(in oklab, var(--accent) 35%, var(--surface)), var(--surface)); }
-.dark .athlete-card-sport { border-color: color-mix(in oklab, var(--surface-foreground) 25%, transparent); background: color-mix(in oklab, var(--surface) 80%, transparent); color: var(--surface-foreground); }
+.dark .profile-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--surface) 92%, var(--field)) 0%,
+    var(--surface) 57%,
+    color-mix(in oklab, var(--primary) 62%, var(--surface)) 100%
+  );
+}
+.dark .profile-banner-field .profile-banner-art,
+.dark .profile-banner-sport-football .profile-banner-art,
+.dark .profile-banner-sport-khokho .profile-banner-art,
+.dark .profile-banner-sport-athletics .profile-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 48%, var(--surface)) 0%,
+    var(--surface) 62%,
+    var(--primary) 100%
+  );
+}
+.dark .profile-banner-accent .profile-banner-art,
+.dark .profile-banner-sport-kabaddi .profile-banner-art,
+.dark .profile-banner-sport-boxing .profile-banner-art,
+.dark .profile-banner-sport-badminton .profile-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 38%, var(--surface)) 0%,
+    var(--surface) 58%,
+    color-mix(in oklab, var(--field) 36%, var(--surface)) 100%
+  );
+}
+.dark .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 38%, var(--surface)) 0%,
+    var(--surface) 58%,
+    color-mix(in oklab, var(--field) 36%, var(--surface)) 100%
+  );
+}
+.dark .profile-banner-sport-football .organizer-banner-art,
+.dark .profile-banner-sport-kho-kho .organizer-banner-art,
+.dark .profile-banner-sport-athletics .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 46%, var(--surface)) 0%,
+    var(--surface) 60%,
+    var(--primary) 100%
+  );
+}
+.dark .profile-banner-sport-kabaddi .organizer-banner-art,
+.dark .profile-banner-sport-boxing .organizer-banner-art,
+.dark .profile-banner-sport-badminton .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 38%, var(--surface)) 0%,
+    var(--surface) 58%,
+    color-mix(in oklab, var(--field) 34%, var(--surface)) 100%
+  );
+}
+.dark .profile-banner-sport-cricket .organizer-banner-art,
+.dark .profile-banner-sport-basketball .organizer-banner-art,
+.dark .profile-banner-sport-volleyball .organizer-banner-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--primary) 48%, var(--surface)) 0%,
+    var(--surface) 59%,
+    color-mix(in oklab, var(--field) 30%, var(--surface)) 100%
+  );
+}
+.dark .athlete-card-banner {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--surface) 85%, var(--field)),
+    var(--surface)
+  );
+}
+.dark .athlete-card-banner-football,
+.dark .athlete-card-banner-khokho,
+.dark .athlete-card-banner-athletics {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--field) 43%, var(--surface)),
+    var(--surface)
+  );
+}
+.dark .athlete-card-banner-kabaddi,
+.dark .athlete-card-banner-boxing,
+.dark .athlete-card-banner-badminton {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--accent) 35%, var(--surface)),
+    var(--surface)
+  );
+}
+.dark .athlete-card-sport {
+  border-color: color-mix(in oklab, var(--surface-foreground) 25%, transparent);
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  color: var(--surface-foreground);
+}
+
+/* Every sport gets its own compact banner treatment; these are intentionally
+ * graphic rather than stock imagery so they remain consistent in either theme. */
+.sport-card-banner,
+.merch-card-art {
+  position: relative;
+  display: flex;
+  min-height: 8.5rem;
+  align-items: flex-end;
+  gap: 0.75rem;
+  overflow: hidden;
+  padding: 1.25rem;
+  color: var(--surface-foreground);
+  isolation: isolate;
+  background: linear-gradient(128deg, var(--surface), var(--primary));
+}
+
+.sport-card-banner::after,
+.merch-card-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.78;
+  background:
+    radial-gradient(
+      circle at 83% 18%,
+      color-mix(in oklab, var(--lime) 38%, transparent),
+      transparent 22%
+    ),
+    linear-gradient(
+      112deg,
+      transparent 0 48%,
+      color-mix(in oklab, var(--surface-foreground) 18%, transparent) 48.3% 49%,
+      transparent 49.3%
+    );
+}
+
+.sport-card-cricket .sport-card-banner,
+.sport-card-volleyball .sport-card-banner,
+.sport-card-basketball .sport-card-banner {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--primary) 82%, var(--surface)),
+    var(--surface)
+  );
+}
+.sport-card-football .sport-card-banner,
+.sport-card-kho-kho .sport-card-banner,
+.sport-card-athletics .sport-card-banner {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 72%, var(--surface)),
+    var(--primary)
+  );
+}
+.sport-card-kabaddi .sport-card-banner,
+.sport-card-boxing .sport-card-banner,
+.sport-card-badminton .sport-card-banner {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 65%, var(--primary)),
+    var(--surface)
+  );
+}
+.sport-card-tennis .sport-card-banner,
+.sport-card-table-tennis .sport-card-banner,
+.sport-card-yoga .sport-card-banner {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--chart-5) 63%, var(--surface)),
+    var(--primary)
+  );
+}
+
+.merch-card-art {
+  min-height: 13rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--surface) 82%, var(--accent)),
+    var(--primary)
+  );
+}
+.merch-card-cap .merch-card-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--surface) 78%, var(--field)),
+    var(--primary)
+  );
+}
+.merch-card-tote .merch-card-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--surface) 78%, var(--chart-5)),
+    var(--primary)
+  );
+}
+.merch-card-bottle .merch-card-art {
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--surface) 76%, var(--primary)),
+    var(--surface)
+  );
+}
+
+.dark .sport-card-banner,
+.dark .merch-card-art {
+  color: var(--surface-foreground);
+}
 
 @media (max-width: 640px) {
   .profile-banner-eyebrow {

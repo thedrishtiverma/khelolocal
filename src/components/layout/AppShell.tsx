@@ -16,7 +16,6 @@ const PUBLIC_NAV: NavItem[] = [
   { to: "/explore", label: "Explore" },
   { to: "/tournaments", label: "Tournaments" },
   { to: "/athletes", label: "Athletes" },
-  { to: "/sports", label: "Sports" },
   { to: "/organizers", label: "For organizers" },
 ];
 
@@ -242,10 +241,22 @@ export function AppShell({ children }: { children: ReactNode }) {
       </nav>
 
       <footer className="border-t border-border bg-card pb-20 md:pb-0">
-        <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:py-16">
+        <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-14 sm:px-6 md:grid-cols-[1.45fr_1fr_1fr_1fr] md:py-16">
           <div className="max-w-xs">
-            <Link to="/" className="font-display text-2xl font-black tracking-tight">
-              Khelo<span className="text-lime">Local</span>
+            <Link
+              to="/"
+              className="flex items-center gap-3 font-display text-[1.65rem] font-black tracking-tight"
+            >
+              <img
+                src="/android-chrome-192x192.png"
+                alt=""
+                className="size-10 rounded-full object-cover"
+                width={40}
+                height={40}
+              />
+              <span>
+                Khelo<span className="text-lime">Local</span>
+              </span>
             </Link>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
               Your city's sports network. Starting in Indore, Madhya Pradesh.
@@ -282,6 +293,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Link>
               <Link to="/stories" className="hover:text-lime">
                 Community stories
+              </Link>
+              <Link to="/shop" className="hover:text-lime">
+                KheloLocal merch
               </Link>
             </nav>
           </div>
@@ -322,7 +336,10 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/contact" className="hover:text-lime">
                 Contact
               </Link>
-              <a href="mailto:hello@khelolocal.in" className="hover:text-lime">
+              <Link to="/volunteer" className="hover:text-lime">
+                Volunteer with us
+              </Link>
+              <a href="mailto:khelolocal@gmail.com" className="hover:text-lime">
                 Careers
               </a>
               <Link to="/demo" className="hover:text-lime">
@@ -340,9 +357,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Link>
               <Link to="/privacy" className="hover:text-lime">
                 Privacy policy
-              </Link>
-              <Link to="/terms" className="hover:text-lime">
-                Community guidelines
               </Link>
             </nav>
           </div>

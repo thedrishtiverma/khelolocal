@@ -191,7 +191,13 @@ function TournamentDetails() {
                   {formatINR(tournament.prizePool)}
                 </p>
               </div>
-              {organizer ? <OrganizerBanner organizer={organizer} /> : null}
+              {organizer ? (
+                <OrganizerBanner
+                  organizer={organizer}
+                  sport={tournament.sportId}
+                  eventName={tournament.name}
+                />
+              ) : null}
             </div>
           </TabsContent>
 

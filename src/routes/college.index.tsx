@@ -61,10 +61,16 @@ function CollegeDashboard() {
     <Page>
       <ProfileBanner
         name={college.shortName}
-        eyebrow={`College sports desk · ${college.cityName}`}
+        eyebrow={`${college.sportsEventName} · ${college.cityName}`}
         title={college.shortName}
         subtitle={college.sportsEventName}
-        status={college.verificationStatus === "VERIFIED" ? <span className="rounded-full border border-verified/30 bg-verified/10 px-2.5 py-1 text-xs font-semibold text-verified">Verified institution</span> : null}
+        status={
+          college.verificationStatus === "VERIFIED" ? (
+            <span className="rounded-full border border-verified/30 bg-verified/10 px-2.5 py-1 text-xs font-semibold text-verified">
+              Verified institution
+            </span>
+          ) : null
+        }
         accent="navy"
       />
       <section className="surface-panel rounded-xl p-6 sm:p-8">

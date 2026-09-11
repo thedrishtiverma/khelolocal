@@ -24,6 +24,7 @@ import { Route as MapRouteImport } from './routes/map'
 import { Route as OrganizersRouteImport } from './routes/organizers'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SavedRouteImport } from './routes/saved'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as StoriesRouteImport } from './routes/stories'
@@ -47,6 +48,7 @@ import { Route as TournamentsIndexRouteImport } from './routes/tournaments.index
 import { Route as TournamentsIdRouteImport } from './routes/tournaments.$id'
 import { Route as TournamentsCreateRouteImport } from './routes/tournaments.create'
 import { Route as VolunteerIndexRouteImport } from './routes/volunteer.index'
+import { Route as VolunteerDeskRouteImport } from './routes/volunteer.desk'
 import { Route as OrganizerManageIdRouteImport } from './routes/organizer.manage.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -122,6 +124,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignupRoute = SignupRouteImport.update({
@@ -239,6 +246,11 @@ const VolunteerIndexRoute = VolunteerIndexRouteImport.update({
   path: '/volunteer/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VolunteerDeskRoute = VolunteerDeskRouteImport.update({
+  id: '/volunteer/desk',
+  path: '/volunteer/desk',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
   id: '/organizer/manage/$id',
   path: '/organizer/manage/$id',
@@ -261,6 +273,7 @@ export interface FileRoutesByFullPath {
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
+  '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
@@ -278,6 +291,7 @@ export interface FileRoutesByFullPath {
   '/sports/$sport': typeof SportsSportRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
+  '/volunteer/desk': typeof VolunteerDeskRoute
   '/admin/': typeof AdminIndexRoute
   '/athlete/': typeof AthleteIndexRoute
   '/college/': typeof CollegeIndexRoute
@@ -302,6 +316,7 @@ export interface FileRoutesByTo {
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
+  '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
@@ -319,6 +334,7 @@ export interface FileRoutesByTo {
   '/sports/$sport': typeof SportsSportRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
+  '/volunteer/desk': typeof VolunteerDeskRoute
   '/admin': typeof AdminIndexRoute
   '/athlete': typeof AthleteIndexRoute
   '/college': typeof CollegeIndexRoute
@@ -344,6 +360,7 @@ export interface FileRoutesById {
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
+  '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
@@ -361,6 +378,7 @@ export interface FileRoutesById {
   '/sports/$sport': typeof SportsSportRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
+  '/volunteer/desk': typeof VolunteerDeskRoute
   '/admin/': typeof AdminIndexRoute
   '/athlete/': typeof AthleteIndexRoute
   '/college/': typeof CollegeIndexRoute
@@ -387,6 +405,7 @@ export interface FileRouteTypes {
     | '/organizers'
     | '/privacy'
     | '/saved'
+    | '/shop'
     | '/signup'
     | '/sports'
     | '/stories'
@@ -404,6 +423,7 @@ export interface FileRouteTypes {
     | '/sports/$sport'
     | '/tournaments/$id'
     | '/tournaments/create'
+    | '/volunteer/desk'
     | '/admin/'
     | '/athlete/'
     | '/college/'
@@ -428,6 +448,7 @@ export interface FileRouteTypes {
     | '/organizers'
     | '/privacy'
     | '/saved'
+    | '/shop'
     | '/signup'
     | '/sports'
     | '/stories'
@@ -445,6 +466,7 @@ export interface FileRouteTypes {
     | '/sports/$sport'
     | '/tournaments/$id'
     | '/tournaments/create'
+    | '/volunteer/desk'
     | '/admin'
     | '/athlete'
     | '/college'
@@ -469,6 +491,7 @@ export interface FileRouteTypes {
     | '/organizers'
     | '/privacy'
     | '/saved'
+    | '/shop'
     | '/signup'
     | '/sports'
     | '/stories'
@@ -486,6 +509,7 @@ export interface FileRouteTypes {
     | '/sports/$sport'
     | '/tournaments/$id'
     | '/tournaments/create'
+    | '/volunteer/desk'
     | '/admin/'
     | '/athlete/'
     | '/college/'
@@ -511,6 +535,7 @@ export interface RootRouteChildren {
   OrganizersRoute: typeof OrganizersRoute
   PrivacyRoute: typeof PrivacyRoute
   SavedRoute: typeof SavedRoute
+  ShopRoute: typeof ShopRoute
   SignupRoute: typeof SignupRoute
   SportsRoute: typeof SportsRouteWithChildren
   StoriesRoute: typeof StoriesRoute
@@ -526,6 +551,7 @@ export interface RootRouteChildren {
   OrganizerResultsRoute: typeof OrganizerResultsRoute
   TournamentsIdRoute: typeof TournamentsIdRoute
   TournamentsCreateRoute: typeof TournamentsCreateRoute
+  VolunteerDeskRoute: typeof VolunteerDeskRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AthleteIndexRoute: typeof AthleteIndexRoute
   CollegeIndexRoute: typeof CollegeIndexRoute
@@ -640,6 +666,13 @@ declare module '@tanstack/react-router' {
       path: '/saved'
       fullPath: '/saved'
       preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signup': {
@@ -803,6 +836,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VolunteerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/volunteer/desk': {
+      id: '/volunteer/desk'
+      path: '/volunteer/desk'
+      fullPath: '/volunteer/desk'
+      preLoaderRoute: typeof VolunteerDeskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/organizer/manage/$id': {
       id: '/organizer/manage/$id'
       path: '/organizer/manage/$id'
@@ -852,6 +892,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrganizersRoute: OrganizersRoute,
   PrivacyRoute: PrivacyRoute,
   SavedRoute: SavedRoute,
+  ShopRoute: ShopRoute,
   SignupRoute: SignupRoute,
   SportsRoute: SportsRouteWithChildren,
   StoriesRoute: StoriesRoute,
@@ -867,6 +908,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrganizerResultsRoute: OrganizerResultsRoute,
   TournamentsIdRoute: TournamentsIdRoute,
   TournamentsCreateRoute: TournamentsCreateRoute,
+  VolunteerDeskRoute: VolunteerDeskRoute,
   AdminIndexRoute: AdminIndexRoute,
   AthleteIndexRoute: AthleteIndexRoute,
   CollegeIndexRoute: CollegeIndexRoute,

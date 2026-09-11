@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Building2, ClipboardCheck, Search, ShieldCheck, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
+import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/institutions")({
@@ -42,23 +43,22 @@ function InstitutionsPage() {
   const { db } = useKhelo();
   return (
     <div>
-      <section className="surface-panel">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
-            For institutions
-          </p>
-          <h1 className="mt-5 max-w-4xl font-display text-5xl font-black uppercase leading-[0.9] sm:text-7xl">
-            Your athletes already compete. Their records should stay with them.
-          </h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-surface-foreground/70">
-            Bring athlete records, tournament history and verified results together in one sporting
-            home.
-          </p>
-          <Button asChild size="lg" className="mt-8">
+      <NetworkHero
+        tone="institutions"
+        eyebrow="For institutions"
+        title={
+          <>
+            Your athletes compete. Their <span className="text-lime">records stay.</span>
+          </>
+        }
+        description="Bring athlete records, tournament history and verified results together in one sporting home."
+        highlights={["Records", "Events", "Verification"]}
+        actions={
+          <Button asChild size="lg">
             <Link to="/signup">Register your institution</Link>
           </Button>
-        </div>
-      </section>
+        }
+      />
       <Page className="py-14 sm:py-20">
         <SectionHeading
           eyebrow="A lasting sporting record"
