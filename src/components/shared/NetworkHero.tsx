@@ -22,7 +22,7 @@ export function NetworkHero({
 }: {
   eyebrow: string;
   title: ReactNode;
-  description: string;
+  description: ReactNode;
   actions?: ReactNode;
   highlights: [string, string, string];
   tone: HeroTone;

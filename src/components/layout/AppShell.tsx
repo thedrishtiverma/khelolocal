@@ -58,11 +58,11 @@ export function AppShell({ children }: { children: ReactNode }) {
             <img
               src="/android-chrome-192x192.png"
               alt="KheloLocal logo"
-              className="size-9 rounded-full object-cover ring-2 ring-transparent transition group-hover:ring-lime/60"
-              width={36}
-              height={36}
+              className="size-10 rounded-full object-cover ring-2 ring-transparent transition group-hover:ring-lime/60"
+              width={40}
+              height={40}
             />
-            <span className="font-display text-lg font-black tracking-tight">
+            <span className="font-display text-xl font-black tracking-tight">
               Khelo<span className="text-lime">Local</span>
             </span>
             <span className="hidden border-l border-border pl-3 font-ui text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground lg:inline">
@@ -241,18 +241,18 @@ export function AppShell({ children }: { children: ReactNode }) {
       </nav>
 
       <footer className="border-t border-border bg-card pb-20 md:pb-0">
-        <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-14 sm:px-6 md:grid-cols-[1.45fr_1fr_1fr_1fr] md:py-16">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.35fr_1fr_1fr_1fr_0.8fr] md:py-16">
           <div className="max-w-xs">
             <Link
               to="/"
-              className="flex items-center gap-3 font-display text-[1.65rem] font-black tracking-tight"
+              className="flex items-center gap-3 font-display text-[1.8rem] font-black tracking-tight"
             >
               <img
                 src="/android-chrome-192x192.png"
                 alt=""
-                className="size-10 rounded-full object-cover"
-                width={40}
-                height={40}
+                className="size-11 rounded-full object-cover"
+                width={44}
+                height={44}
               />
               <span>
                 Khelo<span className="text-lime">Local</span>
@@ -264,6 +264,12 @@ export function AppShell({ children }: { children: ReactNode }) {
             <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Play local. Prove your game.
             </p>
+            <a
+              href="mailto:khelolocal@gmail.com"
+              className="mt-4 inline-block text-sm font-semibold hover:text-lime"
+            >
+              khelolocal@gmail.com
+            </a>
           </div>
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -294,15 +300,10 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/stories" className="hover:text-lime">
                 Community stories
               </Link>
-              <Link to="/shop" className="hover:text-lime">
-                KheloLocal merch
-              </Link>
             </nav>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-              For organizations
-            </p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Build the game</p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
               <Link to="/organizers" className="hover:text-lime">
                 For organizers
@@ -316,10 +317,13 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/verification" className="hover:text-lime">
                 Verify records
               </Link>
+              <Link to="/volunteer" className="hover:text-lime">
+                Volunteer with us
+              </Link>
             </nav>
-            <p className="mt-8 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-              KheloLocal
-            </p>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">KheloLocal</p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
               <Link to="/vision" className="hover:text-lime">
                 About
@@ -333,12 +337,8 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/team" className="hover:text-lime">
                 Founders team
               </Link>
-              <Link to="/contact" className="hover:text-lime">
-                Contact
-              </Link>
-              <Link to="/volunteer" className="hover:text-lime">
-                Volunteer with us
-              </Link>
+              <Link to="/shop" className="hover:text-lime">KheloLocal merch</Link>
+              <Link to="/contact" className="hover:text-lime">Contact</Link>
               <Link to="/careers" className="hover:text-lime">
                 Careers
               </Link>

@@ -29,7 +29,12 @@ function CitiesPage() {
             A sporting network, built <span className="text-lime">city by city.</span>
           </>
         }
-        description="We begin by making local sport easier to find, play and remember. Indore is home ground."
+        description={
+          <>
+            City by city, <span className="text-lime font-semibold">KheloLocal</span> turns
+            everyday games into a trusted sporting network. Indore is home ground.
+          </>
+        }
         highlights={["Local", "Connected", "Growing"]}
       />
       <Page className="py-14 sm:py-20">

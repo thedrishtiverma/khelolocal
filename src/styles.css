@@ -1138,7 +1138,7 @@
 
 .athlete-card-banner {
   position: relative;
-  height: 5.75rem;
+  height: 7rem;
   overflow: hidden;
   isolation: isolate;
   background: linear-gradient(125deg, var(--surface), var(--primary));
@@ -1394,6 +1394,46 @@
     color-mix(in oklab, var(--card) 78%, var(--chart-5)) 0%,
     color-mix(in oklab, var(--cream) 75%, var(--chart-5)) 100%
   );
+}
+
+.sport-card-banner {
+  position: relative;
+  display: flex;
+  min-height: 8rem;
+  align-items: center;
+  gap: 0.75rem;
+  overflow: hidden;
+  padding: 1.25rem;
+  isolation: isolate;
+  color: var(--surface-foreground);
+  background: linear-gradient(128deg, var(--surface), var(--primary));
+}
+
+.sport-card-cricket .sport-card-banner,
+.sport-card-basketball .sport-card-banner {
+  background: linear-gradient(128deg, color-mix(in oklab, var(--field) 58%, var(--surface)), var(--primary));
+}
+
+.sport-card-football .sport-card-banner,
+.sport-card-kho-kho .sport-card-banner,
+.sport-card-athletics .sport-card-banner {
+  background: linear-gradient(128deg, color-mix(in oklab, var(--field) 75%, var(--surface)), var(--field));
+}
+
+.sport-card-volleyball .sport-card-banner,
+.sport-card-tennis .sport-card-banner,
+.sport-card-table-tennis .sport-card-banner {
+  background: linear-gradient(128deg, color-mix(in oklab, var(--accent) 72%, var(--surface)), var(--accent));
+}
+
+.sport-card-kabaddi .sport-card-banner,
+.sport-card-boxing .sport-card-banner {
+  background: linear-gradient(128deg, color-mix(in oklab, var(--live) 72%, var(--surface)), var(--live));
+}
+
+.sport-card-badminton .sport-card-banner,
+.sport-card-yoga .sport-card-banner {
+  background: linear-gradient(128deg, color-mix(in oklab, var(--chart-5) 62%, var(--surface)), var(--chart-5));
 }
 
 .athlete-card-sport {

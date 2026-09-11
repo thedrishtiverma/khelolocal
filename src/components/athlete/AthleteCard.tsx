@@ -10,13 +10,13 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
   const motif = sportMotif(athlete.primarySport);
   return (
     <article className={`data-card overflow-hidden rounded-xl p-0 theme-fade ${motif}`}>
-      <div className={`athlete-card-banner athlete-card-banner-${athlete.primarySport}`}>
+      <div className={`athlete-card-banner athlete-card-banner-${athlete.primarySport} min-h-28`}>
         <div className="profile-banner-lines absolute inset-0" />
         <span className="athlete-card-sport">
           {sportLabel(athlete.primarySport)} · {athlete.cityName}
         </span>
       </div>
-      <div className="relative px-6 pb-6 pt-4">
+      <div className="relative px-6 pb-6 pt-6">
         <div className="flex items-start gap-4">
           <Initials
             name={athlete.name}

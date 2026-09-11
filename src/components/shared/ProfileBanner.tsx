@@ -35,7 +35,7 @@ export function ProfileBanner({
         sport ? `profile-banner-sport-${sport}` : undefined,
       )}
     >
-      <div className="profile-banner-art relative h-36 overflow-hidden sm:h-44">
+      <div className="profile-banner-art relative h-44 overflow-hidden sm:h-52">
         <div className="profile-banner-lines absolute inset-0" />
         <div className="profile-banner-orbit profile-banner-orbit-one" aria-hidden="true" />
         <div className="profile-banner-orbit profile-banner-orbit-two" aria-hidden="true" />
@@ -43,8 +43,8 @@ export function ProfileBanner({
           {eyebrow}
         </span>
       </div>
-      <div className="relative px-5 pb-6 sm:px-8 sm:pb-8">
-        <div className="-mt-12 flex flex-col gap-5 sm:-mt-14 sm:flex-row sm:items-end">
+      <div className="relative px-5 pb-6 pt-2 sm:px-8 sm:pb-8 sm:pt-3">
+        <div className="-mt-12 flex flex-col gap-6 sm:-mt-14 sm:flex-row sm:items-end">
           {image ? (
             <img
               src={image}
@@ -64,7 +64,7 @@ export function ProfileBanner({
               </h1>
               {status}
             </div>
-            {subtitle ? <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p> : null}
+            {subtitle ? <p className="mt-3 text-sm leading-6 text-muted-foreground">{subtitle}</p> : null}
             {meta ? <div className="mt-2 text-sm text-muted-foreground">{meta}</div> : null}
           </div>
           {actions ? <div className="flex flex-wrap gap-2 sm:pb-1">{actions}</div> : null}

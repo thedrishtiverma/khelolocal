@@ -96,7 +96,7 @@ function SportsPage() {
                   <div className="profile-banner-lines absolute inset-0" />
                   <Icon className="relative z-10 size-10" aria-hidden="true" />
                   <span className="relative z-10 ml-auto font-ui text-[10px] font-bold uppercase tracking-[0.18em]">
-                    Indore / 01
+                    {sport.name} / Indore
                   </span>
                 </div>
                 <div className="p-6">
