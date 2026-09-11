@@ -43,8 +43,8 @@ export function SectionHeading({
   as: As = "h2",
 }: {
   eyebrow?: string;
-  title: string;
-  subtitle?: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
   action?: ReactNode;
   as?: "h1" | "h2";
 }) {
@@ -76,7 +76,11 @@ export function EmptyState({
   return (
     <div className="data-card-muted rounded-xl border border-dashed border-border px-6 py-16 text-center">
       <p className="font-display text-xl font-bold">{title}</p>
-      {description ? <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">{description}</p> : null}
+      {description ? (
+        <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
+          {description}
+        </p>
+      ) : null}
       {action ? <div className="mt-5 flex justify-center">{action}</div> : null}
     </div>
   );

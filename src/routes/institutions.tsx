@@ -63,7 +63,7 @@ function InstitutionsPage() {
       <Page className="py-14 sm:py-20">
         <SectionHeading
           eyebrow="A lasting sporting record"
-          title="Everything your sports cell needs."
+          title={<>Everything your <span className="text-lime">sports cell</span> needs.</>}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {AREAS.map(([Icon, title, body]) => (

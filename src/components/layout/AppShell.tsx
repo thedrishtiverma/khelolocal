@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { ChevronDown, Instagram, Linkedin, LogOut, Menu, UserRound, X } from "lucide-react";
+import { ChevronDown, Github, Instagram, Linkedin, LogOut, Menu, UserRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
@@ -409,6 +409,14 @@ export function AppShell({ children }: { children: ReactNode }) {
               className="inline-flex items-center gap-2 hover:text-lime"
             >
               <Linkedin className="size-4" /> LinkedIn
+            </a>
+            <a
+              href="https://github.com/khelolocal"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 hover:text-lime"
+            >
+              <Github className="size-4" /> GitHub
             </a>
           </nav>
         </div>

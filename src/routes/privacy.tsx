@@ -16,7 +16,11 @@ function PrivacyPage() {
     <Page className="max-w-4xl py-14 sm:py-24">
       <SectionHeading
         eyebrow="Legal"
-        title="Privacy policy"
+        title={
+          <>
+            Privacy <span className="text-lime">policy</span>
+          </>
+        }
         subtitle="Last updated: September 2026"
       />
       <div className="prose-content mt-12 space-y-10 text-sm leading-7 text-muted-foreground">

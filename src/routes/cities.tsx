@@ -31,8 +31,11 @@ function CitiesPage() {
         }
         description={
           <>
-            City by city, <span className="text-lime font-semibold">KheloLocal</span> turns
-            everyday games into a trusted sporting network. Indore is home ground.
+            City by city,{" "}
+            <span className="brand-inline font-semibold">
+              Khelo<span>Local</span>
+            </span>{" "}
+            turns everyday games into a trusted sporting network. Indore is home ground.
           </>
         }
         highlights={["Local", "Connected", "Growing"]}
@@ -42,7 +45,11 @@ function CitiesPage() {
           {db.cities
             .filter((city) => city.active)
             .map((city) => (
-              <Link key={city.id} to={city.id === "indore" ? "/cities/indore" : "/map"} className="data-card group rounded-2xl p-7">
+              <Link
+                key={city.id}
+                to={city.id === "indore" ? "/cities/indore" : "/map"}
+                className="data-card group rounded-2xl p-7"
+              >
                 <MapPin className="size-7 text-lime" />
                 <h2 className="mt-12 font-display text-3xl font-black uppercase">{city.name}</h2>
                 <p className="mt-2 text-sm text-muted-foreground">

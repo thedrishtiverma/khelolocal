@@ -1,11 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Search,
-  Trophy,
-  Users,
-} from "lucide-react";
+import { ArrowRight, BadgeCheck, Search, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
@@ -74,19 +68,45 @@ function Landing() {
       <NetworkHero
         tone="explore"
         eyebrow="Live from Indore, Madhya Pradesh"
-        title={<>Your city's <span className="text-lime">sports network.</span></>}
+        title={
+          <>
+            Your city's <span className="text-lime">sports network.</span>
+          </>
+        }
         description="The verified home ground for athletes, tournaments and the people who make local sport happen."
         highlights={["Find a game", "Meet players", "Build a record"]}
-        actions={<><Button asChild size="lg"><Link to="/tournaments">Find your next game <ArrowRight className="size-4" /></Link></Button><Button asChild size="lg" variant="outline" className="network-hero-secondary-action"><Link to="/athletes">Scout local talent</Link></Button></>}
+        actions={
+          <>
+            <Button asChild size="lg">
+              <Link to="/tournaments">
+                Find your next game <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="network-hero-secondary-action">
+              <Link to="/athletes">Scout local talent</Link>
+            </Button>
+          </>
+        }
       />
 
       <section className="city-pulse-band px-4 py-10 sm:px-6 sm:py-14">
         <div className="city-pulse-card mx-auto grid w-full max-w-6xl gap-8 rounded-2xl border border-border px-5 py-8 shadow-[0_18px_50px_-30px_var(--foreground)] sm:px-8 sm:py-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
           <div>
-            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-lime">Indore / 01</p>
-            <h2 className="mt-2 font-display text-4xl font-black uppercase leading-none">City pulse</h2>
-            <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">A live snapshot of the players, events and verified moments moving through the city.</p>
-            <Link to="/cities/indore" className="mt-5 inline-flex items-center gap-2 text-sm font-bold hover:text-lime">Explore Indore <ArrowRight className="size-4" /></Link>
+            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-lime">
+              Indore / 01
+            </p>
+            <h2 className="mt-2 font-display text-4xl font-black uppercase leading-none">
+              City pulse
+            </h2>
+            <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
+              A live snapshot of the players, events and verified moments moving through the city.
+            </p>
+            <Link
+              to="/cities/indore"
+              className="mt-5 inline-flex items-center gap-2 text-sm font-bold hover:text-lime"
+            >
+              Explore Indore <ArrowRight className="size-4" />
+            </Link>
           </div>
           <div className="city-pulse-stats grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">
             <Stat
@@ -117,7 +137,11 @@ function Landing() {
       <Page className="loop-section py-14 sm:py-20">
         <SectionHeading
           eyebrow="The KheloLocal loop"
-          title="Play hard. Leave a record."
+          title={
+            <>
+              Play hard. <span className="text-lime">Leave a record.</span>
+            </>
+          }
           subtitle="Every match is a chance to make your sporting identity more visible."
         />
         <div className="relative">
@@ -145,7 +169,11 @@ function Landing() {
       <Page className="pt-0 pb-14 sm:pb-20">
         <SectionHeading
           eyebrow="The local calendar"
-          title="Your next game is closer than you think"
+          title={
+            <>
+              Your <span className="text-lime">next game</span> is closer than you think
+            </>
+          }
           action={
             <Button asChild variant="outline">
               <Link to="/tournaments">See all tournaments</Link>
@@ -261,17 +289,31 @@ function Landing() {
           </div>
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["How it works", "See how a match becomes a trusted sporting record.", "/how-it-works"],
-              ["Indore city", "Explore the people and places on our home ground.", "/cities/indore"],
+              [
+                "How it works",
+                "See how a match becomes a trusted sporting record.",
+                "/how-it-works",
+              ],
+              [
+                "Indore city",
+                "Explore the people and places on our home ground.",
+                "/cities/indore",
+              ],
               ["Sports map", "Focus an area, then reveal its events and athletes.", "/map"],
               ["Sports", "Choose a game and find its local network.", "/sports"],
-              ["Institutions", "See the colleges and sports cells building records.", "/institutions"],
+              [
+                "Institutions",
+                "See the colleges and sports cells building records.",
+                "/institutions",
+              ],
               ["For organizers", "Publish, manage and verify the next tournament.", "/organizers"],
               ["Volunteer", "Put the sport you know on the city map.", "/volunteer"],
               ["KheloLocal merch", "Carry the local game beyond the boundary.", "/shop"],
             ].map(([title, body, to]) => (
               <Link key={title} to={to as "/map"} className="data-card group rounded-xl p-5">
-                <h3 className="font-display text-xl font-bold uppercase transition-colors group-hover:text-lime">{title}</h3>
+                <h3 className="font-display text-xl font-bold uppercase transition-colors group-hover:text-lime">
+                  {title}
+                </h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
                 <ArrowRight className="mt-5 size-4 text-lime transition-transform group-hover:translate-x-1" />
               </Link>

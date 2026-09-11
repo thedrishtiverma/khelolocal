@@ -5,6 +5,8 @@ export interface Founder {
   focus: string;
   bio: string;
   impact: string;
+  image?: string;
+  socials?: { github?: string; linkedin?: string; instagram?: string };
 }
 
 export const FOUNDERS: Founder[] = [
@@ -15,6 +17,12 @@ export const FOUNDERS: Founder[] = [
     focus: "Product direction",
     bio: "Drishti leads the product vision behind a trusted, city-by-city sporting network built around the games people already play.",
     impact: "Turning everyday local games into visible sporting opportunities.",
+    image: "/team/drishti-verma.jpeg",
+    socials: {
+      github: "https://github.com/khelolocal",
+      linkedin: "https://www.linkedin.com/company/khelolocal",
+      instagram: "https://www.instagram.com/khelolocal",
+    },
   },
   {
     slug: "arpita-jamra",

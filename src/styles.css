@@ -232,10 +232,13 @@
   }
 
   h1,
-  h2 {
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.005em;
+    text-transform: uppercase;
   }
 
   h3,
@@ -310,6 +313,16 @@
   font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
+}
+
+.brand-inline {
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-weight: 900;
+}
+
+.brand-inline span {
+  color: var(--lime);
 }
 
 .prose-content p {
@@ -1027,6 +1040,25 @@
 
 @utility data-card-muted {
   background-color: color-mix(in oklab, var(--color-card) 72%, var(--color-secondary));
+}
+
+.team-card-media {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--lime) 20%, transparent);
+  transition: box-shadow 220ms ease, transform 220ms ease;
+}
+
+.group:hover .team-card-media {
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--lime) 18%, transparent);
+  transform: rotate(-3deg) translateY(-2px);
+}
+
+.founder-profile-card { animation: profile-card-in 650ms both; }
+.founder-profile-photo img { transition: transform 500ms ease, filter 500ms ease; }
+.founder-profile-card:hover .founder-profile-photo img { transform: scale(1.04); filter: saturate(1.08) contrast(1.04); }
+
+@keyframes profile-card-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .process-flow-step { animation: process-rise 700ms both; }

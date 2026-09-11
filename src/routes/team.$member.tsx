@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Mail, Target } from "lucide-react";
+import { ArrowLeft, Github, Instagram, Linkedin, Mail, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Page } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
@@ -39,7 +39,20 @@ function FounderProfilePage() {
           <ArrowLeft className="size-4" /> All founders
         </Link>
         <div className="mt-8 grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-start">
-          <aside className="surface-panel rounded-2xl p-7 sm:p-8">
+          <aside className="surface-panel founder-profile-card rounded-2xl p-7 sm:p-8">
+            <div className="founder-profile-photo mb-7 overflow-hidden rounded-2xl border border-surface-foreground/15 bg-surface-foreground/10">
+              {founder.image ? (
+                <img
+                  src={founder.image}
+                  alt={`${founder.name} profile`}
+                  className="aspect-square w-full object-cover"
+                />
+              ) : (
+                <div className="flex aspect-square items-center justify-center font-display text-7xl font-black text-lime">
+                  {founder.name.slice(0, 1)}
+                </div>
+              )}
+            </div>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-lime">Focus</p>
             <Target className="mt-6 size-8 text-lime" />
             <p className="mt-5 font-display text-3xl font-black uppercase">{founder.focus}</p>
@@ -60,6 +73,38 @@ function FounderProfilePage() {
                 <Mail className="size-4" /> Connect with the team
               </a>
             </Button>
+            <div className="mt-7 flex flex-wrap gap-4 border-t border-border pt-5 text-sm font-semibold">
+              {founder.socials?.github ? (
+                <a
+                  href={founder.socials.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-lime"
+                >
+                  <Github className="size-4" /> GitHub
+                </a>
+              ) : null}
+              {founder.socials?.linkedin ? (
+                <a
+                  href={founder.socials.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-lime"
+                >
+                  <Linkedin className="size-4" /> LinkedIn
+                </a>
+              ) : null}
+              {founder.socials?.instagram ? (
+                <a
+                  href={founder.socials.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-lime"
+                >
+                  <Instagram className="size-4" /> Instagram
+                </a>
+              ) : null}
+            </div>
           </article>
         </div>
       </Page>
