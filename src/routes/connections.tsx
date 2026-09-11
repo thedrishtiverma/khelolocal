@@ -31,7 +31,7 @@ function ConnectionsPage() {
           description="Open an athlete profile and request a connection to start a conversation."
           action={
             <Button asChild>
-              <Link to="/discover">Discover talent</Link>
+              <Link to="/athletes">Discover talent</Link>
             </Button>
           }
         />

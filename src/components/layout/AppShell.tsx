@@ -29,7 +29,7 @@ const PROFILE_NAV: Record<Role, NavItem[]> = {
     { to: "/organizer/results", label: "Results" },
   ],
   SCOUT: [
-    { to: "/discover", label: "Discover athletes" },
+    { to: "/scout", label: "Scout dashboard" },
     { to: "/saved", label: "Saved athletes" },
     { to: "/connections", label: "Connections" },
   ],
@@ -37,7 +37,7 @@ const PROFILE_NAV: Record<Role, NavItem[]> = {
     { to: "/college", label: "Institution dashboard" },
     { to: "/college/records", label: "Records" },
   ],
-  VOLUNTEER: [{ to: "/volunteer", label: "Field desk" }],
+  VOLUNTEER: [{ to: "/volunteer/desk", label: "Field desk" }],
   ADMIN: [{ to: "/admin", label: "Admin console" }],
 };
 

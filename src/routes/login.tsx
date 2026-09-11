@@ -36,7 +36,7 @@ const DEMO = [
     to: "/volunteer" as const,
   },
   { label: "Admin (DB manager + verifier)", email: "admin@khelolocal.demo", to: "/admin" as const },
-  { label: "Scout / Coach / Team", email: "scout@khelolocal.demo", to: "/discover" as const },
+  { label: "Scout / Coach / Team", email: "scout@khelolocal.demo", to: "/scout" as const },
 ];
 
 function LoginPage() {
@@ -59,7 +59,7 @@ function LoginPage() {
       user.role === "ORGANIZER"
         ? "/organizer"
         : user.role === "SCOUT"
-          ? "/discover"
+          ? "/scout"
           : user.role === "COLLEGE"
             ? "/college"
             : user.role === "VOLUNTEER"

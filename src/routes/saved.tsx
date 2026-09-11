@@ -32,7 +32,7 @@ function SavedPage() {
           description="Save athletes from discovery to build a shortlist."
           action={
             <Button asChild>
-              <Link to="/discover">Discover talent</Link>
+              <Link to="/athletes">Discover talent</Link>
             </Button>
           }
         />

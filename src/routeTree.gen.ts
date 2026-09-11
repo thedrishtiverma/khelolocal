@@ -26,6 +26,7 @@ import { Route as MapRouteImport } from './routes/map'
 import { Route as OrganizersRouteImport } from './routes/organizers'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SavedRouteImport } from './routes/saved'
+import { Route as ScoutRouteImport } from './routes/scout'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SportsRouteImport } from './routes/sports'
@@ -48,6 +49,7 @@ import { Route as OrganizerCreateRouteImport } from './routes/organizer.create'
 import { Route as OrganizerResultsRouteImport } from './routes/organizer.results'
 import { Route as SportsSportRouteImport } from './routes/sports.$sport'
 import { Route as TeamMemberRouteImport } from './routes/team.$member'
+import { Route as TeamsDashboardRouteImport } from './routes/teams.dashboard'
 import { Route as TournamentsIndexRouteImport } from './routes/tournaments.index'
 import { Route as TournamentsIdRouteImport } from './routes/tournaments.$id'
 import { Route as TournamentsCreateRouteImport } from './routes/tournaments.create'
@@ -138,6 +140,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScoutRoute = ScoutRouteImport.update({
+  id: '/scout',
+  path: '/scout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShopRoute = ShopRouteImport.update({
@@ -250,6 +257,11 @@ const TeamMemberRoute = TeamMemberRouteImport.update({
   path: '/$member',
   getParentRoute: () => TeamRoute,
 } as any)
+const TeamsDashboardRoute = TeamsDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => TeamsRoute,
+} as any)
 const TournamentsIndexRoute = TournamentsIndexRouteImport.update({
   id: '/tournaments/',
   path: '/tournaments/',
@@ -299,12 +311,13 @@ export interface FileRoutesByFullPath {
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
+  '/scout': typeof ScoutRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
   '/team': typeof TeamRouteWithChildren
-  '/teams': typeof TeamsRoute
+  '/teams': typeof TeamsRouteWithChildren
   '/terms': typeof TermsRoute
   '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
@@ -317,6 +330,7 @@ export interface FileRoutesByFullPath {
   '/organizer/results': typeof OrganizerResultsRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
+  '/teams/dashboard': typeof TeamsDashboardRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/volunteer/desk': typeof VolunteerDeskRoute
@@ -346,12 +360,13 @@ export interface FileRoutesByTo {
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
+  '/scout': typeof ScoutRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
   '/team': typeof TeamRouteWithChildren
-  '/teams': typeof TeamsRoute
+  '/teams': typeof TeamsRouteWithChildren
   '/terms': typeof TermsRoute
   '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
@@ -364,6 +379,7 @@ export interface FileRoutesByTo {
   '/organizer/results': typeof OrganizerResultsRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
+  '/teams/dashboard': typeof TeamsDashboardRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/volunteer/desk': typeof VolunteerDeskRoute
@@ -394,12 +410,13 @@ export interface FileRoutesById {
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
   '/saved': typeof SavedRoute
+  '/scout': typeof ScoutRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
   '/team': typeof TeamRouteWithChildren
-  '/teams': typeof TeamsRoute
+  '/teams': typeof TeamsRouteWithChildren
   '/terms': typeof TermsRoute
   '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
@@ -412,6 +429,7 @@ export interface FileRoutesById {
   '/organizer/results': typeof OrganizerResultsRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
+  '/teams/dashboard': typeof TeamsDashboardRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
   '/volunteer/desk': typeof VolunteerDeskRoute
@@ -443,6 +461,7 @@ export interface FileRouteTypes {
     | '/organizers'
     | '/privacy'
     | '/saved'
+    | '/scout'
     | '/shop'
     | '/signup'
     | '/sports'
@@ -461,6 +480,7 @@ export interface FileRouteTypes {
     | '/organizer/results'
     | '/sports/$sport'
     | '/team/$member'
+    | '/teams/dashboard'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/volunteer/desk'
@@ -490,6 +510,7 @@ export interface FileRouteTypes {
     | '/organizers'
     | '/privacy'
     | '/saved'
+    | '/scout'
     | '/shop'
     | '/signup'
     | '/sports'
@@ -508,6 +529,7 @@ export interface FileRouteTypes {
     | '/organizer/results'
     | '/sports/$sport'
     | '/team/$member'
+    | '/teams/dashboard'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/volunteer/desk'
@@ -537,6 +559,7 @@ export interface FileRouteTypes {
     | '/organizers'
     | '/privacy'
     | '/saved'
+    | '/scout'
     | '/shop'
     | '/signup'
     | '/sports'
@@ -555,6 +578,7 @@ export interface FileRouteTypes {
     | '/organizer/results'
     | '/sports/$sport'
     | '/team/$member'
+    | '/teams/dashboard'
     | '/tournaments/$id'
     | '/tournaments/create'
     | '/volunteer/desk'
@@ -585,12 +609,13 @@ export interface RootRouteChildren {
   OrganizersRoute: typeof OrganizersRoute
   PrivacyRoute: typeof PrivacyRoute
   SavedRoute: typeof SavedRoute
+  ScoutRoute: typeof ScoutRoute
   ShopRoute: typeof ShopRoute
   SignupRoute: typeof SignupRoute
   SportsRoute: typeof SportsRouteWithChildren
   StoriesRoute: typeof StoriesRoute
   TeamRoute: typeof TeamRouteWithChildren
-  TeamsRoute: typeof TeamsRoute
+  TeamsRoute: typeof TeamsRouteWithChildren
   TermsRoute: typeof TermsRoute
   VerificationRoute: typeof VerificationRoute
   VisionRoute: typeof VisionRoute
@@ -730,6 +755,13 @@ declare module '@tanstack/react-router' {
       path: '/saved'
       fullPath: '/saved'
       preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scout': {
+      id: '/scout'
+      path: '/scout'
+      fullPath: '/scout'
+      preLoaderRoute: typeof ScoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shop': {
@@ -886,6 +918,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamMemberRouteImport
       parentRoute: typeof TeamRoute
     }
+    '/teams/dashboard': {
+      id: '/teams/dashboard'
+      path: '/dashboard'
+      fullPath: '/teams/dashboard'
+      preLoaderRoute: typeof TeamsDashboardRouteImport
+      parentRoute: typeof TeamsRoute
+    }
     '/tournaments/': {
       id: '/tournaments/'
       path: '/tournaments'
@@ -975,6 +1014,16 @@ const TeamRouteChildren: TeamRouteChildren = {
 
 const TeamRouteWithChildren = TeamRoute._addFileChildren(TeamRouteChildren)
 
+interface TeamsRouteChildren {
+  TeamsDashboardRoute: typeof TeamsDashboardRoute
+}
+
+const TeamsRouteChildren: TeamsRouteChildren = {
+  TeamsDashboardRoute: TeamsDashboardRoute,
+}
+
+const TeamsRouteWithChildren = TeamsRoute._addFileChildren(TeamsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AthletesRoute: AthletesRouteWithChildren,
@@ -993,12 +1042,13 @@ const rootRouteChildren: RootRouteChildren = {
   OrganizersRoute: OrganizersRoute,
   PrivacyRoute: PrivacyRoute,
   SavedRoute: SavedRoute,
+  ScoutRoute: ScoutRoute,
   ShopRoute: ShopRoute,
   SignupRoute: SignupRoute,
   SportsRoute: SportsRouteWithChildren,
   StoriesRoute: StoriesRoute,
   TeamRoute: TeamRouteWithChildren,
-  TeamsRoute: TeamsRoute,
+  TeamsRoute: TeamsRouteWithChildren,
   TermsRoute: TermsRoute,
   VerificationRoute: VerificationRoute,
   VisionRoute: VisionRoute,

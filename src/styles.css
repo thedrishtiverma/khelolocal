@@ -1070,6 +1070,30 @@
 .map-popover-athlete { background: var(--verified); color: var(--field-foreground); }
 @keyframes map-pop { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
 
+.india-map-overview {
+  position: relative;
+  display: grid;
+  min-height: 22rem;
+  gap: 2rem;
+  overflow: hidden;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  background: linear-gradient(120deg, color-mix(in oklab, var(--surface) 8%, var(--card)), var(--card));
+}
+.india-map-copy { position: relative; z-index: 2; max-width: 28rem; }
+.india-map-plate { position: relative; min-height: 16rem; isolation: isolate; }
+.india-map-outline { position: absolute; left: 18%; top: 4%; width: 52%; height: 92%; border: 2px solid color-mix(in oklab, var(--lime) 52%, var(--border)); border-radius: 48% 38% 52% 42% / 22% 34% 58% 70%; transform: rotate(18deg) skew(-8deg); background: radial-gradient(circle at 52% 50%, color-mix(in oklab, var(--field) 18%, transparent), transparent 58%); box-shadow: 0 0 0 16px color-mix(in oklab, var(--lime) 5%, transparent), 0 0 60px color-mix(in oklab, var(--field) 14%, transparent); }
+.city-node { position: absolute; z-index: 3; border: 1px solid var(--border); border-radius: 9999px; padding: 0.45rem 0.65rem; background: var(--card); color: var(--foreground); font-size: 0.65rem; font-weight: 800; box-shadow: var(--shadow-card); }
+.city-node-indore { left: 43%; top: 58%; border-color: var(--lime); background: var(--lime); color: var(--lime-foreground); animation: city-pulse 1.8s ease-in-out infinite; }
+.city-node-delhi { left: 48%; top: 23%; }.city-node-mumbai { left: 24%; top: 68%; }.city-node-bengaluru { left: 48%; top: 84%; }
+.india-map-signal { position: absolute; left: 47%; top: 61%; z-index: 2; width: 3rem; height: 3rem; border: 1px solid var(--lime); border-radius: 9999px; animation: signal-expand 2s ease-out infinite; }
+.india-map-overview.is-focused .india-map-outline { transform: rotate(18deg) skew(-8deg) scale(1.06); transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes signal-expand { from { opacity: 0.8; transform: scale(0.4); } to { opacity: 0; transform: scale(2.5); } }
+@keyframes city-pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--lime) 36%, transparent); } 50% { box-shadow: 0 0 0 0.7rem color-mix(in oklab, var(--lime) 0%, transparent); } }
+@media (min-width: 768px) { .india-map-overview { grid-template-columns: 0.9fr 1.1fr; } }
+
 .profile-banner-lines {
   background-image:
     linear-gradient(

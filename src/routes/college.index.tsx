@@ -85,7 +85,12 @@ function CollegeDashboard() {
             <Link to="/college/records">Manage records</Link>
           </Button>
           <Button asChild variant="outline">
-            <Link to="/discover">Discover athletes</Link>
+            <Link
+              to="/athletes"
+              className="border-surface-foreground/30 bg-transparent text-surface-foreground hover:bg-surface-foreground/10 hover:text-surface-foreground"
+            >
+              Discover athletes
+            </Link>
           </Button>
         </div>
       </section>

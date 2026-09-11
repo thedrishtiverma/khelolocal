@@ -34,7 +34,7 @@ function AthletePublicProfile() {
           title="Athlete not found"
           action={
             <Button asChild>
-              <Link to="/discover">Back to discovery</Link>
+              <Link to="/athletes">Back to discovery</Link>
             </Button>
           }
         />
