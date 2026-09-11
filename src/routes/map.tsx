@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Building2, MapPin, Minus, Plus, Trophy, Users } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { Button } from "@/components/ui/button";
@@ -35,7 +35,6 @@ function SportsMapPage() {
   const [zoneId, setZoneId] = useState("zone_vijay_nagar");
   const [zoom, setZoom] = useState(1);
   const [layer, setLayer] = useState<"network" | "tournaments" | "athletes">("network");
-  const [indiaFocus, setIndiaFocus] = useState(false);
   const zone = db.zones.find((item) => item.id === zoneId) ?? db.zones[0];
   const records = db.fieldSubmissions.filter(
     (record) =>
@@ -45,57 +44,20 @@ function SportsMapPage() {
   );
   const zoneTournaments = db.tournaments.filter((tournament) => tournament.cityId === "indore");
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => setIndiaFocus(true), 1800);
-    return () => window.clearTimeout(timer);
-  }, []);
-
   return (
     <div>
       <NetworkHero
         tone="explore"
-        eyebrow="India / city network"
+        eyebrow="Sports near you"
         title={
           <>
-            Start with India. <span className="text-lime">Zoom into Indore.</span>
+            Map the game <span className="text-lime">in Indore.</span>
           </>
         }
-        description="See how KheloLocal can grow city by city. The live field layer starts in Indore, with every future city ready to plug into the network."
-        highlights={["Cities", "Local sport", "Live layers"]}
+        description="Find the grounds, academies, tournaments and local opportunities that keep your city moving."
+        highlights={["Grounds", "Events", "Opportunities"]}
       />
       <Page className="py-10 sm:py-16">
-        <section
-          className={`india-map-overview ${indiaFocus ? "is-focused" : ""}`}
-          aria-label="India city network preview"
-        >
-          <div className="india-map-copy">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-lime">
-              City network / India
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-black uppercase">
-              Every city gets a home ground.
-            </h2>
-            <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
-              The overview shows the future network. The map automatically settles on Indore, where
-              verified local data is live today.
-            </p>
-          </div>
-          <div className="india-map-plate" aria-hidden="true">
-            <span className="india-map-outline" />
-            <span className="city-node city-node-delhi">Delhi</span>
-            <span className="city-node city-node-mumbai">Mumbai</span>
-            <span className="city-node city-node-bengaluru">Bengaluru</span>
-            <button
-              type="button"
-              className="city-node city-node-indore"
-              onClick={() => setIndiaFocus(true)}
-              aria-label="Focus Indore"
-            >
-              Indore
-            </button>
-            <span className="india-map-signal" />
-          </div>
-        </section>
         <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <section className="data-card overflow-hidden rounded-2xl p-0">
             <div className="city-map relative min-h-[520px] overflow-hidden p-6 sm:p-8">
