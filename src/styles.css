@@ -311,6 +311,12 @@
   color: var(--lime);
 }
 
+.network-hero-eyebrow .brand-name {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
 .prose-content h2 {
   color: var(--color-foreground);
   font-family: var(--font-display);
