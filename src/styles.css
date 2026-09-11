@@ -222,11 +222,13 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    background-image: linear-gradient(
-      135deg,
-      color-mix(in oklab, var(--background) 92%, var(--accent)) 0%,
-      transparent 38%
-    );
+    background-image:
+      linear-gradient(115deg, color-mix(in oklab, var(--field) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(25deg, color-mix(in oklab, var(--accent) 5%, transparent) 1px, transparent 1px),
+      radial-gradient(circle at 8% 12%, color-mix(in oklab, var(--field) 10%, transparent), transparent 24%),
+      radial-gradient(circle at 92% 48%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 28%),
+      linear-gradient(135deg, color-mix(in oklab, var(--background) 90%, var(--accent)) 0%, var(--background) 70%);
+    background-size: 54px 54px, 78px 78px, auto, auto, auto;
   }
 
   h1,
@@ -255,6 +257,8 @@
 
   .dark body {
     background-image:
+      linear-gradient(115deg, color-mix(in oklab, var(--field) 7%, transparent) 1px, transparent 1px),
+      linear-gradient(25deg, color-mix(in oklab, var(--accent) 6%, transparent) 1px, transparent 1px),
       radial-gradient(
         circle at 12% 0%,
         color-mix(in oklab, var(--field) 12%, transparent),
@@ -270,6 +274,7 @@
         color-mix(in oklab, var(--background) 88%, var(--primary)) 0%,
         var(--background) 42%
       );
+    background-size: 54px 54px, 78px 78px, auto, auto, auto;
   }
 }
 
@@ -900,6 +905,9 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  background:
+    linear-gradient(120deg, color-mix(in oklab, var(--surface) 7%, var(--background)), var(--background)),
+    var(--background);
 }
 
 .city-pulse-band::after {
@@ -907,7 +915,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.32;
+  opacity: 0.48;
   background-image: repeating-linear-gradient(
     -45deg,
     transparent 0 18px,

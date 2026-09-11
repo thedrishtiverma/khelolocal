@@ -2,9 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   BadgeCheck,
-  CalendarDays,
-  ChevronRight,
-  MapPin,
   Search,
   Trophy,
   Users,
@@ -13,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
+import { NetworkHero } from "@/components/shared/NetworkHero";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -73,122 +71,41 @@ function Landing() {
 
   return (
     <div>
-      <section className="hero-stage surface-panel field-grid">
-        <div className="hero-orbit" aria-hidden="true" />
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:py-24">
-          <div className="relative z-10">
-            <p className="mb-6 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
-              <span className="live-dot" /> Live from Indore, Madhya Pradesh
-            </p>
-            <h1 className="max-w-3xl font-display text-5xl font-black uppercase leading-[0.86] tracking-tight sm:text-7xl lg:text-8xl">
-              Your city is <span className="text-lime">playing.</span>
-            </h1>
-            <p className="mt-7 max-w-lg text-base leading-7 text-surface-foreground/72 sm:text-lg">
-              The verified home ground for athletes, tournaments and the people who make local sport
-              happen.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="group">
-                <Link to="/tournaments">
-                  Find your next game{" "}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-surface-foreground/25 bg-transparent text-surface-foreground hover:bg-surface-foreground/10"
-              >
-                <Link to="/athletes">Scout local talent</Link>
-              </Button>
-            </div>
-          </div>
+      <NetworkHero
+        tone="explore"
+        eyebrow="Live from Indore, Madhya Pradesh"
+        title={<>Your city is <span className="text-lime">playing.</span></>}
+        description="The verified home ground for athletes, tournaments and the people who make local sport happen."
+        highlights={["Find a game", "Meet players", "Build a record"]}
+        actions={<><Button asChild size="lg"><Link to="/tournaments">Find your next game <ArrowRight className="size-4" /></Link></Button><Button asChild size="lg" variant="outline" className="network-hero-secondary-action"><Link to="/athletes">Scout local talent</Link></Button></>}
+      />
 
-          <div className="scoreboard-panel relative z-10 overflow-hidden rounded-xl border border-surface-foreground/15 bg-surface-foreground/6 p-5 shadow-2xl sm:p-7">
-            <div className="flex items-start justify-between border-b border-surface-foreground/15 pb-5">
-              <div>
-                <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-surface-foreground/55">
-                  KheloLocal / Match centre
-                </p>
-                <p className="mt-2 font-display text-2xl font-bold uppercase">On the ground</p>
-              </div>
-              <span className="rounded-full bg-live/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-live">
-                Live
-              </span>
-            </div>
-            <div className="py-7">
-              <p className="font-ui text-[10px] font-bold uppercase tracking-[0.2em] text-lime">
-                Featured fixture
-              </p>
-              <p className="mt-2 font-display text-4xl font-black uppercase leading-none sm:text-5xl">
-                {liveTournament?.sportName ?? "Local sport"}
-              </p>
-              <div className="mt-5 flex items-center gap-3 text-sm text-surface-foreground/65">
-                <MapPin className="size-4 text-lime" />
-                {liveTournament?.venue ?? "Indore sports grounds"}
-              </div>
-              <div className="mt-2 flex items-center gap-3 text-sm text-surface-foreground/65">
-                <CalendarDays className="size-4 text-lime" />
-                {liveTournament?.name ?? "Open registration now"}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3 border-t border-surface-foreground/15 pt-5">
-              <div>
-                <p className="font-num text-2xl font-bold">
-                  {liveTournament?.currentParticipants ?? 0}
-                </p>
-                <p className="mt-1 text-[10px] uppercase tracking-widest text-surface-foreground/50">
-                  Players in
-                </p>
-              </div>
-              <div>
-                <p className="font-num text-2xl font-bold text-lime">
-                  {liveTournament?.maxParticipants ?? 0}
-                </p>
-                <p className="mt-1 text-[10px] uppercase tracking-widest text-surface-foreground/50">
-                  Total slots
-                </p>
-              </div>
-            </div>
-            <Link
-              to="/tournaments"
-              className="mt-6 flex items-center justify-between border-t border-surface-foreground/15 pt-4 text-xs font-bold uppercase tracking-widest text-lime hover:text-surface-foreground"
-            >
-              See all fixtures <ChevronRight className="size-4" />
-            </Link>
+      <section className="city-pulse-band border-y border-border">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-10 sm:px-6 sm:py-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
+          <div>
+            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-lime">Indore / 01</p>
+            <h2 className="mt-2 font-display text-4xl font-black uppercase leading-none">City pulse</h2>
+            <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">A live snapshot of the players, events and verified moments moving through the city.</p>
+            <Link to="/cities/indore" className="mt-5 inline-flex items-center gap-2 text-sm font-bold hover:text-lime">Explore Indore <ArrowRight className="size-4" /></Link>
           </div>
-        </div>
-      </section>
-
-      <section className="cream-band city-pulse-band border-y border-border">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-7 px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:gap-12 lg:py-9">
-          <div className="shrink-0 lg:w-44">
-            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-cream-foreground/55">
-              Indore / 01
-            </p>
-            <p className="mt-2 font-display text-2xl font-black uppercase leading-none">
-              City pulse
-            </p>
-          </div>
-          <div className="grid flex-1 grid-cols-2 divide-x divide-y divide-cream-foreground/15 border-y border-cream-foreground/15 sm:grid-cols-4 sm:divide-y-0 sm:border-y-0">
+          <div className="city-pulse-stats grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">
             <Stat
-              className="px-4 py-4 sm:px-5 sm:py-1"
+              className="bg-card px-4 py-6 sm:px-5 sm:py-7"
               value={db.athletes.length}
               label="Athletes"
             />
             <Stat
-              className="px-4 py-4 sm:px-5 sm:py-1"
+              className="bg-card px-4 py-6 sm:px-5 sm:py-7"
               value={db.tournaments.length}
               label="Tournaments"
             />
             <Stat
-              className="px-4 py-4 sm:px-5 sm:py-1"
+              className="bg-card px-4 py-6 sm:px-5 sm:py-7"
               value={db.teams.length}
               label="Local teams"
             />
             <Stat
-              className="px-4 py-4 sm:px-5 sm:py-1"
+              className="bg-card px-4 py-6 sm:px-5 sm:py-7"
               tone="accent"
               value={db.achievements.filter((a) => a.verified).length}
               label="Verified achievements"

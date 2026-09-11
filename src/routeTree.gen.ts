@@ -18,6 +18,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as FeedbackRouteImport } from './routes/feedback'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as InstitutionsRouteImport } from './routes/institutions'
 import { Route as LoginRouteImport } from './routes/login'
@@ -97,6 +98,11 @@ const DiscoverRoute = DiscoverRouteImport.update({
 const ExploreRoute = ExploreRouteImport.update({
   id: '/explore',
   path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedbackRoute = FeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -285,6 +291,7 @@ export interface FileRoutesByFullPath {
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
+  '/feedback': typeof FeedbackRoute
   '/how-it-works': typeof HowItWorksRoute
   '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
@@ -331,6 +338,7 @@ export interface FileRoutesByTo {
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
+  '/feedback': typeof FeedbackRoute
   '/how-it-works': typeof HowItWorksRoute
   '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
@@ -378,6 +386,7 @@ export interface FileRoutesById {
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
+  '/feedback': typeof FeedbackRoute
   '/how-it-works': typeof HowItWorksRoute
   '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
@@ -426,6 +435,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/discover'
     | '/explore'
+    | '/feedback'
     | '/how-it-works'
     | '/institutions'
     | '/login'
@@ -472,6 +482,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/discover'
     | '/explore'
+    | '/feedback'
     | '/how-it-works'
     | '/institutions'
     | '/login'
@@ -518,6 +529,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/discover'
     | '/explore'
+    | '/feedback'
     | '/how-it-works'
     | '/institutions'
     | '/login'
@@ -565,6 +577,7 @@ export interface RootRouteChildren {
   DemoRoute: typeof DemoRoute
   DiscoverRoute: typeof DiscoverRoute
   ExploreRoute: typeof ExploreRoute
+  FeedbackRoute: typeof FeedbackRoute
   HowItWorksRoute: typeof HowItWorksRoute
   InstitutionsRoute: typeof InstitutionsRoute
   LoginRoute: typeof LoginRoute
@@ -661,6 +674,13 @@ declare module '@tanstack/react-router' {
       path: '/explore'
       fullPath: '/explore'
       preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feedback': {
+      id: '/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof FeedbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -965,6 +985,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoRoute: DemoRoute,
   DiscoverRoute: DiscoverRoute,
   ExploreRoute: ExploreRoute,
+  FeedbackRoute: FeedbackRoute,
   HowItWorksRoute: HowItWorksRoute,
   InstitutionsRoute: InstitutionsRoute,
   LoginRoute: LoginRoute,

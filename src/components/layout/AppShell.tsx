@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { ChevronDown, LogOut, Menu, UserRound, X } from "lucide-react";
+import { ChevronDown, Instagram, Linkedin, LogOut, Menu, UserRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
@@ -241,7 +241,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </nav>
 
       <footer className="border-t border-border bg-card pb-20 md:pb-0">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.35fr_1fr_1fr_1fr_0.8fr] md:py-16">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.35fr_1fr_1fr_1fr_0.9fr] md:py-16">
           <div className="max-w-xs">
             <Link
               to="/"
@@ -288,9 +288,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/sports" className="hover:text-lime">
                 Sports
               </Link>
-              <Link to="/institutions" className="hover:text-lime">
-                Institutions
-              </Link>
               <Link to="/teams" className="hover:text-lime">
                 Teams
               </Link>
@@ -315,10 +312,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 Create tournament
               </Link>
               <Link to="/verification" className="hover:text-lime">
-                Verify records
-              </Link>
-              <Link to="/volunteer" className="hover:text-lime">
-                Volunteer with us
+                Verified record
               </Link>
             </nav>
           </div>
@@ -339,11 +333,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Link>
               <Link to="/shop" className="hover:text-lime">KheloLocal merch</Link>
               <Link to="/contact" className="hover:text-lime">Contact</Link>
+              <Link to="/volunteer" className="hover:text-lime">Volunteer with us</Link>
               <Link to="/careers" className="hover:text-lime">
                 Careers
-              </Link>
-              <Link to="/demo" className="hover:text-lime">
-                Demo tools
               </Link>
             </nav>
           </div>
@@ -358,6 +350,19 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/privacy" className="hover:text-lime">
                 Privacy policy
               </Link>
+            </nav>
+            <div className="mt-8 border-t border-border pt-6">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Feedback</p>
+              <Link to="/feedback" className="mt-4 inline-block text-sm font-semibold hover:text-lime">Shape the next match</Link>
+            </div>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              Social
+            </p>
+            <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
+              <a href="https://www.instagram.com/khelolocal" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-lime"><Instagram className="size-4" /> Instagram</a>
+              <a href="https://www.linkedin.com/company/khelolocal" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-lime"><Linkedin className="size-4" /> LinkedIn</a>
             </nav>
           </div>
         </div>
