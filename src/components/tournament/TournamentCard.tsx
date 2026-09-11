@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/shared/Badges";
 import { formatDateRange, formatINR } from "@/lib/format";
 import { sportMotif } from "@/lib/sport-visuals";
+import { SportIcon } from "@/components/shared/SportIcon";
 import type { Tournament } from "@/types";
 
 export function TournamentCard({
@@ -21,6 +22,13 @@ export function TournamentCard({
     <article
       className={`data-card flex flex-col rounded-xl p-6 theme-fade ${sportMotif(tournament.sportId)}`}
     >
+      <div className={`tournament-card-banner tournament-card-banner-${tournament.sportId} -mx-6 -mt-6 mb-5 flex min-h-28 items-end justify-between gap-4 px-6 pb-4`}>
+        <div className="flex items-center gap-3 text-surface-foreground">
+          <SportIcon sportId={tournament.sportId} className="size-8" aria-hidden="true" />
+          <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em]">{tournament.sportName}</span>
+        </div>
+        <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/70">Indore / event</span>
+      </div>
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <p className="font-ui text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">

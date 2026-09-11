@@ -3,6 +3,8 @@ import { BadgeCheck, Megaphone, Pencil, Trophy } from "lucide-react";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { Button } from "@/components/ui/button";
+import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
+import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/organizers")({
   head: () => ({
@@ -29,6 +31,7 @@ const WORKFLOW = [
 ];
 
 function OrganizersPage() {
+  const { db } = useKhelo();
   return (
     <div>
       <NetworkHero
@@ -69,6 +72,14 @@ function OrganizersPage() {
             </article>
           ))}
         </div>
+        <section className="mt-16">
+          <SectionHeading eyebrow="The people behind the fixtures" title="Organizations in Indore." />
+          <div className="grid gap-5 lg:grid-cols-2">
+            {db.organizers.map((organizer) => (
+              <OrganizerBanner key={organizer.id} organizer={organizer} />
+            ))}
+          </div>
+        </section>
       </Page>
     </div>
   );

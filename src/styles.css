@@ -924,6 +924,19 @@
   pointer-events: none;
 }
 
+.made-with-love span {
+  display: inline-block;
+  color: var(--live);
+  animation: heart-beat 1.2s ease-in-out infinite;
+}
+
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.22); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.14); }
+}
+
 .loop-section {
   position: relative;
 }
@@ -1072,6 +1085,44 @@
   background-size: 24px 24px;
   transform: perspective(420px) rotateX(55deg) scale(1.5) translateY(20%);
   transform-origin: bottom;
+}
+
+.tournament-card-banner {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(125deg, var(--surface), var(--primary));
+  color: var(--surface-foreground);
+}
+
+.tournament-card-banner::after,
+.institution-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.65;
+  background:
+    linear-gradient(115deg, transparent 0 48%, color-mix(in oklab, var(--lime) 28%, transparent) 48.5% 49%, transparent 49.5%),
+    radial-gradient(circle at 84% 20%, color-mix(in oklab, var(--lime) 28%, transparent), transparent 24%);
+}
+
+.tournament-card-banner-football,
+.tournament-card-banner-khokho,
+.tournament-card-banner-athletics { background: linear-gradient(125deg, color-mix(in oklab, var(--field) 62%, var(--surface)), var(--primary)); }
+.tournament-card-banner-kabaddi,
+.tournament-card-banner-boxing,
+.tournament-card-banner-badminton { background: linear-gradient(125deg, color-mix(in oklab, var(--live) 62%, var(--surface)), var(--primary)); }
+.tournament-card-banner-cricket,
+.tournament-card-banner-basketball,
+.tournament-card-banner-volleyball { background: linear-gradient(125deg, color-mix(in oklab, var(--accent) 58%, var(--surface)), var(--primary)); }
+
+.institution-banner {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(125deg, color-mix(in oklab, var(--field) 35%, var(--surface)), var(--primary));
+  color: var(--surface-foreground);
 }
 
 /* Profile banners deliberately have separate treatments per appearance mode.

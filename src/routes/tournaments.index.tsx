@@ -71,7 +71,7 @@ function ExploreTournaments() {
     <div>
       <NetworkHero
         tone="tournaments"
-        eyebrow="Sports near you"
+        eyebrow="The local tournament calendar"
         title={
           <>
             Find your <span className="text-lime">next game.</span>

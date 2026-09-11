@@ -3,6 +3,7 @@ import { Building2, ClipboardCheck, Search, ShieldCheck, Trophy, Users } from "l
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { InstitutionBanner } from "@/components/shared/InstitutionBanner";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/institutions")({
@@ -73,19 +74,7 @@ function InstitutionsPage() {
             </article>
           ))}
         </div>
-        {db.colleges.length ? (
-          <section className="mt-16 rounded-2xl border border-border bg-card p-7 sm:p-9">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-              Building sport in Indore
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-black uppercase">
-              {db.colleges[0].shortName}
-            </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
-              {db.colleges[0].description}
-            </p>
-          </section>
-        ) : null}
+        {db.colleges.length ? <section className="mt-16 grid gap-5 sm:grid-cols-2">{db.colleges.map((college) => <InstitutionBanner key={college.id} college={college} />)}</section> : null}
       </Page>
     </div>
   );

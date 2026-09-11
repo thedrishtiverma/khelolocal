@@ -226,13 +226,13 @@ function Landing() {
             <h2 className="mt-4 font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
               Built locally.
               <br />
-              Designed to scale.
+              <span className="text-lime">Designed to scale.</span>
             </h2>
           </div>
           <div className="border-l border-surface-foreground/20 pl-6 sm:pl-10">
             <p className="max-w-2xl text-xl leading-8 text-surface-foreground/85 sm:text-2xl sm:leading-9">
               City by city,{" "}
-              <span className="font-display font-black tracking-tight">
+              <span className="font-display font-black tracking-tight text-lime">
                 Khelo<span className="text-lime">Local</span>
               </span>{" "}
               turns everyday games into a trusted sporting network.
@@ -252,7 +252,7 @@ function Landing() {
               Start here
             </p>
             <h2 className="mt-3 font-display text-4xl font-black uppercase leading-none sm:text-6xl">
-              One home ground. Every way in.
+              <span className="text-lime">One home ground.</span> Every way in.
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-foreground">
               Follow the path that fits you: learn the network, find the map, join a game, support
@@ -271,7 +271,7 @@ function Landing() {
               ["KheloLocal merch", "Carry the local game beyond the boundary.", "/shop"],
             ].map(([title, body, to]) => (
               <Link key={title} to={to as "/map"} className="data-card group rounded-xl p-5">
-                <h3 className="font-display text-xl font-bold uppercase">{title}</h3>
+                <h3 className="font-display text-xl font-bold uppercase transition-colors group-hover:text-lime">{title}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
                 <ArrowRight className="mt-5 size-4 text-lime transition-transform group-hover:translate-x-1" />
               </Link>
