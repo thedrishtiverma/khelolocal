@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDownRight, Building2, MapPin, Trophy, Users } from "lucide-react";
+import { ArrowDownRight, ArrowRight, Building2, MapPin, Trophy, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 // @ts-expect-error This small data-only package does not ship TypeScript declarations.
 import indiaMap from "@svg-maps/india";
@@ -39,12 +39,12 @@ type IndiaMap = {
 type MapStage = "india" | "indore" | "areas";
 
 const INDIA = indiaMap as IndiaMap;
-const AREA_MARKERS = [
-  { id: "zone_vijay_nagar", x: 244, y: 323, label: "Vijay Nagar" },
-  { id: "zone_palasia", x: 253, y: 334, label: "Palasia" },
-  { id: "zone_bhawarkua", x: 236, y: 342, label: "Bhawarkua" },
-  { id: "zone_rau", x: 220, y: 352, label: "Rau" },
-];
+const AREA_POSITIONS: Record<string, { x: number; y: number }> = {
+  zone_vijay_nagar: { x: 255, y: 315 },
+  zone_old_indore: { x: 244, y: 333 },
+  zone_bhawarkuan: { x: 235, y: 344 },
+  zone_sudama_nagar: { x: 218, y: 350 },
+};
 
 function SportsMapPage() {
   const { db } = useKhelo();
@@ -52,6 +52,9 @@ function SportsMapPage() {
   const [zoneId, setZoneId] = useState("zone_vijay_nagar");
   const [stage, setStage] = useState<MapStage>("india");
   const zone = db.zones.find((item) => item.id === zoneId) ?? db.zones[0];
+  const areaMarkers = db.zones
+    .filter((item) => item.cityId === "indore")
+    .map((item) => ({ ...item, ...(AREA_POSITIONS[item.id] ?? { x: 244, y: 333 }) }));
   const records = db.fieldSubmissions.filter(
     (record) =>
       record.zoneId === zone?.id &&
@@ -71,19 +74,20 @@ function SportsMapPage() {
 
   return (
     <Page className="py-6 sm:py-10">
-      <section className="india-map-story overflow-hidden rounded-2xl border border-border">
+      <section className="india-map-atlas overflow-hidden rounded-2xl border border-border">
         <div className="india-map-copy">
           <p className="india-map-kicker">
             <span className="live-dot" /> <BrandName /> / India
           </p>
+          <p className="india-map-overline">Live network atlas</p>
           <h1 className="font-display text-4xl font-black uppercase leading-[0.88] sm:text-6xl">
-            A country of games.
+            Find the places
             <br />
-            <span className="text-lime">One home ground.</span>
+            <span className="text-lime">where sport moves.</span>
           </h1>
           <p className="mt-5 max-w-md text-sm leading-6 text-surface-foreground/70 sm:text-base">
-            Sport is already happening everywhere. <BrandName /> starts by connecting one city —
-            then the neighbourhoods inside it.
+            Start with the country. Follow the signal into Indore, then choose the neighbourhood
+            where your next game is taking shape.
           </p>
           <div className="india-map-steps mt-7" aria-label="Map journey">
             {(["india", "indore", "areas"] as MapStage[]).map((item, index) => (
@@ -131,7 +135,7 @@ function SportsMapPage() {
                 </text>
               </g>
               <g className="india-area-markers">
-                {AREA_MARKERS.map((area) => (
+                {areaMarkers.map((area) => (
                   <g
                     key={area.id}
                     className={zoneId === area.id ? "active" : ""}
@@ -171,13 +175,13 @@ function SportsMapPage() {
         </div>
       </section>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+      <div className="india-map-content mt-6 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
         <section className="india-map-detail rounded-2xl border border-border p-6 sm:p-8">
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-lime">
             From country to street
           </p>
           <h2 className="mt-4 font-display text-3xl font-black uppercase">
-            The local game, made visible.
+            A living map of Indore.
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
             The map moves from the national picture to Indore, then into the places where players
@@ -207,7 +211,7 @@ function SportsMapPage() {
           </div>
         </section>
 
-        <section className="data-card rounded-2xl p-6 sm:p-8">
+        <section className="india-map-drawer data-card rounded-2xl p-6 sm:p-8">
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
             Selected zone
           </p>
@@ -231,6 +235,22 @@ function SportsMapPage() {
           <p className="mt-4 text-xs leading-5 text-muted-foreground">
             Select an area on the map to see verified sports activity nearby.
           </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {areaMarkers.map((area) => (
+              <button
+                key={area.id}
+                type="button"
+                onClick={() => {
+                  setZoneId(area.id);
+                  setStage("areas");
+                }}
+                className={`area-chip ${zone?.id === area.id ? "active" : ""}`}
+              >
+                {area.name}
+                <ArrowRight className="size-3.5" />
+              </button>
+            ))}
+          </div>
           <div className="mt-8 grid grid-cols-2 gap-3 border-y border-border py-5">
             <div>
               <p className="stat-num text-2xl">{records.length}</p>
