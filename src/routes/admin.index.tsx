@@ -41,6 +41,7 @@ function AdminConsole() {
     adminReviewRecord,
     adminSetTournamentVerified,
     adminSetAthleteVerification,
+    reviewSubmission,
   } = useKhelo();
   const [tab, setTab] = useState<Tab>("records");
   const [query, setQuery] = useState("");
@@ -290,9 +291,7 @@ function AdminConsole() {
                           {a.primarySport} · {a.position || "—"}
                         </p>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">
-                        {a.collegeName ?? "—"}
-                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{a.collegeName ?? "—"}</td>
                       <td className="px-4 py-3">
                         <span className="stat-num">
                           {
@@ -338,17 +337,87 @@ function AdminConsole() {
           <div className="city-map relative min-h-[420px] overflow-hidden rounded-2xl border border-border p-6 sm:p-8">
             <div className="city-map-canvas" />
             {db.zones.map((zone, index) => {
-              const zoneVolunteers = db.volunteers.filter((volunteer) => volunteer.zoneId === zone.id);
-              const verified = db.fieldSubmissions.filter((record) => record.zoneId === zone.id && record.status === "VERIFIED").length;
+              const zoneVolunteers = db.volunteers.filter(
+                (volunteer) => volunteer.zoneId === zone.id,
+              );
+              const verified = db.fieldSubmissions.filter(
+                (record) => record.zoneId === zone.id && record.status === "VERIFIED",
+              ).length;
               return (
-                <div key={zone.id} className="absolute z-10 rounded-xl border border-border bg-card/95 p-4 shadow-lg" style={{ left: `${10 + (index % 3) * 29}%`, top: `${18 + Math.floor(index / 3) * 36}%` }}>
-                  <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider"><MapPin className="size-3.5 text-lime" />{zone.name}</p>
-                  <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground"><Users className="size-3.5" />{zoneVolunteers.length} volunteer{zoneVolunteers.length === 1 ? "" : "s"}</p>
+                <div
+                  key={zone.id}
+                  className="absolute z-10 rounded-xl border border-border bg-card/95 p-4 shadow-lg"
+                  style={{
+                    left: `${10 + (index % 3) * 29}%`,
+                    top: `${18 + Math.floor(index / 3) * 36}%`,
+                  }}
+                >
+                  <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
+                    <MapPin className="size-3.5 text-lime" />
+                    {zone.name}
+                  </p>
+                  <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+                    <Users className="size-3.5" />
+                    {zoneVolunteers.length} volunteer{zoneVolunteers.length === 1 ? "" : "s"}
+                  </p>
                   <p className="mt-1 text-xs text-verified">{verified} verified reports</p>
                 </div>
               );
             })}
           </div>
+          <section className="mt-10">
+            <SectionHeading
+              eyebrow="Moderation queue"
+              title="Submitted field reports"
+              subtitle="Review volunteer reports before they appear as verified city data."
+            />
+            <div className="space-y-3">
+              {db.fieldSubmissions
+                .filter((record) => record.status === "SUBMITTED")
+                .map((record) => (
+                  <article
+                    key={record.id}
+                    className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-5"
+                  >
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                        {record.kind} · {record.zoneName}
+                      </p>
+                      <h3 className="mt-1 font-display text-xl font-bold">{record.title}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {record.address || record.notes}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          reviewSubmission(record.id, true);
+                          toast.success("Field report verified");
+                        }}
+                      >
+                        <BadgeCheck className="size-4" /> Verify
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          reviewSubmission(record.id, false, "Needs more detail");
+                          toast("Field report returned");
+                        }}
+                      >
+                        Return
+                      </Button>
+                    </div>
+                  </article>
+                ))}
+              {!db.fieldSubmissions.some((record) => record.status === "SUBMITTED") ? (
+                <p className="text-sm text-muted-foreground">
+                  No submitted field reports are waiting for review.
+                </p>
+              ) : null}
+            </div>
+          </section>
         </div>
       ) : null}
     </Page>

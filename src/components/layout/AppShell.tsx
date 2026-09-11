@@ -169,6 +169,23 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </Link>
               ))}
             </nav>
+            {profileItems.length ? (
+              <div className="mt-3 border-t border-border pt-3">
+                <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                  Your workspace
+                </p>
+                {profileItems.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="block rounded px-3 py-2.5 text-sm font-semibold text-muted-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
             <div className="mt-3 flex gap-2">
               {currentUser ? (
                 <>
@@ -221,6 +238,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               "py-3 text-center text-[11px] font-semibold uppercase tracking-wide",
               isActive(item.to) ? "text-foreground" : "text-muted-foreground",
             )}
+            onClick={() => setOpen(false)}
           >
             {item.label}
           </Link>
@@ -300,7 +318,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             </nav>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Build the game</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              Build the game
+            </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
               <Link to="/organizers" className="hover:text-lime">
                 For organizers
@@ -311,7 +331,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             </nav>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">KheloLocal</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              KheloLocal
+            </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
               <Link to="/vision" className="hover:text-lime">
                 About
@@ -325,13 +347,21 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/team" className="hover:text-lime">
                 Founders team
               </Link>
-              <Link to="/shop" className="hover:text-lime">KheloLocal merch</Link>
-              <Link to="/contact" className="hover:text-lime">Contact</Link>
-              <Link to="/volunteer" className="hover:text-lime">Volunteer with us</Link>
+              <Link to="/shop" className="hover:text-lime">
+                KheloLocal merch
+              </Link>
+              <Link to="/contact" className="hover:text-lime">
+                Contact
+              </Link>
+              <Link to="/volunteer" className="hover:text-lime">
+                Volunteer with us
+              </Link>
               <Link to="/careers" className="hover:text-lime">
                 Careers
               </Link>
-              <Link to="/verification" className="hover:text-lime">Verified record</Link>
+              <Link to="/verification" className="hover:text-lime">
+                Verified record
+              </Link>
             </nav>
           </div>
           <div>
@@ -347,22 +377,47 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Link>
             </nav>
             <div className="mt-8 border-t border-border pt-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Feedback</p>
-              <Link to="/feedback" className="mt-4 inline-block text-sm font-semibold hover:text-lime">Shape the next match</Link>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                Feedback
+              </p>
+              <Link
+                to="/feedback"
+                className="mt-4 inline-block text-sm font-semibold hover:text-lime"
+              >
+                Shape the next match
+              </Link>
             </div>
           </div>
         </div>
         <div className="border-t border-border px-4 py-7 sm:px-6">
-          <p className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Follow the local game</p>
+          <p className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            Follow the local game
+          </p>
           <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold">
-            <a href="https://www.instagram.com/khelolocal" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-lime"><Instagram className="size-4" /> Instagram</a>
-            <a href="https://www.linkedin.com/company/khelolocal" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-lime"><Linkedin className="size-4" /> LinkedIn</a>
+            <a
+              href="https://www.instagram.com/khelolocal"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 hover:text-lime"
+            >
+              <Instagram className="size-4" /> Instagram
+            </a>
+            <a
+              href="https://www.linkedin.com/company/khelolocal"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 hover:text-lime"
+            >
+              <Linkedin className="size-4" /> LinkedIn
+            </a>
           </nav>
         </div>
         <div className="border-t border-border">
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <p>© 2026 KheloLocal. Built for grassroots sport.</p>
-            <p className="made-with-love font-bold text-foreground">Made with <span aria-label="love">♥</span></p>
+            <p className="made-with-love font-bold text-foreground">
+              Made with <span aria-label="love">♥</span>
+            </p>
             <p>Indore, Madhya Pradesh</p>
           </div>
         </div>

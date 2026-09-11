@@ -10,7 +10,10 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Log in | KheloLocal" },
-      { name: "description", content: "Log in to KheloLocal to manage tournaments, results and your sporting profile." },
+      {
+        name: "description",
+        content: "Log in to KheloLocal to manage tournaments, results and your sporting profile.",
+      },
       { property: "og:title", content: "Log in | KheloLocal" },
       { property: "og:description", content: "Log in to your KheloLocal account." },
     ],
@@ -22,8 +25,16 @@ const DEMO = [
   { label: "Athlete", email: "athlete@khelolocal.demo", to: "/athlete" as const },
   { label: "Athlete (SGSITS — Drishti)", email: "drishti@sgsits.demo", to: "/athlete" as const },
   { label: "Organizer", email: "organizer@khelolocal.demo", to: "/organizer" as const },
-  { label: "College (SGSITS Sports Cell)", email: "college@khelolocal.demo", to: "/college" as const },
-  { label: "Volunteer (Vijay Nagar zone)", email: "volunteer@khelolocal.demo", to: "/volunteer" as const },
+  {
+    label: "College (SGSITS Sports Cell)",
+    email: "college@khelolocal.demo",
+    to: "/college" as const,
+  },
+  {
+    label: "Volunteer (Vijay Nagar zone)",
+    email: "volunteer@khelolocal.demo",
+    to: "/volunteer" as const,
+  },
   { label: "Admin (DB manager + verifier)", email: "admin@khelolocal.demo", to: "/admin" as const },
   { label: "Scout / Coach / Team", email: "scout@khelolocal.demo", to: "/discover" as const },
 ];
@@ -32,7 +43,6 @@ function LoginPage() {
   const { login } = useKhelo();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -86,24 +96,12 @@ function LoginPage() {
               required
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-            />
-          </div>
           {error ? <p className="text-sm font-medium text-destructive">{error}</p> : null}
           <Button type="submit" className="w-full" disabled={busy}>
             {busy ? "Logging in…" : "Log in"}
           </Button>
           <div className="flex items-center justify-between text-sm">
-            <button type="button" className="text-muted-foreground hover:underline">
-              Forgot password?
-            </button>
+            <span className="text-xs text-muted-foreground">Email-only demo access</span>
             <Link to="/signup" className="font-semibold hover:underline">
               Create an account
             </Link>

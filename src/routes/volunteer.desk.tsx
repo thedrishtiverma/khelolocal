@@ -63,11 +63,26 @@ const KINDS: {
   blurb: string;
   icon: typeof Trophy;
 }[] = [
-  { kind: "TOURNAMENT", label: "Tournament", blurb: "Local cup, league or one-day meet", icon: Trophy },
+  {
+    kind: "TOURNAMENT",
+    label: "Tournament",
+    blurb: "Local cup, league or one-day meet",
+    icon: Trophy,
+  },
   { kind: "VENUE", label: "Sports venue", blurb: "Ground, turf, court or hall", icon: MapPin },
   { kind: "ACADEMY", label: "Academy / club", blurb: "Coaching centre or club", icon: Dumbbell },
-  { kind: "OPPORTUNITY", label: "Opportunity", blurb: "Trials, camps, open slots", icon: Megaphone },
-  { kind: "ORGANIZER_INFO", label: "Organizer info", blurb: "Who runs it + contact", icon: Building2 },
+  {
+    kind: "OPPORTUNITY",
+    label: "Opportunity",
+    blurb: "Trials, camps, open slots",
+    icon: Megaphone,
+  },
+  {
+    kind: "ORGANIZER_INFO",
+    label: "Organizer info",
+    blurb: "Who runs it + contact",
+    icon: Building2,
+  },
 ];
 
 const KIND_LABEL: Record<SubmissionKind, string> = {
@@ -236,212 +251,213 @@ function VolunteerDashboard() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pb-10 pt-5 sm:px-6">
-        <ProfileBanner
-          name={volunteer.name}
-          eyebrow={`Field desk · ${volunteer.cityId === "indore" ? "Indore" : volunteer.cityId}`}
-          title={`${volunteer.name.split(" ")[0]} · ${volunteer.zoneName}`}
-          subtitle="On-ground sports data volunteer"
-          meta={<span className="flex items-center gap-1.5"><MapPin className="size-4" />Zone locked to {volunteer.zoneName}</span>}
-          accent="field"
-        />
-        <section className="mt-4 rounded-xl border border-border bg-card p-5">
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {(zone?.localities ?? []).map((l) => (
-              <span
-                key={l}
-                className="rounded-full bg-primary-foreground/10 px-2.5 py-1 text-[11px] font-semibold"
-              >
-                {l}
-              </span>
-            ))}
-          </div>
-          <p className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground">
-            <MapPin className="size-3.5" />
-            Zone locked — you can only add and edit data inside {volunteer.zoneName}.
-          </p>
-        </section>
+      <ProfileBanner
+        name={volunteer.name}
+        eyebrow={`Field desk · ${volunteer.cityId === "indore" ? "Indore" : volunteer.cityId}`}
+        title={`${volunteer.name.split(" ")[0]} · ${volunteer.zoneName}`}
+        subtitle="On-ground sports data volunteer"
+        meta={
+          <span className="flex items-center gap-1.5">
+            <MapPin className="size-4" />
+            Zone locked to {volunteer.zoneName}
+          </span>
+        }
+        accent="field"
+      />
+      <section className="mt-4 rounded-xl border border-border bg-card p-5">
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {(zone?.localities ?? []).map((l) => (
+            <span
+              key={l}
+              className="rounded-full bg-primary-foreground/10 px-2.5 py-1 text-[11px] font-semibold"
+            >
+              {l}
+            </span>
+          ))}
+        </div>
+        <p className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground">
+          <MapPin className="size-3.5" />
+          Zone locked — you can only add and edit data inside {volunteer.zoneName}.
+        </p>
+      </section>
 
-        {/* Progress indicator */}
-        <ol className="mt-4 grid grid-cols-4 gap-2">
-          {["Area assigned", "Data collected", "Submitted", "Verified"].map((label, i) => {
-            const done = i + 1 <= step;
-            return (
-              <li key={label} className="flex flex-col gap-2">
+      {/* Progress indicator */}
+      <ol className="mt-4 grid grid-cols-4 gap-2">
+        {["Area assigned", "Data collected", "Submitted", "Verified"].map((label, i) => {
+          const done = i + 1 <= step;
+          return (
+            <li key={label} className="flex flex-col gap-2">
+              <span className={cn("h-1.5 rounded-full", done ? "bg-lime" : "bg-border")} />
+              <span
+                className={cn(
+                  "flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide",
+                  done ? "text-foreground" : "text-muted-foreground",
+                )}
+              >
+                {done ? <Check className="size-3 shrink-0 text-lime" /> : null}
+                {label}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+
+      {/* Counters */}
+      <div className="mt-5 grid grid-cols-3 gap-2">
+        {[
+          { label: "Drafts", value: counts.draft, icon: Pencil },
+          { label: "Pending", value: counts.submitted, icon: Clock },
+          { label: "Approved", value: counts.verified, icon: BadgeCheck },
+        ].map((c) => (
+          <div key={c.label} className="rounded-xl border border-border bg-card p-3">
+            <c.icon className="size-4 text-muted-foreground" />
+            <p className="stat-num mt-1 text-2xl">{c.value}</p>
+            <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">
+              {c.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Add actions */}
+      <h2 className="mt-7 font-display text-lg font-bold">Add field data</h2>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        {KINDS.map((k) => (
+          <button
+            key={k.kind}
+            onClick={() => openForm(k.kind)}
+            className="flex items-center gap-3 rounded-xl border border-border bg-card p-3.5 text-left transition-colors hover:border-lime active:scale-[0.99]"
+          >
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary">
+              <k.icon className="size-5" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm font-bold">{k.label}</span>
+              <span className="block truncate text-xs text-muted-foreground">{k.blurb}</span>
+            </span>
+            <Plus className="size-4 text-muted-foreground" />
+          </button>
+        ))}
+      </div>
+
+      {/* My records */}
+      <div className="mt-8 flex items-center gap-2">
+        <ClipboardList className="size-4" />
+        <h2 className="font-display text-lg font-bold">My submitted records</h2>
+      </div>
+      <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1">
+        {(
+          [
+            ["ALL", `All ${counts.all}`],
+            ["DRAFT", `Drafts ${counts.draft}`],
+            ["SUBMITTED", `Pending ${counts.submitted}`],
+            ["VERIFIED", `Approved ${counts.verified}`],
+          ] as const
+        ).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => setTab(key)}
+            className={cn(
+              "shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-bold",
+              tab === key
+                ? "border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground",
+            )}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-3 space-y-2">
+        {visible.length === 0 ? (
+          <EmptyState
+            title="Nothing here yet"
+            description="Pick a card above and log what you see on the ground."
+          />
+        ) : (
+          visible.map((rec) => (
+            <article key={rec.id} className="rounded-xl border border-border bg-card p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    {KIND_LABEL[rec.kind]}
+                  </p>
+                  <h3 className="truncate font-display text-base font-bold">{rec.title}</h3>
+                  <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                    {[rec.locality, rec.zoneName].filter(Boolean).join(" · ")}
+                  </p>
+                </div>
                 <span
                   className={cn(
-                    "h-1.5 rounded-full",
-                    done ? "bg-lime" : "bg-border",
-                  )}
-                />
-                <span
-                  className={cn(
-                    "flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide",
-                    done ? "text-foreground" : "text-muted-foreground",
+                    "shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide",
+                    STATUS_STYLE[rec.status],
                   )}
                 >
-                  {done ? <Check className="size-3 shrink-0 text-lime" /> : null}
-                  {label}
+                  {STATUS_LABEL[rec.status]}
                 </span>
-              </li>
-            );
-          })}
-        </ol>
+              </div>
 
-        {/* Counters */}
-        <div className="mt-5 grid grid-cols-3 gap-2">
-          {[
-            { label: "Drafts", value: counts.draft, icon: Pencil },
-            { label: "Pending", value: counts.submitted, icon: Clock },
-            { label: "Approved", value: counts.verified, icon: BadgeCheck },
-          ].map((c) => (
-            <div key={c.label} className="rounded-xl border border-border bg-card p-3">
-              <c.icon className="size-4 text-muted-foreground" />
-              <p className="stat-num mt-1 text-2xl">{c.value}</p>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">
-                {c.label}
-              </p>
-            </div>
-          ))}
-        </div>
+              {rec.notes ? (
+                <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{rec.notes}</p>
+              ) : null}
 
-        {/* Add actions */}
-        <h2 className="mt-7 font-display text-lg font-bold">Add field data</h2>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2">
-          {KINDS.map((k) => (
-            <button
-              key={k.kind}
-              onClick={() => openForm(k.kind)}
-              className="flex items-center gap-3 rounded-xl border border-border bg-card p-3.5 text-left transition-colors hover:border-lime active:scale-[0.99]"
-            >
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary">
-                <k.icon className="size-5" />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-sm font-bold">{k.label}</span>
-                <span className="block truncate text-xs text-muted-foreground">{k.blurb}</span>
-              </span>
-              <Plus className="size-4 text-muted-foreground" />
-            </button>
-          ))}
-        </div>
-
-        {/* My records */}
-        <div className="mt-8 flex items-center gap-2">
-          <ClipboardList className="size-4" />
-          <h2 className="font-display text-lg font-bold">My submitted records</h2>
-        </div>
-        <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1">
-          {(
-            [
-              ["ALL", `All ${counts.all}`],
-              ["DRAFT", `Drafts ${counts.draft}`],
-              ["SUBMITTED", `Pending ${counts.submitted}`],
-              ["VERIFIED", `Approved ${counts.verified}`],
-            ] as const
-          ).map(([key, label]) => (
-            <button
-              key={key}
-              onClick={() => setTab(key)}
-              className={cn(
-                "shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-bold",
-                tab === key
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border text-muted-foreground",
-              )}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-3 space-y-2">
-          {visible.length === 0 ? (
-            <EmptyState
-              title="Nothing here yet"
-              description="Pick a card above and log what you see on the ground."
-            />
-          ) : (
-            visible.map((rec) => (
-              <article key={rec.id} className="rounded-xl border border-border bg-card p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                      {KIND_LABEL[rec.kind]}
-                    </p>
-                    <h3 className="truncate font-display text-base font-bold">{rec.title}</h3>
-                    <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                      {[rec.locality, rec.zoneName].filter(Boolean).join(" · ")}
-                    </p>
-                  </div>
-                  <span
-                    className={cn(
-                      "shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide",
-                      STATUS_STYLE[rec.status],
-                    )}
-                  >
-                    {STATUS_LABEL[rec.status]}
+              <div className="mt-2 flex flex-wrap gap-3 text-[11px] text-muted-foreground">
+                {rec.gps ? (
+                  <span className="flex items-center gap-1">
+                    <Crosshair className="size-3" />
+                    {rec.gps}
                   </span>
-                </div>
-
-                {rec.notes ? (
-                  <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{rec.notes}</p>
                 ) : null}
+                {rec.attachmentName ? (
+                  <span className="flex items-center gap-1">
+                    <Paperclip className="size-3" />
+                    {rec.attachmentName}
+                  </span>
+                ) : null}
+                {rec.verifiedBy ? (
+                  <span className="flex items-center gap-1 text-lime">
+                    <BadgeCheck className="size-3" />
+                    {rec.verifiedBy}
+                  </span>
+                ) : null}
+              </div>
 
-                <div className="mt-2 flex flex-wrap gap-3 text-[11px] text-muted-foreground">
-                  {rec.gps ? (
-                    <span className="flex items-center gap-1">
-                      <Crosshair className="size-3" />
-                      {rec.gps}
-                    </span>
-                  ) : null}
-                  {rec.attachmentName ? (
-                    <span className="flex items-center gap-1">
-                      <Paperclip className="size-3" />
-                      {rec.attachmentName}
-                    </span>
-                  ) : null}
-                  {rec.verifiedBy ? (
-                    <span className="flex items-center gap-1 text-lime">
-                      <BadgeCheck className="size-3" />
-                      {rec.verifiedBy}
-                    </span>
-                  ) : null}
-                </div>
-
-                {rec.status !== "VERIFIED" ? (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <Button size="sm" variant="outline" onClick={() => openForm(rec.kind, rec)}>
-                      <Pencil className="size-3.5" />
-                      Edit
-                    </Button>
-                    {rec.status !== "SUBMITTED" ? (
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          submitSubmission(rec.id);
-                          toast.success("Sent for verification");
-                        }}
-                      >
-                        <Send className="size-3.5" />
-                        Submit
-                      </Button>
-                    ) : null}
+              {rec.status !== "VERIFIED" ? (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button size="sm" variant="outline" onClick={() => openForm(rec.kind, rec)}>
+                    <Pencil className="size-3.5" />
+                    Edit
+                  </Button>
+                  {rec.status !== "SUBMITTED" ? (
                     <Button
                       size="sm"
-                      variant="ghost"
                       onClick={() => {
-                        deleteSubmission(rec.id);
-                        toast.success("Record removed");
+                        submitSubmission(rec.id);
+                        toast.success("Sent for verification");
                       }}
                     >
-                      <Trash2 className="size-3.5" />
+                      <Send className="size-3.5" />
+                      Submit
                     </Button>
-                  </div>
-                ) : null}
-              </article>
-            ))
-          )}
-        </div>
+                  ) : null}
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    aria-label="Delete draft"
+                    onClick={() => {
+                      deleteSubmission(rec.id);
+                      toast.success("Record removed");
+                    }}
+                  >
+                    <Trash2 className="size-3.5" />
+                  </Button>
+                </div>
+              ) : null}
+            </article>
+          ))
+        )}
+      </div>
 
       {/* Add / edit form */}
       <Dialog open={openKind !== null} onOpenChange={(o) => !o && setOpenKind(null)}>

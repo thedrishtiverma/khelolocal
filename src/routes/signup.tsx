@@ -19,15 +19,28 @@ export const Route = createFileRoute("/signup")({
           "Create a KheloLocal account as an athlete, tournament organizer, or scout/coach/team in Indore.",
       },
       { property: "og:title", content: "Join KheloLocal" },
-      { property: "og:description", content: "Pick your role and join your city's sports network." },
+      {
+        property: "og:description",
+        content: "Pick your role and join your city's sports network.",
+      },
     ],
   }),
   component: SignupPage,
 });
 
 const ROLES: { role: Role; title: string; body: string; icon: typeof User }[] = [
-  { role: "ATHLETE", title: "Athlete", body: "Join tournaments and build a verified record.", icon: User },
-  { role: "ORGANIZER", title: "Organizer", body: "Run tournaments and verify results.", icon: Trophy },
+  {
+    role: "ATHLETE",
+    title: "Athlete",
+    body: "Join tournaments and build a verified record.",
+    icon: User,
+  },
+  {
+    role: "ORGANIZER",
+    title: "Organizer",
+    body: "Run tournaments and verify results.",
+    icon: Trophy,
+  },
   {
     role: "COLLEGE",
     title: "College",
@@ -81,7 +94,13 @@ function SignupPage() {
           className="mt-8 space-y-4 rounded-xl border border-border bg-card p-6"
           onSubmit={(e) => {
             e.preventDefault();
-            const user = signup({ name, email, role });
+            let user;
+            try {
+              user = signup({ name, email, role });
+            } catch (error) {
+              toast.error(error instanceof Error ? error.message : "Unable to create account.");
+              return;
+            }
             toast.success("Account created", { description: "Welcome to KheloLocal." });
             navigate({
               to:

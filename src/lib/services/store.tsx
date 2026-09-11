@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 import type {
   Achievement,
   CollegeRecord,
@@ -13,13 +21,7 @@ import type {
   User,
 } from "@/types";
 import { createSeedDatabase } from "@/data/seed";
-import {
-  clearDatabase,
-  loadDatabase,
-  loadSession,
-  saveDatabase,
-  saveSession,
-} from "./db";
+import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
 import { athleteById, matchById, tournamentById } from "./selectors";
 
 const now = () => new Date().toISOString();
@@ -70,8 +72,16 @@ interface StoreValue {
   register: (tournamentId: string, athleteId: string) => void;
   setRegistrationStatus: (registrationId: string, status: "APPROVED" | "REJECTED") => void;
   generateFixtures: (tournamentId: string) => number;
-  saveMatch: (matchId: string, scores: { teamAScore: number; teamBScore: number }, performances: PerformanceDraft[]) => void;
-  finishMatch: (matchId: string, scores: { teamAScore: number; teamBScore: number }, performances: PerformanceDraft[]) => void;
+  saveMatch: (
+    matchId: string,
+    scores: { teamAScore: number; teamBScore: number },
+    performances: PerformanceDraft[],
+  ) => void;
+  finishMatch: (
+    matchId: string,
+    scores: { teamAScore: number; teamBScore: number },
+    performances: PerformanceDraft[],
+  ) => void;
   verifyMatch: (matchId: string, note?: string) => VerifyOutcome | null;
   toggleSaveAthlete: (athleteId: string) => void;
   requestConnection: (athleteId: string) => void;
@@ -144,11 +154,15 @@ export function KheloProvider({ children }: { children: ReactNode }) {
 
   const signup: StoreValue["signup"] = useCallback(
     ({ name, email, role }) => {
+      const normalizedEmail = email.trim().toLowerCase();
+      if (db.users.some((user) => user.email.toLowerCase() === normalizedEmail)) {
+        throw new Error("An account with this email already exists.");
+      }
       const id = uid("u");
       const user: User = {
         id,
         name,
-        email,
+        email: normalizedEmail,
         phone: "",
         role,
         cityId: "indore",
@@ -198,7 +212,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
             description: "",
             logo: "",
             phone: "",
-            email,
+            email: normalizedEmail,
             verificationStatus: "PENDING",
             tournamentsHosted: 0,
             createdAt: now(),
@@ -240,7 +254,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       saveSession(id);
       return user;
     },
-    [commit],
+    [commit, db.users],
   );
 
   const createTournament: StoreValue["createTournament"] = useCallback(
@@ -288,7 +302,14 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   const register: StoreValue["register"] = useCallback(
     (tournamentId, athleteId) => {
       commit((draft) => {
-        if (draft.registrations.some((r) => r.tournamentId === tournamentId && r.athleteId === athleteId))
+        const tournament = draft.tournaments.find((item) => item.id === tournamentId);
+        if (!tournament || tournament.status !== "REGISTRATION_OPEN") return;
+        if (tournament.currentParticipants >= tournament.maxParticipants) return;
+        if (
+          draft.registrations.some(
+            (r) => r.tournamentId === tournamentId && r.athleteId === athleteId,
+          )
+        )
           return;
         draft.registrations.push({
           id: uid("reg"),
@@ -340,8 +361,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           const a = teamIds[i]!;
           const b = teamIds[i + 1]!;
           const already = existing.some(
-            (m) =>
-              (m.teamAId === a && m.teamBId === b) || (m.teamAId === b && m.teamBId === a),
+            (m) => (m.teamAId === a && m.teamBId === b) || (m.teamAId === b && m.teamBId === a),
           );
           if (already) continue;
           matchNumber += 1;
@@ -437,7 +457,8 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       const match = matchById(db, matchId);
       const tournament = match ? tournamentById(db, match.tournamentId) : undefined;
       const organizer = db.organizers.find((o) => o.userId === userId);
-      if (!match || !tournament || !organizer || organizer.id !== tournament.organizerId) return null;
+      if (!match || !tournament || !organizer || organizer.id !== tournament.organizerId)
+        return null;
       if (match.resultStatus === "VERIFIED") return null;
 
       const created: Achievement[] = [];
@@ -670,7 +691,6 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     [commit],
   );
 
-
   const volunteerProfile = useMemo(
     () => (userId ? (db.volunteers.find((v) => v.userId === userId) ?? null) : null),
     [db.volunteers, userId],
@@ -760,7 +780,12 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     (submissionId) => {
       commit((draft) => {
         draft.fieldSubmissions = draft.fieldSubmissions.filter(
-          (f) => !(f.id === submissionId && f.volunteerId === volunteerProfile?.id && f.status !== "VERIFIED"),
+          (f) =>
+            !(
+              f.id === submissionId &&
+              f.volunteerId === volunteerProfile?.id &&
+              f.status !== "VERIFIED"
+            ),
         );
       });
     },
