@@ -1885,6 +1885,10 @@
   background:
     radial-gradient(circle at 52% 47%, color-mix(in oklab, var(--lime) 15%, transparent), transparent 23%),
     linear-gradient(135deg, color-mix(in oklab, var(--surface) 92%, var(--field)), var(--surface));
+  --indore-zoom-x: -282px;
+  --indore-zoom-y: -420px;
+  --areas-zoom-x: -527px;
+  --areas-zoom-y: -752px;
 }
 
 .india-map-viewport::before {
@@ -1901,8 +1905,8 @@
 .india-map-svg { position: absolute; inset: 1rem; width: calc(100% - 2rem); height: calc(100% - 2rem); overflow: visible; }
 .india-map-shape { transform-origin: 0 0; transition: transform 1250ms cubic-bezier(0.22, 1, 0.36, 1); }
 .india-map-viewport[data-stage="india"] .india-map-shape { transform: translate(0, 0) scale(1); }
-.india-map-viewport[data-stage="indore"] .india-map-shape { transform: translate(-282px, -420px) scale(2.4); }
-.india-map-viewport[data-stage="areas"] .india-map-shape { transform: translate(-527px, -752px) scale(3.4); }
+.india-map-viewport[data-stage="indore"] .india-map-shape { transform: translate(var(--indore-zoom-x), var(--indore-zoom-y)) scale(2.4); }
+.india-map-viewport[data-stage="areas"] .india-map-shape { transform: translate(var(--areas-zoom-x), var(--areas-zoom-y)) scale(3.4); }
 
 .india-state { fill: color-mix(in oklab, var(--surface-foreground) 8%, var(--surface)); stroke: color-mix(in oklab, var(--surface-foreground) 45%, transparent); stroke-width: 0.7; vector-effect: non-scaling-stroke; transition: fill 700ms ease, opacity 700ms ease; }
 .indore-state { fill: color-mix(in oklab, var(--field) 54%, var(--surface)); }
@@ -1931,6 +1935,40 @@
   .india-map-story { grid-template-columns: minmax(19rem, 0.78fr) minmax(30rem, 1.22fr); }
   .india-map-copy { padding: 3.5rem; }
   .india-map-viewport { min-height: 38rem; border-top: 0; border-left: 1px solid color-mix(in oklab, var(--surface-foreground) 15%, transparent); }
+}
+
+@media (max-width: 639px) {
+  .india-map-viewport {
+    --indore-zoom-x: -180px;
+    --indore-zoom-y: -270px;
+    --areas-zoom-x: -330px;
+    --areas-zoom-y: -480px;
+  }
+
+  .india-map-svg {
+    inset: 0.5rem;
+    width: calc(100% - 1rem);
+    height: calc(100% - 1rem);
+  }
+
+  .india-map-status {
+    top: 0.85rem;
+    right: 0.85rem;
+    max-width: 9rem;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .india-map-caption {
+    bottom: 0.85rem;
+    left: 0.85rem;
+    max-width: 12rem;
+  }
+
+  .india-map-direction {
+    right: 0.85rem;
+    bottom: 0.8rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

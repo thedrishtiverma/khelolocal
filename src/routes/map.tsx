@@ -139,8 +139,17 @@ function SportsMapPage() {
                       setZoneId(area.id);
                       setStage("areas");
                     }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setZoneId(area.id);
+                        setStage("areas");
+                      }
+                    }}
                     role="button"
                     tabIndex={0}
+                    aria-label={`Focus ${area.label}`}
+                    aria-pressed={zoneId === area.id}
                   >
                     <circle cx={area.x} cy={area.y} r="3.5" />
                     <text x={area.x + 7} y={area.y - 5}>
