@@ -81,7 +81,7 @@ function Landing() {
               <span className="live-dot" /> Live from Indore, Madhya Pradesh
             </p>
             <h1 className="max-w-3xl font-display text-5xl font-black uppercase leading-[0.86] tracking-tight sm:text-7xl lg:text-8xl">
-              Your city's <span className="text-lime">sports network.</span>
+              Your city is <span className="text-lime">playing.</span>
             </h1>
             <p className="mt-7 max-w-lg text-base leading-7 text-surface-foreground/72 sm:text-lg">
               The verified home ground for athletes, tournaments and the people who make local sport
