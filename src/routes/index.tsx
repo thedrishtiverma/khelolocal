@@ -74,14 +74,14 @@ function Landing() {
       <NetworkHero
         tone="explore"
         eyebrow="Live from Indore, Madhya Pradesh"
-        title={<>Your city is <span className="text-lime">playing.</span></>}
+        title={<>Your city's <span className="text-lime">sports network.</span></>}
         description="The verified home ground for athletes, tournaments and the people who make local sport happen."
         highlights={["Find a game", "Meet players", "Build a record"]}
         actions={<><Button asChild size="lg"><Link to="/tournaments">Find your next game <ArrowRight className="size-4" /></Link></Button><Button asChild size="lg" variant="outline" className="network-hero-secondary-action"><Link to="/athletes">Scout local talent</Link></Button></>}
       />
 
-      <section className="city-pulse-band border-y border-border">
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-10 sm:px-6 sm:py-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
+      <section className="city-pulse-band px-4 py-10 sm:px-6 sm:py-14">
+        <div className="city-pulse-card mx-auto grid w-full max-w-6xl gap-8 rounded-2xl border border-border px-5 py-8 shadow-[0_18px_50px_-30px_var(--foreground)] sm:px-8 sm:py-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
           <div>
             <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-lime">Indore / 01</p>
             <h2 className="mt-2 font-display text-4xl font-black uppercase leading-none">City pulse</h2>
@@ -166,7 +166,7 @@ function Landing() {
               Built for
             </p>
             <h2 className="font-display text-4xl font-black uppercase leading-none sm:text-6xl">
-              One network, three roles.
+              <span className="text-lime">One network, three roles.</span>
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
               Everyone gets a clearer way to participate, organize, or find the next player who
@@ -232,7 +232,7 @@ function Landing() {
           <div className="border-l border-surface-foreground/20 pl-6 sm:pl-10">
             <p className="max-w-2xl text-xl leading-8 text-surface-foreground/85 sm:text-2xl sm:leading-9">
               City by city,{" "}
-              <span className="font-display font-black tracking-tight text-lime">
+              <span className="font-display font-black tracking-tight">
                 Khelo<span className="text-lime">Local</span>
               </span>{" "}
               turns everyday games into a trusted sporting network.
@@ -249,10 +249,10 @@ function Landing() {
         <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <div className="max-w-2xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
-              Start here
+              <span className="text-primary">Start here</span>
             </p>
             <h2 className="mt-3 font-display text-4xl font-black uppercase leading-none sm:text-6xl">
-              <span className="text-lime">One home ground.</span> Every way in.
+              <span className="text-primary">One home ground.</span> Every way in.
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-foreground">
               Follow the path that fits you: learn the network, find the map, join a game, support

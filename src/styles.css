@@ -903,11 +903,13 @@
 
 .city-pulse-band {
   position: relative;
-  overflow: hidden;
-  isolation: isolate;
+  background: transparent;
+}
+
+.city-pulse-card {
   background:
-    linear-gradient(120deg, color-mix(in oklab, var(--surface) 7%, var(--background)), var(--background)),
-    var(--background);
+    linear-gradient(120deg, color-mix(in oklab, var(--surface) 7%, var(--background)), var(--card)),
+    var(--card);
 }
 
 .city-pulse-band::after {

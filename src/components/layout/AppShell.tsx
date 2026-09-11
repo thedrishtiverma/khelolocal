@@ -357,13 +357,12 @@ export function AppShell({ children }: { children: ReactNode }) {
           <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold">
             <a href="https://www.instagram.com/khelolocal" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-lime"><Instagram className="size-4" /> Instagram</a>
             <a href="https://www.linkedin.com/company/khelolocal" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-lime"><Linkedin className="size-4" /> LinkedIn</a>
-            <a href="mailto:khelolocal@gmail.com" className="inline-flex items-center gap-2 hover:text-lime">Email</a>
           </nav>
         </div>
         <div className="border-t border-border">
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <p>© 2026 KheloLocal. Built for grassroots sport.</p>
-            <p className="made-with-love">Made with <span aria-label="love">♥</span></p>
+            <p className="made-with-love font-bold text-foreground">Made with <span aria-label="love">♥</span></p>
             <p>Indore, Madhya Pradesh</p>
           </div>
         </div>
