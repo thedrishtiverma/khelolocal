@@ -36,6 +36,7 @@ function OrganizersPage() {
     <div>
       <NetworkHero
         tone="organizers"
+        className="organizers-network-hero"
         eyebrow="For organizers"
         title={
           <>
