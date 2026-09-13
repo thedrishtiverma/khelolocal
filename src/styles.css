@@ -2068,3 +2068,381 @@
     opacity: 1;
   }
 }
+/* =========================================================
+   KHELOLOCAL HOME PAGE
+   4 IMAGE SPORTS SLIDESHOW
+   ========================================================= */
+
+.home-network-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: white;
+
+  /* Home page uses the photo slideshow instead of the
+     default NetworkHero gradient background. */
+  background: transparent !important;
+}
+
+/* =========================================================
+   SLIDESHOW
+   ========================================================= */
+
+.home-hero-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Each background image */
+
+.home-hero-slide {
+  position: absolute;
+  inset: 0;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+
+  transform: scale(1.05);
+
+  transition:
+    opacity 1.2s ease-in-out,
+    transform 5s ease-out;
+}
+
+/* Current image */
+
+.home-hero-slide-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================================================
+   DARK OVERLAY
+   Keeps the text readable
+   ========================================================= */
+
+
+/* =========================================================
+   EXISTING DECORATIVE EFFECTS
+   Make them subtle over the photos
+   ========================================================= */
+
+.home-network-hero .network-hero-grid {
+  z-index: 2;
+  opacity: 0.10;
+}
+
+.home-network-hero .network-hero-orbit {
+  z-index: 2;
+  opacity: 0.10;
+}
+
+/* =========================================================
+   HERO CONTENT
+   Keep all text/buttons above the image and overlay
+   ========================================================= */
+
+.home-network-hero > .relative.mx-auto {
+  position: relative;
+  z-index: 10;
+}
+
+/* =========================================================
+   TEXT
+   ========================================================= */
+
+.home-network-hero .network-hero-eyebrow {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.home-network-hero .network-hero-description {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* =========================================================
+   RIGHT SIDE CONSOLE
+   ========================================================= */
+
+.home-network-hero .network-hero-console {
+  background: rgba(5, 16, 30, 0.62);
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* =========================================================
+   SLIDESHOW INDICATORS
+   ========================================================= */
+
+.home-hero-indicators {
+  position: absolute;
+
+  z-index: 30;
+
+  bottom: 24px;
+  left: 50%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  transform: translateX(-50%);
+}
+
+/* Normal indicator */
+
+.home-hero-indicator {
+  display: block;
+
+  width: 24px;
+  height: 4px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.40);
+
+  transition:
+    width 0.3s ease,
+    background 0.3s ease;
+}
+
+/* Active indicator */
+
+.home-hero-indicator-active {
+  width: 42px;
+
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .home-hero-slide {
+    background-position: 65% center;
+  }
+
+  .home-hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(5, 18, 35, 0.92) 0%,
+        rgba(5, 18, 35, 0.72) 55%,
+        rgba(5, 18, 35, 0.35) 100%
+      );
+  }
+
+  .home-hero-indicators {
+    bottom: 16px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-slide {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+}
+/* =========================================================
+   HOME HERO IMAGE FIX
+   Do not change existing styles
+   ========================================================= */
+
+.home-network-hero {
+  background: transparent !important;
+}
+
+.home-network-hero .home-hero-slideshow {
+  z-index: 0 !important;
+}
+
+.home-network-hero .home-hero-slide {
+  z-index: 0;
+}
+
+.home-network-hero .home-hero-overlay {
+  display: none !important;
+}
+/* =========================================================
+   KHELOLOCAL HOME — STATIC S1 BACKGROUND
+   ========================================================= */
+/* =========================================================
+   KHELOLOCAL
+   PAGE-SPECIFIC SPORTS HERO BACKGROUNDS
+   STATIC IMAGES — NO SLIDESHOW — NO OVERLAY
+   ========================================================= */
+
+
+/* =========================================================
+   HOME
+   s1.jpg
+   ========================================================= */
+
+section.home-network-hero {
+  background: url("/s1.jpg") center center / cover no-repeat !important;
+}
+
+
+/* =========================================================
+   TOURNAMENTS
+   s2.jpg
+   ========================================================= */
+
+section.tournaments-network-hero {
+  background: url("/s2.jpg") center center / cover no-repeat !important;
+}
+
+
+/* =========================================================
+   ATHLETES
+   s3.jpg
+   ========================================================= */
+
+section.athletes-network-hero {
+  background: url("/s3.jpg") center center / cover no-repeat !important;
+}
+
+
+/* =========================================================
+   SPORTS / FACILITIES
+   s4.jpg
+   ========================================================= */
+
+section.explore-network-hero {
+  background: url("/s4.jpg") center center / cover no-repeat !important;
+}
+
+
+/* =========================================================
+   ORGANISERS
+   s5.jpg
+   ========================================================= */
+
+section.organizers-network-hero {
+  background: url("/s5.jpg") center center / cover no-repeat !important;
+}
+
+
+/* =========================================================
+   KEEP IMAGE CLEAR
+   No slideshow
+   No dark image overlay
+   ========================================================= */
+
+section.home-network-hero,
+section.tournaments-network-hero,
+section.athletes-network-hero,
+section.sports-network-hero,
+section.organizers-network-hero {
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+
+/* =========================================================
+   REMOVE OLD HOME SLIDESHOW ELEMENTS IF PRESENT
+   ========================================================= */
+
+.home-hero-slideshow,
+.home-hero-overlay,
+.home-hero-indicators {
+  display: none !important;
+}
+/* =========================================================
+   LIGHT THEME — DARK HERO HEADINGS
+   Home / s1.jpg remains unchanged
+   ========================================================= */
+
+section.tournaments-network-hero h1,
+section.athletes-network-hero h1,
+section.explore-network-hero h1,
+section.organizers-network-hero h1 {
+  color: #0b1b33 !important;
+}
+
+/* Keep the existing accent words visible */
+section.tournaments-network-hero h1 .text-lime,
+section.athletes-network-hero h1 .text-lime,
+section.explore-network-hero h1 .text-lime,
+section.organizers-network-hero h1 .text-lime {
+  color: var(--lime) !important;
+}
+
+/* Dark theme — return headings to light/white */
+.dark section.tournaments-network-hero h1,
+.dark section.athletes-network-hero h1,
+.dark section.explore-network-hero h1,
+.dark section.organizers-network-hero h1 {
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   NON-HOME HERO HEADING COLORS — LIGHT THEME
+   White → Orange
+   Orange/Accent → Dark Blue
+   Home remains unchanged
+   ========================================================= */
+
+section.tournaments-network-hero h1,
+section.athletes-network-hero h1,
+section.explore-network-hero h1,
+section.organizers-network-hero h1 {
+  color: #ff9f43 !important;
+}
+
+section.tournaments-network-hero h1 .text-lime,
+section.athletes-network-hero h1 .text-lime,
+section.explore-network-hero h1 .text-lime,
+section.organizers-network-hero h1 .text-lime {
+  color: #0b1b33 !important;
+}
+
+/* =========================================================
+   NON-HOME HERO CONSOLE — LIGHT THEME
+   Home remains unchanged
+   ========================================================= */
+
+/* Console text */
+section.tournaments-network-hero .network-hero-console-kicker,
+section.athletes-network-hero .network-hero-console-kicker,
+section.explore-network-hero .network-hero-console-kicker,
+section.organizers-network-hero .network-hero-console-kicker {
+  color: #0b1b33 !important;
+}
+
+section.tournaments-network-hero .network-hero-console-copy,
+section.athletes-network-hero .network-hero-console-copy,
+section.explore-network-hero .network-hero-console-copy,
+section.organizers-network-hero .network-hero-console-copy {
+  color: #0b1b33 !important;
+}
+
+/* Console numbers */
+section.tournaments-network-hero .network-hero-node .font-num,
+section.athletes-network-hero .network-hero-node .font-num,
+section.explore-network-hero .network-hero-node .font-num,
+section.organizers-network-hero .network-hero-node .font-num {
+  color: #ff9f43 !important;
+}
+
+/* Console card labels */
+section.tournaments-network-hero .network-hero-node-label,
+section.athletes-network-hero .network-hero-node-label,
+section.explore-network-hero .network-hero-node-label,
+section.organizers-network-hero .network-hero-node-label {
+  color: #0b1b33 !important;
+}

@@ -52,7 +52,9 @@ function AthletesPage() {
     <div>
       <NetworkHero
         tone="athletes"
+        className="athletes-network-hero"
         eyebrow="Athlete discovery"
+  
         title={
           <>
             Find the players <span className="text-lime">around you.</span>

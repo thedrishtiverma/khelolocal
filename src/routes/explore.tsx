@@ -41,6 +41,7 @@ function ExplorePage() {
     <div>
       <NetworkHero
         tone="explore"
+        className="explore-network-hero"
         eyebrow="Explore Indore"
         title={
           <>

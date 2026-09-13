@@ -45,6 +45,7 @@ function SportsPage() {
     <div>
       <NetworkHero
         tone="sports"
+        className="sports-network-hero"
         eyebrow="Sport × city"
         title={
           <>
