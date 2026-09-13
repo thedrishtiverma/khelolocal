@@ -63,10 +63,20 @@
 
 ## 09 September 2026
 
-### ORGANIZERS MEET
+### ORGANIZERS MEET DETAILS - WHEN, WHERE, HOW
 
 * Date - **12-09-2026**
 * Day - **Saturday**
 * Time - **10 AM - 5 PM**
-* Places / Area - _tbd tommorow*_
+* Places / Area - **Abhay Prashal, IDA, Basketball complex areas**
+
+## 12 September 2026
+
+### ORGANIZERS MEET
+
+* **Sunil Arora - CEO, Abhay Prashal.**
+ * Important Info.
+ * Advices
+ * Contacts
+* Lakshya Event Orgnanizer - YOGA (new) - **Prahlad Godwal**
 
