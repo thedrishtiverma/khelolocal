@@ -2541,27 +2541,28 @@ section.organizers-network-hero .network-hero-console-copy {
 
 /* LIGHT THEME — console numbers */
 
-=======
-   LIGHT THEME — DARK HERO HEADINGS
-   Home / s1.jpg remains unchanged
+/* =========================================================
+   NON-HOME HERO HEADING COLORS — LIGHT THEME
    ========================================================= */
 
 section.tournaments-network-hero h1,
 section.athletes-network-hero h1,
 section.explore-network-hero h1,
 section.organizers-network-hero h1 {
-  color: #0b1b33 !important;
+  color: #ff9f43 !important;
 }
 
-/* Keep the existing accent words visible */
 section.tournaments-network-hero h1 .text-lime,
 section.athletes-network-hero h1 .text-lime,
 section.explore-network-hero h1 .text-lime,
 section.organizers-network-hero h1 .text-lime {
-  color: var(--lime) !important;
+  color: #ffffff !important;
 }
 
-/* Dark theme — return headings to light/white */
+/* =========================================================
+   DARK THEME — HERO HEADINGS
+   ========================================================= */
+
 .dark section.tournaments-network-hero h1,
 .dark section.athletes-network-hero h1,
 .dark section.explore-network-hero h1,
@@ -2569,74 +2570,48 @@ section.organizers-network-hero h1 .text-lime {
   color: #ffffff !important;
 }
 
-/* =========================================================
-   NON-HOME HERO HEADING COLORS — LIGHT THEME
-   White → Orange
-   Orange/Accent → Dark Blue
-   Home remains unchanged
-   ========================================================= */
-
-section.tournaments-network-hero h1,
-section.athletes-network-hero h1,
-section.explore-network-hero h1,
-section.organizers-network-hero h1 {
+.dark section.tournaments-network-hero h1 .text-lime,
+.dark section.athletes-network-hero h1 .text-lime,
+.dark section.explore-network-hero h1 .text-lime,
+.dark section.organizers-network-hero h1 .text-lime {
   color: #ff9f43 !important;
-}
-
-section.tournaments-network-hero h1 .text-lime,
-section.athletes-network-hero h1 .text-lime,
-section.explore-network-hero h1 .text-lime,
-section.organizers-network-hero h1 .text-lime {
-  color: #0b1b33 !important;
 }
 
 /* =========================================================
    NON-HOME HERO CONSOLE — LIGHT THEME
-   Home remains unchanged
    ========================================================= */
 
-/* Console text */
 section.tournaments-network-hero .network-hero-console-kicker,
 section.athletes-network-hero .network-hero-console-kicker,
 section.explore-network-hero .network-hero-console-kicker,
 section.organizers-network-hero .network-hero-console-kicker {
-  color: #0b1b33 !important;
+  color: #ffffff !important;
 }
 
 section.tournaments-network-hero .network-hero-console-copy,
 section.athletes-network-hero .network-hero-console-copy,
 section.explore-network-hero .network-hero-console-copy,
 section.organizers-network-hero .network-hero-console-copy {
-  color: #0b1b33 !important;
+  color: #ffffff !important;
 }
 
 /* Console numbers */
->>>>>>> recover-images
+
 section.tournaments-network-hero .network-hero-node .font-num,
 section.athletes-network-hero .network-hero-node .font-num,
 section.explore-network-hero .network-hero-node .font-num,
 section.organizers-network-hero .network-hero-node .font-num {
-<<<<<<< HEAD
-  color: var(--hero-orange) !important;
-}
-
-
-/* LIGHT THEME — console labels */
-
-=======
   color: #ff9f43 !important;
 }
 
-/* Console card labels */
->>>>>>> recover-images
+/* Console labels */
+
 section.tournaments-network-hero .network-hero-node-label,
 section.athletes-network-hero .network-hero-node-label,
 section.explore-network-hero .network-hero-node-label,
 section.organizers-network-hero .network-hero-node-label {
-<<<<<<< HEAD
-  color: var(--hero-blue) !important;
+  color: #ffffff !important;
 }
-
 
 /* =========================================================
    DARK THEME — CONSOLE
@@ -2650,57 +2625,34 @@ section.organizers-network-hero .network-hero-node-label {
 .dark section.explore-network-hero .network-hero-console-copy,
 .dark section.organizers-network-hero .network-hero-console-kicker,
 .dark section.organizers-network-hero .network-hero-console-copy {
-  color: var(--hero-white) !important;
+  color: #ffffff !important;
 }
-
-
-/* DARK THEME — console numbers */
 
 .dark section.tournaments-network-hero .network-hero-node .font-num,
 .dark section.athletes-network-hero .network-hero-node .font-num,
 .dark section.explore-network-hero .network-hero-node .font-num,
 .dark section.organizers-network-hero .network-hero-node .font-num {
-  color: var(--hero-orange) !important;
+  color: #ff9f43 !important;
 }
-
-
-/* DARK THEME — console labels */
 
 .dark section.tournaments-network-hero .network-hero-node-label,
 .dark section.athletes-network-hero .network-hero-node-label,
 .dark section.explore-network-hero .network-hero-node-label,
 .dark section.organizers-network-hero .network-hero-node-label {
-  color: var(--hero-white) !important;
+  color: #ffffff !important;
 }
 
 /* =========================================================
-   TOURNAMENTS HERO — HEADING COLORS
+   TOURNAMENTS + ORGANISERS HERO DESCRIPTION
+   White in both light and dark themes
    ========================================================= */
 
-/* LIGHT THEME
-   FIND YOUR  → ORANGE
-   NEXT GAME. → WHITE
-*/
-section.tournaments-network-hero h1 {
-  color: #ff9f43 !important;
-}
-
-section.tournaments-network-hero h1 span.text-lime {
+section.tournaments-network-hero p,
+section.organizers-network-hero p {
   color: #ffffff !important;
 }
 
-
-/* DARK THEME
-   FIND YOUR  → WHITE
-   NEXT GAME. → ORANGE
-*/
-.dark section.tournaments-network-hero h1 {
+.dark section.tournaments-network-hero p,
+.dark section.organizers-network-hero p {
   color: #ffffff !important;
-}
-
-.dark section.tournaments-network-hero h1 span.text-lime {
-  color: #ff9f43 !important;
-=======
-  color: #0b1b33 !important;
->>>>>>> recover-images
 }
