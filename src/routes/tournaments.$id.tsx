@@ -10,7 +10,13 @@ import { EmptyState, Page, Stat } from "@/components/shared/Bits";
 import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
 import { formatDate, formatDateRange, formatDateTime, formatINR } from "@/lib/format";
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
-import { matchesOfTournament, registrationsOfTournament, teamById } from "@/lib/services/selectors";
+import {
+  effectiveTournamentStatus,
+    isAthletePubliclyDiscoverable,
+  matchesOfTournament,
+  registrationsOfTournament,
+  teamById,
+} from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/tournaments/$id")({
   head: () => ({
@@ -41,19 +47,27 @@ function TournamentDetails() {
   if (!tournament) throw notFound();
 
   const organizer = db.organizers.find((o) => o.id === tournament.organizerId);
+  const status = effectiveTournamentStatus(tournament);
   const regs = registrationsOfTournament(db, tournament.id);
   const matches = matchesOfTournament(db, tournament.id);
+  const verifiedMatches = matches.filter((match) => match.resultStatus === "VERIFIED");
+  const verificationAudit = db.verifications
+    .filter(
+      (verification) =>
+        verification.tournamentId === tournament.id && verification.status === "VERIFIED",
+    )
+    .sort((a, b) => b.verifiedAt.localeCompare(a.verifiedAt));
   const myReg = athlete ? regs.find((r) => r.athleteId === athlete.id) : undefined;
   const teams = Array.from(new Set(regs.filter((r) => r.teamId).map((r) => r.teamId as string)));
   const registrationClosed =
-    tournament.status !== "REGISTRATION_OPEN" ||
+    status !== "REGISTRATION_OPEN" ||
     tournament.currentParticipants >= tournament.maxParticipants;
   const registrationLabel =
     tournament.currentParticipants >= tournament.maxParticipants
       ? "Tournament full"
-      : tournament.status === "LIVE"
+      : status === "LIVE"
         ? "Registration closed"
-        : tournament.status === "COMPLETED"
+        : status === "COMPLETED"
           ? "Tournament completed"
           : "Registration closed";
 
@@ -73,7 +87,7 @@ function TournamentDetails() {
       <section className="surface-panel">
         <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
           <div className="flex flex-wrap items-center gap-3">
-            <StatusBadge status={tournament.status} />
+            <StatusBadge status={status} />
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
               {tournament.sportName} · {tournament.ageCategory} · {tournament.format}
             </span>
@@ -218,7 +232,7 @@ function TournamentDetails() {
                       <ul className="mt-3 space-y-1 text-sm">
                         {team.players.map((pid) => {
                           const a = db.athletes.find((x) => x.id === pid);
-                          if (!a) return null;
+                          if (!a || !isAthletePubliclyDiscoverable(a)) return null;
                           return (
                             <li key={pid}>
                               <Link
@@ -327,17 +341,88 @@ function TournamentDetails() {
                 This tournament’s results are confirmed by the organizer before they become part of
                 an athlete’s KheloLocal sporting record.
               </p>
-              {tournament.status === "COMPLETED" ? (
-                <p className="mt-6 rounded-lg border border-verified/30 bg-verified/10 p-4 text-sm font-semibold text-verified">
-                  This tournament is complete. Its verified results remain part of the KheloLocal
-                  sporting record.
-                </p>
+              {verifiedMatches.length === 0 && verificationAudit.length === 0 ? (
+                status === "COMPLETED" ? (
+                  <p className="mt-6 rounded-lg border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
+                    This tournament is complete, but no verified results have been published yet.
+                  </p>
+                ) : (
+                  <p className="mt-6 rounded-lg border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
+                    Verified results will appear here once tournament matches are completed and
+                    confirmed.
+                  </p>
+                )
               ) : (
-                <p className="mt-6 rounded-lg border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
-                  Verified results will appear here once tournament matches are completed and
-                  confirmed.
+                <p className="mt-6 text-sm text-muted-foreground">
+                  Organizer confirmation is shown below. Source, reviewer and timestamp details are
+                  provided when the audit record is available.
                 </p>
               )}
+              {verifiedMatches.length > 0 || verificationAudit.length > 0 ? (
+                <ol className="mt-6 space-y-3">
+                  {verifiedMatches
+                    .filter(
+                      (match) =>
+                        !verificationAudit.some(
+                          (verification) => verification.matchId === match.id,
+                        ),
+                    )
+                    .map((match) => (
+                      <li
+                        key={match.id}
+                        className="rounded-md border border-warning/30 bg-warning/5 p-4"
+                      >
+                        <p className="font-semibold">
+                          {teamById(db, match.teamAId)?.name ?? "Team A"} {match.teamAScore}–
+                          {match.teamBScore} {teamById(db, match.teamBId)?.name ?? "Team B"}
+                        </p>
+                        <p className="mt-2 text-sm text-muted-foreground">
+                          This result is marked verified in the prototype data, but its source,
+                          reviewer and verification timestamp are not recorded.
+                        </p>
+                      </li>
+                    ))}
+                  {verificationAudit.map((verification) => {
+                    const match = matches.find((item) => item.id === verification.matchId);
+                    const verifier = db.organizers.find(
+                      (item) => item.id === verification.organizerId,
+                    );
+                    return (
+                      <li
+                        key={verification.id}
+                        className="rounded-md border border-border bg-background p-4"
+                      >
+                        <p className="font-semibold">
+                          {match
+                            ? `${teamById(db, match.teamAId)?.name ?? "Team A"} ${match.teamAScore}–${match.teamBScore} ${teamById(db, match.teamBId)?.name ?? "Team B"}`
+                            : "Match result"}
+                        </p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Verified by {verifier?.organizationName ?? "Tournament organizer"} ·{" "}
+                          {formatDateTime(verification.verifiedAt)}
+                        </p>
+                        <p className="mt-2 text-sm text-muted-foreground">
+                          {verification.verificationNote
+                            ? `Organizer note: ${verification.verificationNote}`
+                            : "No source note was supplied by the organizer."}
+                        </p>
+                        <p className="mt-2 text-xs text-muted-foreground">
+                          Organizer confirmation; no independent platform review is recorded here.
+                        </p>
+                      </li>
+                    );
+                  })}
+                </ol>
+              ) : null}
+              <p className="mt-6 text-sm text-muted-foreground">
+                See an error in a result?{" "}
+                <a
+                  className="font-semibold text-foreground underline underline-offset-4"
+                  href={`mailto:khelolocal@gmail.com?subject=${encodeURIComponent(`Result correction: ${tournament.name}`)}`}
+                >
+                  Request a correction
+                </a>
+              </p>
             </div>
           </TabsContent>
         </Tabs>

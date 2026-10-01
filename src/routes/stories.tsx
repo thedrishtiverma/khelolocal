@@ -4,6 +4,10 @@ import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 import { formatDate, sportLabel } from "@/lib/format";
+import {
+  effectiveTournamentStatus,
+  isAthletePubliclyDiscoverable,
+} from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/stories")({
   head: () => ({
@@ -22,9 +26,17 @@ export const Route = createFileRoute("/stories")({
 function StoriesPage() {
   const { db } = useKhelo();
   const featuredAthlete =
-    db.athletes.find((athlete) => athlete.verificationStatus === "VERIFIED") ?? db.athletes[0];
+    db.athletes.find(
+      (athlete) =>
+        isAthletePubliclyDiscoverable(athlete) && athlete.verificationStatus === "VERIFIED",
+    );
   const featuredTournament =
-    db.tournaments.find((tournament) => tournament.status === "LIVE") ?? db.tournaments[0];
+    db.tournaments
+      .filter((tournament) => {
+        const status = effectiveTournamentStatus(tournament);
+        return status === "LIVE" || status === "REGISTRATION_OPEN" || status === "UPCOMING";
+      })
+      .sort((a, b) => a.startDate.localeCompare(b.startDate))[0] ?? db.tournaments[0];
   const featuredAchievement = db.achievements.find((achievement) => achievement.verified);
   const college = db.colleges[0];
 

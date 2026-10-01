@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, Page } from "@/components/shared/Bits";
 import { AthleteProfileView } from "@/components/athlete/AthleteProfileView";
 import { athleteById, useKhelo } from "@/lib/services/store";
+import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/athletes/$id")({
   head: () => ({
@@ -32,6 +33,22 @@ function AthletePublicProfile() {
       <Page>
         <EmptyState
           title="Athlete not found"
+          action={
+            <Button asChild>
+              <Link to="/athletes">Back to discovery</Link>
+            </Button>
+          }
+        />
+      </Page>
+    );
+  }
+
+  if (!isAthletePubliclyDiscoverable(athlete)) {
+    return (
+      <Page>
+        <EmptyState
+          title="This athlete profile isn't public"
+          description="Profiles for athletes under 18, or whose age cannot be established, aren't available in public discovery until guardian verification is supported."
           action={
             <Button asChild>
               <Link to="/athletes">Back to discovery</Link>

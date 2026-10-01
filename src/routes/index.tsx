@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, Search, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Page, SectionHeading, Stat } from "@/components/shared/Bits";
+import { Page, PrototypeDataNotice, SectionHeading, Stat } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
+import { effectiveTournamentStatus } from "@/lib/services/selectors";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 
 export const Route = createFileRoute("/")({
@@ -59,15 +60,18 @@ const STEPS = [
 function Landing() {
   const { db } = useKhelo();
   const featured = db.tournaments
-    .filter((t) => t.status === "LIVE" || t.status === "REGISTRATION_OPEN")
+    .filter((t) => {
+      const status = effectiveTournamentStatus(t);
+      return status === "LIVE" || status === "REGISTRATION_OPEN" || status === "UPCOMING";
+    })
+    .sort((a, b) => a.startDate.localeCompare(b.startDate))
     .slice(0, 3);
-  const liveTournament = featured[0];
 
   return (
     <div>
       <NetworkHero
         tone="explore"
-        eyebrow="Live from Indore, Madhya Pradesh"
+        eyebrow="Starting in Indore, Madhya Pradesh"
         title={
           <>
             Your city's <span className="text-lime">sports network.</span>
@@ -99,7 +103,7 @@ function Landing() {
               City pulse
             </h2>
             <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
-              A live snapshot of the players, events and verified moments moving through the city.
+              A snapshot of players, events and verified moments in the local network.
             </p>
             <Link
               to="/cities/indore"
@@ -131,6 +135,7 @@ function Landing() {
               label="Verified achievements"
             />
           </div>
+          <PrototypeDataNotice className="lg:col-span-2" />
         </div>
       </section>
 
@@ -268,7 +273,8 @@ function Landing() {
             </p>
             <p className="mt-6 flex max-w-xl items-start gap-3 text-sm leading-6 text-surface-foreground/60">
               <BadgeCheck className="mt-0.5 size-5 shrink-0 text-verified" />
-              Results are verified by the organizer who ran the match, never self-reported.
+              Organizer-confirmed results become verified records; athlete-submitted claims remain
+              unverified until reviewed.
             </p>
           </div>
         </div>

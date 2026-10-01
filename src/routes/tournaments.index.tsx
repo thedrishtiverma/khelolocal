@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { EmptyState, Page } from "@/components/shared/Bits";
+import { EmptyState, Page, PrototypeDataNotice } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
@@ -86,6 +86,7 @@ function ExploreTournaments() {
         }
       />
       <Page className="py-10 sm:py-14">
+        <PrototypeDataNotice className="mb-5" />
         <div className="mb-5 flex flex-wrap gap-2">
           {quickFilters.map(([value, label]) => (
             <button

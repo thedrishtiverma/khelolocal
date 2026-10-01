@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BadgeCheck } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
@@ -77,14 +78,17 @@ export function VerifyDialog({
               <DialogTitle className="font-display">Verify this result</DialogTitle>
               <DialogDescription>
                 {matchLabel(db, match)} · {match.teamAScore}–{match.teamBScore}. Verification is
-                permanent and publishes verified stats to athlete profiles.
+                published to athlete profiles. Add the source checked for this result.
               </DialogDescription>
             </DialogHeader>
+            <Label htmlFor="verification-note">Source checked</Label>
             <Textarea
+              id="verification-note"
               rows={3}
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="Optional note (e.g. scoresheet checked by referee)"
+              required
+              placeholder="For example: official scoresheet checked with the referee"
             />
             <div className="flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => onOpenChange(false)}>
@@ -93,6 +97,10 @@ export function VerifyDialog({
               <Button
                 className="flex-1"
                 onClick={() => {
+                  if (!note.trim()) {
+                    toast.error("Add the source checked before verifying");
+                    return;
+                  }
                   const result = verifyMatch(match.id, note);
                   if (!result) {
                     toast.error("Couldn't verify this match");

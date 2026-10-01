@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
-import { tournamentsOfAthlete } from "@/lib/services/selectors";
+import { effectiveTournamentStatus, tournamentsOfAthlete } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/athlete/tournaments")({
   head: () => ({
@@ -40,8 +40,14 @@ function MyTournaments() {
   }
 
   const all = tournamentsOfAthlete(db, athlete.id);
-  const active = all.filter((t) => t.status !== "COMPLETED" && t.status !== "CANCELLED");
-  const past = all.filter((t) => t.status === "COMPLETED" || t.status === "CANCELLED");
+  const active = all.filter((t) => {
+    const status = effectiveTournamentStatus(t);
+    return status !== "COMPLETED" && status !== "CANCELLED";
+  });
+  const past = all.filter((t) => {
+    const status = effectiveTournamentStatus(t);
+    return status === "COMPLETED" || status === "CANCELLED";
+  });
   const statusOf = (tournamentId: string) =>
     db.registrations.find((r) => r.tournamentId === tournamentId && r.athleteId === athlete.id)
       ?.status;

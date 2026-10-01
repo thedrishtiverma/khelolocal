@@ -8,7 +8,7 @@ import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits
 import { StatusBadge, VerificationChip } from "@/components/shared/Badges";
 import { RecordCard } from "@/components/college/RecordCard";
 import { useKhelo } from "@/lib/services/store";
-import { pendingAdminRecords } from "@/lib/services/selectors";
+import { effectiveTournamentStatus, pendingAdminRecords } from "@/lib/services/selectors";
 import { formatDateRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
@@ -215,7 +215,7 @@ function AdminConsole() {
                       {formatDateRange(t.startDate, t.endDate)}
                     </td>
                     <td className="px-4 py-3">
-                      <StatusBadge status={t.status} />
+                      <StatusBadge status={effectiveTournamentStatus(t)} />
                     </td>
                     <td className="px-4 py-3">
                       <span

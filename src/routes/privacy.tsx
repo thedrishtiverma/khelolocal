@@ -49,6 +49,18 @@ function PrivacyPage() {
           </p>
         </section>
         <section>
+          <h2>Young athletes and guardian consent</h2>
+          <p>
+            Athletes under 18 must have permission from a parent or legal guardian to create an
+            account and publish a sporting profile. Athlete signup records this acknowledgment, but
+            the current prototype does not verify age or guardian identity and does not provide
+            guardian account management. Profiles for under-18 athletes and athletes whose age
+            cannot be established are withheld from public discovery. Do not add a young athlete's
+            personal contact details or other sensitive information. Verified guardian workflows
+            and age-based profile controls are required before minor-athlete discovery is enabled.
+          </p>
+        </section>
+        <section>
           <h2>Contact</h2>
           <p>
             For privacy questions or requests, email khelolocal@gmail.com. We will review requests

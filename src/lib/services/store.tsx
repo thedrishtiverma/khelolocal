@@ -21,8 +21,14 @@ import type {
   User,
 } from "@/types";
 import { createSeedDatabase } from "@/data/seed";
+import { ageFromDob } from "@/lib/format";
 import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
-import { athleteById, matchById, tournamentById } from "./selectors";
+import {
+  athleteById,
+  effectiveTournamentStatus,
+  matchById,
+  tournamentById,
+} from "./selectors";
 
 const now = () => new Date().toISOString();
 const uid = (prefix: string) => `${prefix}_${Math.random().toString(36).slice(2, 9)}`;
@@ -67,7 +73,13 @@ interface StoreValue {
   currentUser: User | null;
   login: (email: string) => User | null;
   logout: () => void;
-  signup: (input: { name: string; email: string; role: Role }) => User;
+  signup: (input: {
+    name: string;
+    email: string;
+    role: Role;
+    dateOfBirth?: string;
+    guardianConsent?: boolean;
+  }) => User;
   createTournament: (input: Partial<Tournament>) => Tournament;
   register: (tournamentId: string, athleteId: string) => void;
   setRegistrationStatus: (registrationId: string, status: "APPROVED" | "REJECTED") => void;
@@ -153,10 +165,17 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signup: StoreValue["signup"] = useCallback(
-    ({ name, email, role }) => {
+    ({ name, email, role, dateOfBirth, guardianConsent }) => {
       const normalizedEmail = email.trim().toLowerCase();
       if (db.users.some((user) => user.email.toLowerCase() === normalizedEmail)) {
         throw new Error("An account with this email already exists.");
+      }
+      const athleteAge = dateOfBirth ? ageFromDob(dateOfBirth) : null;
+      if (role === "ATHLETE" && athleteAge === null) {
+        throw new Error("Enter a valid date of birth to create an athlete account.");
+      }
+      if (role === "ATHLETE" && athleteAge !== null && athleteAge < 18 && !guardianConsent) {
+        throw new Error("A parent or legal guardian must agree before an under-18 athlete can join.");
       }
       const id = uid("u");
       const user: User = {
@@ -167,6 +186,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         role,
         cityId: "indore",
         profileImage: "",
+        ...(role === "ATHLETE" && guardianConsent ? { guardianConsentAt: now() } : {}),
         createdAt: now(),
         updatedAt: now(),
         isActive: true,
@@ -303,7 +323,12 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     (tournamentId, athleteId) => {
       commit((draft) => {
         const tournament = draft.tournaments.find((item) => item.id === tournamentId);
-        if (!tournament || tournament.status !== "REGISTRATION_OPEN") return;
+        if (
+          !tournament ||
+          effectiveTournamentStatus(tournament) !== "REGISTRATION_OPEN" ||
+          tournament.currentParticipants >= tournament.maxParticipants
+        )
+          return;
         if (tournament.currentParticipants >= tournament.maxParticipants) return;
         if (
           draft.registrations.some(

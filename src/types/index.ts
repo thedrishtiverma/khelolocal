@@ -27,6 +27,7 @@ export interface User {
   role: Role;
   cityId: string;
   profileImage: string;
+  guardianConsentAt?: string;
   createdAt: string;
   updatedAt: string;
   isActive: boolean;

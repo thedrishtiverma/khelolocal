@@ -501,7 +501,11 @@ Maintain Institutional Sports History
 
 The first implementation focuses on **Indore**.
 
-The prototype is designed around real local data rather than a completely fictional dataset.
+The prototype uses a bundled Indore dataset to demonstrate the intended local sports workflows.
+The current interface loads these records from `src/data/seed.ts`; dates, availability and counts
+are not a live feed. Confirm each record's source, freshness and consent before presenting it as
+current or verified production data. Athlete records for anyone under 18 require parent or legal
+guardian permission.
 
 The initial data strategy includes:
 

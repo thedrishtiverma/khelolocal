@@ -6,6 +6,7 @@ import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
 import { StatusBadge } from "@/components/shared/Badges";
 import { formatDateRange } from "@/lib/format";
 import { useCurrentOrganizer, useKhelo } from "@/lib/services/store";
+import { effectiveTournamentStatus } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/organizer/")({
   head: () => ({
@@ -114,7 +115,7 @@ function OrganizerDashboard() {
                   <div className="min-w-56 flex-1">
                     <div className="flex flex-wrap items-center gap-3">
                       <h3 className="font-display text-lg font-bold">{t.name}</h3>
-                      <StatusBadge status={t.status} />
+                      <StatusBadge status={effectiveTournamentStatus(t)} />
                     </div>
                     <p className="mt-1 text-sm text-muted-foreground">
                       {t.sportName} · {formatDateRange(t.startDate, t.endDate)} · {t.venue}

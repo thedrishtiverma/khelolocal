@@ -5,6 +5,10 @@ import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { Button } from "@/components/ui/button";
 import { useKhelo } from "@/lib/services/store";
+import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
+  const athletes = db.athletes.filter(
+    (item) => item.cityId === "indore" && isAthletePubliclyDiscoverable(item),
+  );
 import type { SubmissionKind } from "@/types";
 
 export const Route = createFileRoute("/map")({

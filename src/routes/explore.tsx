@@ -1,12 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, Building2, MapPin, Trophy, Users } from "lucide-react";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
-import { Page, SectionHeading, Stat } from "@/components/shared/Bits";
+import { Page, PrototypeDataNotice, SectionHeading, Stat } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { SportIcon } from "@/components/shared/SportIcon";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { Button } from "@/components/ui/button";
 import { useKhelo } from "@/lib/services/store";
+import {
+  effectiveTournamentStatus,
+  isAthletePubliclyDiscoverable,
+} from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/explore")({
   head: () => ({
@@ -25,7 +29,11 @@ export const Route = createFileRoute("/explore")({
 function ExplorePage() {
   const { db } = useKhelo();
   const tournaments = db.tournaments
-    .filter((item) => item.status === "LIVE" || item.status === "REGISTRATION_OPEN")
+    .filter((item) => {
+      const status = effectiveTournamentStatus(item);
+      return status === "LIVE" || status === "REGISTRATION_OPEN" || status === "UPCOMING";
+    })
+    .sort((a, b) => a.startDate.localeCompare(b.startDate))
     .slice(0, 3);
   const athletes = db.athletes.filter((item) => item.verificationStatus === "VERIFIED").slice(0, 3);
   const sports = db.sports.slice(0, 6);
@@ -58,6 +66,7 @@ function ExplorePage() {
         }
       />
       <Page className="py-12 sm:py-20">
+        <PrototypeDataNotice className="mb-5" />
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <Stat value={db.tournaments.length} label="Tournaments" />
           <Stat value={db.athletes.length} label="Athletes" />

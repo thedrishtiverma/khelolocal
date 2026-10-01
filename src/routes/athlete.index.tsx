@@ -6,7 +6,12 @@ import { VerifiedBadge } from "@/components/shared/Badges";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { formatDate, sportLabel } from "@/lib/format";
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
-import { achievementsOfAthlete, recordsOfAthlete, tournamentsOfAthlete } from "@/lib/services/selectors";
+import {
+  achievementsOfAthlete,
+  effectiveTournamentStatus,
+  recordsOfAthlete,
+  tournamentsOfAthlete,
+} from "@/lib/services/selectors";
 import { RecordCard } from "@/components/college/RecordCard";
 
 export const Route = createFileRoute("/athlete/")({
@@ -52,12 +57,15 @@ function AthleteDashboard() {
   }
 
   const myTournaments = tournamentsOfAthlete(db, athlete.id);
-  const upcoming = myTournaments.filter((t) => t.status !== "COMPLETED");
+  const upcoming = myTournaments.filter((t) => {
+    const status = effectiveTournamentStatus(t);
+    return status !== "COMPLETED" && status !== "CANCELLED";
+  });
   const recommended = db.tournaments
     .filter(
       (t) =>
         t.sportId === athlete.primarySport &&
-        t.status === "REGISTRATION_OPEN" &&
+        effectiveTournamentStatus(t) === "REGISTRATION_OPEN" &&
         !myTournaments.some((m) => m.id === t.id),
     )
     .slice(0, 3);

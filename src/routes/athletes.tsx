@@ -6,6 +6,7 @@ import { EmptyState, Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { Input } from "@/components/ui/input";
 import { useKhelo } from "@/lib/services/store";
+import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/athletes")({
   head: () => ({
@@ -32,6 +33,7 @@ function AthletesPage() {
     () =>
       db.athletes.filter(
         (a) =>
+          isAthletePubliclyDiscoverable(a) &&
           (a.name.toLowerCase().includes(query.toLowerCase()) ||
             a.primarySport.toLowerCase().includes(query.toLowerCase()) ||
             a.collegeName?.toLowerCase().includes(query.toLowerCase())) &&

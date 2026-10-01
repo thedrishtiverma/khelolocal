@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ageFromDob } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
 import type { Role } from "@/types";
@@ -62,6 +63,10 @@ function SignupPage() {
   const [role, setRole] = useState<Role | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [guardianAcknowledged, setGuardianAcknowledged] = useState(false);
+  const athleteAge = ageFromDob(dateOfBirth);
+  const guardianConsentRequired = role === "ATHLETE" && athleteAge !== null && athleteAge < 18;
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
@@ -74,7 +79,11 @@ function SignupPage() {
         {ROLES.map((r) => (
           <button
             key={r.role}
-            onClick={() => setRole(r.role)}
+            onClick={() => {
+              setRole(r.role);
+              setGuardianAcknowledged(false);
+              setDateOfBirth("");
+            }}
             className={cn(
               "rounded-lg border p-5 text-left transition-colors",
               role === r.role
@@ -96,7 +105,17 @@ function SignupPage() {
             e.preventDefault();
             let user;
             try {
-              user = signup({ name, email, role });
+              if (role === "ATHLETE" && !dateOfBirth) {
+                toast.error("Enter your date of birth to continue.");
+                return;
+              }
+              user = signup({
+                name,
+                email,
+                role,
+                ...(role === "ATHLETE" ? { dateOfBirth } : {}),
+                guardianConsent: role === "ATHLETE" && guardianAcknowledged,
+              });
             } catch (error) {
               toast.error(error instanceof Error ? error.message : "Unable to create account.");
               return;
@@ -136,7 +155,45 @@ function SignupPage() {
               required
             />
           </div>
+          {role === "ATHLETE" ? (
+            <div className="space-y-2">
+              <Label htmlFor="athlete-date-of-birth">Date of birth</Label>
+              <Input
+                id="athlete-date-of-birth"
+                type="date"
+                max={new Date().toISOString().slice(0, 10)}
+                value={dateOfBirth}
+                onChange={(event) => {
+                  setDateOfBirth(event.target.value);
+                  setGuardianAcknowledged(false);
+                }}
+                required
+              />
+            </div>
+          ) : null}
           <p className="text-xs text-muted-foreground">City: Indore, Madhya Pradesh</p>
+          {guardianConsentRequired ? (
+            <div className="rounded-md border border-border p-3">
+              <label htmlFor="guardian-consent" className="flex items-start gap-2 text-sm">
+                <input
+                  id="guardian-consent"
+                  type="checkbox"
+                  required
+                  checked={guardianAcknowledged}
+                  onChange={(event) => setGuardianAcknowledged(event.target.checked)}
+                  className="mt-1 size-4 accent-primary"
+                />
+                <span>
+                  I am the athlete’s parent or legal guardian, and I agree to this account and
+                  sporting profile.
+                </span>
+              </label>
+              <p className="ml-6 mt-2 text-xs text-muted-foreground">
+                Until guardian verification and age-based visibility controls are available, this
+                profile will not appear in public athlete discovery.
+              </p>
+            </div>
+          ) : null}
           <Button type="submit" className="w-full">
             Create account
           </Button>

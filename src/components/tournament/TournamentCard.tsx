@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/shared/Badges";
 import { formatDateRange, formatINR } from "@/lib/format";
 import { sportMotif } from "@/lib/sport-visuals";
+import { effectiveTournamentStatus } from "@/lib/services/selectors";
 import { SportIcon } from "@/components/shared/SportIcon";
 import type { Tournament } from "@/types";
 
@@ -17,6 +18,7 @@ export function TournamentCard({
   const filled = tournament.maxParticipants
     ? Math.min(100, Math.round((tournament.currentParticipants / tournament.maxParticipants) * 100))
     : 0;
+  const status = effectiveTournamentStatus(tournament);
 
   return (
     <article
@@ -36,7 +38,7 @@ export function TournamentCard({
           </p>
           <h3 className="mt-2 font-display text-xl font-bold leading-tight">{tournament.name}</h3>
         </div>
-        <StatusBadge status={tournament.status} />
+        <StatusBadge status={status} />
       </div>
 
       <dl className="grid grid-cols-2 gap-x-4 gap-y-4 border-y border-border/70 py-4 text-sm">

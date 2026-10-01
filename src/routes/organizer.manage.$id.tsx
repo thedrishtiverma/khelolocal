@@ -12,6 +12,7 @@ import { formatDate, formatDateRange } from "@/lib/format";
 import { useKhelo } from "@/lib/services/store";
 import {
   athleteById,
+  effectiveTournamentStatus,
   matchesOfTournament,
   registrationsOfTournament,
   teamById,
@@ -77,7 +78,7 @@ function ManageTournament() {
           </p>
         </div>
         <div className="flex flex-col items-end gap-2">
-          <StatusBadge status={tournament.status} />
+          <StatusBadge status={effectiveTournamentStatus(tournament)} />
           <Button asChild variant="outline" size="sm">
             <Link to="/tournaments/$id" params={{ id: tournament.id }}>
               View public page

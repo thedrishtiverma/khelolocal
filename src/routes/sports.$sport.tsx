@@ -4,6 +4,10 @@ import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { EmptyState, Page, SectionHeading } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
+import {
+  effectiveTournamentStatus,
+  isAthletePubliclyDiscoverable,
+} from "@/lib/services/selectors";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { SportIcon } from "@/components/shared/SportIcon";
 
@@ -92,7 +96,7 @@ function SportHub() {
               [
               SportIcon,
               `Recent ${name} results`,
-              tournaments.filter((item) => item.status === "COMPLETED").length,
+              tournaments.filter((item) => effectiveTournamentStatus(item) === "COMPLETED").length,
               "/tournaments",
             ],
           ].map(([Icon, title, count, to]) => (
