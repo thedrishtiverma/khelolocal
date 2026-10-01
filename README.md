@@ -1,6 +1,6 @@
 <div align="center">
 
-# [KheloLocal](https://www.khelolocal.in/)
+# [KheloLocal](https://khelolocal.lovable.app/)
 
 </div>
 
