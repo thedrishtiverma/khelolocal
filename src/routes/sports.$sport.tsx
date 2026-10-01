@@ -60,11 +60,11 @@ function SportHub() {
     <div>
       <NetworkHero
         tone="sports"
-        eyebrow={`${name} network`}
+        eyebrow={`${name} × Indore`}
         title={
           <>
             <SportIcon sportId={sport} className="mb-2 inline-block size-10 align-middle text-lime" aria-hidden="true" /> {name}{" "}
-            <span className="text-lime">near you.</span>
+            <span className="text-lime">in Indore.</span>
           </>
         }
         description={`The local ${name.toLowerCase()} network: players, competitions and the organizations behind them.`}

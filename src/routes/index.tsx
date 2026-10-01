@@ -183,7 +183,7 @@ function Landing() {
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[0.75fr_1.25fr] lg:items-end lg:gap-20">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
-              Built for every sporting community
+              Starting in Indore
             </p>
             <h2 className="mt-4 font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
               Built locally.

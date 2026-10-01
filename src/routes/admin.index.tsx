@@ -178,7 +178,7 @@ function AdminConsole() {
           <SectionHeading
             eyebrow="Data integrity"
             title="Tournament listings"
-            subtitle="Verify that tournament listings are genuine before they collect registrations."
+            subtitle="Verify that live Indore tournaments are genuine before they collect registrations."
             action={
               <Button asChild variant="outline">
                 <Link to="/organizer/create">Add a tournament</Link>
@@ -330,7 +330,7 @@ function AdminConsole() {
       {tab === "volunteers" ? (
         <div className="mt-8">
           <SectionHeading
-            eyebrow="Field network"
+            eyebrow="Indore field network"
             title="Volunteer coverage by area"
             subtitle="See who is assigned to each zone and how much verified field data they have contributed."
           />

@@ -55,7 +55,7 @@ function SportsMapPage() {
     <div>
       <NetworkHero
         tone="explore"
-        eyebrow="KheloLocal / sports map"
+        eyebrow="Indore / live sports map"
         title={
           <>
             Find the game <span className="text-lime">around you.</span>
@@ -235,7 +235,7 @@ function SportsMapPage() {
           </section>
         </div>
         <section className="mt-14 border-t border-border pt-10">
-          <SectionHeading eyebrow="The local network" title="What the map connects" />
+          <SectionHeading eyebrow="The local network" title="What the Indore map connects" />
           <div className="grid gap-4 sm:grid-cols-3">
             {[
               [

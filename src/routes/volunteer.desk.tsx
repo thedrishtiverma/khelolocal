@@ -253,7 +253,7 @@ function VolunteerDashboard() {
     <div className="mx-auto w-full max-w-3xl px-4 pb-10 pt-5 sm:px-6">
       <ProfileBanner
         name={volunteer.name}
-        eyebrow={`Field desk · ${volunteer.zoneName}`}
+        eyebrow={`Field desk · ${volunteer.cityId === "indore" ? "Indore" : volunteer.cityId}`}
         title={`${volunteer.name.split(" ")[0]} · ${volunteer.zoneName}`}
         subtitle="On-ground sports data volunteer"
         meta={

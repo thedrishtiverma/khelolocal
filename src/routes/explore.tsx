@@ -173,7 +173,7 @@ function ExplorePage() {
             eyebrow="The people behind the fixtures"
             title={
               <>
-                Organizations <span className="text-lime">across the network.</span>
+                Organizations <span className="text-lime">in Indore.</span>
               </>
             }
           />
