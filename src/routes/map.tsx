@@ -6,9 +6,6 @@ import { NetworkHero } from "@/components/shared/NetworkHero";
 import { Button } from "@/components/ui/button";
 import { useKhelo } from "@/lib/services/store";
 import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
-  const athletes = db.athletes.filter(
-    (item) => item.cityId === "indore" && isAthletePubliclyDiscoverable(item),
-  );
 import type { SubmissionKind } from "@/types";
 
 export const Route = createFileRoute("/map")({
@@ -49,7 +46,9 @@ function SportsMapPage() {
       (filter === "ALL" || record.kind === filter),
   );
   const tournaments = db.tournaments.filter((item) => item.cityId === "indore");
-  const athletes = db.athletes.filter((item) => item.cityId === "indore");
+  const athletes = db.athletes.filter(
+    (item) => item.cityId === "indore" && isAthletePubliclyDiscoverable(item),
+  );
   const organizers = db.organizers.filter((item) => item.cityId === "indore");
 
   return (

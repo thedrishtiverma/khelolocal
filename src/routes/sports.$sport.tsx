@@ -1,13 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Building2, Shield, Users } from "lucide-react";
+import { Building2, Shield, Trophy, Users, type LucideIcon } from "lucide-react";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { EmptyState, Page, SectionHeading } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
-import {
-  effectiveTournamentStatus,
-  isAthletePubliclyDiscoverable,
-} from "@/lib/services/selectors";
+import { effectiveTournamentStatus, isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { SportIcon } from "@/components/shared/SportIcon";
 
@@ -28,13 +25,36 @@ function SportHub() {
   const { db } = useKhelo();
   const name = db.sports.find((item) => item.id === sport)?.name ?? titleFor(sport);
   const tournaments = db.tournaments.filter((item) => item.sportId === sport);
-  const athletes = db.athletes.filter((item) => item.primarySport === sport);
+  const athletes = db.athletes.filter(
+    (item) => item.primarySport === sport && isAthletePubliclyDiscoverable(item),
+  );
   const teams = db.teams.filter((item) => item.sportId === sport);
   const organizers = db.organizers.filter((item) =>
     db.tournaments.some(
       (tournament) => tournament.organizerId === item.id && tournament.sportId === sport,
     ),
   );
+  const summaries: {
+    icon: LucideIcon;
+    title: string;
+    count: number;
+    to: "/teams" | "/institutions" | "/organizers" | "/tournaments";
+  }[] = [
+    { icon: Shield, title: `${name} teams`, count: teams.length, to: "/teams" },
+    {
+      icon: Building2,
+      title: `${name} institutions`,
+      count: db.colleges.length,
+      to: "/institutions",
+    },
+    { icon: Users, title: `${name} organizers`, count: organizers.length, to: "/organizers" },
+    {
+      icon: Trophy,
+      title: `Recent ${name} results`,
+      count: tournaments.filter((item) => effectiveTournamentStatus(item) === "COMPLETED").length,
+      to: "/tournaments",
+    },
+  ];
 
   return (
     <div>
@@ -89,25 +109,15 @@ function SportHub() {
           )}
         </section>
         <section className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            [Shield, `${name} teams`, teams.length, "/teams"],
-            [Building2, `${name} institutions`, db.colleges.length, "/institutions"],
-            [Users, `${name} organizers`, organizers.length, "/organizers"],
-              [
-              SportIcon,
-              `Recent ${name} results`,
-              tournaments.filter((item) => effectiveTournamentStatus(item) === "COMPLETED").length,
-              "/tournaments",
-            ],
-          ].map(([Icon, title, count, to]) => (
+          {summaries.map(({ icon: Icon, title, count, to }) => (
             <Link
-              key={title as string}
-              to={to as "/teams"}
+              key={title}
+              to={to}
               className="data-card-muted rounded-xl border border-border p-6"
             >
               <Icon className="size-5 text-lime" />
-              <p className="stat-num mt-8 text-3xl">{count as number}</p>
-              <h2 className="mt-2 font-display text-xl font-bold uppercase">{title as string}</h2>
+              <p className="stat-num mt-8 text-3xl">{count}</p>
+              <h2 className="mt-2 font-display text-xl font-bold uppercase">{title}</h2>
             </Link>
           ))}
         </section>

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading } from "@/components/shared/Bits";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { useKhelo } from "@/lib/services/store";
+import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/saved")({
   head: () => ({
@@ -21,7 +22,9 @@ export const Route = createFileRoute("/saved")({
 
 function SavedPage() {
   const { db } = useKhelo();
-  const saved = db.athletes.filter((a) => db.savedAthletes.includes(a.id));
+  const saved = db.athletes.filter(
+    (a) => db.savedAthletes.includes(a.id) && isAthletePubliclyDiscoverable(a),
+  );
 
   return (
     <Page>

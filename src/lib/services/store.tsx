@@ -23,12 +23,7 @@ import type {
 import { createSeedDatabase } from "@/data/seed";
 import { ageFromDob } from "@/lib/format";
 import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
-import {
-  athleteById,
-  effectiveTournamentStatus,
-  matchById,
-  tournamentById,
-} from "./selectors";
+import { athleteById, effectiveTournamentStatus, matchById, tournamentById } from "./selectors";
 
 const now = () => new Date().toISOString();
 const uid = (prefix: string) => `${prefix}_${Math.random().toString(36).slice(2, 9)}`;
@@ -175,7 +170,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         throw new Error("Enter a valid date of birth to create an athlete account.");
       }
       if (role === "ATHLETE" && athleteAge !== null && athleteAge < 18 && !guardianConsent) {
-        throw new Error("A parent or legal guardian must agree before an under-18 athlete can join.");
+        throw new Error(
+          "A parent or legal guardian must agree before an under-18 athlete can join.",
+        );
       }
       const id = uid("u");
       const user: User = {
@@ -201,7 +198,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
             profileImage: "",
             cityId: "indore",
             cityName: "Indore",
-            dateOfBirth: "",
+            dateOfBirth: dateOfBirth ?? "",
             gender: "MALE",
             primarySport: "football",
             secondarySports: [],

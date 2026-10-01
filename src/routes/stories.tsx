@@ -4,10 +4,7 @@ import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 import { formatDate, sportLabel } from "@/lib/format";
-import {
-  effectiveTournamentStatus,
-  isAthletePubliclyDiscoverable,
-} from "@/lib/services/selectors";
+import { effectiveTournamentStatus, isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/stories")({
   head: () => ({
@@ -25,11 +22,10 @@ export const Route = createFileRoute("/stories")({
 
 function StoriesPage() {
   const { db } = useKhelo();
-  const featuredAthlete =
-    db.athletes.find(
-      (athlete) =>
-        isAthletePubliclyDiscoverable(athlete) && athlete.verificationStatus === "VERIFIED",
-    );
+  const featuredAthlete = db.athletes.find(
+    (athlete) =>
+      isAthletePubliclyDiscoverable(athlete) && athlete.verificationStatus === "VERIFIED",
+  );
   const featuredTournament =
     db.tournaments
       .filter((tournament) => {

@@ -12,7 +12,7 @@ import { formatDate, formatDateRange, formatDateTime, formatINR } from "@/lib/fo
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
 import {
   effectiveTournamentStatus,
-    isAthletePubliclyDiscoverable,
+  isAthletePubliclyDiscoverable,
   matchesOfTournament,
   registrationsOfTournament,
   teamById,
@@ -60,8 +60,7 @@ function TournamentDetails() {
   const myReg = athlete ? regs.find((r) => r.athleteId === athlete.id) : undefined;
   const teams = Array.from(new Set(regs.filter((r) => r.teamId).map((r) => r.teamId as string)));
   const registrationClosed =
-    status !== "REGISTRATION_OPEN" ||
-    tournament.currentParticipants >= tournament.maxParticipants;
+    status !== "REGISTRATION_OPEN" || tournament.currentParticipants >= tournament.maxParticipants;
   const registrationLabel =
     tournament.currentParticipants >= tournament.maxParticipants
       ? "Tournament full"
@@ -302,7 +301,14 @@ function TournamentDetails() {
                 {matches
                   .filter((m) => m.resultStatus === "VERIFIED")
                   .map((m) => {
-                    const perfs = db.playerPerformances.filter((p) => p.matchId === m.id);
+                    const perfs = db.playerPerformances.filter((performance) => {
+                      const athlete = db.athletes.find((item) => item.id === performance.athleteId);
+                      return (
+                        performance.matchId === m.id &&
+                        athlete !== undefined &&
+                        isAthletePubliclyDiscoverable(athlete)
+                      );
+                    });
                     return (
                       <div key={m.id} className="rounded-lg border border-border bg-card p-5">
                         <div className="flex flex-wrap items-center justify-between gap-3">

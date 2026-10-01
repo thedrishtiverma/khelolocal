@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { EmptyState, Page } from "@/components/shared/Bits";
+import { EmptyState, Page, PrototypeDataNotice } from "@/components/shared/Bits";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/organizer/create")({
@@ -55,6 +55,10 @@ function CreateTournament() {
         <p className="mt-2 text-sm text-muted-foreground">
           Publish the event details athletes need to decide whether to participate.
         </p>
+        <PrototypeDataNotice
+          className="mt-4"
+          message="Prototype only: this tournament is saved in this browser and is not shared with other athletes or organizers."
+        />
       </div>
 
       <form
@@ -65,10 +69,18 @@ function CreateTournament() {
           const startDate = String(values.get("startDate"));
           const endDate = String(values.get("endDate"));
           const registrationDeadline = String(values.get("registrationDeadline"));
-          if (registrationDeadline > startDate || startDate > endDate) {
+          const today = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Kolkata",
+          }).format(new Date());
+          if (
+            registrationDeadline < today ||
+            startDate < today ||
+            registrationDeadline > startDate ||
+            startDate > endDate
+          ) {
             toast.error("Check the dates", {
               description:
-                "Registration must close by the start date, and the end date must follow the start date.",
+                "Start and registration dates must be today or later. Registration must close by the start date, and the end date must follow the start date.",
             });
             return;
           }
@@ -102,9 +114,7 @@ function CreateTournament() {
             toast.success("Tournament created");
             navigate({ to: "/organizer/manage/$id", params: { id: tournament.id } });
           } catch (error) {
-            toast.error(
-              error instanceof Error ? error.message : "Couldn't create the tournament",
-            );
+            toast.error(error instanceof Error ? error.message : "Couldn't create the tournament");
           }
         }}
       >
@@ -155,12 +165,7 @@ function CreateTournament() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="registration-deadline">Registration closes</Label>
-            <Input
-              id="registration-deadline"
-              name="registrationDeadline"
-              type="date"
-              required
-            />
+            <Input id="registration-deadline" name="registrationDeadline" type="date" required />
           </div>
         </div>
 

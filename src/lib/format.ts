@@ -39,10 +39,36 @@ export function formatDateTime(dateish: string) {
 }
 
 export function ageFromDob(dob: string) {
-  const d = new Date(dob);
-  if (Number.isNaN(d.getTime())) return null;
-  const diff = Date.now() - d.getTime();
-  return Math.floor(diff / (365.25 * 24 * 3600 * 1000));
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dob);
+  if (!match) return null;
+  const birthYear = Number(match[1]);
+  const birthMonth = Number(match[2]);
+  const birthDay = Number(match[3]);
+  const validated = new Date(Date.UTC(birthYear, birthMonth - 1, birthDay));
+  if (
+    validated.getUTCFullYear() !== birthYear ||
+    validated.getUTCMonth() + 1 !== birthMonth ||
+    validated.getUTCDate() !== birthDay
+  ) {
+    return null;
+  }
+
+  const currentDate = Object.fromEntries(
+    new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+      .formatToParts(new Date())
+      .map(({ type, value }) => [type, value]),
+  );
+  const currentYear = Number(currentDate.year);
+  const currentMonth = Number(currentDate.month);
+  const currentDay = Number(currentDate.day);
+  const hasHadBirthday =
+    currentMonth > birthMonth || (currentMonth === birthMonth && currentDay >= birthDay);
+  return currentYear - birthYear - (hasHadBirthday ? 0 : 1);
 }
 
 const SPORT_LABELS: Record<string, string> = {

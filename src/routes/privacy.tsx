@@ -28,8 +28,8 @@ function PrivacyPage() {
           <h2>What we collect</h2>
           <p>
             Depending on how you use KheloLocal, we may store your name, email address, city, role,
-            sporting profile, tournament participation, and records you or an authorized organizer
-            submit.
+            date of birth for athlete age eligibility, sporting profile, tournament participation,
+            and records you or an authorized organizer submit.
           </p>
         </section>
         <section>
@@ -56,8 +56,16 @@ function PrivacyPage() {
             the current prototype does not verify age or guardian identity and does not provide
             guardian account management. Profiles for under-18 athletes and athletes whose age
             cannot be established are withheld from public discovery. Do not add a young athlete's
-            personal contact details or other sensitive information. Verified guardian workflows
-            and age-based profile controls are required before minor-athlete discovery is enabled.
+            personal contact details or other sensitive information. Verified guardian and age-based
+            profile controls are required before public discovery for minors is enabled.
+          </p>
+        </section>
+        <section>
+          <h2>Prototype storage</h2>
+          <p>
+            This prototype stores account and sporting data in the current browser's local storage.
+            It is not a shared production account or a secure long-term record system. Do not use it
+            for confidential or sensitive information.
           </p>
         </section>
         <section>

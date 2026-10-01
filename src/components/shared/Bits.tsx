@@ -98,7 +98,13 @@ export function LoadingBlock({ label = "Loading…" }: { label?: string }) {
   );
 }
 
-export function PrototypeDataNotice({ className }: { className?: string }) {
+export function PrototypeDataNotice({
+  className,
+  message = "Prototype data: counts and event availability may not reflect current operations. Confirm tournament details with the organizer.",
+}: {
+  className?: string;
+  message?: string;
+}) {
   return (
     <p
       className={cn(
@@ -107,10 +113,7 @@ export function PrototypeDataNotice({ className }: { className?: string }) {
       )}
     >
       <Info className="mt-0.5 size-4 shrink-0 text-warning-ink" aria-hidden="true" />
-      <span>
-        Prototype data: counts and event availability may not reflect current operations. Confirm
-        tournament details with the organizer.
-      </span>
+      <span>{message}</span>
     </p>
   );
 }

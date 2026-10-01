@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, Initials, Page, SectionHeading } from "@/components/shared/Bits";
 import { formatDate } from "@/lib/format";
 import { useKhelo } from "@/lib/services/store";
+import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/connections")({
   head: () => ({
@@ -21,11 +22,15 @@ export const Route = createFileRoute("/connections")({
 
 function ConnectionsPage() {
   const { db } = useKhelo();
+  const connections = db.connections.filter((connection) => {
+    const athlete = db.athletes.find((item) => item.id === connection.athleteId);
+    return athlete && isAthletePubliclyDiscoverable(athlete);
+  });
 
   return (
     <Page>
       <SectionHeading eyebrow="Outreach" title="Connection requests" />
-      {db.connections.length === 0 ? (
+      {connections.length === 0 ? (
         <EmptyState
           title="No requests sent yet."
           description="Open an athlete profile and request a connection to start a conversation."
@@ -37,7 +42,7 @@ function ConnectionsPage() {
         />
       ) : (
         <ul className="divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
-          {db.connections.map((c) => {
+          {connections.map((c) => {
             const athlete = db.athletes.find((a) => a.id === c.athleteId);
             if (!athlete) return null;
             return (

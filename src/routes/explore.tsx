@@ -7,10 +7,7 @@ import { SportIcon } from "@/components/shared/SportIcon";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { Button } from "@/components/ui/button";
 import { useKhelo } from "@/lib/services/store";
-import {
-  effectiveTournamentStatus,
-  isAthletePubliclyDiscoverable,
-} from "@/lib/services/selectors";
+import { effectiveTournamentStatus, isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 
 export const Route = createFileRoute("/explore")({
   head: () => ({
@@ -35,7 +32,9 @@ function ExplorePage() {
     })
     .sort((a, b) => a.startDate.localeCompare(b.startDate))
     .slice(0, 3);
-  const athletes = db.athletes.filter((item) => item.verificationStatus === "VERIFIED").slice(0, 3);
+  const athletes = db.athletes
+    .filter((item) => isAthletePubliclyDiscoverable(item) && item.verificationStatus === "VERIFIED")
+    .slice(0, 3);
   const sports = db.sports.slice(0, 6);
   const organizers = db.organizers.slice(0, 3);
   const startingPoints = [

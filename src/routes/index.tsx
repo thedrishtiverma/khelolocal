@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, Search, Trophy, Users } from "lucide-react";
+import { ArrowRight, BadgeCheck, Building2, Search, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Page, PrototypeDataNotice, SectionHeading, Stat } from "@/components/shared/Bits";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
@@ -200,14 +200,14 @@ function Landing() {
             </p>
             <h2 className="font-display text-4xl font-black uppercase leading-none sm:text-6xl">
               <span className="text-accent">One network,</span>{" "}
-              <span className="text-primary">three roles.</span>
+              <span className="text-primary">four core roles.</span>
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
-              Everyone gets a clearer way to participate, organize, or find the next player who
-              belongs on their team.
+              Athletes, organizers, institutions, and teams each have a direct path into the local
+              sporting network.
             </p>
           </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 icon: <Users className="size-5" />,
@@ -222,6 +222,13 @@ function Landing() {
                 body: "Run tournaments, manage fixtures and verify results in one place.",
                 to: "/tournaments/create" as const,
                 cta: "Host a tournament",
+              },
+              {
+                icon: <Building2 className="size-5" />,
+                title: "Institutions",
+                body: "Verify campus results and give student athletes a lasting sports record.",
+                to: "/institutions" as const,
+                cta: "Explore institution tools",
               },
               {
                 icon: <Search className="size-5" />,

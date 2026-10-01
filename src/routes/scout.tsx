@@ -14,10 +14,7 @@ export const Route = createFileRoute("/scout")({
 function ScoutDashboard() {
   const { db, currentUser } = useKhelo();
   const saved = db.athletes
-    .filter(
-      (athlete) =>
-        isAthletePubliclyDiscoverable(athlete) && db.savedAthletes.includes(athlete.id),
-    )
+    .filter((athlete) => isAthletePubliclyDiscoverable(athlete) && db.savedAthletes.includes(athlete.id))
     .slice(0, 3);
   const verified = db.athletes.filter(
     (athlete) =>
