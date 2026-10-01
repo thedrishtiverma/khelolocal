@@ -46,7 +46,7 @@ function VisionPage() {
             {
               icon: MapPin,
               title: "Start local",
-              body: "Build enough trust and density in Indore for the network to become genuinely useful.",
+              body: "Build enough trust and density in local communities for the network to become genuinely useful.",
             },
             {
               icon: BadgeCheck,
@@ -73,7 +73,7 @@ function VisionPage() {
           </p>
           <Button asChild>
             <Link to="/tournaments">
-              Explore Indore <ArrowRight className="size-4" />
+              Explore tournaments <ArrowRight className="size-4" />
             </Link>
           </Button>
         </div>

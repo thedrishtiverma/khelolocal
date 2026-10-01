@@ -35,7 +35,7 @@ function CitiesPage() {
             <span className="brand-inline font-semibold">
               Khelo<span>Local</span>
             </span>{" "}
-            turns everyday games into a trusted sporting network. Indore is home ground.
+            turns everyday games into a trusted sporting network. Every city is a home ground.
           </>
         }
         highlights={["Local", "Connected", "Growing"]}

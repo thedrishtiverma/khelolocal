@@ -11,16 +11,16 @@ import { searchTournaments } from "@/lib/services/selectors";
 export const Route = createFileRoute("/tournaments/")({
   head: () => ({
     meta: [
-      { title: "Sports near you — Tournaments in Indore | KheloLocal" },
+      { title: "Sports near you — Tournaments | KheloLocal" },
       {
         name: "description",
         content:
-          "Browse football and kabaddi tournaments in Indore. Filter by sport, age category, gender and status.",
+          "Browse football and kabaddi tournaments. Filter by sport, age category, gender and status.",
       },
-      { property: "og:title", content: "Sports near you — Tournaments in Indore" },
+      { property: "og:title", content: "Sports near you — Tournaments" },
       {
         property: "og:description",
-        content: "Find local football and kabaddi tournaments open for registration in Indore.",
+        content: "Find football and kabaddi tournaments open for registration.",
       },
     ],
   }),
@@ -46,7 +46,6 @@ function ExploreTournaments() {
     status,
     fromDate,
     query,
-    cityId: "indore",
   });
 
   const reset = () => {
@@ -77,7 +76,7 @@ function ExploreTournaments() {
             Find your <span className="text-lime">next game.</span>
           </>
         }
-        description="Browse tournaments, leagues and competitions happening across Indore."
+        description="Browse tournaments, leagues and competitions happening across the network."
         highlights={["Nearby", "Upcoming", "Open now"]}
         actions={
           <Button asChild size="lg">

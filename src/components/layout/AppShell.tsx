@@ -65,9 +65,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="font-display text-xl font-black tracking-tight">
               Khelo<span className="text-lime">Local</span>
             </span>
-            <span className="hidden border-l border-border pl-3 font-ui text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground lg:inline">
-              Indore / 01
-            </span>
           </Link>
 
           <nav className="hidden flex-1 items-center gap-1 md:flex">
@@ -277,7 +274,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </span>
             </Link>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
-              Your city's sports network. Starting in Indore, Madhya Pradesh.
+              A connected network for grassroots sport and the people who make it happen.
             </p>
             <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Play local. Prove your game.
@@ -436,7 +433,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </span>{" "}
               <span aria-label="love">♥</span>
             </p>
-            <p>Indore, Madhya Pradesh</p>
+            <p>Play local. Connect everywhere.</p>
           </div>
         </div>
       </footer>

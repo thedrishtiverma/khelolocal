@@ -29,7 +29,7 @@ export function TournamentCard({
           <SportIcon sportId={tournament.sportId} className="size-8" aria-hidden="true" />
           <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em]">{tournament.sportName}</span>
         </div>
-        <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/70">Indore / event</span>
+        <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/70">Local event</span>
       </div>
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>

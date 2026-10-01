@@ -108,8 +108,8 @@ function TeamPage() {
           </a>
         </div>
         <div className="mt-14 flex flex-wrap items-center gap-4 border-t border-border pt-8 text-sm text-muted-foreground">
-          <Users className="size-5 text-lime" /> Built from Indore, for the next generation of
-          grassroots athletes.
+          <Users className="size-5 text-lime" /> Built by a student-led team for the next
+          generation of grassroots athletes.
           <a
             className="inline-flex items-center gap-2 font-semibold text-foreground hover:text-lime"
             href="mailto:khelolocal@gmail.com"

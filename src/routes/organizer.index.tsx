@@ -33,7 +33,7 @@ function OrganizerDashboard() {
       <Page>
         <EmptyState
           title="Log in as an organizer"
-          description="Use the organizer demo account to run the Indore City Football Cup."
+          description="Use the organizer demo account to manage the featured football cup."
           action={
             <Button asChild>
               <Link to="/login">Go to login</Link>

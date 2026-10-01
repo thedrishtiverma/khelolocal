@@ -16,7 +16,7 @@ export const Route = createFileRoute("/explore")({
       {
         name: "description",
         content:
-          "Discover Indore tournaments, athletes, sports, teams and verified local opportunities.",
+          "Discover tournaments, athletes, sports, teams and verified local opportunities.",
       },
     ],
   }),
@@ -173,7 +173,7 @@ function ExplorePage() {
             eyebrow="The people behind the fixtures"
             title={
               <>
-                Organizations <span className="text-lime">in Indore.</span>
+                Organizations <span className="text-lime">across the network.</span>
               </>
             }
           />

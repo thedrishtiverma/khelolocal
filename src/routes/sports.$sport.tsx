@@ -9,7 +9,7 @@ import { NetworkHero } from "@/components/shared/NetworkHero";
 import { SportIcon } from "@/components/shared/SportIcon";
 
 export const Route = createFileRoute("/sports/$sport")({
-  head: () => ({ meta: [{ title: "Sport in Indore | KheloLocal" }] }),
+  head: () => ({ meta: [{ title: "Sport | KheloLocal" }] }),
   component: SportHub,
 });
 
@@ -60,11 +60,11 @@ function SportHub() {
     <div>
       <NetworkHero
         tone="sports"
-        eyebrow={`${name} × Indore`}
+        eyebrow={`${name} network`}
         title={
           <>
             <SportIcon sportId={sport} className="mb-2 inline-block size-10 align-middle text-lime" aria-hidden="true" /> {name}{" "}
-            <span className="text-lime">in Indore.</span>
+            <span className="text-lime">near you.</span>
           </>
         }
         description={`The local ${name.toLowerCase()} network: players, competitions and the organizations behind them.`}

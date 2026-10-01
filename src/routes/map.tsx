@@ -11,11 +11,11 @@ import type { SubmissionKind } from "@/types";
 export const Route = createFileRoute("/map")({
   head: () => ({
     meta: [
-      { title: "Indore sports map | KheloLocal" },
+      { title: "Sports map | KheloLocal" },
       {
         name: "description",
         content:
-          "Explore Indore areas, organizers, tournaments and athletes on the KheloLocal sports map.",
+          "Explore areas, organizers, tournaments and athletes on the KheloLocal sports map.",
       },
     ],
   }),
@@ -35,7 +35,7 @@ type Layer = "areas" | "organizers" | "tournaments" | "athletes";
 function SportsMapPage() {
   const { db } = useKhelo();
   const [filter, setFilter] = useState<"ALL" | SubmissionKind>("ALL");
-  const [zoneId, setZoneId] = useState("zone_vijay_nagar");
+  const [zoneId, setZoneId] = useState(db.zones[0]?.id ?? "");
   const [zoom, setZoom] = useState(1);
   const [layer, setLayer] = useState<Layer>("areas");
   const zone = db.zones.find((item) => item.id === zoneId) ?? db.zones[0];
@@ -45,17 +45,17 @@ function SportsMapPage() {
       record.status === "VERIFIED" &&
       (filter === "ALL" || record.kind === filter),
   );
-  const tournaments = db.tournaments.filter((item) => item.cityId === "indore");
+  const tournaments = db.tournaments;
   const athletes = db.athletes.filter(
-    (item) => item.cityId === "indore" && isAthletePubliclyDiscoverable(item),
+    isAthletePubliclyDiscoverable,
   );
-  const organizers = db.organizers.filter((item) => item.cityId === "indore");
+  const organizers = db.organizers;
 
   return (
     <div>
       <NetworkHero
         tone="explore"
-        eyebrow="Indore / live sports map"
+        eyebrow="KheloLocal / sports map"
         title={
           <>
             Find the game <span className="text-lime">around you.</span>
@@ -105,8 +105,8 @@ function SportsMapPage() {
                   <Minus className="size-4" />
                 </button>
               </div>
-              <div className="indore-map-canvas" style={{ transform: `scale(${zoom})` }}>
-                <div className="indore-map-grid" aria-hidden="true" />
+              <div className="network-map-canvas" style={{ transform: `scale(${zoom})` }}>
+                <div className="network-map-grid" aria-hidden="true" />
                 {db.zones.map((item, index) => (
                   <button
                     key={item.id}
@@ -167,7 +167,7 @@ function SportsMapPage() {
               </div>
               <div className="absolute bottom-6 left-6 z-10 max-w-xs sm:left-8">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                  Indore / {layer}
+                  Network / {layer}
                 </p>
                 <p className="mt-2 font-display text-3xl font-black uppercase">
                   Play is everywhere.
@@ -209,7 +209,7 @@ function SportsMapPage() {
               <div>
                 <p className="stat-num text-2xl">{tournaments.length}</p>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                  City tournaments
+                  Tournaments
                 </p>
               </div>
             </div>
@@ -235,7 +235,7 @@ function SportsMapPage() {
           </section>
         </div>
         <section className="mt-14 border-t border-border pt-10">
-          <SectionHeading eyebrow="The local network" title="What the Indore map connects" />
+          <SectionHeading eyebrow="The local network" title="What the map connects" />
           <div className="grid gap-4 sm:grid-cols-3">
             {[
               [

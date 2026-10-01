@@ -11,10 +11,10 @@ import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 export const Route = createFileRoute("/athletes")({
   head: () => ({
     meta: [
-      { title: "Athletes in Indore | KheloLocal" },
+      { title: "Athletes | KheloLocal" },
       {
         name: "description",
-        content: "Find verified athletes, institutions and sporting records around Indore.",
+        content: "Find verified athletes, institutions and sporting records across the network.",
       },
     ],
   }),
@@ -81,9 +81,6 @@ function AthletesPage() {
                 {item.name}
               </option>
             ))}
-          </select>
-          <select className={select}>
-            <option>City · Indore</option>
           </select>
           <select className={select} value={position} onChange={(e) => setPosition(e.target.value)}>
             <option value="">Position</option>

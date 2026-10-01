@@ -43,12 +43,12 @@ export const Route = createFileRoute("/volunteer/desk")({
       {
         name: "description",
         content:
-          "Collect and submit tournaments, grounds, academies and local sports opportunities from your assigned zone of Indore.",
+          "Collect and submit tournaments, grounds, academies and local sports opportunities from your assigned zone.",
       },
       { property: "og:title", content: "Volunteer field desk | KheloLocal" },
       {
         property: "og:description",
-        content: "Add on-ground sports data for your zone of Indore and track verification.",
+        content: "Add on-ground sports data for your assigned zone and track verification.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -253,7 +253,7 @@ function VolunteerDashboard() {
     <div className="mx-auto w-full max-w-3xl px-4 pb-10 pt-5 sm:px-6">
       <ProfileBanner
         name={volunteer.name}
-        eyebrow={`Field desk · ${volunteer.cityId === "indore" ? "Indore" : volunteer.cityId}`}
+        eyebrow={`Field desk · ${volunteer.zoneName}`}
         title={`${volunteer.name.split(" ")[0]} · ${volunteer.zoneName}`}
         subtitle="On-ground sports data volunteer"
         meta={
@@ -467,7 +467,7 @@ function VolunteerDashboard() {
               {draft.id ? "Edit" : "Add"} {openKind ? KIND_LABEL[openKind].toLowerCase() : ""}
             </DialogTitle>
             <DialogDescription>
-              Collected for {volunteer.zoneName}, Indore. Your zone can't be changed.
+              Collected for {volunteer.zoneName}. Your zone can't be changed.
             </DialogDescription>
           </DialogHeader>
 

@@ -8,7 +8,7 @@ export function InstitutionBanner({ college }: { college: College }) {
       <div className="relative z-10 flex items-start justify-between gap-4">
         <Building2 className="size-8 text-lime" />
         <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/70">
-          Indore / institution
+          Sports institution
         </span>
       </div>
       <div className="relative z-10 mt-12 flex items-center justify-between gap-4">

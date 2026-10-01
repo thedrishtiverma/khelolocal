@@ -17,7 +17,7 @@ export const Route = createFileRoute("/signup")({
       {
         name: "description",
         content:
-          "Create a KheloLocal account as an athlete, tournament organizer, or scout/coach/team in Indore.",
+          "Create a KheloLocal account as an athlete, tournament organizer, or scout, coach, or team.",
       },
       { property: "og:title", content: "Join KheloLocal" },
       {
@@ -204,7 +204,6 @@ function SignupPage() {
               />
             </div>
           ) : null}
-          <p className="text-xs text-muted-foreground">City: Indore, Madhya Pradesh</p>
           {guardianConsentRequired ? (
             <div className="rounded-md border border-border p-3">
               <label htmlFor="guardian-consent" className="flex items-start gap-2 text-sm">

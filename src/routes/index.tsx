@@ -1,10 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, Building2, Search, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Page, PrototypeDataNotice, SectionHeading, Stat } from "@/components/shared/Bits";
-import { TournamentCard } from "@/components/tournament/TournamentCard";
-import { useKhelo } from "@/lib/services/store";
-import { effectiveTournamentStatus } from "@/lib/services/selectors";
+import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 
 export const Route = createFileRoute("/")({
@@ -58,15 +55,6 @@ const STEPS = [
 ];
 
 function Landing() {
-  const { db } = useKhelo();
-  const featured = db.tournaments
-    .filter((t) => {
-      const status = effectiveTournamentStatus(t);
-      return status === "LIVE" || status === "REGISTRATION_OPEN" || status === "UPCOMING";
-    })
-    .sort((a, b) => a.startDate.localeCompare(b.startDate))
-    .slice(0, 3);
-
   return (
     <div>
       <NetworkHero
@@ -92,52 +80,6 @@ function Landing() {
           </>
         }
       />
-
-      <section className="city-pulse-band px-4 py-10 sm:px-6 sm:py-14">
-        <div className="city-pulse-card mx-auto grid w-full max-w-6xl gap-8 rounded-2xl border border-border px-5 py-8 shadow-[0_18px_50px_-30px_var(--foreground)] sm:px-8 sm:py-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
-          <div>
-            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-lime">
-              KheloLocal network
-            </p>
-            <h2 className="mt-2 font-display text-4xl font-black uppercase leading-none">
-              Local sport, everywhere
-            </h2>
-            <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
-              A live snapshot of athletes, events and verified moments across the growing KheloLocal network.
-            </p>
-            <Link
-              to="/cities"
-              className="mt-5 inline-flex items-center gap-2 text-sm font-bold hover:text-lime"
-            >
-              Explore our cities <ArrowRight className="size-4" />
-            </Link>
-          </div>
-          <div className="city-pulse-stats grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">
-            <Stat
-              className="bg-card px-4 py-6 sm:px-5 sm:py-7"
-              value={db.athletes.length}
-              label="Athletes"
-            />
-            <Stat
-              className="bg-card px-4 py-6 sm:px-5 sm:py-7"
-              value={db.tournaments.length}
-              label="Tournaments"
-            />
-            <Stat
-              className="bg-card px-4 py-6 sm:px-5 sm:py-7"
-              value={db.teams.length}
-              label="Local teams"
-            />
-            <Stat
-              className="bg-card px-4 py-6 sm:px-5 sm:py-7"
-              tone="accent"
-              value={db.achievements.filter((a) => a.verified).length}
-              label="Verified achievements"
-            />
-          </div>
-          <PrototypeDataNotice className="lg:col-span-2" />
-        </div>
-      </section>
 
       <Page className="loop-section py-14 sm:py-20">
         <SectionHeading
@@ -168,27 +110,6 @@ function Landing() {
               </li>
             ))}
           </ol>
-        </div>
-      </Page>
-
-      <Page className="pt-0 pb-14 sm:pb-20">
-        <SectionHeading
-          eyebrow="The local calendar"
-          title={
-            <>
-              Your <span className="text-lime">next game</span> is closer than you think
-            </>
-          }
-          action={
-            <Button asChild variant="outline">
-              <Link to="/tournaments">See all tournaments</Link>
-            </Button>
-          }
-        />
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {featured.map((t) => (
-            <TournamentCard key={t.id} tournament={t} />
-          ))}
         </div>
       </Page>
 
@@ -262,7 +183,7 @@ function Landing() {
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[0.75fr_1.25fr] lg:items-end lg:gap-20">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-lime">
-              Starting in Indore
+              Built for every sporting community
             </p>
             <h2 className="mt-4 font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
               Built locally.
@@ -298,7 +219,7 @@ function Landing() {
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-foreground">
               Follow the path that fits you: learn the network, find the map, join a game, support
-              the field, or explore what Indore is building.
+              the field, or explore what local communities are building.
             </p>
           </div>
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -309,9 +230,9 @@ function Landing() {
                 "/how-it-works",
               ],
               [
-                "Indore city",
-                "Explore the people and places on our home ground.",
-                "/cities/indore",
+                "Our cities",
+                "Explore the people and places building the network.",
+                "/cities",
               ],
               ["Sports map", "Focus an area, then reveal its events and athletes.", "/map"],
               ["Sports", "Choose a game and find its local network.", "/sports"],

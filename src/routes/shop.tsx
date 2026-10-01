@@ -15,7 +15,7 @@ export const Route = createFileRoute("/shop")({
 });
 
 const ITEMS = [
-  ["City League Tee", "Soft cotton · Indore / 01", "₹699", "tee"],
+  ["City League Tee", "Soft cotton · Community edition", "₹699", "tee"],
   ["Home Ground Cap", "Six-panel cap · Lime stitch", "₹499", "cap"],
   ["Match Day Tote", "Canvas carryall · Local sport", "₹399", "tote"],
   ["KheloLocal Water Bottle", "Steel bottle · 750 ml", "₹799", "bottle"],
@@ -33,7 +33,7 @@ function ShopPage() {
           </>
         }
         description="Small-batch essentials for people who show up for sport in their city."
-        highlights={["Indore / 01", "Small batch", "Made for game day"]}
+        highlights={["Grassroots sport", "Small batch", "Made for game day"]}
       />
       <Page className="py-14 sm:py-20">
         <SectionHeading

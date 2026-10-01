@@ -17,17 +17,17 @@ export const Route = createFileRoute("/careers")({
 const ROLES = [
   [
     "Community volunteer",
-    "Indore · Flexible",
+    "Flexible · Volunteer",
     "Help map the tournaments, grounds and opportunities that deserve to be found.",
   ],
   [
     "Campus sports partner",
-    "Indore · Part-time",
+    "Campus · Part-time",
     "Bring verified student sport, events and records from your institution into the network.",
   ],
   [
     "Product intern",
-    "Indore · Project-based",
+    "Project-based",
     "Help test and improve tools for athletes, organizers and local sports communities.",
   ],
 ] as const;
@@ -44,7 +44,7 @@ function CareersPage() {
           </>
         }
         description="We are a student-led team creating the sporting infrastructure local cities deserve. Bring curiosity, care and a love for making sport easier to find."
-        highlights={["Indore / 01", "Student-led", "Local impact"]}
+        highlights={["Student-led", "Grassroots sport", "Community impact"]}
         actions={
           <Button asChild size="lg">
             <a href="mailto:khelolocal@gmail.com?subject=KheloLocal%20careers">
@@ -64,7 +64,7 @@ function CareersPage() {
             [
               MapPin,
               "Start where you are",
-              "We are building from Indore, learning directly from the places and people around us.",
+              "We learn directly from the places and people who make sport happen.",
             ],
             [
               Sparkles,

@@ -139,7 +139,7 @@ function AthleteDashboard() {
       </div>
 
       <div className="mt-12">
-        <SectionHeading title="Local opportunities" subtitle="Open registrations for your sport in Indore." />
+        <SectionHeading title="Local opportunities" subtitle="Open registrations for your sport." />
         {recommended.length === 0 ? (
           <EmptyState title="Nothing open right now." />
         ) : (

@@ -50,7 +50,7 @@ export function tournamentById(db: Database, id: string) {
   return db.tournaments.find((t) => t.id === id);
 }
 
-function currentDateInIndore() {
+function currentDateInIndia() {
   const parts = Object.fromEntries(
     new Intl.DateTimeFormat("en-CA", {
       timeZone: "Asia/Kolkata",
@@ -66,7 +66,7 @@ function currentDateInIndore() {
 
 export function effectiveTournamentStatus(
   tournament: Tournament,
-  today = currentDateInIndore(),
+  today = currentDateInIndia(),
 ): TournamentStatus {
   if (
     tournament.status === "DRAFT" ||

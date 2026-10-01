@@ -28,7 +28,7 @@ export const Route = createFileRoute("/demo")({
 const STEPS = [
   {
     title: "1. Athlete registers",
-    body: "Log in as the athlete and register for the Indore City Football Cup.",
+    body: "Log in as the athlete and register for the featured football cup.",
     to: "/tournaments" as const,
     cta: "Open tournaments",
   },
@@ -84,7 +84,7 @@ function DemoPage() {
         <div className="mt-8 rounded-xl border border-border bg-card p-5">
           <p className="font-display font-bold">Reset demo data</p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Restores the original Indore dataset, clearing any results you verified.
+            Restores the bundled demo dataset, clearing any results you verified.
           </p>
           <Button
             variant="outline"

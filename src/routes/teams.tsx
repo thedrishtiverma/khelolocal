@@ -8,7 +8,7 @@ import { SportIcon } from "@/components/shared/SportIcon";
 export const Route = createFileRoute("/teams")({
   head: () => ({
     meta: [
-      { title: "Teams in Indore | KheloLocal" },
+      { title: "Teams | KheloLocal" },
       {
         name: "description",
         content: "Find local teams, their tournament history and the players behind them.",

@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "KheloLocal connects athletes, tournaments, organizers and teams in Indore. Verified results build real sporting identities.",
+          "KheloLocal connects athletes, tournaments, organizers and teams through verified sporting identities.",
       },
       { name: "author", content: "KheloLocal" },
       { property: "og:title", content: "KheloLocal — Your city's sports network" },

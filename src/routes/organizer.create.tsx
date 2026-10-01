@@ -13,7 +13,7 @@ export const Route = createFileRoute("/organizer/create")({
       { title: "Create a tournament | KheloLocal" },
       {
         name: "description",
-        content: "Publish a local tournament and reach athletes across Indore.",
+        content: "Publish a tournament and reach athletes across the network.",
       },
     ],
   }),

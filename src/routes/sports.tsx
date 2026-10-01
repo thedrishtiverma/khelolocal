@@ -8,10 +8,10 @@ import { useKhelo } from "@/lib/services/store";
 export const Route = createFileRoute("/sports")({
   head: () => ({
     meta: [
-      { title: "Sports in Indore | KheloLocal" },
+      { title: "Sports | KheloLocal" },
       {
         name: "description",
-        content: "Find your sport, local tournaments, athletes and sporting communities in Indore.",
+        content: "Find your sport, local tournaments, athletes and sporting communities.",
       },
     ],
   }),
@@ -51,7 +51,7 @@ function SportsPage() {
             Find your <span className="text-lime">sport.</span> Find your people.
           </>
         }
-        description="Explore the local tournaments, athletes, teams and institutions behind every game in Indore."
+        description="Explore the tournaments, athletes, teams and institutions behind every game."
         highlights={["Players", "Fixtures", "Teams"]}
       />
       <Page className="py-14 sm:py-20">
@@ -72,7 +72,7 @@ function SportsPage() {
                     aria-hidden="true"
                   />
                   <span className="relative z-10 ml-auto font-ui text-[10px] font-bold uppercase tracking-[0.18em]">
-                    {sport.name} / Indore
+                    {sport.name}
                   </span>
                 </div>
                 <div className="p-6">

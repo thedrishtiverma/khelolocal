@@ -44,7 +44,7 @@ function CollegeRecordsPage() {
   const [level, setLevel] = useState<SelectionLevel>("COLLEGE");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [representedFor, setRepresentedFor] = useState("SGSITS Indore");
+  const [representedFor, setRepresentedFor] = useState("");
 
   const athletes = useMemo(
     () => (college ? athletesOfCollege(db, college.id) : []),

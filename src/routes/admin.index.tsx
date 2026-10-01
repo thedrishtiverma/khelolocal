@@ -19,7 +19,7 @@ export const Route = createFileRoute("/admin/")({
       {
         name: "description",
         content:
-          "Platform admin console: verify college sports records, athlete identities and tournament listings across Indore.",
+          "Platform admin console: verify college sports records, athlete identities and tournament listings across the network.",
       },
       { property: "og:title", content: "Admin console | KheloLocal" },
       {
@@ -178,7 +178,7 @@ function AdminConsole() {
           <SectionHeading
             eyebrow="Data integrity"
             title="Tournament listings"
-            subtitle="Verify that live Indore tournaments are genuine before they collect registrations."
+            subtitle="Verify that tournament listings are genuine before they collect registrations."
             action={
               <Button asChild variant="outline">
                 <Link to="/organizer/create">Add a tournament</Link>
@@ -330,7 +330,7 @@ function AdminConsole() {
       {tab === "volunteers" ? (
         <div className="mt-8">
           <SectionHeading
-            eyebrow="Indore field network"
+            eyebrow="Field network"
             title="Volunteer coverage by area"
             subtitle="See who is assigned to each zone and how much verified field data they have contributed."
           />

@@ -7,7 +7,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact | KheloLocal" },
-      { name: "description", content: "Contact the KheloLocal team in Indore." },
+      { name: "description", content: "Contact the KheloLocal team." },
     ],
   }),
   component: ContactPage,
@@ -48,7 +48,7 @@ function ContactPage() {
                 <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   Based in
                 </span>
-                <span className="mt-2 block font-semibold">Indore, Madhya Pradesh</span>
+                <span className="mt-2 block font-semibold">Grassroots sport across India</span>
               </span>
             </div>
           </div>
@@ -81,7 +81,7 @@ function ContactPage() {
               <span>
                 <strong className="block">Instagram</strong>
                 <span className="text-sm text-muted-foreground">
-                  Daily sport, people and places from Indore.
+                  Daily sport, people and places from across India.
                 </span>
               </span>
             </a>

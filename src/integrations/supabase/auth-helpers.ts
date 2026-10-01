@@ -162,8 +162,8 @@ export async function createRoleSpecificProfile(
 
   const payloadByRole: Record<Role, Record<string, unknown>> = {
     ATHLETE: {
-      city: details["city"] ?? "Indore",
-      area: details["area"] ?? "Indore",
+      city: details["city"] ?? "",
+      area: details["area"] ?? "",
       institution: details["institution"] ?? "",
       primary_sport: details["primary_sport"] ?? "football",
       secondary_sports: details["secondary_sports"] ?? [],
@@ -184,8 +184,8 @@ export async function createRoleSpecificProfile(
     ORGANIZER: {
       organization_name: details["organization_name"] ?? "",
       organizer_type: details["organizer_type"] ?? "Club",
-      city: details["city"] ?? "Indore",
-      area: details["area"] ?? "Indore",
+      city: details["city"] ?? "",
+      area: details["area"] ?? "",
       phone: details["phone"] ?? "",
       email: details["email"] ?? "",
       description: details["description"] ?? "",
@@ -198,8 +198,8 @@ export async function createRoleSpecificProfile(
     COLLEGE: {
       institution_name: details["institution_name"] ?? "",
       institution_type: details["institution_type"] ?? "College",
-      city: details["city"] ?? "Indore",
-      area: details["area"] ?? "Indore",
+      city: details["city"] ?? "",
+      area: details["area"] ?? "",
       address: details["address"] ?? "",
       phone: details["phone"] ?? "",
       email: details["email"] ?? "",
@@ -211,8 +211,8 @@ export async function createRoleSpecificProfile(
       geo_point: details["geo_point"] ?? null,
     },
     VOLUNTEER: {
-      city: details["city"] ?? "Indore",
-      area: details["area"] ?? "Indore",
+      city: details["city"] ?? "",
+      area: details["area"] ?? "",
       role: details["role"] ?? "field-volunteer",
       active: details["active"] ?? true,
       profile_photo_url: details["profile_photo_url"] ?? "",
@@ -221,12 +221,12 @@ export async function createRoleSpecificProfile(
       geo_point: details["geo_point"] ?? null,
     },
     ADMIN: {
-      city: details["city"] ?? "Indore",
-      area: details["area"] ?? "Indore",
+      city: details["city"] ?? "",
+      area: details["area"] ?? "",
     },
     SCOUT: {
-      city: details["city"] ?? "Indore",
-      area: details["area"] ?? "Indore",
+      city: details["city"] ?? "",
+      area: details["area"] ?? "",
     },
   };
 

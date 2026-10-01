@@ -49,7 +49,7 @@ function StoriesPage() {
     {
       eyebrow: "On the ground",
       title: `${featuredTournament?.name ?? "Local tournaments"} shows why city sport needs a home.`,
-      body: `${featuredTournament?.venue ?? "Indore grounds"} · ${featuredTournament ? formatDate(featuredTournament.startDate) : "This season"}. Local competitions become easier to find, join and remember.`,
+      body: `${featuredTournament?.venue ?? "Local grounds"} · ${featuredTournament ? formatDate(featuredTournament.startDate) : "This season"}. Local competitions become easier to find, join and remember.`,
       icon: Trophy,
       tone: "accent",
       href: featuredTournament ? `/tournaments/${featuredTournament.id}` : "/tournaments",

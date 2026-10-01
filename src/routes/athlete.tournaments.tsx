@@ -67,7 +67,7 @@ function MyTournaments() {
       {all.length === 0 ? (
         <EmptyState
           title="You haven't registered yet."
-          description="Explore open tournaments in Indore and register in a couple of taps."
+          description="Explore open tournaments and register in a couple of taps."
           action={
             <Button asChild>
               <Link to="/tournaments">Explore tournaments</Link>

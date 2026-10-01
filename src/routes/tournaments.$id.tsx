@@ -25,12 +25,12 @@ export const Route = createFileRoute("/tournaments/$id")({
       {
         name: "description",
         content:
-          "Fixtures, teams, verified results and registration for local tournaments in Indore.",
+          "Fixtures, teams, verified results and registration for local tournaments.",
       },
       { property: "og:title", content: "Tournament details | KheloLocal" },
       {
         property: "og:description",
-        content: "Fixtures, teams and verified results for grassroots tournaments in Indore.",
+        content: "Fixtures, teams and verified results for grassroots tournaments.",
       },
     ],
   }),
