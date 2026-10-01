@@ -63,6 +63,8 @@ function SignupPage() {
   const [role, setRole] = useState<Role | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [guardianAcknowledged, setGuardianAcknowledged] = useState(false);
   const athleteAge = ageFromDob(dateOfBirth);
@@ -101,23 +103,32 @@ function SignupPage() {
       {role ? (
         <form
           className="mt-8 space-y-4 rounded-xl border border-border bg-card p-6"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
             let user;
             try {
+              if (!password || password.length < 8) {
+                toast.error("Choose a password with at least 8 characters.");
+                return;
+              }
+              if (password !== confirmPassword) {
+                toast.error("Passwords do not match.");
+                return;
+              }
               if (role === "ATHLETE" && !dateOfBirth) {
                 toast.error("Enter your date of birth to continue.");
                 return;
               }
-              user = signup({
+              user = await signup({
                 name,
                 email,
                 role,
+                password,
                 ...(role === "ATHLETE" ? { dateOfBirth } : {}),
                 guardianConsent: role === "ATHLETE" && guardianAcknowledged,
               });
             } catch (error) {
-              toast.error(error instanceof Error ? error.message : "Unable to create account.");
+              toast.error(error instanceof Error ? error.message : "Unable to create your account.");
               return;
             }
             toast.success("Account created", { description: "Welcome to KheloLocal." });
@@ -152,6 +163,28 @@ function SignupPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Create a strong password"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="confirm-password">Confirm password</Label>
+            <Input
+              id="confirm-password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Repeat your password"
               required
             />
           </div>

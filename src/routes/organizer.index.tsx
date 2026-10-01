@@ -59,8 +59,8 @@ function OrganizerDashboard() {
     <Page>
       <OrganizerBanner
         organizer={organizer}
-        sport={mine[0]?.sportId}
-        eventName={mine[0]?.name}
+        sport={mine[0]?.sportId ?? ""}
+        eventName={mine[0]?.name ?? ""}
         actions={
           <Button asChild>
             <Link to="/tournaments/create">

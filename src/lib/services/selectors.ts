@@ -61,7 +61,7 @@ function currentDateInIndore() {
       .formatToParts(new Date())
       .map(({ type, value }) => [type, value]),
   );
-  return `${parts.year}-${parts.month}-${parts.day}`;
+  return `${parts["year"]}-${parts["month"]}-${parts["day"]}`;
 }
 
 export function effectiveTournamentStatus(

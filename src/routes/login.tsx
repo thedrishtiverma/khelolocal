@@ -43,31 +43,37 @@ function LoginPage() {
   const { login } = useKhelo();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const doLogin = (value: string) => {
+  const doLogin = async (value: string, valuePassword = password) => {
     setBusy(true);
-    const user = login(value);
-    setBusy(false);
-    if (!user) {
-      setError("We couldn't find an account with that email.");
-      return;
+    try {
+      const user = await login(value, valuePassword);
+      setBusy(false);
+      if (!user) {
+        setError("We couldn't find an account with that email or password.");
+        return;
+      }
+      toast.success(`Welcome back, ${user.name.split(" ")[0]}`);
+      const target =
+        user.role === "ORGANIZER"
+          ? "/organizer"
+          : user.role === "SCOUT"
+            ? "/scout"
+            : user.role === "COLLEGE"
+              ? "/college"
+              : user.role === "VOLUNTEER"
+                ? "/volunteer"
+                : user.role === "ADMIN"
+                  ? "/admin"
+                  : "/athlete";
+      navigate({ to: target });
+    } catch (error) {
+      setBusy(false);
+      setError(error instanceof Error ? error.message : "Unable to log in right now.");
     }
-    toast.success(`Welcome back, ${user.name.split(" ")[0]}`);
-    const target =
-      user.role === "ORGANIZER"
-        ? "/organizer"
-        : user.role === "SCOUT"
-          ? "/scout"
-          : user.role === "COLLEGE"
-            ? "/college"
-            : user.role === "VOLUNTEER"
-              ? "/volunteer"
-              : user.role === "ADMIN"
-                ? "/admin"
-                : "/athlete";
-    navigate({ to: target });
   };
 
   return (
@@ -82,7 +88,7 @@ function LoginPage() {
           onSubmit={(e) => {
             e.preventDefault();
             setError("");
-            doLogin(email);
+            void doLogin(email, password);
           }}
         >
           <div className="space-y-2">
@@ -93,6 +99,17 @@ function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
               required
             />
           </div>
@@ -118,7 +135,7 @@ function LoginPage() {
           {DEMO.map((d) => (
             <button
               key={d.email}
-              onClick={() => doLogin(d.email)}
+              onClick={() => void doLogin(d.email, "")}
               className="flex w-full items-center justify-between rounded-md border border-border bg-background px-4 py-3 text-left transition-colors hover:border-lime"
             >
               <span>

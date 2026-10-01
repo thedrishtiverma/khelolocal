@@ -22,6 +22,13 @@ import type {
 } from "@/types";
 import { createSeedDatabase } from "@/data/seed";
 import { ageFromDob } from "@/lib/format";
+import {
+  createProfileRecord,
+  createRoleSpecificProfile,
+  getProfileByAuthId,
+  signOutSupabaseSession,
+} from "@/integrations/supabase/auth-helpers";
+import { getSupabaseClientIfConfigured, isSupabaseConfigured } from "@/integrations/supabase/client";
 import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
 import { athleteById, effectiveTournamentStatus, matchById, tournamentById } from "./selectors";
 
@@ -66,15 +73,16 @@ interface StoreValue {
   db: Database;
   hydrated: boolean;
   currentUser: User | null;
-  login: (email: string) => User | null;
-  logout: () => void;
+  login: (email: string, password?: string) => Promise<User | null>;
+  logout: () => Promise<void>;
   signup: (input: {
     name: string;
     email: string;
     role: Role;
+    password?: string;
     dateOfBirth?: string;
     guardianConsent?: boolean;
-  }) => User;
+  }) => Promise<User>;
   createTournament: (input: Partial<Tournament>) => Tournament;
   register: (tournamentId: string, athleteId: string) => void;
   setRegistrationStatus: (registrationId: string, status: "APPROVED" | "REJECTED") => void;
@@ -121,12 +129,42 @@ const StoreContext = createContext<StoreValue | null>(null);
 export function KheloProvider({ children }: { children: ReactNode }) {
   const [db, setDb] = useState<Database>(() => createSeedDatabase());
   const [userId, setUserId] = useState<string | null>(null);
+  const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setDb(loadDatabase());
-    setUserId(loadSession());
-    setHydrated(true);
+    const hydrate = async () => {
+      if (isSupabaseConfigured()) {
+        const client = getSupabaseClientIfConfigured();
+        if (!client) {
+          setDb(loadDatabase());
+          setUserId(loadSession());
+          setSupabaseUser(null);
+          setHydrated(true);
+          return;
+        }
+
+        const { data, error } = await client.auth.getSession();
+        if (!error && data.session?.user) {
+          const profile = await getProfileByAuthId(data.session.user.id);
+          setUserId(data.session.user.id);
+          setSupabaseUser(profile);
+          saveSession(data.session.user.id);
+        } else {
+          setUserId(null);
+          setSupabaseUser(null);
+          saveSession(null);
+        }
+      } else {
+        setDb(loadDatabase());
+        setUserId(loadSession());
+        setSupabaseUser(null);
+      }
+
+      setHydrated(true);
+    };
+
+    void hydrate();
   }, []);
 
   const commit = useCallback((updater: (draft: Database) => void) => {
@@ -139,29 +177,111 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const currentUser = useMemo(
-    () => db.users.find((u) => u.id === userId) ?? null,
-    [db.users, userId],
+    () => supabaseUser ?? db.users.find((u) => u.id === userId) ?? null,
+    [db.users, supabaseUser, userId],
   );
 
   const login: StoreValue["login"] = useCallback(
-    (email) => {
+    async (email, password) => {
+      const client = getSupabaseClientIfConfigured();
+      if (client && password) {
+        const { data, error } = await client.auth.signInWithPassword({
+          email: email.trim(),
+          password,
+        });
+
+        if (error) {
+          return null;
+        }
+
+        const profile = await getProfileByAuthId(data.user.id);
+        if (profile) {
+          setUserId(data.user.id);
+          setSupabaseUser(profile);
+          saveSession(data.user.id);
+          return profile;
+        }
+
+        return null;
+      }
+
       const user = db.users.find((u) => u.email.toLowerCase() === email.toLowerCase().trim());
       if (!user) return null;
       setUserId(user.id);
+      setSupabaseUser(null);
       saveSession(user.id);
       return user;
     },
     [db.users],
   );
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    const client = getSupabaseClientIfConfigured();
+    if (client) {
+      await signOutSupabaseSession();
+    }
+
     setUserId(null);
+    setSupabaseUser(null);
     saveSession(null);
   }, []);
 
   const signup: StoreValue["signup"] = useCallback(
-    ({ name, email, role, dateOfBirth, guardianConsent }) => {
+    async ({ name, email, role, password, dateOfBirth, guardianConsent }) => {
       const normalizedEmail = email.trim().toLowerCase();
+
+      const client = getSupabaseClientIfConfigured();
+      if (client && password) {
+        const { data, error } = await client.auth.signUp({
+          email: normalizedEmail,
+          password,
+          options: {
+            data: {
+              full_name: name,
+            },
+          },
+        });
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        const authUserId = data.user?.id;
+        if (!authUserId) {
+          throw new Error("Supabase signup did not return a user id");
+        }
+
+        const profile = await createProfileRecord({
+          authUserId,
+          name,
+          email: normalizedEmail,
+          role,
+          cityId: "indore",
+        });
+
+        await createRoleSpecificProfile(role, authUserId, {
+          profile_id: authUserId,
+          auth_user_id: authUserId,
+          name,
+          city: "Indore",
+          area: "Indore",
+          institution: "",
+          primary_sport: "football",
+          secondary_sports: [],
+          position: "",
+          position_group: "FORWARD",
+          age_group: "OPEN",
+          bio: "",
+          verification_status: "pending",
+          profile_photo_url: "",
+        });
+
+        setUserId(authUserId);
+        setSupabaseUser(profile);
+        saveSession(authUserId);
+        return profile;
+      }
+
       if (db.users.some((user) => user.email.toLowerCase() === normalizedEmail)) {
         throw new Error("An account with this email already exists.");
       }
@@ -268,6 +388,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         }
       });
       setUserId(id);
+      setSupabaseUser(null);
       saveSession(id);
       return user;
     },

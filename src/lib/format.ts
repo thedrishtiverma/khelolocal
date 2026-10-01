@@ -63,9 +63,9 @@ export function ageFromDob(dob: string) {
       .formatToParts(new Date())
       .map(({ type, value }) => [type, value]),
   );
-  const currentYear = Number(currentDate.year);
-  const currentMonth = Number(currentDate.month);
-  const currentDay = Number(currentDate.day);
+    const currentYear = Number(currentDate["year"]);
+    const currentMonth = Number(currentDate["month"]);
+    const currentDay = Number(currentDate["day"]);
   const hasHadBirthday =
     currentMonth > birthMonth || (currentMonth === birthMonth && currentDay >= birthDay);
   return currentYear - birthYear - (hasHadBirthday ? 0 : 1);

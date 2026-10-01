@@ -79,17 +79,20 @@ function TeamsPage() {
               "Join a team",
               "Build your sporting profile and make the next connection.",
             ],
-          ].map(([Icon, title, body]) => (
+          ].map(([Icon, title, body]) => {
+            const IconComponent = Icon as React.ComponentType<{ className?: string }>;
+            return (
             <Link
               key={title as string}
               to="/athletes"
               className="data-card-muted rounded-xl border border-border p-6"
             >
-              <Icon className="size-5 text-lime" />
+              <IconComponent className="size-5 text-lime" />
               <h2 className="mt-7 font-display text-xl font-bold uppercase">{title as string}</h2>
               <p className="mt-2 text-sm text-muted-foreground">{body as string}</p>
             </Link>
-          ))}
+            );
+          })}
         </section>
       </Page>
     </div>
