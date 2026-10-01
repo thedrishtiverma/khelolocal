@@ -29,7 +29,7 @@ function FounderProfilePage() {
           </>
         }
         description={founder.role}
-        highlights={[founder.focus, "Indore / 01", "Grassroots sport"]}
+        highlights={[founder.focus, "KheloLocal network", "Grassroots sport"]}
       />
       <Page className="py-14 sm:py-20">
         <Link

@@ -38,28 +38,28 @@ function ExplorePage() {
   const sports = db.sports.slice(0, 6);
   const organizers = db.organizers.slice(0, 3);
   const startingPoints = [
-    [MapPin, "Sports map", "Focus an Indore area and reveal its activity.", "/map"],
-    [Trophy, "Tournaments", "Find what is live, open and coming next.", "/tournaments"],
-    [Users, "Athletes", "Meet players by sport, position and record.", "/athletes"],
-    [Building2, "Institutions", "See the colleges building sporting history.", "/institutions"],
+    [MapPin, "Sports map", "Focus on local activity and reveal what is happening nearby.", "/map"],
+    [Trophy, "Tournaments", "Find live, open and upcoming competitions across the network.", "/tournaments"],
+    [Users, "Athletes", "Meet players by sport, position and verified record.", "/athletes"],
+    [Building2, "Institutions", "See the colleges and organizations building sporting history.", "/institutions"],
   ] as const;
 
   return (
     <div>
       <NetworkHero
         tone="explore"
-        eyebrow="Explore Indore"
+        eyebrow="Explore KheloLocal"
         title={
           <>
-            Your city is full of talent. <span className="text-lime">Find them all here.</span>
+            A local sports network with <span className="text-lime">national ambition.</span>
           </>
         }
-        description="Start with a complete view of local sport, then choose a path into the map, a tournament, an athlete or the people organizing it all."
+        description="Start with a complete view of your local scene, then move into the map, the tournament calendar, athlete records and the people organizing it all."
         highlights={["Find a game", "Meet players", "Build a record"]}
         actions={
           <Button asChild size="lg">
             <Link to="/map">
-              Open the Indore sports map <MapPin className="size-4" />
+              Open the network map <MapPin className="size-4" />
             </Link>
           </Button>
         }

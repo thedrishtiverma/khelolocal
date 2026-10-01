@@ -13,7 +13,7 @@ export const Route = createFileRoute("/stories")({
       {
         name: "description",
         content:
-          "Stories from athletes, organizers, institutions and the local sports community in Indore.",
+          "Stories from athletes, organizers, institutions and local communities building a stronger sports network.",
       },
     ],
   }),
@@ -80,14 +80,14 @@ function StoriesPage() {
             The people behind the <span className="text-lime">score.</span>
           </>
         }
-        description="Local sport is not only fixtures and tables. It is athletes, volunteers, institutions and organizers making a city play."
+        description="Local sport is not only fixtures and tables. It is athletes, volunteers, institutions and organizers turning participation into a visible, trusted network."
         highlights={["Athletes", "Organizers", "Community"]}
       />
       <Page className="py-14 sm:py-24">
         <SectionHeading
-          eyebrow="From Indore"
+          eyebrow="From the network"
           title="Small stories. A stronger network."
-          subtitle={`${college?.shortName ?? "Local institutions"} and the wider sports community are building the first layer of a city-wide record.`}
+          subtitle={`${college?.shortName ?? "Local institutions"} and the wider sports community are building the first layer of a trusted city-to-city sports record.`}
         />
         <div className="grid gap-6 lg:grid-cols-3">
           {stories.map(({ eyebrow, title, body, icon: Icon, tone, href, cta }) => (
@@ -118,7 +118,7 @@ function StoriesPage() {
               Have a story?
             </p>
             <p className="mt-2 text-lg font-semibold">
-              Tell us about the game, person or place that makes your part of Indore play.
+              Tell us about the game, person or place that makes your local sporting community move.
             </p>
           </div>
           <Link

@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Discover athletes, find local tournaments and build a verified sporting identity. Starting in Indore.",
+          "KheloLocal connects athletes, organizers, institutions and teams in one verified local sports network.",
       },
       { property: "og:title", content: "KheloLocal — Your city's sports network" },
       {
@@ -71,13 +71,13 @@ function Landing() {
     <div>
       <NetworkHero
         tone="explore"
-        eyebrow="Starting in Indore, Madhya Pradesh"
+        eyebrow="KheloLocal"
         title={
           <>
-            Your city's <span className="text-lime">sports network.</span>
+            The local sports network for <span className="text-lime">everyday athletes.</span>
           </>
         }
-        description="The verified home ground for athletes, tournaments and the people who make local sport happen."
+        description="KheloLocal brings together players, tournaments, institutions and organizers in one trusted platform for discovering and building local sport."
         highlights={["Find a game", "Meet players", "Build a record"]}
         actions={
           <>
@@ -97,19 +97,19 @@ function Landing() {
         <div className="city-pulse-card mx-auto grid w-full max-w-6xl gap-8 rounded-2xl border border-border px-5 py-8 shadow-[0_18px_50px_-30px_var(--foreground)] sm:px-8 sm:py-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
           <div>
             <p className="font-ui text-[10px] font-bold uppercase tracking-[0.22em] text-lime">
-              Indore / 01
+              KheloLocal network
             </p>
             <h2 className="mt-2 font-display text-4xl font-black uppercase leading-none">
-              City pulse
+              Local sport, everywhere
             </h2>
             <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
-              A snapshot of players, events and verified moments in the local network.
+              A live snapshot of athletes, events and verified moments across the growing KheloLocal network.
             </p>
             <Link
-              to="/cities/indore"
+              to="/cities"
               className="mt-5 inline-flex items-center gap-2 text-sm font-bold hover:text-lime"
             >
-              Explore Indore <ArrowRight className="size-4" />
+              Explore our cities <ArrowRight className="size-4" />
             </Link>
           </div>
           <div className="city-pulse-stats grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">

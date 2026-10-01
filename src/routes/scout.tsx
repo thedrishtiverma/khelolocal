@@ -45,8 +45,8 @@ function ScoutDashboard() {
         </p>
         <h1 className="mt-2 font-display text-4xl font-black uppercase">Find the next player.</h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-surface-foreground/70">
-          Search Indore's athlete network, compare verified records and build a shortlist for your
-          team.
+          Search the KheloLocal athlete network, compare verified records and build a shortlist for
+          your team.
         </p>
         <div className="mt-8 grid grid-cols-2 gap-5 border-t border-surface-foreground/15 pt-6 sm:grid-cols-3">
           <Stat tone="invert" value={verified.length} label="Verified athletes" />

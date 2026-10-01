@@ -28,10 +28,21 @@ function TeamPage() {
             A student-led team for <span className="text-lime">local sport.</span>
           </>
         }
-        description="We are building the infrastructure we wished existed around the games we already play."
-        highlights={["Product", "Community", "Trust"]}
+        description="We are building the infrastructure that helps local games become visible, trusted and full of opportunity from the ground up."
+        highlights={["Our story", "Product", "Community"]}
       />
       <Page className="py-14 sm:py-20">
+        <div className="mb-10 rounded-2xl border border-border bg-secondary/35 p-6 sm:p-8">
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
+            Our story
+          </p>
+          <h2 className="mt-4 max-w-3xl font-display text-3xl font-black uppercase leading-tight sm:text-5xl">
+            We started with one city and a simple idea: <span className="text-lime">local sport deserves a real record.</span>
+          </h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
+            KheloLocal was built by people who saw the gap between games that happened every day and the systems that could actually recognize them. We wanted a platform that helps athletes, organizers, teams and institutions turn local participation into visible opportunity, trust and momentum.
+          </p>
+        </div>
         <SectionHeading
           eyebrow="Founders team"
           title={
