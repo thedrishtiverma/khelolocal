@@ -234,8 +234,8 @@ function Landing() {
                 icon: <Search className="size-5" />,
                 title: "Teams & coaches",
                 body: "Search local talent by sport, age, position and verified experience.",
-                to: "/athletes" as const,
-                cta: "Find local talent",
+                to: "/coaches" as const,
+                cta: "Explore coach tools",
               },
             ].map((c) => (
               <div

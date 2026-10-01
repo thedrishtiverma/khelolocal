@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AthletesRouteImport } from './routes/athletes'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CitiesRouteImport } from './routes/cities'
+import { Route as CoachesRouteImport } from './routes/coaches'
 import { Route as ConnectionsRouteImport } from './routes/connections'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemoRouteImport } from './routes/demo'
@@ -75,6 +76,11 @@ const CareersRoute = CareersRouteImport.update({
 const CitiesRoute = CitiesRouteImport.update({
   id: '/cities',
   path: '/cities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoachesRoute = CoachesRouteImport.update({
+  id: '/coaches',
+  path: '/coaches',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnectionsRoute = ConnectionsRouteImport.update({
@@ -298,6 +304,7 @@ export interface FileRoutesByFullPath {
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/cities': typeof CitiesRouteWithChildren
+  '/coaches': typeof CoachesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
@@ -347,6 +354,7 @@ export interface FileRoutesByTo {
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/cities': typeof CitiesRouteWithChildren
+  '/coaches': typeof CoachesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
@@ -397,6 +405,7 @@ export interface FileRoutesById {
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/cities': typeof CitiesRouteWithChildren
+  '/coaches': typeof CoachesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
@@ -448,6 +457,7 @@ export interface FileRouteTypes {
     | '/athletes'
     | '/careers'
     | '/cities'
+    | '/coaches'
     | '/connections'
     | '/contact'
     | '/demo'
@@ -497,6 +507,7 @@ export interface FileRouteTypes {
     | '/athletes'
     | '/careers'
     | '/cities'
+    | '/coaches'
     | '/connections'
     | '/contact'
     | '/demo'
@@ -546,6 +557,7 @@ export interface FileRouteTypes {
     | '/athletes'
     | '/careers'
     | '/cities'
+    | '/coaches'
     | '/connections'
     | '/contact'
     | '/demo'
@@ -596,6 +608,7 @@ export interface RootRouteChildren {
   AthletesRoute: typeof AthletesRouteWithChildren
   CareersRoute: typeof CareersRoute
   CitiesRoute: typeof CitiesRouteWithChildren
+  CoachesRoute: typeof CoachesRoute
   ConnectionsRoute: typeof ConnectionsRoute
   ContactRoute: typeof ContactRoute
   DemoRoute: typeof DemoRoute
@@ -664,6 +677,13 @@ declare module '@tanstack/react-router' {
       path: '/cities'
       fullPath: '/cities'
       preLoaderRoute: typeof CitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coaches': {
+      id: '/coaches'
+      path: '/coaches'
+      fullPath: '/coaches'
+      preLoaderRoute: typeof CoachesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connections': {
@@ -1029,6 +1049,7 @@ const rootRouteChildren: RootRouteChildren = {
   AthletesRoute: AthletesRouteWithChildren,
   CareersRoute: CareersRoute,
   CitiesRoute: CitiesRouteWithChildren,
+  CoachesRoute: CoachesRoute,
   ConnectionsRoute: ConnectionsRoute,
   ContactRoute: ContactRoute,
   DemoRoute: DemoRoute,

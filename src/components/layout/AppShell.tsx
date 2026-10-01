@@ -325,6 +325,12 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/organizers" className="hover:text-lime">
                 For organizers
               </Link>
+              <Link to="/coaches" className="hover:text-lime">
+                For coaches
+              </Link>
+              <Link to="/teams" className="hover:text-lime">
+                For teams
+              </Link>
               <Link to="/institutions" className="hover:text-lime">
                 For institutions
               </Link>
