@@ -417,7 +417,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Linkedin className="size-4" /> LinkedIn
             </a>
             <a
-              href="https://github.com/khelolocal"
+              href="https://github.com/thedrishtiverma/khelolocal"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 hover:text-lime"
