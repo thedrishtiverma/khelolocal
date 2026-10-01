@@ -67,7 +67,6 @@ function Landing() {
     <div>
       <NetworkHero
         tone="explore"
-        className="home-network-hero"
         eyebrow="Live from Indore, Madhya Pradesh"
         title={
           <>

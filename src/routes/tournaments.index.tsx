@@ -71,7 +71,6 @@ function ExploreTournaments() {
     <div>
       <NetworkHero
         tone="tournaments"
-        className="tournaments-network-hero"
         eyebrow="The local tournament calendar"
         title={
           <>
