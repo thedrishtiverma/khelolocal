@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { EmptyState, Page, PrototypeDataNotice } from "@/components/shared/Bits";
+import { EmptyState, Page } from "@/components/shared/Bits";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/organizer/create")({
@@ -55,10 +55,6 @@ function CreateTournament() {
         <p className="mt-2 text-sm text-muted-foreground">
           Publish the event details athletes need to decide whether to participate.
         </p>
-        <PrototypeDataNotice
-          className="mt-4"
-          message="Prototype only: this tournament is saved in this browser and is not shared with other athletes or organizers."
-        />
       </div>
 
       <form

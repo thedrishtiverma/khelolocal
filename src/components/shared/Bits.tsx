@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Stat({
@@ -95,26 +94,6 @@ export function LoadingBlock({ label = "Loading…" }: { label?: string }) {
       <span className="size-3 animate-pulse rounded-full bg-lime" />
       {label}
     </div>
-  );
-}
-
-export function PrototypeDataNotice({
-  className,
-  message = "Prototype data: counts and event availability may not reflect current operations. Confirm tournament details with the organizer.",
-}: {
-  className?: string;
-  message?: string;
-}) {
-  return (
-    <p
-      className={cn(
-        "flex items-start gap-2 border-l-2 border-warning/60 bg-warning/5 px-3 py-2 text-xs leading-5 text-muted-foreground",
-        className,
-      )}
-    >
-      <Info className="mt-0.5 size-4 shrink-0 text-warning-ink" aria-hidden="true" />
-      <span>{message}</span>
-    </p>
   );
 }
 

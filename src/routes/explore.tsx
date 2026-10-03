@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, Building2, MapPin, Trophy, Users } from "lucide-react";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
-import { Page, PrototypeDataNotice, SectionHeading, Stat } from "@/components/shared/Bits";
+import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { SportIcon } from "@/components/shared/SportIcon";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
@@ -15,8 +15,7 @@ export const Route = createFileRoute("/explore")({
       { title: "Explore local sport | KheloLocal" },
       {
         name: "description",
-        content:
-          "Discover tournaments, athletes, sports, teams and verified local opportunities.",
+        content: "Discover tournaments, athletes, sports, teams and verified local opportunities.",
       },
     ],
   }),
@@ -39,9 +38,19 @@ function ExplorePage() {
   const organizers = db.organizers.slice(0, 3);
   const startingPoints = [
     [MapPin, "Sports map", "Focus on local activity and reveal what is happening nearby.", "/map"],
-    [Trophy, "Tournaments", "Find live, open and upcoming competitions across the network.", "/tournaments"],
+    [
+      Trophy,
+      "Tournaments",
+      "Find live, open and upcoming competitions across the network.",
+      "/tournaments",
+    ],
     [Users, "Athletes", "Meet players by sport, position and verified record.", "/athletes"],
-    [Building2, "Institutions", "See the colleges and organizations building sporting history.", "/institutions"],
+    [
+      Building2,
+      "Institutions",
+      "See the colleges and organizations building sporting history.",
+      "/institutions",
+    ],
   ] as const;
 
   return (
@@ -65,17 +74,6 @@ function ExplorePage() {
         }
       />
       <Page className="py-12 sm:py-20">
-        <PrototypeDataNotice className="mb-5" />
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <Stat value={db.tournaments.length} label="Tournaments" />
-          <Stat value={db.athletes.length} label="Athletes" />
-          <Stat value={db.teams.length} label="Local teams" />
-          <Stat
-            tone="accent"
-            value={db.achievements.filter((item) => item.verified).length}
-            label="Verified records"
-          />
-        </div>
         <section className="mt-16">
           <SectionHeading
             eyebrow="Choose your starting point"
