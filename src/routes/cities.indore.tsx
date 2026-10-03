@@ -8,7 +8,7 @@ import { useKhelo } from "@/lib/services/store";
 export const Route = createFileRoute("/cities/indore")({
   head: () => ({
     meta: [
-      { title: "Indore sports city | KheloLocal" },
+      { title: "Indore City | KheloLocal" },
       { name: "description", content: "Explore the people, places and sporting events of Indore." },
     ],
   }),
