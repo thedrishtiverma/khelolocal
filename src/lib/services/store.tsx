@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -32,6 +33,7 @@ import {
 } from "@/integrations/supabase/auth-helpers";
 import { getSupabaseClientIfConfigured, isSupabaseConfigured } from "@/integrations/supabase/client";
 import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
+import { loadOperationalState, saveOperationalState } from "./backend-state";
 import { athleteById, effectiveTournamentStatus, matchById, tournamentById } from "./selectors";
 
 const now = () => new Date().toISOString();
@@ -144,6 +146,8 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useState<string | null>(null);
   const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
   const [hydrated, setHydrated] = useState(false);
+  const operationalStateVersion = useRef<number | null>(null);
+  const backendWrite = useRef<Promise<void>>(Promise.resolve());
 
   useEffect(() => {
     const hydrate = async () => {
@@ -163,6 +167,18 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           setUserId(data.session.user.id);
           setSupabaseUser(profile);
           saveSession(data.session.user.id);
+          try {
+            const state = await loadOperationalState();
+            if (state) {
+              setDb(state.db);
+              saveDatabase(state.db);
+              operationalStateVersion.current = state.version;
+            }
+          } catch (stateError) {
+            // Keep the app usable from the local cache if a migration is not
+            // deployed yet or the user temporarily loses connection.
+            console.warn("Could not load shared operational state:", stateError);
+          }
         } else {
           setUserId(null);
           setSupabaseUser(null);
@@ -185,6 +201,18 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       const next = structuredClone(prev) as Database;
       updater(next);
       saveDatabase(next);
+      if (isSupabaseConfigured()) {
+        backendWrite.current = backendWrite.current
+          .then(async () => {
+            operationalStateVersion.current = await saveOperationalState(
+              next,
+              operationalStateVersion.current,
+            );
+          })
+          .catch((stateError) => {
+            console.warn("Could not save shared operational state:", stateError);
+          });
+      }
       return next;
     });
   }, []);
@@ -303,6 +331,91 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           bio: "",
           verification_status: "pending",
           profile_photo_url: "",
+        });
+
+        // The operational dashboard still uses the shared domain document.
+        // Mirror the newly created authenticated account into it immediately
+        // so the relevant dashboard works on the first sign-in.
+        commit((draft) => {
+          if (!draft.users.some((user) => user.id === authUserId)) draft.users.push(profile);
+          if (role === "ATHLETE" && !draft.athletes.some((item) => item.userId === authUserId)) {
+            draft.athletes.push({
+              id: authUserId,
+              userId: authUserId,
+              name,
+              profileImage: "",
+              cityId: "",
+              cityName: "",
+              dateOfBirth: dateOfBirth ?? "",
+              gender: "MALE",
+              primarySport: "football",
+              secondarySports: [],
+              position: "",
+              positionGroup: "FORWARD",
+              ageCategory: "OPEN",
+              skills: [],
+              bio: "",
+              verificationStatus: "UNVERIFIED",
+              tournamentsPlayed: 0,
+              matchesPlayed: 0,
+              wins: 0,
+              losses: 0,
+              goals: 0,
+              verifiedAchievementsCount: 0,
+              createdAt: now(),
+              updatedAt: now(),
+            });
+          }
+          if (role === "ORGANIZER" && !draft.organizers.some((item) => item.userId === authUserId)) {
+            draft.organizers.push({
+              id: authUserId,
+              userId: authUserId,
+              organizationName: name,
+              organizationType: "Club",
+              cityId: "",
+              cityName: "",
+              description: "",
+              logo: "",
+              phone: "",
+              email: normalizedEmail,
+              verificationStatus: "PENDING",
+              tournamentsHosted: 0,
+              createdAt: now(),
+              updatedAt: now(),
+            });
+          }
+          if (role === "COLLEGE" && !draft.colleges.some((item) => item.userId === authUserId)) {
+            draft.colleges.push({
+              id: authUserId,
+              userId: authUserId,
+              name,
+              shortName: name,
+              cityId: "",
+              cityName: "",
+              sportsEventName: "Annual Sports Event",
+              description: "",
+              verificationStatus: "PENDING",
+              createdAt: now(),
+              updatedAt: now(),
+            });
+          }
+          if (role === "VOLUNTEER" && !draft.volunteers.some((item) => item.userId === authUserId)) {
+            const zone = draft.zones[0];
+            if (zone) {
+              draft.volunteers.push({
+                id: authUserId,
+                userId: authUserId,
+                name,
+                zoneId: zone.id,
+                zoneName: zone.name,
+                cityId: zone.cityId,
+                phone: "",
+                joinedAt: now().slice(0, 10),
+                createdAt: now(),
+                updatedAt: now(),
+              });
+            }
+          }
         });
 
         setUserId(authUserId);
