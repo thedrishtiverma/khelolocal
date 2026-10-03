@@ -34,6 +34,7 @@ import {
 import { getSupabaseClientIfConfigured, isSupabaseConfigured } from "@/integrations/supabase/client";
 import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
 import { loadOperationalState, saveOperationalState } from "./backend-state";
+import { persistMatchResult, persistRegistration, persistTournament } from "./tournament-backend";
 import { athleteById, effectiveTournamentStatus, matchById, tournamentById } from "./selectors";
 
 const now = () => new Date().toISOString();
@@ -629,6 +630,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         const org = draft.organizers.find((o) => o.id === tournament.organizerId);
         if (org) org.tournamentsHosted += 1;
       });
+      persistTournament(tournament, userId ?? tournament.organizerId);
       return tournament;
     },
     [commit, db.organizers, userId],
@@ -636,6 +638,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
 
   const register: StoreValue["register"] = useCallback(
     (tournamentId, athleteId) => {
+      let created: Registration | null = null;
       commit((draft) => {
         const tournament = draft.tournaments.find((item) => item.id === tournamentId);
         if (
@@ -651,7 +654,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           )
         )
           return;
-        draft.registrations.push({
+        created = {
           id: uid("reg"),
           tournamentId,
           athleteId,
@@ -660,19 +663,23 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           status: "PENDING",
           paymentStatus: "NOT_REQUIRED",
           seedNumber: null,
-        });
+        };
+        draft.registrations.push(created);
       });
+      if (created) persistRegistration(created);
     },
     [commit],
   );
 
   const setRegistrationStatus: StoreValue["setRegistrationStatus"] = useCallback(
     (registrationId, status) => {
+      let updated: Registration | null = null;
       commit((draft) => {
         const reg = draft.registrations.find((r) => r.id === registrationId);
         if (!reg) return;
         const wasApproved = reg.status === "APPROVED";
         reg.status = status;
+        updated = structuredClone(reg);
         const tournament = draft.tournaments.find((t) => t.id === reg.tournamentId);
         if (tournament) {
           if (status === "APPROVED" && !wasApproved) tournament.currentParticipants += 1;
@@ -680,6 +687,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
             tournament.currentParticipants = Math.max(0, tournament.currentParticipants - 1);
         }
       });
+      if (updated) persistRegistration(updated);
     },
     [commit],
   );
@@ -737,6 +745,8 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       performances: PerformanceDraft[],
       finish: boolean,
     ) => {
+      let persistedMatch: Match | null = null;
+      const persistedPerformances: PlayerPerformance[] = [];
       commit((draft) => {
         const match = draft.matches.find((m) => m.id === matchId);
         if (!match) return;
@@ -751,6 +761,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
               ? match.teamAId
               : match.teamBId;
         match.updatedAt = now();
+        persistedMatch = structuredClone(match);
 
         draft.playerPerformances = draft.playerPerformances.filter((p) => p.matchId !== matchId);
         performances
@@ -773,10 +784,12 @@ export function KheloProvider({ children }: { children: ReactNode }) {
               createdAt: now(),
             };
             draft.playerPerformances.push(perf);
+            persistedPerformances.push(perf);
           });
       });
+      if (persistedMatch) persistMatchResult(persistedMatch, userId ?? "", persistedPerformances);
     },
-    [commit],
+    [commit, userId],
   );
 
   const saveMatch: StoreValue["saveMatch"] = useCallback(
