@@ -15,10 +15,10 @@ export const FOUNDERS: Founder[] = [
   {
     slug: "thedrishtiverma",
     name: "Drishti Verma",
-    role: "Team lead · Product direction",
+    role: "Team lead · Product development",
     focus: "Product direction",
     headline: "Build a clearer path from local play to lasting opportunity.",
-    bio: "Drishti shapes KheloLocal's direction, bringing athlete, organizer, and institution needs into one product vision. She focuses on making grassroots sport easier to discover, document, and trust.",
+    bio: "I shape KheloLocal's direction, bringing athlete, organizer, and institution needs into one product vision. I focus on making grassroots sport easier to discover, document, and trust.",
     contributions: [
       "Product direction and priorities",
       "Connected athlete and organizer journeys",
@@ -27,9 +27,9 @@ export const FOUNDERS: Founder[] = [
     impact: "Turning everyday local games into visible sporting opportunities.",
     image: "/team/drishti-verma.jpeg",
     socials: {
-      github: "https://github.com/khelolocal",
-      linkedin: "https://www.linkedin.com/company/khelolocal",
-      instagram: "https://www.instagram.com/khelolocal",
+      github: "https://github.com/thedrishtiverma",
+      linkedin: "https://www.linkedin.com/in/thedrishtiverma",
+      instagram: "https://www.instagram.com/thedrishtiverma",
     },
   },
   {
@@ -45,6 +45,11 @@ export const FOUNDERS: Founder[] = [
       "Clearer athlete-facing experiences",
     ],
     impact: "Making every athlete's next step easier to find.",
+    socials: {
+      github: "https://github.com/arpitajamra",
+      linkedin: "https://www.linkedin.com/in/arpitajamra",
+      instagram: "https://www.instagram.com/arpitajamra",
+    },
   },
   {
     slug: "prince-dhakad",
@@ -59,6 +64,11 @@ export const FOUNDERS: Founder[] = [
       "Smoother handoffs from event to record",
     ],
     impact: "Helping local communities organize with less friction.",
+    socials: {
+      github: "https://github.com/princedkd",
+      linkedin: "https://www.linkedin.com/in/princedhakad",
+      instagram: "https://www.instagram.com/princedhakad",
+    },
   },
   {
     slug: "gaurav-madavi",
@@ -73,6 +83,11 @@ export const FOUNDERS: Founder[] = [
       "Reliable event-to-result handoffs",
     ],
     impact: "Keeping the game moving, on and off the field.",
+        socials: {
+      github: "https://github.com/gauravmadavi",
+      linkedin: "https://www.linkedin.com/in/gauravmadavi",
+      instagram: "https://www.instagram.com/gauravmadavi",
+    },
   },
   {
     slug: "darshna-jain",
