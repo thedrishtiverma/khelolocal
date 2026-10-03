@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import {
   BadgeCheck,
@@ -16,11 +16,16 @@ import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits
 import { StatusBadge, VerificationChip } from "@/components/shared/Badges";
 import { RecordCard } from "@/components/college/RecordCard";
 import { useKhelo } from "@/lib/services/store";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
+import {
+  listManagedProfiles,
+  setManagedProfileActive,
+  type ManagedProfile,
+} from "@/integrations/supabase/auth-helpers";
 import { effectiveTournamentStatus, pendingAdminRecords } from "@/lib/services/selectors";
 import { formatDateRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
-const ADMIN_EMAILS = new Set(["admin@khelolocal.demo"]);
 type Tab = "overview" | "approvals" | "organizations" | "athletes" | "operations";
 
 export const Route = createFileRoute("/admin/")({
@@ -40,8 +45,22 @@ function AdminConsole() {
   } = useKhelo();
   const [tab, setTab] = useState<Tab>("overview");
   const [cityId, setCityId] = useState("all");
+  const [managedProfiles, setManagedProfiles] = useState<ManagedProfile[]>([]);
+  const [loadingProfiles, setLoadingProfiles] = useState(false);
+  // Production access comes from the server-owned profile role. The email
+  // exception exists only for the offline demo dataset.
   const authorised =
-    currentUser?.role === "ADMIN" && ADMIN_EMAILS.has(currentUser.email.toLowerCase());
+    currentUser?.role === "ADMIN" &&
+    (isSupabaseConfigured() || currentUser.email.toLowerCase() === "admin@khelolocal.demo");
+
+  useEffect(() => {
+    if (!authorised || !isSupabaseConfigured()) return;
+    setLoadingProfiles(true);
+    void listManagedProfiles()
+      .then(setManagedProfiles)
+      .catch((error) => toast.error(error instanceof Error ? error.message : "Unable to load accounts."))
+      .finally(() => setLoadingProfiles(false));
+  }, [authorised]);
 
   if (!authorised)
     return (
@@ -478,6 +497,43 @@ function AdminConsole() {
             <p className="mt-8 text-sm text-muted-foreground">
               No field reports await review in this city view.
             </p>
+          ) : null}
+
+          {isSupabaseConfigured() ? (
+            <div className="mt-10">
+              <SectionHeading
+                eyebrow="Database management"
+                title="Live account access"
+                subtitle="These are real Supabase accounts. Suspend access without deleting a profile or its audit history."
+              />
+              <div className="overflow-x-auto rounded-xl border border-border">
+                <table className="min-w-[680px] w-full text-left text-sm">
+                  <thead className="bg-secondary text-[11px] uppercase tracking-widest text-muted-foreground">
+                    <tr><th className="px-4 py-3">Account</th><th className="px-4 py-3">Role</th><th className="px-4 py-3">Access</th><th className="px-4 py-3" /></tr>
+                  </thead>
+                  <tbody>
+                    {managedProfiles.map((profile) => (
+                      <tr key={profile.id} className="border-t border-border">
+                        <td className="px-4 py-3 font-semibold">{profile.name}<p className="text-xs font-normal text-muted-foreground">{profile.email}</p></td>
+                        <td className="px-4 py-3 capitalize">{profile.role}</td>
+                        <td className="px-4 py-3">{profile.is_active ? "Active" : "Suspended"}</td>
+                        <td className="px-4 py-3 text-right"><Button size="sm" variant="outline" disabled={profile.id === currentUser.id} onClick={async () => {
+                          try {
+                            await setManagedProfileActive(profile.id, !profile.is_active);
+                            setManagedProfiles((items) => items.map((item) => item.id === profile.id ? { ...item, is_active: !item.is_active } : item));
+                            toast.success(profile.is_active ? "Account suspended" : "Account reactivated");
+                          } catch (error) {
+                            toast.error(error instanceof Error ? error.message : "Unable to update account access.");
+                          }
+                        }}>{profile.is_active ? "Suspend" : "Reactivate"}</Button></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {!loadingProfiles && !managedProfiles.length ? <p className="mt-4 text-sm text-muted-foreground">No live accounts found.</p> : null}
+              {loadingProfiles ? <p className="mt-4 text-sm text-muted-foreground">Loading live accounts…</p> : null}
+            </div>
           ) : null}
         </section>
       ) : null}

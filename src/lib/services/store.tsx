@@ -27,6 +27,8 @@ import {
   createRoleSpecificProfile,
   getProfileByAuthId,
   signOutSupabaseSession,
+  updateProfileRecord,
+  updateRoleSpecificProfile,
 } from "@/integrations/supabase/auth-helpers";
 import { getSupabaseClientIfConfigured, isSupabaseConfigured } from "@/integrations/supabase/client";
 import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
@@ -82,6 +84,17 @@ interface StoreValue {
     password?: string;
     dateOfBirth?: string;
     guardianConsent?: boolean;
+  }) => Promise<User>;
+  updateMyProfile: (input: {
+    name: string;
+    phone?: string;
+    cityId?: string;
+    area?: string;
+    profileImage?: string;
+    visibility?: "private" | "public" | "network";
+    primarySport?: string;
+    position?: string;
+    bio?: string;
   }) => Promise<User>;
   createTournament: (input: Partial<Tournament>) => Tournament;
   register: (tournamentId: string, athleteId: string) => void;
@@ -238,6 +251,10 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           options: {
             data: {
               full_name: name,
+              // The database trigger accepts only non-admin roles. This makes
+              // profile creation reliable even when email confirmation delays
+              // creation of a client session.
+              requested_role: role === "COLLEGE" ? "institution" : role.toLowerCase(),
             },
           },
         });
@@ -251,13 +268,25 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           throw new Error("Supabase signup did not return a user id");
         }
 
-        const profile = await createProfileRecord({
-          authUserId,
-          name,
-          email: normalizedEmail,
-          role,
-          cityId: "",
-        });
+        // A database trigger creates these rows at auth-user creation. Keep
+        // this upsert for Supabase projects created before the migration.
+        let profile: User;
+        try {
+          profile = await createProfileRecord({
+            authUserId,
+            name,
+            email: normalizedEmail,
+            role,
+            cityId: "",
+          });
+        } catch (profileError) {
+          if (!data.session) {
+            throw new Error(
+              "Check your email to confirm your account, then log in to finish setting up your profile.",
+            );
+          }
+          throw profileError;
+        }
 
         await createRoleSpecificProfile(role, authUserId, {
           profile_id: authUserId,
@@ -393,6 +422,61 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       return user;
     },
     [commit, db.users],
+  );
+
+  const updateMyProfile: StoreValue["updateMyProfile"] = useCallback(
+    async (input) => {
+      if (!currentUser) throw new Error("Log in to save your profile.");
+      const updatedAt = now();
+      const client = getSupabaseClientIfConfigured();
+      let updated: User;
+
+      if (client) {
+        updated = await updateProfileRecord(currentUser.id, {
+          name: input.name.trim(),
+          phone: input.phone,
+          cityId: input.cityId,
+          area: input.area,
+          profilePhotoUrl: input.profileImage,
+          profileVisibility: input.visibility,
+        });
+        await updateRoleSpecificProfile(currentUser.role, currentUser.id, {
+          city: input.cityId,
+          area: input.area,
+          primary_sport: input.primarySport,
+          position: input.position,
+          bio: input.bio,
+          profile_visibility: input.visibility,
+          profile_photo_url: input.profileImage,
+        });
+        setSupabaseUser(updated);
+      } else {
+        updated = {
+          ...currentUser,
+          name: input.name.trim(),
+          phone: input.phone ?? currentUser.phone,
+          cityId: input.cityId ?? currentUser.cityId,
+          profileImage: input.profileImage ?? currentUser.profileImage,
+          updatedAt,
+        };
+        commit((draft) => {
+          const user = draft.users.find((item) => item.id === currentUser.id);
+          if (user) Object.assign(user, updated);
+          const athlete = draft.athletes.find((item) => item.userId === currentUser.id);
+          if (athlete) {
+            athlete.name = updated.name;
+            athlete.profileImage = updated.profileImage;
+            athlete.cityId = updated.cityId;
+            athlete.primarySport = input.primarySport ?? athlete.primarySport;
+            athlete.position = input.position ?? athlete.position;
+            athlete.bio = input.bio ?? athlete.bio;
+            athlete.updatedAt = updatedAt;
+          }
+        });
+      }
+      return updated;
+    },
+    [commit, currentUser],
   );
 
   const createTournament: StoreValue["createTournament"] = useCallback(
@@ -955,7 +1039,8 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     currentUser,
     login,
     logout,
-    signup,
+      signup,
+      updateMyProfile,
     createTournament,
     register,
     setRegistrationStatus,

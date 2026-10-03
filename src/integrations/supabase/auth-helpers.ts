@@ -1,7 +1,7 @@
 import { isSupabaseConfigured, supabase } from "@/integrations/supabase/client";
 import type { Role, User } from "@/types";
 
-export type AppRole = "athlete" | "organizer" | "institution" | "volunteer" | "admin";
+export type AppRole = "athlete" | "organizer" | "institution" | "volunteer" | "scout" | "admin";
 
 export type ProfileRow = {
   id: string;
@@ -19,6 +19,11 @@ export type ProfileRow = {
   updated_at: string | null;
 };
 
+export type ManagedProfile = Pick<
+  ProfileRow,
+  "id" | "email" | "name" | "role" | "is_active" | "created_at" | "updated_at"
+>;
+
 export function normalizeRole(role?: string | null): Role {
   switch ((role ?? "").toLowerCase()) {
     case "athlete":
@@ -29,6 +34,8 @@ export function normalizeRole(role?: string | null): Role {
       return "COLLEGE";
     case "volunteer":
       return "VOLUNTEER";
+    case "scout":
+      return "SCOUT";
     case "admin":
       return "ADMIN";
     default:
@@ -46,6 +53,8 @@ export function normalizeRoleForDatabase(role: Role): AppRole {
       return "institution";
     case "VOLUNTEER":
       return "volunteer";
+    case "SCOUT":
+      return "scout";
     case "ADMIN":
       return "admin";
     default:
@@ -132,6 +141,101 @@ export async function createProfileRecord(input: {
   }
 
   return user;
+}
+
+/**
+ * Saves the account fields shared by every role. Role-specific fields are
+ * deliberately written to their own table so a user cannot change their role
+ * or another account through this client helper.
+ */
+export async function updateProfileRecord(
+  authUserId: string,
+  input: {
+    name?: string;
+    phone?: string;
+    cityId?: string;
+    area?: string;
+    profilePhotoUrl?: string;
+    profileVisibility?: "private" | "public" | "network";
+  },
+): Promise<User> {
+  if (!isSupabaseConfigured()) throw new Error("Supabase is not configured");
+
+  const payload = {
+    ...(input.name === undefined ? {} : { name: input.name }),
+    ...(input.phone === undefined ? {} : { phone: input.phone }),
+    ...(input.cityId === undefined ? {} : { city_id: input.cityId }),
+    ...(input.area === undefined ? {} : { area: input.area }),
+    ...(input.profilePhotoUrl === undefined ? {} : { profile_photo_url: input.profilePhotoUrl }),
+    ...(input.profileVisibility === undefined
+      ? {}
+      : { profile_visibility: input.profileVisibility }),
+    updated_at: new Date().toISOString(),
+  };
+
+  const { data, error } = await (supabase as any)
+    .from("profiles")
+    .update(payload)
+    .eq("auth_user_id", authUserId)
+    .select()
+    .single();
+  if (error) throw new Error(error.message);
+
+  const user = profileToUser(data as Partial<ProfileRow>);
+  if (!user) throw new Error("Supabase profile update did not return a profile");
+  return user;
+}
+
+export async function updateRoleSpecificProfile(
+  role: Role,
+  authUserId: string,
+  details: Record<string, unknown>,
+): Promise<void> {
+  if (!isSupabaseConfigured()) return;
+  const tableMap: Partial<Record<Role, string>> = {
+    ATHLETE: "athlete_profiles",
+    ORGANIZER: "organizer_profiles",
+    COLLEGE: "institution_profiles",
+    VOLUNTEER: "volunteer_profiles",
+  };
+  const table = tableMap[role];
+  if (!table) return;
+
+  const allowed =
+    role === "ATHLETE"
+      ? ["city", "area", "institution", "primary_sport", "secondary_sports", "position", "bio", "profile_visibility", "profile_photo_url"]
+      : ["city", "area", "phone", "email", "description", "profile_photo_url"];
+  const payload = Object.fromEntries(
+    Object.entries(details).filter(([key]) => allowed.includes(key)),
+  );
+  if (!Object.keys(payload).length) return;
+
+  const { error } = await (supabase as any)
+    .from(table)
+    .update({ ...payload, updated_at: new Date().toISOString() })
+    .eq("auth_user_id", authUserId);
+  if (error) throw new Error(error.message);
+}
+
+/** Admin-only account inventory. RLS is the authorization boundary here. */
+export async function listManagedProfiles(): Promise<ManagedProfile[]> {
+  if (!isSupabaseConfigured()) return [];
+  const { data, error } = await (supabase as any)
+    .from("profiles")
+    .select("id, email, name, role, is_active, created_at, updated_at")
+    .order("created_at", { ascending: false })
+    .limit(100);
+  if (error) throw new Error(error.message);
+  return (data ?? []) as ManagedProfile[];
+}
+
+export async function setManagedProfileActive(profileId: string, isActive: boolean): Promise<void> {
+  if (!isSupabaseConfigured()) throw new Error("Supabase is not configured");
+  const { error } = await (supabase as any)
+    .from("profiles")
+    .update({ is_active: isActive })
+    .eq("id", profileId);
+  if (error) throw new Error(error.message);
 }
 
 export async function createRoleSpecificProfile(
