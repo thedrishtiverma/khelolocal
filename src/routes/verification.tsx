@@ -26,13 +26,9 @@ function VerificationPage() {
       <NetworkHero
         tone="community"
         eyebrow="Verified record"
-        title={
-          <>
-            Can I trust this <span className="text-lime">sporting record?</span>
-          </>
-        }
-        description="KheloLocal makes it clear where a result came from and who confirmed it."
-        highlights={["Source", "Review", "Trust"]}
+        title={<>Every result deserves a trail.</>}
+        description="See the people, event and institution behind a sporting record before you rely on it."
+        highlights={["Origin", "Context", "Clarity"]}
       />
       <Page className="py-14 sm:py-20">
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

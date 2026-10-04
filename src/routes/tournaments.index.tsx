@@ -70,14 +70,14 @@ function ExploreTournaments() {
     <div>
       <NetworkHero
         tone="tournaments"
-        eyebrow="The local tournament calendar"
+        eyebrow="Fixtures across your city"
         title={
           <>
-            Find your <span className="text-lime">next game.</span>
+            The next whistle is <span className="text-lime">waiting.</span>
           </>
         }
-        description="Browse tournaments, leagues and competitions happening across the network."
-        highlights={["Nearby", "Upcoming", "Open now"]}
+        description="From first fixtures to finals, find the competitions that turn an ordinary weekend into game day."
+        highlights={["Fixtures", "Entry open", "Game day"]}
         actions={
           <Button asChild size="lg">
             <Link to="/tournaments/create">Create a tournament</Link>

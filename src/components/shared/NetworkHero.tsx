@@ -16,7 +16,7 @@ type Scene =
   | "trail"
   | "tunnel"
   | "formation"
-  | "countdown"
+  | "fixture"
   | "whistle"
   | "surface"
   | "legacy"
@@ -25,21 +25,23 @@ type Scene =
   | "heatmap"
   | "india"
   | "poster"
-  | "freeze"
+  | "proof"
   | "journey"
+  | "replay"
   | "stories"
   | "clubhouse"
   | "squad"
   | "signal"
   | "passback"
-  | "kit";
+  | "kit"
+  | "horizon";
 
 const sceneByEyebrow: Record<string, Scene> = {
   "Started in Indore, Madhya Pradesh.": "city",
   "Explore KheloLocal": "trail",
   "Athlete discovery": "tunnel",
   "Team discovery": "formation",
-  "The local tournament calendar": "countdown",
+  "Fixtures across your city": "fixture",
   "For organizers": "whistle",
   "Sport × city": "surface",
   "For institutions": "legacy",
@@ -48,16 +50,16 @@ const sceneByEyebrow: Record<string, Scene> = {
   "Indore / live sports map": "heatmap",
   "KheloLocal cities": "india",
   "KheloLocal / Indore": "poster",
-  "Verified record": "freeze",
+  "Verified record": "proof",
   "How KheloLocal works": "journey",
-  "Demo tools": "journey",
+  "Demo tools": "replay",
   "Community / stories": "stories",
   "The people behind KheloLocal": "clubhouse",
   "Careers at KheloLocal": "squad",
   "Get in touch": "signal",
   "Help shape KheloLocal": "passback",
   "KheloLocal merch": "kit",
-  "Our vision": "india",
+  "Our vision": "horizon",
 };
 
 const sceneWords: Record<Scene, string> = {
@@ -65,7 +67,7 @@ const sceneWords: Record<Scene, string> = {
   trail: "FOLLOW THE NOISE",
   tunnel: "GAME ON",
   formation: "ONE SIDE",
-  countdown: "05",
+  fixture: "FIRST WHISTLE",
   whistle: "START THE GAME",
   surface: "OWN THE SURFACE",
   legacy: "THE RECORD STAYS",
@@ -74,14 +76,16 @@ const sceneWords: Record<Scene, string> = {
   heatmap: "GAMES NEAR YOU",
   india: "CITY BY CITY",
   poster: "INDORE PLAYS",
-  freeze: "CONFIRMED",
+  proof: "KNOW THE SOURCE",
   journey: "PLAY → PROVE → GROW",
+  replay: "THE GAME TRAVELS",
   stories: "THE LOCAL GAME",
   clubhouse: "SHOW UP",
   squad: "JOIN THE SQUAD",
   signal: "SEND A SIGNAL",
   passback: "PASS IT BACK",
   kit: "WEAR THE BADGE",
+  horizon: "THE LONG GAME",
 };
 
 function SportsAtmosphere({ scene }: { scene: Scene }) {
@@ -113,8 +117,17 @@ function SportsAtmosphere({ scene }: { scene: Scene }) {
           <i />
         </div>
       ) : null}
-      {scene === "countdown" ? <div className="hero-countdown">05</div> : null}
-      {scene === "freeze" ? <div className="hero-stamp">CONFIRMED</div> : null}
+      {scene === "fixture" ? (
+        <div className="hero-fixture">
+          <i>FRI / 18:30</i>
+          <b>
+            LOCAL
+            <br />
+            KICKOFF
+          </b>
+          <i>OPEN ENTRY</i>
+        </div>
+      ) : null}
       {scene === "stories" ? (
         <div className="hero-portraits">
           <i />
