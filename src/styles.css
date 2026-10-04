@@ -223,12 +223,37 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     background-image:
-      linear-gradient(115deg, color-mix(in oklab, var(--field) 6%, transparent) 1px, transparent 1px),
-      linear-gradient(25deg, color-mix(in oklab, var(--accent) 5%, transparent) 1px, transparent 1px),
-      radial-gradient(circle at 8% 12%, color-mix(in oklab, var(--field) 10%, transparent), transparent 24%),
-      radial-gradient(circle at 92% 48%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 28%),
-      linear-gradient(135deg, color-mix(in oklab, var(--background) 90%, var(--accent)) 0%, var(--background) 70%);
-    background-size: 54px 54px, 78px 78px, auto, auto, auto;
+      linear-gradient(
+        115deg,
+        color-mix(in oklab, var(--field) 6%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        25deg,
+        color-mix(in oklab, var(--accent) 5%, transparent) 1px,
+        transparent 1px
+      ),
+      radial-gradient(
+        circle at 8% 12%,
+        color-mix(in oklab, var(--field) 10%, transparent),
+        transparent 24%
+      ),
+      radial-gradient(
+        circle at 92% 48%,
+        color-mix(in oklab, var(--accent) 9%, transparent),
+        transparent 28%
+      ),
+      linear-gradient(
+        135deg,
+        color-mix(in oklab, var(--background) 90%, var(--accent)) 0%,
+        var(--background) 70%
+      );
+    background-size:
+      54px 54px,
+      78px 78px,
+      auto,
+      auto,
+      auto;
   }
 
   h1,
@@ -260,8 +285,16 @@
 
   .dark body {
     background-image:
-      linear-gradient(115deg, color-mix(in oklab, var(--field) 7%, transparent) 1px, transparent 1px),
-      linear-gradient(25deg, color-mix(in oklab, var(--accent) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(
+        115deg,
+        color-mix(in oklab, var(--field) 7%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        25deg,
+        color-mix(in oklab, var(--accent) 6%, transparent) 1px,
+        transparent 1px
+      ),
       radial-gradient(
         circle at 12% 0%,
         color-mix(in oklab, var(--field) 12%, transparent),
@@ -277,7 +310,12 @@
         color-mix(in oklab, var(--background) 88%, var(--primary)) 0%,
         var(--background) 42%
       );
-    background-size: 54px 54px, 78px 78px, auto, auto, auto;
+    background-size:
+      54px 54px,
+      78px 78px,
+      auto,
+      auto,
+      auto;
   }
 }
 
@@ -849,6 +887,453 @@
   background: color-mix(in oklab, var(--surface-foreground) 12%, transparent);
 }
 
+/* Every entry hero gets its own local-sport artefact instead of a repeated stats console. */
+.network-hero-artifact {
+  position: relative;
+  min-height: 20rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--foreground) 16%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in oklab, var(--card) 82%, transparent);
+  box-shadow:
+    var(--shadow-lift),
+    inset 0 1px 0 color-mix(in oklab, white 75%, transparent);
+  color: var(--foreground);
+  padding: 1.25rem;
+}
+.artifact-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+  padding-bottom: 0.85rem;
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+.artifact-topline i,
+.artifact-paper em {
+  font-style: normal;
+  opacity: 0.56;
+}
+.artifact-diagram {
+  position: relative;
+  height: 14rem;
+  margin-top: 1.35rem;
+  border: 1px solid color-mix(in oklab, currentColor 15%, transparent);
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 36px,
+      color-mix(in oklab, currentColor 8%, transparent) 37px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 47px,
+      color-mix(in oklab, currentColor 8%, transparent) 48px
+    );
+}
+.artifact-diagram::before,
+.artifact-diagram::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  border-top: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+}
+.artifact-diagram::after {
+  inset: 0 50% 0 auto;
+  border-top: 0;
+  border-left: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+}
+.artifact-dot {
+  position: absolute;
+  z-index: 1;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid var(--card);
+  border-radius: 999px;
+  background: var(--field);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 36%, transparent);
+}
+.artifact-dot:nth-child(1) {
+  top: 15%;
+  left: 20%;
+}
+.artifact-dot:nth-child(2) {
+  top: 27%;
+  left: 53%;
+}
+.artifact-dot:nth-child(3) {
+  top: 16%;
+  right: 16%;
+}
+.artifact-dot:nth-child(4) {
+  top: 49%;
+  left: 43%;
+}
+.artifact-dot:nth-child(5) {
+  bottom: 17%;
+  left: 16%;
+}
+.artifact-dot:nth-child(6) {
+  bottom: 20%;
+  left: 64%;
+}
+.artifact-dot:nth-child(7) {
+  bottom: 8%;
+  right: 20%;
+}
+.artifact-dot:nth-child(8) {
+  top: 63%;
+  right: 12%;
+}
+.artifact-dot:nth-child(9) {
+  top: 39%;
+  left: 12%;
+}
+.artifact-dot:nth-child(10) {
+  top: 38%;
+  right: 28%;
+}
+.artifact-dot:nth-child(11) {
+  bottom: 8%;
+  left: 44%;
+}
+.artifact-dot-active {
+  width: 1.1rem;
+  height: 1.1rem;
+  transform: translate(-0.2rem, -0.2rem);
+  background: var(--lime);
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--lime) 25%, transparent);
+}
+.artifact-diagram-caption {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.8rem;
+  z-index: 2;
+  max-width: 80%;
+  background: var(--card);
+  padding: 0.35rem 0.45rem;
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.artifact-map {
+  border-radius: 48% 52% 44% 56% / 40% 42% 58% 60%;
+  transform: rotate(-2deg);
+}
+.artifact-paper {
+  margin-top: 1.25rem;
+  border: 1px dashed color-mix(in oklab, currentColor 30%, transparent);
+  background: color-mix(in oklab, var(--cream) 70%, var(--card));
+  padding: 1.1rem;
+}
+.artifact-paper > b {
+  display: block;
+  margin-bottom: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+.artifact-paper-row {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr 1.8rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+  padding: 0.72rem 0;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+}
+.artifact-paper-row span {
+  color: var(--field);
+  font-weight: 900;
+}
+.artifact-paper-row i {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--lime);
+}
+.artifact-paper em {
+  display: block;
+  padding-top: 0.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.09em;
+}
+.artifact-routes {
+  margin-top: 1rem;
+}
+.artifact-routes div {
+  display: grid;
+  grid-template-columns: 2rem 1fr 1rem;
+  align-items: center;
+  border-bottom: 1px solid color-mix(in oklab, currentColor 15%, transparent);
+  padding: 1.05rem 0.2rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.artifact-routes span {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  color: var(--field);
+}
+.artifact-routes b {
+  color: var(--lime);
+}
+.artifact-notes {
+  position: relative;
+  min-height: 14rem;
+  margin-top: 1.1rem;
+}
+.artifact-notes div {
+  position: absolute;
+  width: 78%;
+  border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+  background: var(--card);
+  padding: 0.9rem;
+  box-shadow: 0 8px 18px -13px color-mix(in oklab, black 60%, transparent);
+}
+.artifact-notes div:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+.artifact-notes div:nth-child(2) {
+  top: 4.3rem;
+  right: 0;
+}
+.artifact-notes div:nth-child(3) {
+  top: 8.6rem;
+  left: 0.8rem;
+}
+.artifact-notes small,
+.artifact-notes span {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+}
+.artifact-notes b {
+  display: block;
+  margin: 0.3rem 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+.artifact-report {
+  margin-top: 1.2rem;
+  border-left: 3px solid var(--lime);
+  padding: 1.2rem;
+  background: color-mix(in oklab, var(--field) 8%, transparent);
+}
+.artifact-report b,
+.artifact-report span {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+.artifact-report p {
+  margin: 1.2rem 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.artifact-report span {
+  display: block;
+  margin-top: 0.55rem;
+}
+.artifact-editorial {
+  display: flex;
+  min-height: 14rem;
+  margin-top: 1rem;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--primary);
+  padding: 1rem;
+  color: var(--primary-foreground);
+}
+.artifact-editorial small,
+.artifact-editorial span {
+  font-family: var(--font-ui);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.artifact-editorial b {
+  white-space: pre-line;
+  font-family: var(--font-display);
+  font-size: 3.6rem;
+  font-weight: 900;
+  line-height: 0.75;
+  letter-spacing: -0.08em;
+}
+.artifact-noticeboard {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.artifact-noticeboard div {
+  position: relative;
+  min-height: 3.4rem;
+  border: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+  background: color-mix(in oklab, var(--cream) 65%, var(--card));
+  padding: 0.7rem 1rem 0.5rem 2rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.artifact-noticeboard i {
+  position: absolute;
+  left: 0.65rem;
+  color: var(--accent);
+  font-size: 0.75rem;
+}
+.artifact-noticeboard small {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--font-ui);
+  font-size: 0.55rem;
+  font-weight: 500;
+  opacity: 0.6;
+  text-transform: none;
+}
+.artifact-squad {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+.artifact-squad div {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  align-items: center;
+  border: 1px solid color-mix(in oklab, currentColor 15%, transparent);
+  padding: 0.85rem;
+}
+.artifact-squad span,
+.artifact-squad i {
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-style: normal;
+  letter-spacing: 0.1em;
+}
+.artifact-squad span {
+  color: var(--field);
+}
+.artifact-squad b {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+.artifact-squad i {
+  color: var(--verified);
+}
+.artifact-openline {
+  display: flex;
+  min-height: 14rem;
+  margin-top: 1rem;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--foreground);
+  padding: 1rem;
+}
+.artifact-openline b {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  line-height: 0.85;
+}
+.artifact-openline span,
+.artifact-openline i {
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+}
+.artifact-openline i {
+  color: var(--field);
+}
+.artifact-suggestions {
+  position: relative;
+  min-height: 14rem;
+  margin-top: 1rem;
+}
+.artifact-suggestions span {
+  position: absolute;
+  padding: 0.9rem;
+  background: var(--lime);
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.artifact-suggestions span:nth-child(1) {
+  top: 1rem;
+  left: 0.3rem;
+}
+.artifact-suggestions span:nth-child(2) {
+  top: 5rem;
+  right: 0.3rem;
+  background: var(--accent);
+  color: white;
+}
+.artifact-suggestions span:nth-child(3) {
+  bottom: 0.5rem;
+  left: 1.3rem;
+  background: var(--card);
+  border: 1px solid color-mix(in oklab, currentColor 16%, transparent);
+}
+.artifact-kit {
+  display: grid;
+  min-height: 14rem;
+  margin-top: 1rem;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto;
+  background: var(--field);
+  padding: 1rem;
+  color: var(--field-foreground);
+}
+.artifact-kit div {
+  display: grid;
+  width: 7rem;
+  place-items: center;
+  border: 2px solid currentColor;
+  border-radius: 50% 50% 12% 12%;
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 900;
+}
+.artifact-kit b,
+.artifact-kit span {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+}
+.artifact-kit span {
+  grid-column: 1 / -1;
+}
+.dark .network-hero-artifact {
+  border-color: color-mix(in oklab, var(--surface-foreground) 18%, transparent);
+  background: color-mix(in oklab, var(--surface) 58%, transparent);
+  color: var(--surface-foreground);
+  box-shadow:
+    0 24px 54px -34px oklch(0 0 0 / 0.85),
+    inset 0 1px 0 color-mix(in oklab, var(--surface-foreground) 9%, transparent);
+}
+.dark .artifact-paper,
+.dark .artifact-noticeboard div {
+  background: color-mix(in oklab, var(--surface) 78%, var(--field));
+}
+.dark .artifact-diagram-caption,
+.dark .artifact-notes div {
+  background: var(--surface);
+}
+
 @media (max-width: 1023px) {
   .network-hero-orbit-two {
     right: -5rem;
@@ -933,10 +1418,19 @@
 }
 
 @keyframes heart-beat {
-  0%, 100% { transform: scale(1); }
-  15% { transform: scale(1.22); }
-  30% { transform: scale(1); }
-  45% { transform: scale(1.14); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.22);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.14);
+  }
 }
 
 .loop-section {
@@ -1030,7 +1524,9 @@
 
 .team-card-media {
   box-shadow: 0 0 0 1px color-mix(in oklab, var(--lime) 20%, transparent);
-  transition: box-shadow 220ms ease, transform 220ms ease;
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease;
 }
 
 .group:hover .team-card-media {
@@ -1038,26 +1534,61 @@
   transform: rotate(-3deg) translateY(-2px);
 }
 
-.founder-profile-card { animation: profile-card-in 650ms both; }
-.founder-profile-photo img { transition: transform 500ms ease, filter 500ms ease; }
-.founder-profile-card:hover .founder-profile-photo img { transform: scale(1.04); filter: saturate(1.08) contrast(1.04); }
-
-@keyframes profile-card-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+.founder-profile-card {
+  animation: profile-card-in 650ms both;
+}
+.founder-profile-photo img {
+  transition:
+    transform 500ms ease,
+    filter 500ms ease;
+}
+.founder-profile-card:hover .founder-profile-photo img {
+  transform: scale(1.04);
+  filter: saturate(1.08) contrast(1.04);
 }
 
-.process-flow-step { animation: process-rise 700ms both; }
-.process-flow-step:nth-child(2) { animation-delay: 100ms; }
-.process-flow-step:nth-child(3) { animation-delay: 200ms; }
-.process-flow-step:nth-child(4) { animation-delay: 300ms; }
-.process-flow-step:nth-child(5) { animation-delay: 400ms; }
-.process-flow-number { transition: transform 220ms ease; }
-.process-flow-step:hover .process-flow-number { transform: scale(1.1) rotate(-6deg); }
+@keyframes profile-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.process-flow-step {
+  animation: process-rise 700ms both;
+}
+.process-flow-step:nth-child(2) {
+  animation-delay: 100ms;
+}
+.process-flow-step:nth-child(3) {
+  animation-delay: 200ms;
+}
+.process-flow-step:nth-child(4) {
+  animation-delay: 300ms;
+}
+.process-flow-step:nth-child(5) {
+  animation-delay: 400ms;
+}
+.process-flow-number {
+  transition: transform 220ms ease;
+}
+.process-flow-step:hover .process-flow-number {
+  transform: scale(1.1) rotate(-6deg);
+}
 
 @keyframes process-rise {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .city-map-canvas {
@@ -1065,7 +1596,11 @@
   inset: 0;
   transform-origin: center;
   transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
-  background-image: radial-gradient(circle, color-mix(in oklab, var(--lime) 32%, transparent) 1px, transparent 1px);
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--lime) 32%, transparent) 1px,
+    transparent 1px
+  );
   background-size: 34px 34px;
 }
 
@@ -1078,16 +1613,61 @@
   background: color-mix(in oklab, var(--card) 92%, transparent);
   color: var(--foreground);
   box-shadow: var(--shadow-card);
-  transition: border-color 180ms ease, background-color 180ms ease;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
-.map-control { width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; }
-.map-layer-button { border-radius: 9999px; padding: 0.45rem 0.75rem; font-size: 0.7rem; font-weight: 700; }
-.map-control:hover, .map-layer-button:hover, .map-layer-button.active { border-color: var(--lime); background: var(--lime); color: var(--lime-foreground); }
-.map-popover { position: absolute; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 9999px; padding: 0.4rem 0.55rem; font-size: 0.65rem; font-weight: 700; animation: map-pop 500ms both; }
-.map-popover-tournament { background: var(--accent); color: var(--accent-foreground); }
-.map-popover-athlete { background: var(--verified); color: var(--field-foreground); }
-.map-popover-organizer { background: var(--primary); color: var(--primary-foreground); }
-@keyframes map-pop { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+.map-control {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+}
+.map-layer-button {
+  border-radius: 9999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.map-control:hover,
+.map-layer-button:hover,
+.map-layer-button.active {
+  border-color: var(--lime);
+  background: var(--lime);
+  color: var(--lime-foreground);
+}
+.map-popover {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 9999px;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  animation: map-pop 500ms both;
+}
+.map-popover-tournament {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.map-popover-athlete {
+  background: var(--verified);
+  color: var(--field-foreground);
+}
+.map-popover-organizer {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+@keyframes map-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
 .network-map-canvas {
   position: absolute;
@@ -1100,10 +1680,23 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(115deg, transparent 0 49%, color-mix(in oklab, var(--lime) 13%, transparent) 49.5% 50%, transparent 50.5%),
-    linear-gradient(25deg, transparent 0 49%, color-mix(in oklab, var(--field) 11%, transparent) 49.5% 50%, transparent 50.5%),
+    linear-gradient(
+      115deg,
+      transparent 0 49%,
+      color-mix(in oklab, var(--lime) 13%, transparent) 49.5% 50%,
+      transparent 50.5%
+    ),
+    linear-gradient(
+      25deg,
+      transparent 0 49%,
+      color-mix(in oklab, var(--field) 11%, transparent) 49.5% 50%,
+      transparent 50.5%
+    ),
     radial-gradient(circle, color-mix(in oklab, var(--lime) 32%, transparent) 1px, transparent 1px);
-  background-size: 180px 180px, 220px 220px, 34px 34px;
+  background-size:
+    180px 180px,
+    220px 220px,
+    34px 34px;
   opacity: 0.78;
 }
 
@@ -1129,22 +1722,50 @@
   z-index: -1;
   opacity: 0.7;
   background:
-    radial-gradient(circle at 84% 18%, color-mix(in oklab, var(--lime) 35%, transparent), transparent 25%),
-    linear-gradient(115deg, transparent 0 48%, color-mix(in oklab, var(--surface-foreground) 18%, transparent) 48.5% 49%, transparent 49.5%);
+    radial-gradient(
+      circle at 84% 18%,
+      color-mix(in oklab, var(--lime) 35%, transparent),
+      transparent 25%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 0 48%,
+      color-mix(in oklab, var(--surface-foreground) 18%, transparent) 48.5% 49%,
+      transparent 49.5%
+    );
 }
 
 .team-card-banner-football,
 .team-card-banner-khokho,
-.team-card-banner-athletics { background: linear-gradient(125deg, color-mix(in oklab, var(--field) 68%, var(--surface)), var(--primary)); }
+.team-card-banner-athletics {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--field) 68%, var(--surface)),
+    var(--primary)
+  );
+}
 .team-card-banner-kabaddi,
 .team-card-banner-boxing,
-.team-card-banner-badminton { background: linear-gradient(125deg, color-mix(in oklab, var(--live) 65%, var(--surface)), var(--primary)); }
+.team-card-banner-badminton {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--live) 65%, var(--surface)),
+    var(--primary)
+  );
+}
 .team-card-banner-cricket,
 .team-card-banner-basketball,
-.team-card-banner-volleyball { background: linear-gradient(125deg, color-mix(in oklab, var(--accent) 62%, var(--surface)), var(--primary)); }
+.team-card-banner-volleyball {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--accent) 62%, var(--surface)),
+    var(--primary)
+  );
+}
 
-.team-card:hover .team-card-name { color: var(--lime); }
-
+.team-card:hover .team-card-name {
+  color: var(--lime);
+}
 
 .profile-banner-lines {
   background-image:
@@ -1181,25 +1802,56 @@
   z-index: -1;
   opacity: 0.65;
   background:
-    linear-gradient(115deg, transparent 0 48%, color-mix(in oklab, var(--lime) 28%, transparent) 48.5% 49%, transparent 49.5%),
-    radial-gradient(circle at 84% 20%, color-mix(in oklab, var(--lime) 28%, transparent), transparent 24%);
+    linear-gradient(
+      115deg,
+      transparent 0 48%,
+      color-mix(in oklab, var(--lime) 28%, transparent) 48.5% 49%,
+      transparent 49.5%
+    ),
+    radial-gradient(
+      circle at 84% 20%,
+      color-mix(in oklab, var(--lime) 28%, transparent),
+      transparent 24%
+    );
 }
 
 .tournament-card-banner-football,
 .tournament-card-banner-khokho,
-.tournament-card-banner-athletics { background: linear-gradient(125deg, color-mix(in oklab, var(--field) 62%, var(--surface)), var(--primary)); }
+.tournament-card-banner-athletics {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--field) 62%, var(--surface)),
+    var(--primary)
+  );
+}
 .tournament-card-banner-kabaddi,
 .tournament-card-banner-boxing,
-.tournament-card-banner-badminton { background: linear-gradient(125deg, color-mix(in oklab, var(--live) 62%, var(--surface)), var(--primary)); }
+.tournament-card-banner-badminton {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--live) 62%, var(--surface)),
+    var(--primary)
+  );
+}
 .tournament-card-banner-cricket,
 .tournament-card-banner-basketball,
-.tournament-card-banner-volleyball { background: linear-gradient(125deg, color-mix(in oklab, var(--accent) 58%, var(--surface)), var(--primary)); }
+.tournament-card-banner-volleyball {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--accent) 58%, var(--surface)),
+    var(--primary)
+  );
+}
 
 .institution-banner {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background: linear-gradient(125deg, color-mix(in oklab, var(--field) 35%, var(--surface)), var(--primary));
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--field) 35%, var(--surface)),
+    var(--primary)
+  );
   color: var(--surface-foreground);
 }
 
@@ -1589,29 +2241,49 @@
 
 .sport-card-cricket .sport-card-banner,
 .sport-card-basketball .sport-card-banner {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--field) 58%, var(--surface)), var(--primary));
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 58%, var(--surface)),
+    var(--primary)
+  );
 }
 
 .sport-card-football .sport-card-banner,
 .sport-card-kho-kho .sport-card-banner,
 .sport-card-athletics .sport-card-banner {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--field) 75%, var(--surface)), var(--field));
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--field) 75%, var(--surface)),
+    var(--field)
+  );
 }
 
 .sport-card-volleyball .sport-card-banner,
 .sport-card-tennis .sport-card-banner,
 .sport-card-table-tennis .sport-card-banner {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--accent) 72%, var(--surface)), var(--accent));
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--accent) 72%, var(--surface)),
+    var(--accent)
+  );
 }
 
 .sport-card-kabaddi .sport-card-banner,
 .sport-card-boxing .sport-card-banner {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--live) 72%, var(--surface)), var(--live));
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--live) 72%, var(--surface)),
+    var(--live)
+  );
 }
 
 .sport-card-badminton .sport-card-banner,
 .sport-card-yoga .sport-card-banner {
-  background: linear-gradient(128deg, color-mix(in oklab, var(--chart-5) 62%, var(--surface)), var(--chart-5));
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklab, var(--chart-5) 62%, var(--surface)),
+    var(--chart-5)
+  );
 }
 
 .athlete-card-sport {
