@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useKhelo } from "@/lib/services/store";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -41,6 +42,7 @@ const DEMO = [
 
 function LoginPage() {
   const { login } = useKhelo();
+  const demoMode = !isSupabaseConfigured();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -118,7 +120,18 @@ function LoginPage() {
             {busy ? "Logging in…" : "Log in"}
           </Button>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-xs text-muted-foreground">Email-only demo access</span>
+            {demoMode ? (
+              <span className="text-xs text-muted-foreground">
+                Demo accounts are available beside this form.
+              </span>
+            ) : (
+              <Link
+                to="/forgot-password"
+                className="text-muted-foreground hover:text-foreground hover:underline"
+              >
+                Forgot password?
+              </Link>
+            )}
             <Link to="/signup" className="font-semibold hover:underline">
               Create an account
             </Link>
@@ -126,27 +139,45 @@ function LoginPage() {
         </form>
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-6">
-        <h2 className="font-display text-lg font-bold">Demo access</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          One tap sign-in for every KheloLocal role.
-        </p>
-        <div className="mt-5 space-y-3">
-          {DEMO.map((d) => (
-            <button
-              key={d.email}
-              onClick={() => void doLogin(d.email, "")}
-              className="flex w-full items-center justify-between rounded-md border border-border bg-background px-4 py-3 text-left transition-colors hover:border-lime"
-            >
-              <span>
-                <span className="block font-semibold">{d.label}</span>
-                <span className="block text-xs text-muted-foreground">{d.email}</span>
-              </span>
-              <span className="text-xs font-bold uppercase tracking-widest text-lime">Enter</span>
-            </button>
-          ))}
+      {demoMode ? (
+        <div className="rounded-xl border border-border bg-card p-6">
+          <h2 className="font-display text-lg font-bold">Demo access</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            One tap sign-in for every KheloLocal role.
+          </p>
+          <div className="mt-5 space-y-3">
+            {DEMO.map((d) => (
+              <button
+                key={d.email}
+                onClick={() => void doLogin(d.email, "")}
+                className="flex w-full items-center justify-between rounded-md border border-border bg-background px-4 py-3 text-left transition-colors hover:border-lime"
+              >
+                <span>
+                  <span className="block font-semibold">{d.label}</span>
+                  <span className="block text-xs text-muted-foreground">{d.email}</span>
+                </span>
+                <span className="text-xs font-bold uppercase tracking-widest text-lime">Enter</span>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="rounded-xl border border-border bg-card p-6">
+          <p className="font-display text-2xl font-black uppercase leading-none">
+            Your local game,
+            <br />
+            your account.
+          </p>
+          <p className="mt-4 text-sm leading-6 text-muted-foreground">
+            Sign in with the email and password you used to join KheloLocal. Your session stays
+            active on this device until you log out.
+          </p>
+          <div className="mt-8 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
+            New here? Choose a role first, then create an account built around how you play,
+            organize or support local sport.
+          </div>
+        </div>
+      )}
     </div>
   );
 }

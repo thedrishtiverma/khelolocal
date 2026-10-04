@@ -31,7 +31,10 @@ import {
   updateProfileRecord,
   updateRoleSpecificProfile,
 } from "@/integrations/supabase/auth-helpers";
-import { getSupabaseClientIfConfigured, isSupabaseConfigured } from "@/integrations/supabase/client";
+import {
+  getSupabaseClientIfConfigured,
+  isSupabaseConfigured,
+} from "@/integrations/supabase/client";
 import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
 import { loadOperationalState, saveOperationalState } from "./backend-state";
 import { persistMatchResult, persistRegistration, persistTournament } from "./tournament-backend";
@@ -226,7 +229,8 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   const login: StoreValue["login"] = useCallback(
     async (email, password) => {
       const client = getSupabaseClientIfConfigured();
-      if (client && password) {
+      if (client) {
+        if (!password) return null;
         const { data, error } = await client.auth.signInWithPassword({
           email: email.trim(),
           password,
@@ -367,7 +371,10 @@ export function KheloProvider({ children }: { children: ReactNode }) {
               updatedAt: now(),
             });
           }
-          if (role === "ORGANIZER" && !draft.organizers.some((item) => item.userId === authUserId)) {
+          if (
+            role === "ORGANIZER" &&
+            !draft.organizers.some((item) => item.userId === authUserId)
+          ) {
             draft.organizers.push({
               id: authUserId,
               userId: authUserId,
@@ -400,7 +407,10 @@ export function KheloProvider({ children }: { children: ReactNode }) {
               updatedAt: now(),
             });
           }
-          if (role === "VOLUNTEER" && !draft.volunteers.some((item) => item.userId === authUserId)) {
+          if (
+            role === "VOLUNTEER" &&
+            !draft.volunteers.some((item) => item.userId === authUserId)
+          ) {
             const zone = draft.zones[0];
             if (zone) {
               draft.volunteers.push({
@@ -1165,8 +1175,8 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     currentUser,
     login,
     logout,
-      signup,
-      updateMyProfile,
+    signup,
+    updateMyProfile,
     createTournament,
     register,
     setRegistrationStatus,

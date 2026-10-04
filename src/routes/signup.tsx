@@ -128,7 +128,14 @@ function SignupPage() {
                 guardianConsent: role === "ATHLETE" && guardianAcknowledged,
               });
             } catch (error) {
-              toast.error(error instanceof Error ? error.message : "Unable to create your account.");
+              const message =
+                error instanceof Error ? error.message : "Unable to create your account.";
+              if (message.startsWith("Check your email to confirm")) {
+                toast.success("Check your email", { description: message });
+                navigate({ to: "/login" });
+                return;
+              }
+              toast.error(message);
               return;
             }
             toast.success("Account created", { description: "Welcome to KheloLocal." });

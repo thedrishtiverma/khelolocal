@@ -20,12 +20,14 @@ import { Route as DemoRouteImport } from './routes/demo'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as FeedbackRouteImport } from './routes/feedback'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as InstitutionsRouteImport } from './routes/institutions'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as OrganizersRouteImport } from './routes/organizers'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as ScoutRouteImport } from './routes/scout'
 import { Route as ShopRouteImport } from './routes/shop'
@@ -113,6 +115,11 @@ const FeedbackRoute = FeedbackRouteImport.update({
   path: '/feedback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
   id: '/how-it-works',
   path: '/how-it-works',
@@ -141,6 +148,11 @@ const OrganizersRoute = OrganizersRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SavedRoute = SavedRouteImport.update({
@@ -311,12 +323,14 @@ export interface FileRoutesByFullPath {
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
   '/feedback': typeof FeedbackRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/how-it-works': typeof HowItWorksRoute
   '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/scout': typeof ScoutRoute
   '/shop': typeof ShopRoute
@@ -361,12 +375,14 @@ export interface FileRoutesByTo {
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
   '/feedback': typeof FeedbackRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/how-it-works': typeof HowItWorksRoute
   '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/scout': typeof ScoutRoute
   '/shop': typeof ShopRoute
@@ -412,12 +428,14 @@ export interface FileRoutesById {
   '/discover': typeof DiscoverRoute
   '/explore': typeof ExploreRoute
   '/feedback': typeof FeedbackRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/how-it-works': typeof HowItWorksRoute
   '/institutions': typeof InstitutionsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/scout': typeof ScoutRoute
   '/shop': typeof ShopRoute
@@ -464,12 +482,14 @@ export interface FileRouteTypes {
     | '/discover'
     | '/explore'
     | '/feedback'
+    | '/forgot-password'
     | '/how-it-works'
     | '/institutions'
     | '/login'
     | '/map'
     | '/organizers'
     | '/privacy'
+    | '/reset-password'
     | '/saved'
     | '/scout'
     | '/shop'
@@ -514,12 +534,14 @@ export interface FileRouteTypes {
     | '/discover'
     | '/explore'
     | '/feedback'
+    | '/forgot-password'
     | '/how-it-works'
     | '/institutions'
     | '/login'
     | '/map'
     | '/organizers'
     | '/privacy'
+    | '/reset-password'
     | '/saved'
     | '/scout'
     | '/shop'
@@ -564,12 +586,14 @@ export interface FileRouteTypes {
     | '/discover'
     | '/explore'
     | '/feedback'
+    | '/forgot-password'
     | '/how-it-works'
     | '/institutions'
     | '/login'
     | '/map'
     | '/organizers'
     | '/privacy'
+    | '/reset-password'
     | '/saved'
     | '/scout'
     | '/shop'
@@ -615,12 +639,14 @@ export interface RootRouteChildren {
   DiscoverRoute: typeof DiscoverRoute
   ExploreRoute: typeof ExploreRoute
   FeedbackRoute: typeof FeedbackRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   HowItWorksRoute: typeof HowItWorksRoute
   InstitutionsRoute: typeof InstitutionsRoute
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   OrganizersRoute: typeof OrganizersRoute
   PrivacyRoute: typeof PrivacyRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SavedRoute: typeof SavedRoute
   ScoutRoute: typeof ScoutRoute
   ShopRoute: typeof ShopRoute
@@ -728,6 +754,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeedbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/how-it-works': {
       id: '/how-it-works'
       path: '/how-it-works'
@@ -768,6 +801,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/saved': {
@@ -1056,12 +1096,14 @@ const rootRouteChildren: RootRouteChildren = {
   DiscoverRoute: DiscoverRoute,
   ExploreRoute: ExploreRoute,
   FeedbackRoute: FeedbackRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   HowItWorksRoute: HowItWorksRoute,
   InstitutionsRoute: InstitutionsRoute,
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   OrganizersRoute: OrganizersRoute,
   PrivacyRoute: PrivacyRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SavedRoute: SavedRoute,
   ScoutRoute: ScoutRoute,
   ShopRoute: ShopRoute,
