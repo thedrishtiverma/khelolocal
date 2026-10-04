@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { EmptyState, Page } from "@/components/shared/Bits";
+import { CalendarDays, MapPin, Trophy } from "lucide-react";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/organizer/create")({
@@ -46,19 +47,14 @@ function CreateTournament() {
   }
 
   return (
-    <Page className="max-w-3xl py-10 sm:py-14">
-      <div className="mb-8">
-        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-          Organizer tools
-        </p>
-        <h1 className="mt-2 font-display text-3xl font-black">Create a tournament</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Publish the event details athletes need to decide whether to participate.
-        </p>
+    <Page className="max-w-5xl py-10 sm:py-14">
+      <div className="relative mb-10 overflow-hidden rounded-2xl bg-primary p-7 text-primary-foreground sm:p-10">
+        <div className="absolute -right-12 -top-20 size-72 rounded-full border-[2rem] border-lime/20" />
+        <div className="relative"><p className="text-xs font-bold uppercase tracking-[.2em] text-lime">Organizer / new fixture</p><h1 className="mt-4 font-display text-5xl font-black uppercase leading-[.78] sm:text-6xl">Put a game<br />on the calendar.</h1><p className="mt-6 max-w-xl text-sm leading-6 text-primary-foreground/75">Start with the essential matchday details. You will manage registrations, fixtures and results after publishing.</p><div className="mt-8 grid max-w-xl grid-cols-3 gap-3 text-xs font-bold uppercase tracking-[.1em]"><span className="flex items-center gap-2"><Trophy className="size-4 text-lime" /> Event</span><span className="flex items-center gap-2"><CalendarDays className="size-4 text-lime" /> Dates</span><span className="flex items-center gap-2"><MapPin className="size-4 text-lime" /> Ground</span></div></div>
       </div>
 
       <form
-        className="space-y-6 rounded-lg border border-border bg-card p-5 sm:p-7"
+        className="space-y-8 rounded-2xl border border-border bg-card p-5 sm:p-8"
         onSubmit={(event) => {
           event.preventDefault();
           const values = new FormData(event.currentTarget);
@@ -114,7 +110,7 @@ function CreateTournament() {
           }
         }}
       >
-        <div className="space-y-2">
+        <div><p className="mb-4 text-xs font-bold uppercase tracking-[.16em] text-muted-foreground">01 / The event</p><div className="space-y-2">
           <Label htmlFor="tournament-name">Tournament name</Label>
           <Input id="tournament-name" name="name" required maxLength={100} />
         </div>
@@ -148,9 +144,9 @@ function CreateTournament() {
               <option>Round robin</option>
             </select>
           </div>
-        </div>
+        </div></div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div><p className="mb-4 text-xs font-bold uppercase tracking-[.16em] text-muted-foreground">02 / When and where</p><div className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-2">
             <Label htmlFor="tournament-start">Start date</Label>
             <Input id="tournament-start" name="startDate" type="date" required />
@@ -174,9 +170,9 @@ function CreateTournament() {
             <Label htmlFor="tournament-address">Address</Label>
             <Input id="tournament-address" name="address" required maxLength={200} />
           </div>
-        </div>
+        </div></div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div><p className="mb-4 text-xs font-bold uppercase tracking-[.16em] text-muted-foreground">03 / Who can play</p><div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="tournament-age">Age category</Label>
             <select
@@ -243,10 +239,11 @@ function CreateTournament() {
         <div className="space-y-2">
           <Label htmlFor="tournament-description">Description</Label>
           <Textarea id="tournament-description" name="description" rows={4} maxLength={1000} />
-        </div>
+        </div></div>
 
-        <Button type="submit" className="w-full sm:w-auto">
-          Create tournament
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6"><p className="max-w-sm text-xs leading-5 text-muted-foreground">Publishing opens registrations immediately. You can edit event details and create fixtures afterwards.</p><Button type="submit">
+          Publish tournament
+        </Button></div>
         </Button>
       </form>
     </Page>

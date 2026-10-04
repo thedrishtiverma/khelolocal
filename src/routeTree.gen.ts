@@ -50,6 +50,7 @@ import { Route as CollegeRecordsRouteImport } from './routes/college.records'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer.index'
 import { Route as OrganizerCreateRouteImport } from './routes/organizer.create'
 import { Route as OrganizerResultsRouteImport } from './routes/organizer.results'
+import { Route as ProfileSetupRouteImport } from './routes/profile.setup'
 import { Route as SportsSportRouteImport } from './routes/sports.$sport'
 import { Route as TeamMemberRouteImport } from './routes/team.$member'
 import { Route as TeamsDashboardRouteImport } from './routes/teams.dashboard'
@@ -265,6 +266,11 @@ const OrganizerResultsRoute = OrganizerResultsRouteImport.update({
   path: '/organizer/results',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileSetupRoute = ProfileSetupRouteImport.update({
+  id: '/profile/setup',
+  path: '/profile/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SportsSportRoute = SportsSportRouteImport.update({
   id: '/$sport',
   path: '/$sport',
@@ -349,6 +355,7 @@ export interface FileRoutesByFullPath {
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
+  '/profile/setup': typeof ProfileSetupRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
   '/teams/dashboard': typeof TeamsDashboardRoute
@@ -401,6 +408,7 @@ export interface FileRoutesByTo {
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
+  '/profile/setup': typeof ProfileSetupRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
   '/teams/dashboard': typeof TeamsDashboardRoute
@@ -454,6 +462,7 @@ export interface FileRoutesById {
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
+  '/profile/setup': typeof ProfileSetupRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
   '/teams/dashboard': typeof TeamsDashboardRoute
@@ -508,6 +517,7 @@ export interface FileRouteTypes {
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
+    | '/profile/setup'
     | '/sports/$sport'
     | '/team/$member'
     | '/teams/dashboard'
@@ -560,6 +570,7 @@ export interface FileRouteTypes {
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
+    | '/profile/setup'
     | '/sports/$sport'
     | '/team/$member'
     | '/teams/dashboard'
@@ -612,6 +623,7 @@ export interface FileRouteTypes {
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
+    | '/profile/setup'
     | '/sports/$sport'
     | '/team/$member'
     | '/teams/dashboard'
@@ -663,6 +675,7 @@ export interface RootRouteChildren {
   CollegeRecordsRoute: typeof CollegeRecordsRoute
   OrganizerCreateRoute: typeof OrganizerCreateRoute
   OrganizerResultsRoute: typeof OrganizerResultsRoute
+  ProfileSetupRoute: typeof ProfileSetupRoute
   TournamentsIdRoute: typeof TournamentsIdRoute
   TournamentsCreateRoute: typeof TournamentsCreateRoute
   VolunteerDeskRoute: typeof VolunteerDeskRoute
@@ -964,6 +977,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrganizerResultsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile/setup': {
+      id: '/profile/setup'
+      path: '/profile/setup'
+      fullPath: '/profile/setup'
+      preLoaderRoute: typeof ProfileSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sports/$sport': {
       id: '/sports/$sport'
       path: '/$sport'
@@ -1120,6 +1140,7 @@ const rootRouteChildren: RootRouteChildren = {
   CollegeRecordsRoute: CollegeRecordsRoute,
   OrganizerCreateRoute: OrganizerCreateRoute,
   OrganizerResultsRoute: OrganizerResultsRoute,
+  ProfileSetupRoute: ProfileSetupRoute,
   TournamentsIdRoute: TournamentsIdRoute,
   TournamentsCreateRoute: TournamentsCreateRoute,
   VolunteerDeskRoute: VolunteerDeskRoute,

@@ -66,7 +66,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               Khelo<span className="text-lime">Local</span>
             </span>
             <span className="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground sm:inline-flex">
-              <span aria-hidden="true" className="text-border">|</span>
+              <span aria-hidden="true" className="text-border">
+                |
+              </span>
               Indore / 01
             </span>
           </Link>
@@ -91,11 +93,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <ThemeToggle />
             {currentUser ? (
               <>
-                <Button asChild size="sm">
-                  <Link to="/tournaments/create">
-                    <span className="text-lg leading-none">+</span> Create tournament
-                  </Link>
-                </Button>
                 <details className="relative">
                   <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm font-semibold hover:border-lime">
                     <UserRound className="size-4" /> Profile <ChevronDown className="size-4" />
@@ -125,14 +122,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               </>
             ) : (
               <>
-                <Button asChild size="sm">
-                  <Link to="/tournaments/create">
-                    <span className="text-lg leading-none">+</span> Create tournament
-                  </Link>
-                </Button>
-                <Button asChild variant="ghost" size="sm">
-                  <Link to="/login">Log in</Link>
-                </Button>
                 <Button asChild size="sm">
                   <Link to="/signup">Join KheloLocal</Link>
                 </Button>
@@ -190,11 +179,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="mt-3 flex gap-2">
               {currentUser ? (
                 <>
-                  <Button asChild size="sm" className="flex-1">
-                    <Link to="/tournaments/create" onClick={() => setOpen(false)}>
-                      + Create tournament
-                    </Link>
-                  </Button>
                   <Button
                     variant="outline"
                     size="sm"
@@ -208,18 +192,11 @@ export function AppShell({ children }: { children: ReactNode }) {
                   </Button>
                 </>
               ) : (
-                <>
-                  <Button asChild variant="outline" size="sm" className="flex-1">
-                    <Link to="/login" onClick={() => setOpen(false)}>
-                      Log in
-                    </Link>
-                  </Button>
-                  <Button asChild size="sm" className="flex-1">
-                    <Link to="/signup" onClick={() => setOpen(false)}>
-                      Join
-                    </Link>
-                  </Button>
-                </>
+                <Button asChild size="sm" className="flex-1">
+                  <Link to="/signup" onClick={() => setOpen(false)}>
+                    Join
+                  </Link>
+                </Button>
               )}
             </div>
           </div>

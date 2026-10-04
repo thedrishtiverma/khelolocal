@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { ageFromDob } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
 import type { Role } from "@/types";
 
 export const Route = createFileRoute("/signup")({
@@ -71,180 +72,207 @@ function SignupPage() {
   const guardianConsentRequired = role === "ATHLETE" && athleteAge !== null && athleteAge < 18;
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
-      <h1 className="font-display text-3xl font-black">How will you use KheloLocal?</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Pick a role — you can fill in the rest of your profile later.
-      </p>
+    <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:py-16">
+      <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-16">
+        <aside className="lg:sticky lg:top-28 lg:self-start">
+          <p className="text-xs font-bold uppercase tracking-[.2em] text-lime">KheloLocal / join</p>
+          <h1 className="mt-5 font-display text-5xl font-black uppercase leading-[.78] tracking-tight sm:text-6xl">
+            Take your
+            <br />
+            place in
+            <br />
+            <span className="text-lime">the game.</span>
+          </h1>
+          <p className="mt-7 max-w-sm text-sm leading-6 text-muted-foreground">
+            Create a local sports identity first. Your profile, records and opportunities build from
+            there.
+          </p>
+          <div className="mt-8 flex items-center gap-3 text-xs font-bold uppercase tracking-[.14em]">
+            <span className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground">
+              01
+            </span>{" "}
+            Choose your role
+          </div>
+        </aside>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[.18em] text-muted-foreground">
+            Who are you here to be?
+          </p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {ROLES.map((r) => (
-          <button
-            key={r.role}
-            onClick={() => {
-              setRole(r.role);
-              setGuardianAcknowledged(false);
-              setDateOfBirth("");
-            }}
-            className={cn(
-              "rounded-lg border p-5 text-left transition-colors",
-              role === r.role
-                ? "border-lime bg-lime/10"
-                : "border-border bg-card hover:border-foreground/30",
-            )}
-          >
-            <r.icon className="size-5" />
-            <p className="mt-3 font-display font-bold">{r.title}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{r.body}</p>
-          </button>
-        ))}
-      </div>
-
-      {role ? (
-        <form
-          className="mt-8 space-y-4 rounded-xl border border-border bg-card p-6"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            let user;
-            try {
-              if (!password || password.length < 8) {
-                toast.error("Choose a password with at least 8 characters.");
-                return;
-              }
-              if (password !== confirmPassword) {
-                toast.error("Passwords do not match.");
-                return;
-              }
-              if (role === "ATHLETE" && !dateOfBirth) {
-                toast.error("Enter your date of birth to continue.");
-                return;
-              }
-              user = await signup({
-                name,
-                email,
-                role,
-                password,
-                ...(role === "ATHLETE" ? { dateOfBirth } : {}),
-                guardianConsent: role === "ATHLETE" && guardianAcknowledged,
-              });
-            } catch (error) {
-              const message =
-                error instanceof Error ? error.message : "Unable to create your account.";
-              if (message.startsWith("Check your email to confirm")) {
-                toast.success("Check your email", { description: message });
-                navigate({ to: "/login" });
-                return;
-              }
-              toast.error(message);
-              return;
-            }
-            toast.success("Account created", { description: "Welcome to KheloLocal." });
-            navigate({
-              to:
-                user.role === "ORGANIZER"
-                  ? "/organizer"
-                  : user.role === "SCOUT"
-                    ? "/discover"
-                    : user.role === "COLLEGE"
-                      ? "/college"
-                      : user.role === "VOLUNTEER"
-                        ? "/volunteer"
-                        : "/athlete",
-            });
-          }}
-        >
-          <div className="space-y-2">
-            <Label htmlFor="name">
-              {role === "ORGANIZER"
-                ? "Organization name"
-                : role === "COLLEGE"
-                  ? "College name"
-                  : "Full name"}
-            </Label>
-            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Create a strong password"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="confirm-password">Confirm password</Label>
-            <Input
-              id="confirm-password"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Repeat your password"
-              required
-            />
-          </div>
-          {role === "ATHLETE" ? (
-            <div className="space-y-2">
-              <Label htmlFor="athlete-date-of-birth">Date of birth</Label>
-              <Input
-                id="athlete-date-of-birth"
-                type="date"
-                max={new Date().toISOString().slice(0, 10)}
-                value={dateOfBirth}
-                onChange={(event) => {
-                  setDateOfBirth(event.target.value);
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {ROLES.map((r) => (
+              <button
+                key={r.role}
+                onClick={() => {
+                  setRole(r.role);
                   setGuardianAcknowledged(false);
+                  setDateOfBirth("");
                 }}
-                required
-              />
-            </div>
-          ) : null}
-          {guardianConsentRequired ? (
-            <div className="rounded-md border border-border p-3">
-              <label htmlFor="guardian-consent" className="flex items-start gap-2 text-sm">
-                <input
-                  id="guardian-consent"
-                  type="checkbox"
-                  required
-                  checked={guardianAcknowledged}
-                  onChange={(event) => setGuardianAcknowledged(event.target.checked)}
-                  className="mt-1 size-4 accent-primary"
-                />
-                <span>
-                  I am the athlete’s parent or legal guardian, and I agree to this account and
-                  sporting profile.
+                className={cn(
+                  "group relative min-h-40 overflow-hidden rounded-xl border p-5 text-left transition-colors",
+                  role === r.role
+                    ? "border-lime bg-lime/10"
+                    : "border-border bg-card hover:border-foreground/30",
+                )}
+              >
+                <span className="absolute right-4 top-4 font-num text-3xl font-black text-foreground/10">
+                  0{ROLES.indexOf(r) + 1}
                 </span>
-              </label>
-              <p className="ml-6 mt-2 text-xs text-muted-foreground">
-                Until guardian verification and age-based visibility controls are available, this
-                profile will not appear in public athlete discovery.
-              </p>
-            </div>
-          ) : null}
-          <Button type="submit" className="w-full">
-            Create account
-          </Button>
-        </form>
-      ) : null}
+                <r.icon className="size-5 text-lime" />
+                <p className="mt-6 font-display text-xl font-bold uppercase">{r.title}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{r.body}</p>
+              </button>
+            ))}
+          </div>
 
-      <p className="mt-6 text-sm text-muted-foreground">
-        Already have an account?{" "}
-        <Link to="/login" className="font-semibold text-foreground hover:underline">
-          Log in
-        </Link>
-      </p>
+          {role ? (
+            <form
+              className="mt-6 space-y-5 rounded-2xl border border-border bg-card p-6 sm:p-8"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                let user;
+                try {
+                  if (!password || password.length < 8) {
+                    toast.error("Choose a password with at least 8 characters.");
+                    return;
+                  }
+                  if (password !== confirmPassword) {
+                    toast.error("Passwords do not match.");
+                    return;
+                  }
+                  if (role === "ATHLETE" && !dateOfBirth) {
+                    toast.error("Enter your date of birth to continue.");
+                    return;
+                  }
+                  user = await signup({
+                    name,
+                    email,
+                    role,
+                    password,
+                    ...(role === "ATHLETE" ? { dateOfBirth } : {}),
+                    guardianConsent: role === "ATHLETE" && guardianAcknowledged,
+                  });
+                } catch (error) {
+                  const message =
+                    error instanceof Error ? error.message : "Unable to create your account.";
+                  if (message.startsWith("Check your email to confirm")) {
+                    toast.success("Check your email", { description: message });
+                    navigate({ to: "/login" });
+                    return;
+                  }
+                  toast.error(message);
+                  return;
+                }
+                toast.success("Account created", { description: "Welcome to KheloLocal." });
+                navigate({
+                  to: isSupabaseConfigured()
+                    ? "/profile/setup"
+                    : user.role === "ORGANIZER"
+                      ? "/organizer"
+                      : user.role === "SCOUT"
+                        ? "/discover"
+                        : user.role === "COLLEGE"
+                          ? "/college"
+                          : user.role === "VOLUNTEER"
+                            ? "/volunteer"
+                            : "/athlete",
+                });
+              }}
+            >
+              <div className="space-y-2">
+                <Label htmlFor="name">
+                  {role === "ORGANIZER"
+                    ? "Organization name"
+                    : role === "COLLEGE"
+                      ? "College name"
+                      : "Full name"}
+                </Label>
+                <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Create a strong password"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="confirm-password">Confirm password</Label>
+                <Input
+                  id="confirm-password"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Repeat your password"
+                  required
+                />
+              </div>
+              {role === "ATHLETE" ? (
+                <div className="space-y-2">
+                  <Label htmlFor="athlete-date-of-birth">Date of birth</Label>
+                  <Input
+                    id="athlete-date-of-birth"
+                    type="date"
+                    max={new Date().toISOString().slice(0, 10)}
+                    value={dateOfBirth}
+                    onChange={(event) => {
+                      setDateOfBirth(event.target.value);
+                      setGuardianAcknowledged(false);
+                    }}
+                    required
+                  />
+                </div>
+              ) : null}
+              {guardianConsentRequired ? (
+                <div className="rounded-md border border-border p-3">
+                  <label htmlFor="guardian-consent" className="flex items-start gap-2 text-sm">
+                    <input
+                      id="guardian-consent"
+                      type="checkbox"
+                      required
+                      checked={guardianAcknowledged}
+                      onChange={(event) => setGuardianAcknowledged(event.target.checked)}
+                      className="mt-1 size-4 accent-primary"
+                    />
+                    <span>
+                      I am the athlete’s parent or legal guardian, and I agree to this account and
+                      sporting profile.
+                    </span>
+                  </label>
+                  <p className="ml-6 mt-2 text-xs text-muted-foreground">
+                    Until guardian verification and age-based visibility controls are available,
+                    this profile will not appear in public athlete discovery.
+                  </p>
+                </div>
+              ) : null}
+              <Button type="submit" className="w-full">
+                Create my KheloLocal account
+              </Button>
+            </form>
+          ) : null}
+
+          <p className="mt-6 text-sm text-muted-foreground">
+            Already have an account?{" "}
+            <Link to="/login" className="font-semibold text-foreground hover:underline">
+              Log in
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

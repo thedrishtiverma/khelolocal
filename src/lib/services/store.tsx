@@ -564,15 +564,37 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           profilePhotoUrl: input.profileImage,
           profileVisibility: input.visibility,
         });
-        await updateRoleSpecificProfile(currentUser.role, currentUser.id, {
-          city: input.cityId,
-          area: input.area,
-          primary_sport: input.primarySport,
-          position: input.position,
-          bio: input.bio,
-          profile_visibility: input.visibility,
-          profile_photo_url: input.profileImage,
-        });
+        const roleDetails =
+          currentUser.role === "ATHLETE"
+            ? {
+                city: input.cityId,
+                area: input.area,
+                primary_sport: input.primarySport,
+                position: input.position,
+                bio: input.bio,
+                profile_visibility: input.visibility,
+                profile_photo_url: input.profileImage,
+              }
+            : currentUser.role === "ORGANIZER"
+              ? {
+                  city: input.cityId,
+                  area: input.area,
+                  phone: input.phone,
+                  description: input.bio,
+                  organization_name: input.name.trim(),
+                  profile_photo_url: input.profileImage,
+                }
+              : currentUser.role === "COLLEGE"
+                ? {
+                    city: input.cityId,
+                    area: input.area,
+                    phone: input.phone,
+                    description: input.bio,
+                    institution_name: input.name.trim(),
+                    profile_photo_url: input.profileImage,
+                  }
+                : { city: input.cityId, area: input.area, profile_photo_url: input.profileImage };
+        await updateRoleSpecificProfile(currentUser.role, currentUser.id, roleDetails);
         setSupabaseUser(updated);
       } else {
         updated = {
@@ -587,14 +609,34 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           const user = draft.users.find((item) => item.id === currentUser.id);
           if (user) Object.assign(user, updated);
           const athlete = draft.athletes.find((item) => item.userId === currentUser.id);
+          const city = draft.cities.find((item) => item.id === updated.cityId);
           if (athlete) {
             athlete.name = updated.name;
             athlete.profileImage = updated.profileImage;
             athlete.cityId = updated.cityId;
+            athlete.cityName = city?.name ?? athlete.cityName;
             athlete.primarySport = input.primarySport ?? athlete.primarySport;
             athlete.position = input.position ?? athlete.position;
             athlete.bio = input.bio ?? athlete.bio;
             athlete.updatedAt = updatedAt;
+          }
+          const organizer = draft.organizers.find((item) => item.userId === currentUser.id);
+          if (organizer) {
+            organizer.organizationName = updated.name;
+            organizer.cityId = updated.cityId;
+            organizer.cityName = city?.name ?? organizer.cityName;
+            organizer.phone = input.phone ?? organizer.phone;
+            organizer.description = input.bio ?? organizer.description;
+            organizer.updatedAt = updatedAt;
+          }
+          const college = draft.colleges.find((item) => item.userId === currentUser.id);
+          if (college) {
+            college.name = updated.name;
+            college.shortName = updated.name;
+            college.cityId = updated.cityId;
+            college.cityName = city?.name ?? college.cityName;
+            college.description = input.bio ?? college.description;
+            college.updatedAt = updatedAt;
           }
         });
       }

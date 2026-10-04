@@ -203,8 +203,40 @@ export async function updateRoleSpecificProfile(
 
   const allowed =
     role === "ATHLETE"
-      ? ["city", "area", "institution", "primary_sport", "secondary_sports", "position", "bio", "profile_visibility", "profile_photo_url"]
-      : ["city", "area", "phone", "email", "description", "profile_photo_url"];
+      ? [
+          "city",
+          "area",
+          "institution",
+          "primary_sport",
+          "secondary_sports",
+          "position",
+          "bio",
+          "profile_visibility",
+          "profile_photo_url",
+        ]
+      : role === "ORGANIZER"
+        ? [
+            "city",
+            "area",
+            "phone",
+            "email",
+            "description",
+            "organization_name",
+            "organizer_type",
+            "profile_photo_url",
+          ]
+        : role === "COLLEGE"
+          ? [
+              "city",
+              "area",
+              "phone",
+              "email",
+              "description",
+              "institution_name",
+              "institution_type",
+              "profile_photo_url",
+            ]
+          : ["city", "area", "role", "profile_photo_url"];
   const payload = Object.fromEntries(
     Object.entries(details).filter(([key]) => allowed.includes(key)),
   );

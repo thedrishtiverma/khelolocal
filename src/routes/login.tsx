@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ArrowUpRight, LockKeyhole } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -59,6 +60,14 @@ function LoginPage() {
         return;
       }
       toast.success(`Welcome back, ${user.name.split(" ")[0]}`);
+      if (
+        !demoMode &&
+        !user.cityId &&
+        !localStorage.getItem(`khelolocal.profile-ready.${user.id}`)
+      ) {
+        navigate({ to: "/profile/setup" });
+        return;
+      }
       const target =
         user.role === "ORGANIZER"
           ? "/organizer"
@@ -79,14 +88,39 @@ function LoginPage() {
   };
 
   return (
-    <div className="mx-auto grid w-full max-w-5xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2">
-      <div>
-        <h1 className="font-display text-3xl font-black">Log in</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Pick up where you left off in your city's sports network.
+    <div className="mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-6xl items-center gap-0 px-4 py-8 sm:px-6 lg:grid-cols-[1.08fr_.92fr] lg:py-12">
+      <div className="relative overflow-hidden rounded-t-2xl bg-primary p-7 text-primary-foreground sm:p-12 lg:min-h-[37rem] lg:rounded-l-2xl lg:rounded-tr-none">
+        <div className="absolute -right-20 -top-24 size-96 rounded-full border-[2rem] border-lime/20" />
+        <div className="absolute bottom-0 right-0 h-1/2 w-3/4 bg-[linear-gradient(145deg,transparent_48%,rgba(255,255,255,.12)_49%,transparent_50%)]" />
+        <div className="relative flex h-full flex-col justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-lime">
+              KheloLocal / member access
+            </p>
+            <h1 className="mt-7 max-w-lg font-display text-5xl font-black uppercase leading-[.78] tracking-tight sm:text-7xl">
+              Back where
+              <br />
+              <span className="text-lime">the game is.</span>
+            </h1>
+            <p className="mt-7 max-w-sm text-sm leading-6 text-primary-foreground/75">
+              Your tournaments, local connections and sporting record are waiting on the other side.
+            </p>
+          </div>
+          <div className="mt-16 flex items-center gap-3 text-xs font-bold uppercase tracking-[.14em]">
+            <span className="grid size-9 place-items-center rounded-full border border-primary-foreground/25">
+              <LockKeyhole className="size-4" />
+            </span>{" "}
+            Secure local session
+          </div>
+        </div>
+      </div>
+      <div className="rounded-b-2xl border border-border bg-card p-7 sm:p-12 lg:rounded-r-2xl lg:rounded-bl-none">
+        <p className="text-xs font-bold uppercase tracking-[.18em] text-muted-foreground">
+          Member sign in
         </p>
+        <h2 className="mt-3 font-display text-3xl font-black uppercase">Welcome back.</h2>
         <form
-          className="mt-8 space-y-4"
+          className="mt-8 space-y-5"
           onSubmit={(e) => {
             e.preventDefault();
             setError("");
@@ -117,12 +151,18 @@ function LoginPage() {
           </div>
           {error ? <p className="text-sm font-medium text-destructive">{error}</p> : null}
           <Button type="submit" className="w-full" disabled={busy}>
-            {busy ? "Logging in…" : "Log in"}
+            {busy ? (
+              "Opening your workspace…"
+            ) : (
+              <>
+                Enter KheloLocal <ArrowUpRight className="size-4" />
+              </>
+            )}
           </Button>
           <div className="flex items-center justify-between text-sm">
             {demoMode ? (
               <span className="text-xs text-muted-foreground">
-                Demo accounts are available beside this form.
+                Demo accounts are available below.
               </span>
             ) : (
               <Link
@@ -140,7 +180,7 @@ function LoginPage() {
       </div>
 
       {demoMode ? (
-        <div className="rounded-xl border border-border bg-card p-6">
+        <div className="rounded-b-2xl border border-t-0 border-border bg-card p-6 lg:col-start-2 lg:rounded-b-2xl">
           <h2 className="font-display text-lg font-bold">Demo access</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             One tap sign-in for every KheloLocal role.
@@ -161,23 +201,7 @@ function LoginPage() {
             ))}
           </div>
         </div>
-      ) : (
-        <div className="rounded-xl border border-border bg-card p-6">
-          <p className="font-display text-2xl font-black uppercase leading-none">
-            Your local game,
-            <br />
-            your account.
-          </p>
-          <p className="mt-4 text-sm leading-6 text-muted-foreground">
-            Sign in with the email and password you used to join KheloLocal. Your session stays
-            active on this device until you log out.
-          </p>
-          <div className="mt-8 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
-            New here? Choose a role first, then create an account built around how you play,
-            organize or support local sport.
-          </div>
-        </div>
-      )}
+      ) : null}
     </div>
   );
 }
