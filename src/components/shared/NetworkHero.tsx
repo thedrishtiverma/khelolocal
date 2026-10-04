@@ -11,273 +11,133 @@ type HeroTone =
   | "volunteer"
   | "shop"
   | "community";
-type ArtifactKind =
-  | "pulse"
-  | "routes"
-  | "radar"
-  | "lineup"
-  | "fixture"
-  | "control"
-  | "passport"
-  | "field"
-  | "vault"
-  | "shortlist"
-  | "report"
-  | "map"
-  | "expansion"
+type Scene =
+  | "city"
+  | "trail"
+  | "tunnel"
+  | "formation"
+  | "countdown"
+  | "whistle"
+  | "surface"
+  | "legacy"
+  | "spotlight"
+  | "chalk"
+  | "heatmap"
+  | "india"
   | "poster"
-  | "receipt"
-  | "replay"
-  | "journal"
-  | "noticeboard"
+  | "freeze"
+  | "journey"
+  | "stories"
+  | "clubhouse"
   | "squad"
-  | "openline"
-  | "suggestions"
+  | "signal"
+  | "passback"
   | "kit";
 
-const artifactByEyebrow: Record<string, ArtifactKind> = {
-  "Started in Indore, Madhya Pradesh.": "pulse",
-  "Explore KheloLocal": "routes",
-  "Athlete discovery": "radar",
-  "Team discovery": "lineup",
-  "The local tournament calendar": "fixture",
-  "For organizers": "control",
-  "Sport × city": "passport",
-  "For institutions": "vault",
-  "For coaches and teams": "shortlist",
-  "KheloLocal volunteers": "report",
-  "Indore / live sports map": "map",
-  "KheloLocal cities": "expansion",
+const sceneByEyebrow: Record<string, Scene> = {
+  "Started in Indore, Madhya Pradesh.": "city",
+  "Explore KheloLocal": "trail",
+  "Athlete discovery": "tunnel",
+  "Team discovery": "formation",
+  "The local tournament calendar": "countdown",
+  "For organizers": "whistle",
+  "Sport × city": "surface",
+  "For institutions": "legacy",
+  "For coaches and teams": "spotlight",
+  "KheloLocal volunteers": "chalk",
+  "Indore / live sports map": "heatmap",
+  "KheloLocal cities": "india",
   "KheloLocal / Indore": "poster",
-  "Verified record": "receipt",
-  "How KheloLocal works": "replay",
-  "Demo tools": "replay",
-  "Community / stories": "journal",
-  "The people behind KheloLocal": "noticeboard",
+  "Verified record": "freeze",
+  "How KheloLocal works": "journey",
+  "Demo tools": "journey",
+  "Community / stories": "stories",
+  "The people behind KheloLocal": "clubhouse",
   "Careers at KheloLocal": "squad",
-  "Get in touch": "openline",
-  "Help shape KheloLocal": "suggestions",
+  "Get in touch": "signal",
+  "Help shape KheloLocal": "passback",
   "KheloLocal merch": "kit",
-  "Our vision": "poster",
+  "Our vision": "india",
 };
 
-function Diagram({
-  kind,
-  highlights,
-}: {
-  kind: ArtifactKind;
-  highlights: [string, string, string];
-}) {
-  const map = kind === "map" || kind === "expansion";
-  return (
-    <div className={cn("artifact-diagram", map && "artifact-map")}>
-      {Array.from({ length: kind === "lineup" ? 11 : 8 }).map((_, i) => (
-        <span key={i} className={cn("artifact-dot", i === 3 && "artifact-dot-active")} />
-      ))}
-      <div className="artifact-diagram-caption">
-        {map ? "GAME SIGNALS NEAR YOU" : highlights.join(" · ")}
-      </div>
-    </div>
-  );
-}
+const sceneWords: Record<Scene, string> = {
+  city: "YOUR CITY PLAYS",
+  trail: "FOLLOW THE NOISE",
+  tunnel: "GAME ON",
+  formation: "ONE SIDE",
+  countdown: "05",
+  whistle: "START THE GAME",
+  surface: "OWN THE SURFACE",
+  legacy: "THE RECORD STAYS",
+  spotlight: "SPOT POTENTIAL",
+  chalk: "MARK THE GROUND",
+  heatmap: "GAMES NEAR YOU",
+  india: "CITY BY CITY",
+  poster: "INDORE PLAYS",
+  freeze: "CONFIRMED",
+  journey: "PLAY → PROVE → GROW",
+  stories: "THE LOCAL GAME",
+  clubhouse: "SHOW UP",
+  squad: "JOIN THE SQUAD",
+  signal: "SEND A SIGNAL",
+  passback: "PASS IT BACK",
+  kit: "WEAR THE BADGE",
+};
 
-function Paper({ kind, highlights }: { kind: ArtifactKind; highlights: [string, string, string] }) {
-  const labels =
-    kind === "receipt" ? ["RESULT LOGGED", "SOURCE CHECKED", "RECORD PUBLISHED"] : highlights;
+function SportsAtmosphere({ scene }: { scene: Scene }) {
+  const dots = scene === "formation" ? 11 : 8;
   return (
-    <div className="artifact-paper">
-      <b>
-        {kind === "fixture"
-          ? "SAT / 06"
-          : kind === "vault"
-            ? "ARCHIVE 2026"
-            : kind === "replay"
-              ? "01 → 04"
-              : "LOCAL SPORT"}
-      </b>
-      {labels.map((item, i) => (
-        <div className="artifact-paper-row" key={item}>
-          <span>0{i + 1}</span>
-          <strong>{item}</strong>
+    <div className={cn("hero-atmosphere", `hero-scene-${scene}`)} aria-hidden="true">
+      <div className="hero-glow hero-glow-one" />
+      <div className="hero-glow hero-glow-two" />
+      <div className="hero-floodlights">
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="hero-motion" />
+      <div className="hero-lines" />
+      <div className="hero-dots">
+        {Array.from({ length: dots }).map((_, index) => (
+          <i key={index} />
+        ))}
+      </div>
+      <div className="hero-scene-word">{sceneWords[scene]}</div>
+      {scene === "city" || scene === "poster" ? (
+        <div className="hero-skyline">
+          <i />
+          <i />
+          <i />
+          <i />
+          <i />
           <i />
         </div>
-      ))}
-      <em>{kind === "receipt" ? "verified at the source" : "made for the local game"}</em>
-    </div>
-  );
-}
-
-function Routes({ highlights }: { highlights: [string, string, string] }) {
-  return (
-    <div className="artifact-routes">
-      {[...highlights, "Explore"].map((item, i) => (
-        <div key={item}>
-          <span>0{i + 1}</span>
-          {item}
-          <b>↗</b>
-        </div>
-      ))}
-    </div>
-  );
-}
-function Shortlist({ highlights }: { highlights: [string, string, string] }) {
-  return (
-    <div className="artifact-notes">
-      {highlights.map((item, i) => (
-        <div key={item} style={{ transform: `rotate(${i - 1}deg)` }}>
-          <small>SCOUT NOTE / 0{i + 1}</small>
-          <b>{item}</b>
-          <span>Local signal confirmed</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-function Report({ highlights }: { highlights: [string, string, string] }) {
-  return (
-    <div className="artifact-report">
-      <b>FIELD NOTE #024</b>
-      <p>“The game is already happening. Help make it visible.”</p>
-      {highlights.map((item) => (
-        <span key={item}>✓ {item}</span>
-      ))}
-    </div>
-  );
-}
-function Editorial({
-  kind,
-  highlights,
-}: {
-  kind: ArtifactKind;
-  highlights: [string, string, string];
-}) {
-  return (
-    <div className="artifact-editorial">
-      <small>
-        {kind === "journal" ? "ISSUE 01 / THE PEOPLE BEHIND THE SCORE" : "KHELOLOCAL / INDORE"}
-      </small>
-      <b>{kind === "journal" ? "THE LOCAL\nGAME" : "THIS IS\nHOME"}</b>
-      <span>{highlights.join(" / ")}</span>
-    </div>
-  );
-}
-function Noticeboard({ highlights }: { highlights: [string, string, string] }) {
-  return (
-    <div className="artifact-noticeboard">
-      {highlights.map((item) => (
-        <div key={item}>
-          <i>●</i>
-          {item}
-          <small>pinned by the team</small>
-        </div>
-      ))}
-    </div>
-  );
-}
-function Squad({ highlights }: { highlights: [string, string, string] }) {
-  return (
-    <div className="artifact-squad">
-      {highlights.map((item, i) => (
-        <div key={item}>
-          <span>{String(i + 1).padStart(2, "0")}</span>
-          <b>{item}</b>
-          <i>OPEN</i>
-        </div>
-      ))}
-    </div>
-  );
-}
-function OpenLine({ highlights }: { highlights: [string, string, string] }) {
-  return (
-    <div className="artifact-openline">
-      <b>
-        YOUR MESSAGE
-        <br />
-        COULD START
-        <br />A MATCH.
-      </b>
-      <span>{highlights.join(" · ")}</span>
-      <i>→ SEND A SIGNAL</i>
-    </div>
-  );
-}
-function Suggestions({ highlights }: { highlights: [string, string, string] }) {
-  return (
-    <div className="artifact-suggestions">
-      {highlights.map((item, i) => (
-        <span key={item} style={{ transform: `rotate(${i * 3 - 3}deg)` }}>
-          {item}
-        </span>
-      ))}
-    </div>
-  );
-}
-function Kit({ highlights }: { highlights: [string, string, string] }) {
-  return (
-    <div className="artifact-kit">
-      <div>KL</div>
-      <b>DROP 01</b>
-      <span>{highlights.join(" / ")}</span>
-    </div>
-  );
-}
-
-function Artifact({
-  kind,
-  highlights,
-}: {
-  kind: ArtifactKind;
-  highlights: [string, string, string];
-}) {
-  const title: Record<ArtifactKind, string> = {
-    pulse: "INDORE PLAYS",
-    routes: "CHOOSE A ROUTE",
-    radar: "PLAYER RADAR",
-    lineup: "STARTING XI",
-    fixture: "FIXTURE BOARD",
-    control: "MATCH CONTROL",
-    passport: "SPORT PASSPORT",
-    field: "LOCAL FIELD",
-    vault: "RECORD VAULT",
-    shortlist: "TALENT SHORTLIST",
-    report: "GROUND REPORT",
-    map: "NEIGHBOURHOOD MAP",
-    expansion: "CITY BY CITY",
-    poster: "HOME GROUND",
-    receipt: "TRUST RECEIPT",
-    replay: "MATCH REPLAY",
-    journal: "SIDELINE JOURNAL",
-    noticeboard: "CLUBHOUSE",
-    squad: "OPEN SQUAD",
-    openline: "OPEN LINE",
-    suggestions: "IDEA WALL",
-    kit: "MATCHDAY DROP",
-  };
-  const isDiagram = ["pulse", "radar", "lineup", "field", "map", "expansion"].includes(kind);
-  const isPaper = ["fixture", "control", "vault", "receipt", "replay", "passport"].includes(kind);
-  return (
-    <aside
-      className={cn("network-hero-artifact", `network-hero-artifact-${kind}`)}
-      aria-label={title[kind]}
-    >
-      <div className="artifact-topline">
-        <span>{title[kind]}</span>
-        <i>{kind === "receipt" ? "PROOF / 01" : "LOCAL / LIVE"}</i>
-      </div>
-      {isDiagram ? <Diagram kind={kind} highlights={highlights} /> : null}
-      {isPaper ? <Paper kind={kind} highlights={highlights} /> : null}
-      {kind === "routes" ? <Routes highlights={highlights} /> : null}
-      {kind === "shortlist" ? <Shortlist highlights={highlights} /> : null}
-      {kind === "report" ? <Report highlights={highlights} /> : null}
-      {["poster", "journal"].includes(kind) ? (
-        <Editorial kind={kind} highlights={highlights} />
       ) : null}
-      {kind === "noticeboard" ? <Noticeboard highlights={highlights} /> : null}
-      {kind === "squad" ? <Squad highlights={highlights} /> : null}
-      {kind === "openline" ? <OpenLine highlights={highlights} /> : null}
-      {kind === "suggestions" ? <Suggestions highlights={highlights} /> : null}
-      {kind === "kit" ? <Kit highlights={highlights} /> : null}
-    </aside>
+      {scene === "countdown" ? <div className="hero-countdown">05</div> : null}
+      {scene === "freeze" ? <div className="hero-stamp">CONFIRMED</div> : null}
+      {scene === "stories" ? (
+        <div className="hero-portraits">
+          <i />
+          <i />
+          <i />
+        </div>
+      ) : null}
+      {scene === "clubhouse" ? (
+        <div className="hero-tape">
+          <i>TEAM</i>
+          <i>LOCAL</i>
+          <i>SPORT</i>
+        </div>
+      ) : null}
+      {scene === "squad" ? (
+        <div className="hero-positions">
+          <i>01</i>
+          <i>02</i>
+          <i>03</i>
+          <i>04</i>
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -286,7 +146,7 @@ export function NetworkHero({
   title,
   description,
   actions,
-  highlights,
+  highlights: _highlights,
   tone,
 }: {
   eyebrow: string;
@@ -296,14 +156,15 @@ export function NetworkHero({
   highlights: [string, string, string];
   tone: HeroTone;
 }) {
-  const artifact = artifactByEyebrow[eyebrow] ?? (eyebrow.endsWith("× Indore") ? "field" : "pulse");
+  const scene = sceneByEyebrow[eyebrow] ?? (eyebrow.endsWith("× Indore") ? "surface" : "city");
   return (
     <section className={cn("network-hero", `network-hero-${tone}`)}>
+      <SportsAtmosphere scene={scene} />
       <div className="network-hero-grid" aria-hidden="true" />
       <div className="network-hero-orbit network-hero-orbit-one" aria-hidden="true" />
       <div className="network-hero-orbit network-hero-orbit-two" aria-hidden="true" />
-      <div className="relative mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16 lg:py-24">
-        <div className="relative z-10">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
+        <div className="max-w-4xl">
           <p className="network-hero-eyebrow">{eyebrow}</p>
           <h1 className="mt-6 max-w-4xl font-display text-5xl font-black uppercase leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl">
             {title}
@@ -312,9 +173,6 @@ export function NetworkHero({
             {description}
           </p>
           {actions ? <div className="mt-8 flex flex-wrap gap-3">{actions}</div> : null}
-        </div>
-        <div className="relative z-10 hidden lg:block">
-          <Artifact kind={artifact} highlights={highlights} />
         </div>
       </div>
     </section>
