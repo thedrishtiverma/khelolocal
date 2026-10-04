@@ -65,6 +65,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="font-display text-xl font-black tracking-tight">
               Khelo<span className="text-lime">Local</span>
             </span>
+            <span className="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground sm:inline-flex">
+              <span aria-hidden="true" className="text-border">|</span>
+              Indore / 01
+            </span>
           </Link>
 
           <nav className="hidden flex-1 items-center gap-1 md:flex">

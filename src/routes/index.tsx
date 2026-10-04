@@ -59,10 +59,10 @@ function Landing() {
     <div>
       <NetworkHero
         tone="explore"
-        eyebrow="KheloLocal"
+        eyebrow="Started in Indore, Madhya Pradesh."
         title={
           <>
-            The local sports network for <span className="text-lime">everyday athletes.</span>
+            Your city's <span className="text-lime">sports network</span>
           </>
         }
         description="KheloLocal brings together players, tournaments, institutions and organizers in one trusted platform for discovering and building local sport."

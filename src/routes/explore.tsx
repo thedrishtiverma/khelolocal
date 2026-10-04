@@ -60,7 +60,7 @@ function ExplorePage() {
         eyebrow="Explore KheloLocal"
         title={
           <>
-            A local sports network with <span className="text-lime">national ambition.</span>
+            Your city is full of talent. <span className="text-lime">Find them all here.</span>
           </>
         }
         description="Start with a complete view of your local scene, then move into the map, the tournament calendar, athlete records and the people organizing it all."
