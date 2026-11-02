@@ -117,7 +117,7 @@ function StoriesPage() {
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Have a story?
             </p>
-            <p className="mt-2 text-lg font-semibold">
+            <p className="mt-2 text-[0.84375rem] font-semibold">
               Tell us about the game, person or place that makes your local sporting community move.
             </p>
           </div>

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { VerifiedBadge } from "@/components/shared/Badges";
-import { Initials, KeywordHighlight } from "@/components/shared/Bits";
+import { Initials } from "@/components/shared/Bits";
 import { RoleIcon } from "@/components/shared/KheloIcon";
 import { BannerArtwork } from "@/components/shared/BannerArtwork";
 import { sportLabel } from "@/lib/format";
@@ -11,7 +11,7 @@ import type { Athlete } from "@/types";
 export function AthleteCard({ athlete }: { athlete: Athlete }) {
   const motif = sportMotif(athlete.primarySport);
   return (
-    <article className={`data-card overflow-hidden rounded-xl p-0 theme-fade ${motif}`}>
+    <article className={`data-card group overflow-hidden rounded-xl p-0 theme-fade ${motif}`}>
       <div
         className={`athlete-card-banner athlete-card-banner-${athlete.primarySport} khelo-banner-surface relative min-h-28`}
       >
@@ -33,8 +33,8 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
             </span>
           </div>
           <div className="min-w-0 flex-1 pt-1">
-            <h3 className="font-display text-xl font-bold leading-tight text-foreground">
-              <KeywordHighlight text={athlete.name} />
+            <h3 className="font-display text-xl font-bold leading-tight text-foreground transition-colors group-hover:text-lime">
+              {athlete.name}
             </h3>
             <p className="text-sm text-muted-foreground">
               {sportLabel(athlete.primarySport)} · {athlete.collegeName ?? "Independent"} ·{" "}

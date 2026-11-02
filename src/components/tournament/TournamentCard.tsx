@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { CalendarDays, MapPin, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/shared/Badges";
-import { ActivityIcon } from "@/components/shared/KheloIcon";
 import { BannerArtwork } from "@/components/shared/BannerArtwork";
 import { formatDateRange, formatINR } from "@/lib/format";
 import { sportMotif } from "@/lib/sport-visuals";
@@ -32,14 +31,7 @@ export function TournamentCard({
         <BannerArtwork sportId={tournament.sportId} role="organizer" />
         <div className="relative z-10 flex items-center gap-3 text-surface-foreground">
           <SportIcon sportId={tournament.sportId} className="size-8" aria-hidden="true" />
-          <span className="font-ui text-xs font-bold uppercase tracking-[0.18em]">
-            {tournament.sportName}
-          </span>
         </div>
-        <span className="relative z-10 inline-flex items-center gap-1.5 font-ui text-xs font-bold uppercase tracking-[0.18em] text-surface-foreground/70">
-          <ActivityIcon activity="tournament" className="size-4 text-lime" />
-          Local event
-        </span>
       </div>
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Initials, KeywordHighlight } from "@/components/shared/Bits";
+import { Initials } from "@/components/shared/Bits";
 import { RoleIcon } from "@/components/shared/KheloIcon";
 import { BannerArtwork } from "@/components/shared/BannerArtwork";
 import type { KheloRole } from "@/components/shared/khelo-icon-registry";
@@ -35,7 +35,7 @@ export function ProfileBanner({
   return (
     <section
       className={cn(
-        "profile-banner data-card overflow-hidden rounded-2xl p-0",
+        "profile-banner group data-card overflow-hidden rounded-2xl p-0",
         `profile-banner-${accent}`,
         sport ? `profile-banner-sport-${sport}` : undefined,
       )}
@@ -72,8 +72,8 @@ export function ProfileBanner({
           </div>
           <div className="min-w-0 flex-1 pb-0.5">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="font-display text-3xl font-black leading-none sm:text-4xl">
-                <KeywordHighlight text={title ?? name} />
+              <h1 className="font-display text-3xl font-black leading-none transition-colors group-hover:text-lime sm:text-4xl">
+                {title ?? name}
               </h1>
               {status}
             </div>

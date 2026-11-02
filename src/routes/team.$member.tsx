@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { KeywordHighlight, Page } from "@/components/shared/Bits";
+import { Page } from "@/components/shared/Bits";
 import { FOUNDERS, founderBySlug } from "@/lib/founders";
 
 export const Route = createFileRoute("/team/$member")({
@@ -52,7 +52,7 @@ function FounderProfilePage() {
                 )}
               </div>
               <p className="font-display text-4xl font-black uppercase leading-none text-surface-foreground sm:text-6xl">
-                <KeywordHighlight text={founder.name} />
+                {founder.name}
               </p>
             </div>
           </div>

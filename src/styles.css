@@ -1961,14 +1961,20 @@
   border: 1px solid color-mix(in oklab, var(--surface-foreground) 28%, transparent);
   border-radius: 9999px;
   background: color-mix(in oklab, var(--surface) 82%, transparent);
-  padding: 0.38rem 0.62rem;
+  padding: 0.285rem 0.465rem;
   color: var(--surface-foreground);
   font-family: var(--font-ui);
-  font-size: 0.75rem;
+  font-size: 0.5625rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   line-height: 1.1;
   text-transform: uppercase;
+}
+
+.organizer-banner-label {
+  padding: 0.24rem 0.46875rem;
+  font-size: 0.5625rem;
+  letter-spacing: 0.135em;
 }
 
 .profile-banner-avatar {
@@ -2035,12 +2041,12 @@
   border: 1px solid color-mix(in oklab, var(--surface-foreground) 25%, transparent);
   border-radius: 9999px;
   background: color-mix(in oklab, var(--surface) 80%, transparent);
-  padding: 0.32rem 0.55rem;
+  padding: 0.24rem 0.4125rem;
   color: var(--surface-foreground);
   font-family: var(--font-ui);
-  font-size: 0.75rem;
+  font-size: 0.5625rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.105em;
   line-height: 1;
   text-transform: uppercase;
 }

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Trophy, Users } from "lucide-react";
-import { KeywordHighlight, Page, SectionHeading } from "@/components/shared/Bits";
+import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 import { SportIcon } from "@/components/shared/SportIcon";
@@ -45,15 +45,12 @@ function TeamsPage() {
                 <BannerArtwork sportId={team.sportId} role="team" />
                 <div className="relative z-10 flex items-center gap-3 text-surface-foreground">
                   <SportIcon sportId={team.sportId} className="size-8" aria-hidden="true" />
-                  <span className="font-ui text-xs font-bold uppercase tracking-[0.18em]">
-                    {team.sportName}
-                  </span>
                 </div>
               </div>
               <div className="p-6">
                 <h2 className="team-card-name flex items-center gap-2 font-display text-2xl font-black uppercase transition-colors">
                   <RoleIcon role="team" className="size-6 shrink-0 text-lime" />
-                  <KeywordHighlight text={team.name} />
+                  {team.name}
                 </h2>
                 <p className="mt-2 text-sm text-muted-foreground">
                   {team.sportName} · {team.cityName}

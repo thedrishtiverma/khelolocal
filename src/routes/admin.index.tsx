@@ -12,7 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { EmptyState, KeywordHighlight, Page, SectionHeading, Stat } from "@/components/shared/Bits";
+import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { StatusBadge, VerificationChip } from "@/components/shared/Badges";
 import { RecordCard } from "@/components/college/RecordCard";
 import { useKhelo } from "@/lib/services/store";
@@ -366,11 +366,11 @@ function AdminConsole() {
             {organizations.map((organization) => (
               <article
                 key={organization.id}
-                className="rounded-xl border border-border bg-card p-5"
+                className="group rounded-xl border border-border bg-card p-5"
               >
                 <Building2 className="size-5 text-blue-600" />
-                <h2 className="mt-5 font-display text-xl font-bold uppercase">
-                  <KeywordHighlight text={organization.organizationName} />
+                <h2 className="mt-5 font-display text-xl font-bold uppercase transition-colors group-hover:text-lime">
+                  {organization.organizationName}
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {organization.organizationType} · {organization.cityName}
@@ -410,7 +410,7 @@ function AdminConsole() {
                 {athletes.map((athlete) => (
                   <tr key={athlete.id} className="border-t border-border">
                     <td className="px-4 py-3 font-semibold">
-                      <KeywordHighlight text={athlete.name} />
+                      {athlete.name}
                       <p className="text-xs font-normal text-muted-foreground">
                         {athlete.collegeName ?? "Independent athlete"}
                       </p>

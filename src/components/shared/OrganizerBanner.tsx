@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { MapPin } from "lucide-react";
-import { Initials, KeywordHighlight } from "@/components/shared/Bits";
+import { Initials } from "@/components/shared/Bits";
 import { ActivityIcon, RoleIcon, StatusIcon } from "@/components/shared/KheloIcon";
 import { BannerArtwork } from "@/components/shared/BannerArtwork";
 import type { Organizer } from "@/types";
@@ -18,12 +18,12 @@ export function OrganizerBanner({
 }) {
   return (
     <section
-      className={`organizer-banner profile-banner-sport-${sport ?? "organizer"} overflow-hidden rounded-xl border border-border bg-card`}
+      className={`organizer-banner group profile-banner-sport-${sport ?? "organizer"} overflow-hidden rounded-xl border border-border bg-card`}
     >
       <div className="organizer-banner-art khelo-banner-surface relative min-h-32 overflow-hidden px-5 py-6 sm:px-6">
         <BannerArtwork {...(sport !== undefined ? { sportId: sport } : {})} role="organizer" />
-        <p className="relative z-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-surface/70 px-2.5 py-1 font-ui text-xs font-bold uppercase tracking-[0.18em] text-surface-foreground">
-          <ActivityIcon activity="tournament" className="size-4 text-lime" />
+        <p className="organizer-banner-label relative z-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-surface/70 font-ui font-bold uppercase text-surface-foreground">
+          <ActivityIcon activity="tournament" className="size-3 text-lime" />
           {eventName ?? (sport ? `${sport} organizer` : "Tournament organizer")}
         </p>
       </div>
@@ -48,8 +48,8 @@ export function OrganizerBanner({
           </div>
           <div className="min-w-0 flex-1 pb-0.5">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="font-display text-2xl font-black leading-none">
-                <KeywordHighlight text={organizer.organizationName} />
+              <h2 className="font-display text-2xl font-black leading-none transition-colors group-hover:text-lime">
+                {organizer.organizationName}
               </h2>
               {organizer.verificationStatus === "VERIFIED" ? (
                 <span className="inline-flex items-center gap-1 rounded-full border border-verified/30 bg-verified/10 px-2 py-1 text-xs font-semibold text-verified">

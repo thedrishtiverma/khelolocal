@@ -24,13 +24,26 @@ export const Route = createFileRoute("/explore")({
 
 function ExplorePage() {
   const { db } = useKhelo();
-  const tournaments = db.tournaments
+  const activeTournaments = db.tournaments
     .filter((item) => {
       const status = effectiveTournamentStatus(item);
       return status === "LIVE" || status === "REGISTRATION_OPEN" || status === "UPCOMING";
     })
     .sort((a, b) => a.startDate.localeCompare(b.startDate))
     .slice(0, 3);
+  const featuredTournamentIds = new Set(activeTournaments.map((item) => item.id));
+  const tournaments = [
+    ...activeTournaments,
+    ...db.tournaments
+      .filter(
+        (item) =>
+          !featuredTournamentIds.has(item.id) &&
+          effectiveTournamentStatus(item) !== "DRAFT" &&
+          effectiveTournamentStatus(item) !== "CANCELLED",
+      )
+      .sort((a, b) => b.endDate.localeCompare(a.endDate))
+      .slice(0, 3 - activeTournaments.length),
+  ];
   const athletes = db.athletes
     .filter((item) => isAthletePubliclyDiscoverable(item) && item.verificationStatus === "VERIFIED")
     .slice(0, 3);
@@ -98,7 +111,7 @@ function ExplorePage() {
         </section>
         <section className="mt-16">
           <SectionHeading
-            eyebrow="Play now"
+            eyebrow="Across the network"
             title={
               <>
                 Featured <span className="text-lime">tournaments</span>
@@ -177,9 +190,9 @@ function ExplorePage() {
           />
           <div className="grid gap-4 md:grid-cols-3">
             {organizers.map((organizer) => (
-              <article key={organizer.id} className="data-card rounded-xl p-6">
+              <article key={organizer.id} className="data-card group rounded-xl p-6">
                 <BadgeCheck className="size-5 text-verified" />
-                <h2 className="mt-6 font-display text-2xl font-bold uppercase">
+                <h2 className="mt-6 font-display text-2xl font-bold uppercase transition-colors group-hover:text-lime">
                   {organizer.organizationName}
                 </h2>
                 <p className="mt-2 text-sm text-muted-foreground">

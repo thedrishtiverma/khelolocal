@@ -3,7 +3,6 @@ import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   EmptyState,
-  KeywordHighlight,
   Page,
   SectionHeading,
   Stat,
@@ -83,7 +82,7 @@ function AthleteDashboard() {
       <div className="mb-8">
         <h1 className="font-display text-3xl font-black sm:text-4xl">
           {greeting()},{" "}
-          <span className="keyword-highlight">{athlete.name.split(" ")[0]}</span>
+          {athlete.name.split(" ")[0]}
         </h1>
         <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
           <MapPin className="size-4" /> {athlete.cityName}
@@ -97,7 +96,7 @@ function AthleteDashboard() {
               Verified sports identity
             </p>
             <h2 className="mt-1 font-display text-2xl font-black">
-              <KeywordHighlight text={athlete.name} />
+              {athlete.name}
             </h2>
             <p className="text-sm text-surface-foreground/70">
               {sportLabel(athlete.primarySport)} · {athlete.position}

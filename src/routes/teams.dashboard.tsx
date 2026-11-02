@@ -3,7 +3,6 @@ import { CalendarDays, Shield, UserPlus, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   EmptyState,
-  KeywordHighlight,
   Page,
   SectionHeading,
   Stat,
@@ -43,12 +42,12 @@ function TeamDashboard() {
     );
   return (
     <Page className="py-10 sm:py-16">
-      <section className="surface-panel rounded-2xl p-6 sm:p-8">
+      <section className="surface-panel group rounded-2xl p-6 sm:p-8">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
           Team workspace
         </p>
-        <h1 className="mt-2 font-display text-4xl font-black uppercase">
-          <KeywordHighlight text={team.name} />
+        <h1 className="mt-2 font-display text-4xl font-black uppercase transition-colors group-hover:text-lime">
+          {team.name}
         </h1>
         <p className="mt-2 text-sm text-surface-foreground/70">
           {team.sportName} · {team.cityName}
@@ -92,10 +91,10 @@ function TeamDashboard() {
           {team.players.map((playerId) => {
             const player = db.athletes.find((athlete) => athlete.id === playerId);
             return player ? (
-              <article key={player.id} className="data-card rounded-xl p-5">
+              <article key={player.id} className="data-card group rounded-xl p-5">
                 <Users className="size-5 text-lime" />
-                <h2 className="mt-5 font-display text-xl font-bold uppercase">
-                  <KeywordHighlight text={player.name} />
+                <h2 className="mt-5 font-display text-xl font-bold uppercase transition-colors group-hover:text-lime">
+                  {player.name}
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {player.position || player.primarySport}
