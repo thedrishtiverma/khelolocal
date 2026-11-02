@@ -812,7 +812,7 @@
 }
 
 .network-hero h1 .text-lime {
-  color: var(--accent-ink);
+  color: inherit;
 }
 
 .network-hero-console {

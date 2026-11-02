@@ -44,7 +44,7 @@ import { Route as AthleteIndexRouteImport } from './routes/athlete.index'
 import { Route as AthleteProfileRouteImport } from './routes/athlete.profile'
 import { Route as AthleteTournamentsRouteImport } from './routes/athlete.tournaments'
 import { Route as AthletesIdRouteImport } from './routes/athletes.$id'
-import { Route as CitiesIndoreRouteImport } from './routes/cities.indore'
+import { Route as CitiesCityRouteImport } from './routes/cities.$city'
 import { Route as CollegeIndexRouteImport } from './routes/college.index'
 import { Route as CollegeRecordsRouteImport } from './routes/college.records'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer.index'
@@ -236,9 +236,9 @@ const AthletesIdRoute = AthletesIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AthletesRoute,
 } as any)
-const CitiesIndoreRoute = CitiesIndoreRouteImport.update({
-  id: '/indore',
-  path: '/indore',
+const CitiesCityRoute = CitiesCityRouteImport.update({
+  id: '/$city',
+  path: '/$city',
   getParentRoute: () => CitiesRoute,
 } as any)
 const CollegeIndexRoute = CollegeIndexRouteImport.update({
@@ -351,7 +351,7 @@ export interface FileRoutesByFullPath {
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
-  '/cities/indore': typeof CitiesIndoreRoute
+  '/cities/$city': typeof CitiesCityRoute
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
@@ -404,7 +404,7 @@ export interface FileRoutesByTo {
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
-  '/cities/indore': typeof CitiesIndoreRoute
+  '/cities/$city': typeof CitiesCityRoute
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
@@ -458,7 +458,7 @@ export interface FileRoutesById {
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
   '/athletes/$id': typeof AthletesIdRoute
-  '/cities/indore': typeof CitiesIndoreRoute
+  '/cities/$city': typeof CitiesCityRoute
   '/college/records': typeof CollegeRecordsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/results': typeof OrganizerResultsRoute
@@ -513,7 +513,7 @@ export interface FileRouteTypes {
     | '/athlete/profile'
     | '/athlete/tournaments'
     | '/athletes/$id'
-    | '/cities/indore'
+    | '/cities/$city'
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
@@ -566,7 +566,7 @@ export interface FileRouteTypes {
     | '/athlete/profile'
     | '/athlete/tournaments'
     | '/athletes/$id'
-    | '/cities/indore'
+    | '/cities/$city'
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
@@ -619,7 +619,7 @@ export interface FileRouteTypes {
     | '/athlete/profile'
     | '/athlete/tournaments'
     | '/athletes/$id'
-    | '/cities/indore'
+    | '/cities/$city'
     | '/college/records'
     | '/organizer/create'
     | '/organizer/results'
@@ -935,11 +935,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AthletesIdRouteImport
       parentRoute: typeof AthletesRoute
     }
-    '/cities/indore': {
-      id: '/cities/indore'
-      path: '/indore'
-      fullPath: '/cities/indore'
-      preLoaderRoute: typeof CitiesIndoreRouteImport
+    '/cities/$city': {
+      id: '/cities/$city'
+      path: '/$city'
+      fullPath: '/cities/$city'
+      preLoaderRoute: typeof CitiesCityRouteImport
       parentRoute: typeof CitiesRoute
     }
     '/college/': {
@@ -1063,11 +1063,11 @@ const AthletesRouteWithChildren = AthletesRoute._addFileChildren(
 )
 
 interface CitiesRouteChildren {
-  CitiesIndoreRoute: typeof CitiesIndoreRoute
+  CitiesCityRoute: typeof CitiesCityRoute
 }
 
 const CitiesRouteChildren: CitiesRouteChildren = {
-  CitiesIndoreRoute: CitiesIndoreRoute,
+  CitiesCityRoute: CitiesCityRoute,
 }
 
 const CitiesRouteWithChildren =

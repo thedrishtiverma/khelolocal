@@ -9,7 +9,7 @@ create or replace function public.save_operational_state(
 returns table(version bigint, updated_at timestamptz)
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = pg_catalog, public, pg_temp
 as $$
 declare
   next_version bigint;
@@ -105,7 +105,7 @@ create or replace function public.register_for_tournament(
 returns public.tournament_registrations
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = pg_catalog, public, pg_temp
 as $$
 declare
   event_row public.tournament_domain%rowtype;
@@ -115,6 +115,12 @@ declare
 begin
   if auth.uid() is null then
     raise exception 'Authentication required';
+  end if;
+  if not exists (
+    select 1 from public.profiles p
+    where p.id = auth.uid() and p.role = 'athlete' and p.is_active
+  ) then
+    raise exception 'Active athlete profile required';
   end if;
   if p_team_id is not null then
     raise exception 'Team registration is not yet supported';
@@ -130,7 +136,7 @@ begin
   if event_row.organizer_profile_id = auth.uid()::text then
     raise exception 'Organizers cannot register for their own tournament';
   end if;
-  if event_row.payload ->> 'status' <> 'REGISTRATION_OPEN' then
+  if event_row.payload ->> 'status' is distinct from 'REGISTRATION_OPEN' then
     raise exception 'Registration is not open';
   end if;
   if not coalesce(event_row.payload ->> 'maxParticipants' ~ '^[1-9][0-9]*$', false) then
@@ -174,7 +180,7 @@ create or replace function public.review_tournament_registration(
 returns public.tournament_registrations
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = pg_catalog, public, pg_temp
 as $$
 declare
   event_row public.tournament_domain%rowtype;

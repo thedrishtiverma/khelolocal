@@ -6,18 +6,42 @@ import type {
   Tournament,
 } from "@/types";
 import { isSupabaseConfigured, supabase } from "@/integrations/supabase/client";
-import type { Database as SupabaseDatabase } from "@/integrations/supabase/types";
+import type { Database as SupabaseDatabase, Json } from "@/integrations/supabase/types";
 
 const report = (operation: string, error: unknown) =>
   console.warn(`Could not persist ${operation}:`, error);
 
 type RegistrationRow = SupabaseDatabase["public"]["Tables"]["tournament_registrations"]["Row"];
 
+function toJson(value: unknown): Json {
+  if (
+    value === null ||
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean"
+  ) {
+    return value;
+  }
+  if (Array.isArray(value)) return value.map(toJson);
+  if (typeof value === "object") {
+    const result: { [key: string]: Json | undefined } = {};
+    for (const [key, item] of Object.entries(value)) {
+      if (item !== undefined) result[key] = toJson(item);
+    }
+    return result;
+  }
+  throw new Error("Supabase JSON payload contains an unsupported value");
+}
+
 export function persistTournament(tournament: Tournament, organizerProfileId: string) {
   if (!isSupabaseConfigured()) return;
   void supabase
     .from("tournament_domain")
-    .upsert({ id: tournament.id, organizer_profile_id: organizerProfileId, payload: tournament })
+    .upsert({
+      id: tournament.id,
+      organizer_profile_id: organizerProfileId,
+      payload: toJson(tournament),
+    })
     .then(({ error }) => error && report("tournament", error.message));
 }
 
@@ -82,20 +106,18 @@ export function persistMatchResult(
 ) {
   if (!isSupabaseConfigured()) return;
   void (async () => {
-    const { error } = await supabase
-      .from("match_results")
-      .upsert({
-        id: match.id,
-        tournament_id: match.tournamentId,
-        organizer_profile_id: organizerProfileId,
-        payload: match,
-      });
+    const { error } = await supabase.from("match_results").upsert({
+      id: match.id,
+      tournament_id: match.tournamentId,
+      organizer_profile_id: organizerProfileId,
+      payload: toJson(match),
+    });
     if (error) return report("match result", error.message);
     const rows = performances.map((performance) => ({
       id: performance.id,
       match_id: match.id,
       athlete_profile_id: performance.athleteId,
-      payload: performance,
+      payload: toJson(performance),
     }));
     if (!rows.length) return;
     const { error: performanceError } = await supabase.from("match_performances").upsert(rows);

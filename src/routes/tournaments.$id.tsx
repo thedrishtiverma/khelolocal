@@ -24,8 +24,7 @@ export const Route = createFileRoute("/tournaments/$id")({
       { title: "Tournament details | KheloLocal" },
       {
         name: "description",
-        content:
-          "Fixtures, teams, verified results and registration for local tournaments.",
+        content: "Fixtures, teams, verified results and registration for local tournaments.",
       },
       { property: "og:title", content: "Tournament details | KheloLocal" },
       {

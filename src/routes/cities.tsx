@@ -47,7 +47,8 @@ function CitiesPage() {
             .map((city) => (
               <Link
                 key={city.id}
-                to={city.id === "indore" ? "/cities/indore" : "/map"}
+                to="/cities/$city"
+                params={{ city: city.id }}
                 className="data-card group rounded-2xl p-7"
               >
                 <MapPin className="size-7 text-lime" />

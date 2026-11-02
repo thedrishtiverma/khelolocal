@@ -110,10 +110,7 @@ interface StoreValue {
   }) => Promise<User>;
   createTournament: (input: Partial<Tournament>) => Tournament;
   register: (tournamentId: string, athleteId: string) => Promise<void>;
-  setRegistrationStatus: (
-    registrationId: string,
-    status: "APPROVED" | "REJECTED",
-  ) => Promise<void>;
+  setRegistrationStatus: (registrationId: string, status: "APPROVED" | "REJECTED") => Promise<void>;
   generateFixtures: (tournamentId: string) => number;
   saveMatch: (
     matchId: string,
@@ -756,7 +753,8 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         };
         draft.registrations.push(created);
       });
-      if (!created) throw new Error("This tournament is full, closed, or you are already registered");
+      if (!created)
+        throw new Error("This tournament is full, closed, or you are already registered");
     },
     [commit, currentUser, db.registrations, db.tournaments],
   );
@@ -768,9 +766,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         commit((draft) => {
           const registration = draft.registrations.find((item) => item.id === registrationId);
           if (registration) registration.status = updated.status;
-          const tournament = draft.tournaments.find(
-            (item) => item.id === updated.tournamentId,
-          );
+          const tournament = draft.tournaments.find((item) => item.id === updated.tournamentId);
           if (tournament) {
             tournament.currentParticipants = draft.registrations.filter(
               (item) => item.tournamentId === updated.tournamentId && item.status === "APPROVED",
