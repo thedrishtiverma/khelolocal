@@ -38,7 +38,12 @@ import {
 } from "@/integrations/supabase/client";
 import { clearDatabase, loadDatabase, loadSession, saveDatabase, saveSession } from "./db";
 import { loadOperationalState, saveOperationalState } from "./backend-state";
-import { persistMatchResult, persistRegistration, persistTournament } from "./tournament-backend";
+import {
+  persistMatchResult,
+  persistTournament,
+  registerForTournament,
+  reviewTournamentRegistration,
+} from "./tournament-backend";
 import { athleteById, effectiveTournamentStatus, matchById, tournamentById } from "./selectors";
 
 const now = () => new Date().toISOString();
@@ -104,8 +109,11 @@ interface StoreValue {
     bio?: string;
   }) => Promise<User>;
   createTournament: (input: Partial<Tournament>) => Tournament;
-  register: (tournamentId: string, athleteId: string) => void;
-  setRegistrationStatus: (registrationId: string, status: "APPROVED" | "REJECTED") => void;
+  register: (tournamentId: string, athleteId: string) => Promise<void>;
+  setRegistrationStatus: (
+    registrationId: string,
+    status: "APPROVED" | "REJECTED",
+  ) => Promise<void>;
   generateFixtures: (tournamentId: string) => number;
   saveMatch: (
     matchId: string,
@@ -201,26 +209,29 @@ export function KheloProvider({ children }: { children: ReactNode }) {
     void hydrate();
   }, []);
 
-  const commit = useCallback((updater: (draft: Database) => void) => {
-    setDb((prev) => {
-      const next = structuredClone(prev) as Database;
-      updater(next);
-      saveDatabase(next);
-      if (isSupabaseConfigured()) {
-        backendWrite.current = backendWrite.current
-          .then(async () => {
-            operationalStateVersion.current = await saveOperationalState(
-              next,
-              operationalStateVersion.current,
-            );
-          })
-          .catch((stateError) => {
-            console.warn("Could not save shared operational state:", stateError);
-          });
-      }
-      return next;
-    });
-  }, []);
+  const commit = useCallback(
+    (updater: (draft: Database) => void) => {
+      setDb((prev) => {
+        const next = structuredClone(prev) as Database;
+        updater(next);
+        saveDatabase(next);
+        if (isSupabaseConfigured() && supabaseUser?.role === "ADMIN") {
+          backendWrite.current = backendWrite.current
+            .then(async () => {
+              operationalStateVersion.current = await saveOperationalState(
+                next,
+                operationalStateVersion.current,
+              );
+            })
+            .catch((stateError) => {
+              console.warn("Could not save shared operational state:", stateError);
+            });
+        }
+        return next;
+      });
+    },
+    [supabaseUser?.role],
+  );
 
   const currentUser = useMemo(
     () => supabaseUser ?? db.users.find((u) => u.id === userId) ?? null,
@@ -690,7 +701,33 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   );
 
   const register: StoreValue["register"] = useCallback(
-    (tournamentId, athleteId) => {
+    async (tournamentId, athleteId) => {
+      const tournament = db.tournaments.find((item) => item.id === tournamentId);
+      if (!tournament) throw new Error("Tournament not found");
+      if (isSupabaseConfigured()) {
+        if (currentUser?.role !== "ATHLETE" || currentUser.id !== athleteId) {
+          throw new Error("Sign in with the athlete account you want to register");
+        }
+        if (
+          db.registrations.some(
+            (registration) =>
+              registration.tournamentId === tournamentId &&
+              registration.athleteId === athleteId &&
+              (registration.status === "PENDING" || registration.status === "APPROVED"),
+          )
+        ) {
+          throw new Error("You already have an active registration for this tournament");
+        }
+
+        const created = await registerForTournament(tournamentId);
+        commit((draft) => {
+          if (!draft.registrations.some((registration) => registration.id === created.id)) {
+            draft.registrations.push(created);
+          }
+        });
+        return;
+      }
+
       let created: Registration | null = null;
       commit((draft) => {
         const tournament = draft.tournaments.find((item) => item.id === tournamentId);
@@ -719,13 +756,30 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         };
         draft.registrations.push(created);
       });
-      if (created) persistRegistration(created);
+      if (!created) throw new Error("This tournament is full, closed, or you are already registered");
     },
-    [commit],
+    [commit, currentUser, db.registrations, db.tournaments],
   );
 
   const setRegistrationStatus: StoreValue["setRegistrationStatus"] = useCallback(
-    (registrationId, status) => {
+    async (registrationId, status) => {
+      if (isSupabaseConfigured()) {
+        const updated = await reviewTournamentRegistration(registrationId, status);
+        commit((draft) => {
+          const registration = draft.registrations.find((item) => item.id === registrationId);
+          if (registration) registration.status = updated.status;
+          const tournament = draft.tournaments.find(
+            (item) => item.id === updated.tournamentId,
+          );
+          if (tournament) {
+            tournament.currentParticipants = draft.registrations.filter(
+              (item) => item.tournamentId === updated.tournamentId && item.status === "APPROVED",
+            ).length;
+          }
+        });
+        return;
+      }
+
       let updated: Registration | null = null;
       commit((draft) => {
         const reg = draft.registrations.find((r) => r.id === registrationId);
@@ -740,7 +794,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
             tournament.currentParticipants = Math.max(0, tournament.currentParticipants - 1);
         }
       });
-      if (updated) persistRegistration(updated);
+      if (!updated) throw new Error("Registration not found");
     },
     [commit],
   );

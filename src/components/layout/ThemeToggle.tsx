@@ -21,11 +21,23 @@ export function ThemeToggle({ className }: { className?: string }) {
     setReady(true);
   }, []);
 
+  useEffect(() => {
+    const syncMode = (event: Event) => {
+      if (!(event instanceof CustomEvent)) return;
+      const nextMode: unknown = event.detail;
+      if (nextMode === "dark" || nextMode === "light") setMode(nextMode);
+    };
+
+    window.addEventListener("khelolocal-theme-change", syncMode);
+    return () => window.removeEventListener("khelolocal-theme-change", syncMode);
+  }, []);
+
   const toggle = () => {
     const nextMode: ThemeMode = mode === "dark" ? "light" : "dark";
     setMode(nextMode);
     apply(nextMode);
     localStorage.setItem(KEY, nextMode);
+    window.dispatchEvent(new CustomEvent("khelolocal-theme-change", { detail: nextMode }));
   };
 
   const nextModeDescription = mode === "dark" ? "light" : "dark";

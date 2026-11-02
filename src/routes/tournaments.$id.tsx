@@ -42,6 +42,7 @@ function TournamentDetails() {
   const { db, register, currentUser } = useKhelo();
   const athlete = useCurrentAthlete();
   const [tab, setTab] = useState("overview");
+  const [registering, setRegistering] = useState(false);
 
   const tournament = db.tournaments.find((t) => t.id === id);
   if (!tournament) throw notFound();
@@ -70,15 +71,22 @@ function TournamentDetails() {
           ? "Tournament completed"
           : "Registration closed";
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!athlete) {
       toast.error("Log in as an athlete to register.");
       return;
     }
-    register(tournament.id, athlete.id);
-    toast.success("You're registered for this tournament.", {
-      description: "The organizer will review your registration.",
-    });
+    setRegistering(true);
+    try {
+      await register(tournament.id, athlete.id);
+      toast.success("You're registered for this tournament.", {
+        description: "The organizer will review your registration.",
+      });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to register right now.");
+    } finally {
+      setRegistering(false);
+    }
   };
 
   return (
@@ -124,8 +132,8 @@ function TournamentDetails() {
                 {registrationLabel}
               </span>
             ) : (
-              <Button size="lg" onClick={handleRegister}>
-                Register now
+              <Button size="lg" onClick={handleRegister} disabled={registering}>
+                {registering ? "Submitting…" : "Register now"}
               </Button>
             )}
             {!currentUser ? (

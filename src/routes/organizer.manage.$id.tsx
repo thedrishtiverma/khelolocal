@@ -41,6 +41,7 @@ function ManageTournament() {
   const { db, setRegistrationStatus, generateFixtures } = useKhelo();
   const [scoring, setScoring] = useState<Match | null>(null);
   const [verifying, setVerifying] = useState<Match | null>(null);
+  const [reviewingRegistrationId, setReviewingRegistrationId] = useState<string | null>(null);
   const tournament = tournamentById(db, id);
 
   if (!tournament) {
@@ -63,6 +64,18 @@ function ManageTournament() {
   const pendingVerification = matches.filter(
     (m) => m.status === "COMPLETED" && m.resultStatus === "PENDING",
   );
+  const reviewRegistration = async (registrationId: string, status: "APPROVED" | "REJECTED") => {
+    setReviewingRegistrationId(registrationId);
+    try {
+      await setRegistrationStatus(registrationId, status);
+      if (status === "APPROVED") toast.success("Registration approved");
+      else toast("Registration rejected");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to update registration.");
+    } finally {
+      setReviewingRegistrationId(null);
+    }
+  };
 
   return (
     <Page>
@@ -128,20 +141,16 @@ function ManageTournament() {
                       <div className="flex gap-2">
                         <Button
                           size="sm"
-                          onClick={() => {
-                            setRegistrationStatus(r.id, "APPROVED");
-                            toast.success("Registration approved");
-                          }}
+                          disabled={reviewingRegistrationId === r.id}
+                          onClick={() => void reviewRegistration(r.id, "APPROVED")}
                         >
                           Approve
                         </Button>
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => {
-                            setRegistrationStatus(r.id, "REJECTED");
-                            toast("Registration rejected");
-                          }}
+                          disabled={reviewingRegistrationId === r.id}
+                          onClick={() => void reviewRegistration(r.id, "REJECTED")}
                         >
                           Reject
                         </Button>

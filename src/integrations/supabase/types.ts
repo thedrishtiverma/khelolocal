@@ -977,12 +977,186 @@ export type Database = {
         }
         Relationships: []
       }
+      operational_state: {
+        Row: {
+          id: string
+          payload: Json
+          updated_at: string
+          updated_by: string | null
+          version: number
+        }
+        Insert: {
+          id: string
+          payload: Json
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Update: {
+          id?: string
+          payload?: Json
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Relationships: []
+      }
+      operational_state_audit: {
+        Row: {
+          changed_at: string
+          changed_by: string | null
+          id: number
+          state_version: number
+        }
+        Insert: {
+          changed_at?: string
+          changed_by?: string | null
+          id?: number
+          state_version: number
+        }
+        Update: {
+          changed_at?: string
+          changed_by?: string | null
+          id?: number
+          state_version?: number
+        }
+        Relationships: []
+      }
+      tournament_domain: {
+        Row: {
+          created_at: string
+          id: string
+          organizer_profile_id: string
+          payload: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          organizer_profile_id: string
+          payload: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          organizer_profile_id?: string
+          payload?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tournament_registrations: {
+        Row: {
+          athlete_profile_id: string
+          id: string
+          registration_date: string
+          status: string
+          team_id: string | null
+          tournament_id: string
+          updated_at: string
+        }
+        Insert: {
+          athlete_profile_id: string
+          id: string
+          registration_date?: string
+          status: string
+          team_id?: string | null
+          tournament_id: string
+          updated_at?: string
+        }
+        Update: {
+          athlete_profile_id?: string
+          id?: string
+          registration_date?: string
+          status?: string
+          team_id?: string | null
+          tournament_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      match_results: {
+        Row: {
+          id: string
+          organizer_profile_id: string
+          payload: Json
+          tournament_id: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          organizer_profile_id: string
+          payload: Json
+          tournament_id: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          organizer_profile_id?: string
+          payload?: Json
+          tournament_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      match_performances: {
+        Row: {
+          athlete_profile_id: string
+          id: string
+          match_id: string
+          payload: Json
+          updated_at: string
+        }
+        Insert: {
+          athlete_profile_id: string
+          id: string
+          match_id: string
+          payload: Json
+          updated_at?: string
+        }
+        Update: {
+          athlete_profile_id?: string
+          id?: string
+          match_id?: string
+          payload?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      register_for_tournament: {
+        Args: { p_team_id?: string | null; p_tournament_id: string }
+        Returns: {
+          athlete_profile_id: string
+          id: string
+          registration_date: string
+          status: string
+          team_id: string | null
+          tournament_id: string
+          updated_at: string
+        }
+      }
+      review_tournament_registration: {
+        Args: { p_registration_id: string; p_status: string }
+        Returns: {
+          athlete_profile_id: string
+          id: string
+          registration_date: string
+          status: string
+          team_id: string | null
+          tournament_id: string
+          updated_at: string
+        }
+      }
+      save_operational_state: {
+        Args: { expected_version?: number | null; next_payload: Json }
+        Returns: { updated_at: string; version: number }[]
+      }
     }
     Enums: {
       app_role:
