@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">Verified</title><desc id="desc">Verified status indicator.</desc>
+<g fill="none" stroke="#0B2D5B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="m64 13 43 16v31c0 27-18 46-43 55C39 106 21 87 21 60V29Z"/><path d="m41 63 15 15 31-34" stroke="#2EAF5B"/></g>
+</svg>
