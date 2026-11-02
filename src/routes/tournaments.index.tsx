@@ -73,7 +73,7 @@ function ExploreTournaments() {
         eyebrow="Fixtures across your city"
         title={
           <>
-            The next whistle is <span className="text-lime">waiting.</span>
+            Find your next game. <span className="text-lime">Make it count.</span>
           </>
         }
         description="From first fixtures to finals, find the competitions that turn an ordinary weekend into game day."

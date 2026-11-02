@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Initials } from "@/components/shared/Bits";
+import { Initials, KeywordHighlight } from "@/components/shared/Bits";
 import { cn } from "@/lib/utils";
 
 interface ProfileBannerProps {
@@ -60,7 +60,7 @@ export function ProfileBanner({
           <div className="min-w-0 flex-1 pb-0.5">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="font-display text-3xl font-black leading-none sm:text-4xl">
-                {title ?? name}
+                <KeywordHighlight text={title ?? name} />
               </h1>
               {status}
             </div>

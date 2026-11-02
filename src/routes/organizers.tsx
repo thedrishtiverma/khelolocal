@@ -39,8 +39,7 @@ function OrganizersPage() {
         eyebrow="For organizers"
         title={
           <>
-            Run your tournament. Reach your players.{" "}
-            <span className="text-lime">Build its record.</span>
+            Run the game. <span className="text-lime">Grow its record.</span>
           </>
         }
         description="Publish tournaments, reach relevant athletes, manage participation and preserve verified results."

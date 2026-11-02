@@ -121,7 +121,7 @@ function Landing() {
             </p>
             <h2 className="font-display text-4xl font-black uppercase leading-none sm:text-6xl">
               <span className="text-accent">One network,</span>{" "}
-              <span className="text-primary">four core roles.</span>
+              <span className="text-primary dark:text-surface-foreground">four core roles.</span>
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
               Athletes, organizers, institutions, and teams each have a direct path into the local

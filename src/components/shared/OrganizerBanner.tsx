@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { BadgeCheck, Building2, MapPin } from "lucide-react";
-import { Initials } from "@/components/shared/Bits";
+import { Initials, KeywordHighlight } from "@/components/shared/Bits";
 import type { Organizer } from "@/types";
 
 export function OrganizerBanner({
@@ -41,7 +41,7 @@ export function OrganizerBanner({
           <div className="min-w-0 flex-1 pb-0.5">
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="font-display text-2xl font-black leading-none">
-                {organizer.organizationName}
+                <KeywordHighlight text={organizer.organizationName} />
               </h2>
               {organizer.verificationStatus === "VERIFIED" ? (
                 <span className="inline-flex items-center gap-1 rounded-full border border-verified/30 bg-verified/10 px-2 py-1 text-xs font-semibold text-verified">

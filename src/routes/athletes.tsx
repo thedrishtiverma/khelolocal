@@ -57,7 +57,7 @@ function AthletesPage() {
         eyebrow="Athlete discovery"
         title={
           <>
-            Find the players <span className="text-lime">around you.</span>
+            Find local talent. <span className="text-lime">Trust the record.</span>
           </>
         }
         description="Search local athletes by sport, institution, position and verified experience."

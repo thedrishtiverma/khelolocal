@@ -22,11 +22,15 @@ export const Route = createFileRoute("/cities/$city")({
       ],
     };
   },
-  component: CityPage,
+  component: CityRoutePage,
 });
 
-function CityPage() {
+function CityRoutePage() {
   const { city: cityId } = Route.useParams();
+  return <CityPage cityId={cityId} />;
+}
+
+export function CityPage({ cityId }: { cityId: string }) {
   const { db, hydrated } = useKhelo();
   const city = db.cities.find((item) => item.id === cityId && item.active);
 

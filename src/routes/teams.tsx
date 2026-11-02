@@ -27,7 +27,7 @@ function TeamsPage() {
         eyebrow="Team discovery"
         title={
           <>
-            Find your team. <span className="text-lime">Build yours.</span>
+            Find your side. <span className="text-lime">Make it yours.</span>
           </>
         }
         description="Discover the local teams, rosters and records that turn individual players into a side."

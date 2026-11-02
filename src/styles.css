@@ -569,7 +569,7 @@
   padding: 0.45rem 0.7rem;
   color: var(--surface-foreground);
   font-family: var(--font-ui);
-  font-size: 0.75rem;
+  font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   line-height: 1;
@@ -809,6 +809,15 @@
 
 .network-hero-description {
   color: color-mix(in oklab, var(--foreground) 76%, transparent);
+}
+
+.network-hero h1 .text-lime,
+.keyword-highlight {
+  color: var(--accent-ink);
+}
+
+.surface-panel .keyword-highlight {
+  color: var(--lime);
 }
 
 .network-hero h1 .text-lime {

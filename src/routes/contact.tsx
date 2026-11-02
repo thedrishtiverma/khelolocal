@@ -48,7 +48,7 @@ function ContactPage() {
                 <span className="block text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   Based in
                 </span>
-                <span className="mt-2 block font-semibold">Grassroots sport across India</span>
+                <span className="mt-2 block font-semibold">Indore, Madhya Pradesh, India</span>
               </span>
             </div>
           </div>

@@ -35,18 +35,34 @@ export function Stat({
   );
 }
 
+export function KeywordHighlight({ text }: { text: string }) {
+  const end = text.trimEnd().length;
+  const start = text.lastIndexOf(" ", end - 1) + 1;
+  if (start >= end) return <>{text}</>;
+
+  return (
+    <>
+      {text.slice(0, start)}
+      <span className="keyword-highlight">{text.slice(start, end)}</span>
+      {text.slice(end)}
+    </>
+  );
+}
+
 export function SectionHeading({
   eyebrow,
   title,
   subtitle,
   action,
   as: As = "h2",
+  compact = false,
 }: {
   eyebrow?: string;
   title: ReactNode;
   subtitle?: ReactNode;
   action?: ReactNode;
   as?: "h1" | "h2";
+  compact?: boolean;
 }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
@@ -56,7 +72,12 @@ export function SectionHeading({
             {eyebrow}
           </p>
         ) : null}
-        <As className="font-display text-4xl font-black uppercase leading-[0.92] sm:text-6xl">
+        <As
+          className={cn(
+            "font-display font-black uppercase leading-[0.92]",
+            compact ? "text-[1.6875rem] sm:text-[2.8125rem]" : "text-4xl sm:text-6xl",
+          )}
+        >
           {title}
         </As>
         {subtitle ? <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p> : null}

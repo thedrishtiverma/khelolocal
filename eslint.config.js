@@ -16,6 +16,7 @@ export default tseslint.config(
       ".tanstack",
       ".nitro",
       "coverage",
+      "src/integrations/supabase/types.ts",
     ],
   },
   {

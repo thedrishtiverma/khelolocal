@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { VerifiedBadge } from "@/components/shared/Badges";
-import { Initials } from "@/components/shared/Bits";
+import { Initials, KeywordHighlight } from "@/components/shared/Bits";
 import { sportLabel } from "@/lib/format";
 import { sportMotif, sportTint } from "@/lib/sport-visuals";
 import type { Athlete } from "@/types";
@@ -25,7 +25,7 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
           />
           <div className="min-w-0 flex-1 pt-1">
             <h3 className="font-display text-xl font-bold leading-tight text-foreground">
-              {athlete.name}
+              <KeywordHighlight text={athlete.name} />
             </h3>
             <p className="text-sm text-muted-foreground">
               {sportLabel(athlete.primarySport)} · {athlete.collegeName ?? "Independent"} ·{" "}

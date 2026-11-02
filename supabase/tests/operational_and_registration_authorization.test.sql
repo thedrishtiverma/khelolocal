@@ -1,6 +1,6 @@
 begin;
 
-select plan(9);
+select plan(11);
 
 insert into auth.users (
   id, aud, role, email, encrypted_password, email_confirmed_at,
@@ -27,11 +27,17 @@ values
   );
 
 insert into public.tournament_domain (id, organizer_profile_id, payload)
-values (
-  'registration-security-event',
-  'e61a6827-04db-4f2d-9e85-4918c9c85202',
-  '{"status":"REGISTRATION_OPEN","maxParticipants":1}'::jsonb
-);
+values
+  (
+    'registration-security-event',
+    'e61a6827-04db-4f2d-9e85-4918c9c85202',
+    '{"status":"REGISTRATION_OPEN","maxParticipants":1}'::jsonb
+  ),
+  (
+    'registration-security-draft',
+    'e61a6827-04db-4f2d-9e85-4918c9c85202',
+    '{"status":"DRAFT","maxParticipants":1}'::jsonb
+  );
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub', 'e61a6827-04db-4f2d-9e85-4918c9c85201', true);
@@ -40,6 +46,11 @@ select is(
   (select count(*)::integer from public.tournament_domain where id = 'registration-security-event'),
   1,
   'public registration-open events are discoverable'
+);
+select is(
+  (select count(*)::integer from public.tournament_domain where id = 'registration-security-draft'),
+  0,
+  'draft events are not visible to unrelated users'
 );
 select is(
   (select (public.register_for_tournament('registration-security-event')).status),
@@ -51,6 +62,15 @@ select throws_ok(
   'P0001',
   'Already registered',
   'an active duplicate registration is rejected'
+);
+select throws_ok(
+  $$select public.review_tournament_registration(
+    (select id from public.tournament_registrations where tournament_id = 'registration-security-event'),
+    'APPROVED'
+  )$$,
+  'P0001',
+  'Organizer access required',
+  'participants cannot review registrations'
 );
 
 select set_config('request.jwt.claim.sub', 'e61a6827-04db-4f2d-9e85-4918c9c85203', true);
