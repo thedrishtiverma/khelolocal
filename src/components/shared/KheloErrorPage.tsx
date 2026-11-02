@@ -74,12 +74,12 @@ export function KheloErrorPage({ code, embedded = false, onRetry }: KheloErrorPa
             className="absolute left-1/2 top-1/2 size-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-surface-foreground/20 sm:size-40"
           />
           <div className="relative z-10 text-center">
-            <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-lime">
+            <p className="mb-4 font-mono text-xs font-bold uppercase tracking-[0.24em] text-surface-foreground">
               KheloLocal / {code}
             </p>
             <p
               aria-hidden="true"
-              className="font-display text-[clamp(8rem,28vw,15rem)] font-black leading-[0.78] tracking-[-0.09em] text-lime"
+              className="font-display text-[clamp(8rem,28vw,15rem)] font-black leading-[0.85] tracking-[-0.09em] text-lime"
             >
               {code}
             </p>

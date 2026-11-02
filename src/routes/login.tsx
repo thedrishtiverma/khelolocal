@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowUpRight, LockKeyhole } from "lucide-react";
+import { ArrowUpRight, LockKeyhole, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -25,19 +25,19 @@ export const Route = createFileRoute("/login")({
 
 const DEMO = [
   { label: "Athlete", email: "athlete@khelolocal.demo", to: "/athlete" as const },
-  { label: "Athlete (SGSITS — Drishti)", email: "drishti@sgsits.demo", to: "/athlete" as const },
+  { label: "Athlete — Drishti", email: "drishti@sgsits.demo", to: "/athlete" as const },
   { label: "Organizer", email: "organizer@khelolocal.demo", to: "/organizer" as const },
   {
-    label: "College (SGSITS Sports Cell)",
+    label: "College — SGSITS",
     email: "college@khelolocal.demo",
     to: "/college" as const,
   },
   {
-    label: "Volunteer (Vijay Nagar zone)",
+    label: "Volunteer — Vijay Nagar",
     email: "volunteer@khelolocal.demo",
     to: "/volunteer" as const,
   },
-  { label: "Admin (DB manager + verifier)", email: "admin@khelolocal.demo", to: "/admin" as const },
+  { label: "Admin / verifier", email: "admin@khelolocal.demo", to: "/admin" as const },
   { label: "Scout / Coach / Team", email: "scout@khelolocal.demo", to: "/scout" as const },
 ];
 
@@ -88,39 +88,40 @@ function LoginPage() {
   };
 
   return (
-    <div className="mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-6xl items-center gap-0 px-4 py-8 sm:px-6 lg:grid-cols-[1.08fr_.92fr] lg:py-12">
-      <div className="relative overflow-hidden rounded-t-2xl bg-primary p-7 text-primary-foreground sm:p-12 lg:min-h-[37rem] lg:rounded-l-2xl lg:rounded-tr-none dark:bg-gradient-to-br dark:from-surface dark:via-background dark:to-surface dark:text-surface-foreground">
-        <div className="absolute -right-20 -top-24 size-96 rounded-full border-[2rem] border-lime/20 dark:border-lime/15" />
-        <div className="absolute bottom-0 right-0 h-1/2 w-3/4 bg-[linear-gradient(145deg,transparent_48%,rgba(255,255,255,.12)_49%,transparent_50%)]" />
+    <div className="mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-6xl items-center gap-5 px-4 py-8 sm:px-6 lg:grid-cols-[1.02fr_.98fr] lg:gap-8 lg:py-12">
+      <div className="relative isolate overflow-hidden rounded-2xl bg-primary p-7 text-primary-foreground shadow-card sm:p-10 lg:min-h-[38rem] lg:p-12 dark:bg-gradient-to-br dark:from-surface dark:via-background dark:to-surface dark:text-surface-foreground">
+        <div className="absolute -right-20 -top-24 -z-10 size-96 rounded-full border-[2rem] border-lime/20 dark:border-lime/15" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-[linear-gradient(145deg,transparent_48%,rgba(255,255,255,.12)_49%,transparent_50%)] dark:opacity-40" />
         <div className="relative flex h-full flex-col justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-lime">
+            <p className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[.16em] text-lime dark:border-surface-foreground/15 dark:bg-surface-foreground/5">
+              <span className="size-1.5 rounded-full bg-lime" />
               KheloLocal / member access
             </p>
-            <h1 className="mt-7 max-w-lg font-display text-5xl font-black uppercase leading-[.78] tracking-tight sm:text-7xl">
+            <h1 className="mt-9 max-w-lg font-display text-5xl font-black uppercase leading-[.9] tracking-tight sm:text-6xl lg:text-7xl">
               Back where
               <br />
               <span className="text-lime">the game is.</span>
             </h1>
-            <p className="mt-7 max-w-sm text-sm leading-6 text-primary-foreground/75">
+            <p className="mt-6 max-w-sm text-sm leading-6 text-primary-foreground/80 dark:text-surface-foreground/80">
               Your tournaments, local connections and sporting record are waiting on the other side.
             </p>
           </div>
-          <div className="mt-16 flex items-center gap-3 text-xs font-bold uppercase tracking-[.14em]">
+          <div className="mt-16 flex items-center gap-3 text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/80 dark:text-surface-foreground/80">
             <span className="grid size-9 place-items-center rounded-full border border-primary-foreground/25 dark:border-surface-foreground/25">
               <LockKeyhole className="size-4" />
-            </span>{" "}
+            </span>
             Secure local session
           </div>
         </div>
       </div>
-      <div className="rounded-b-2xl border border-border bg-card p-7 sm:p-12 lg:rounded-r-2xl lg:rounded-bl-none">
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8 lg:p-9">
         <p className="text-xs font-bold uppercase tracking-[.18em] text-muted-foreground">
           Member sign in
         </p>
         <h2 className="mt-3 font-display text-3xl font-black uppercase">Welcome back.</h2>
         <form
-          className="mt-8 space-y-5"
+          className="mt-7 space-y-5"
           onSubmit={(e) => {
             e.preventDefault();
             setError("");
@@ -159,7 +160,7 @@ function LoginPage() {
               </>
             )}
           </Button>
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
             {demoMode ? (
               <span className="text-xs text-muted-foreground">
                 Demo accounts are available below.
@@ -177,33 +178,41 @@ function LoginPage() {
             </Link>
           </div>
         </form>
-      </div>
 
-      {demoMode ? (
-        <div className="rounded-b-2xl border border-t-0 border-border bg-card p-6 lg:col-start-2 lg:rounded-b-2xl">
-          <h2 className="font-display text-lg font-bold">Demo access</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            One tap sign-in for every KheloLocal role.
-          </p>
-          <div className="mt-5 space-y-3">
-            {DEMO.map((d) => (
-              <button
-                key={d.email}
-                onClick={() => void doLogin(d.email, "")}
-                className="group flex w-full items-center justify-between rounded-md border border-border bg-background px-4 py-3 text-left transition-colors hover:border-lime"
-              >
-                <span>
-                  <span className="block font-semibold text-foreground transition-colors group-hover:text-lime">
+        {demoMode ? (
+          <section className="mt-7 border-t border-border pt-6" aria-labelledby="demo-access-title">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2 id="demo-access-title" className="font-display text-lg font-bold">
+                  Try a demo profile
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Choose a role to explore KheloLocal.
+                </p>
+              </div>
+              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-muted px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                <ShieldCheck className="size-3.5" />7 profiles
+              </span>
+            </div>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              {DEMO.map((d) => (
+                <button
+                  key={d.email}
+                  onClick={() => void doLogin(d.email, "")}
+                  className="group flex min-h-14 min-w-0 items-center justify-between gap-3 rounded-xl border border-border bg-background px-3.5 py-3 text-left transition-colors hover:border-lime hover:bg-muted/60"
+                >
+                  <span className="min-w-0 text-sm font-semibold text-foreground transition-colors group-hover:text-lime">
                     {d.label}
                   </span>
-                  <span className="block text-xs text-muted-foreground">{d.email}</span>
-                </span>
-                <span className="text-xs font-bold uppercase tracking-widest text-lime">Enter</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      ) : null}
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground transition-colors group-hover:bg-lime group-hover:text-lime-foreground">
+                    <ArrowUpRight className="size-3.5" />
+                  </span>
+                </button>
+              ))}
+            </div>
+          </section>
+        ) : null}
+      </div>
     </div>
   );
 }

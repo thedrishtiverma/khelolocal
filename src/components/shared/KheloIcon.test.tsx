@@ -11,6 +11,8 @@ import {
   SPORT_ICON_REGISTRY,
   STATUS_CATALOG,
   STATUS_ICON_REGISTRY,
+  sportIconLabel,
+  sportIconName,
 } from "@/components/shared/khelo-icon-registry";
 import type { KheloIconName } from "@/components/shared/khelo-icon-registry";
 
@@ -26,6 +28,7 @@ describe("KheloLocal icon registry", () => {
   it("provides an original pictogram and banner composition for each sport", () => {
     expect(SPORT_CATALOG).toHaveLength(12);
     const compositions = new Set<string>();
+    const pictograms = new Set<string>();
 
     for (const sportId of SPORT_CATALOG) {
       const { icon, label } = SPORT_ICON_REGISTRY[sportId];
@@ -36,6 +39,11 @@ describe("KheloLocal icon registry", () => {
       expect(markup).toContain(`aria-label="${label}"`);
       expect(markup).toMatch(/<(path|circle|rect|ellipse)\b/);
       expect(banner).toContain(`data-sport-banner="${sportId}"`);
+      const drawing = markup
+        .match(/<svg[^>]*>(.*?)<\/svg>/)?.[1]
+        ?.replace(/<title>.*?<\/title>/, "");
+      expect(drawing).toBeDefined();
+      pictograms.add(drawing ?? "");
       const geometry = banner.match(
         new RegExp(`<svg[^>]*data-sport-banner="${sportId}"[^>]*>(.*?)<\\/svg>`),
       )?.[1];
@@ -44,6 +52,7 @@ describe("KheloLocal icon registry", () => {
     }
 
     expect(SPORT_ICON_REGISTRY.khokho).toEqual(SPORT_ICON_REGISTRY["kho-kho"]);
+    expect(pictograms.size).toBe(SPORT_CATALOG.length);
     expect(compositions.size).toBe(SPORT_CATALOG.length);
   });
 
@@ -60,6 +69,11 @@ describe("KheloLocal icon registry", () => {
     expect(STATUS_CATALOG).toContain("full");
     expect(STATUS_CATALOG).toContain("live");
     expect(STATUS_CATALOG).toContain("verified");
+  });
+
+  it("uses a KheloLocal mark and explicit label for uncatalogued sports", () => {
+    expect(sportIconName("new-sport")).toBe("brand-local");
+    expect(sportIconLabel("new-sport")).toBe("Uncatalogued sport: new-sport");
   });
 
   it.each([...new Set(iconNames)])("draws the %s symbol", (name) => {
