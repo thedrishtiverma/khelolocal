@@ -48,7 +48,7 @@ function ManageTournament() {
   const [remoteRegistrations, setRemoteRegistrations] = useState<Registration[]>([]);
   const [loadingRemoteData, setLoadingRemoteData] = useState(isSupabaseConfigured());
   const [remoteError, setRemoteError] = useState("");
-  const localTournament = tournamentById(db, id);
+  const localTournament = isSupabaseConfigured() ? undefined : tournamentById(db, id);
 
   useEffect(() => {
     if (!isSupabaseConfigured()) {
@@ -106,7 +106,7 @@ function ManageTournament() {
         ) : (
           <EmptyState
             title={remoteError ? "Tournament could not be loaded." : "Tournament not found"}
-            description={remoteError || undefined}
+            {...(remoteError ? { description: remoteError } : {})}
             action={
               <Button asChild>
                 <Link to="/organizer">Back to dashboard</Link>

@@ -131,7 +131,7 @@ export async function searchTournamentPage(filters: TournamentSearch): Promise<T
     .in("payload->>status", publicTournamentStatuses);
 
   if (filters.sportId) request = request.eq("payload->>sportId", filters.sportId);
-  if (filters.cityName) request = request.ilike("payload->>cityName", filters.cityName);
+  if (filters.cityName) request = request.eq("payload->>cityName", filters.cityName);
   if (filters.ageCategory) request = request.eq("payload->>ageCategory", filters.ageCategory);
   if (filters.genderCategory)
     request = request.eq("payload->>genderCategory", filters.genderCategory);

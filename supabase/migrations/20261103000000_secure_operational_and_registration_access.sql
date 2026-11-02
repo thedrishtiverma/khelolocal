@@ -98,6 +98,21 @@ grant select on public.tournament_registrations to authenticated;
 grant select on public.tournament_domain to anon, authenticated;
 grant insert, update, delete on public.tournament_domain to authenticated;
 
+create index if not exists tournament_domain_status_created_idx
+on public.tournament_domain ((payload ->> 'status'), created_at desc);
+create index if not exists tournament_domain_sport_idx
+on public.tournament_domain ((payload ->> 'sportId'));
+create index if not exists tournament_domain_city_idx
+on public.tournament_domain ((payload ->> 'cityName'));
+create index if not exists tournament_domain_age_gender_idx
+on public.tournament_domain ((payload ->> 'ageCategory'), (payload ->> 'genderCategory'));
+create index if not exists tournament_domain_start_date_idx
+on public.tournament_domain ((payload ->> 'startDate'));
+create index if not exists tournament_registrations_event_athlete_status_idx
+on public.tournament_registrations (tournament_id, athlete_profile_id, status);
+create index if not exists tournament_registrations_athlete_date_idx
+on public.tournament_registrations (athlete_profile_id, registration_date desc);
+
 create or replace function public.register_for_tournament(
   p_tournament_id text,
   p_team_id text default null

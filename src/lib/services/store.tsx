@@ -761,7 +761,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       if (!created)
         throw new Error("This tournament is full, closed, or you are already registered");
     },
-    [commit, currentUser, db.registrations, db.tournaments],
+    [commit, currentUser, db.athletes, db.registrations, db.tournaments],
   );
 
   const setRegistrationStatus: StoreValue["setRegistrationStatus"] = useCallback(

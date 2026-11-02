@@ -52,7 +52,9 @@ function TournamentDetails() {
   const [remoteRegistration, setRemoteRegistration] = useState<Registration | null>(null);
   const [remoteRegistrationTournamentId, setRemoteRegistrationTournamentId] = useState("");
 
-  const localTournament = db.tournaments.find((t) => t.id === id);
+  const localTournament = isSupabaseConfigured()
+    ? undefined
+    : db.tournaments.find((t) => t.id === id);
   useEffect(() => {
     if (localTournament || !isSupabaseConfigured()) {
       setDetailLoading(false);

@@ -70,7 +70,7 @@ No storage buckets are declared in the checked-in migrations. If buckets are con
 - [ ] Replace legacy browser/JSON state with user-scoped relational reads and writes for event creation, results, teams, achievements, and notifications.
 - [ ] Verify authentication, storage, deployment, monitoring, backups, and end-to-end flows against configured live infrastructure.
 
-Baseline checks: TypeScript, unit tests, and production build passed. Repository-wide lint failed before implementation with 1,157 errors and 14 warnings; most reported errors are existing formatting violations. Supabase CLI and `psql` are not installed in the current environment, so migrations and pgTAP tests have not been executed here.
+Baseline checks: TypeScript, unit tests, and production build passed. Repository-wide lint failed before implementation with 1,157 errors and 14 warnings; most reported errors are existing formatting violations. The latest full lint run still reported 187 errors and 14 warnings. Changed application files passed targeted lint with no errors and eight existing Fast Refresh warnings. The full unit suite passed (60 tests); the first concurrent run had one timeout, which passed when rerun alone and in the subsequent full run. Type-check and production build passed. Supabase CLI, Docker, and `psql` are not installed in the current environment, so migrations and pgTAP tests have not been executed here.
 
 ## CI and deployment
 
