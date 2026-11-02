@@ -68,7 +68,7 @@ function ManageTournament() {
     <Page>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
             Managing
           </p>
           <h1 className="mt-1 font-display text-3xl font-black">{tournament.name}</h1>

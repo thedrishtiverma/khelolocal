@@ -87,7 +87,7 @@ function TournamentDetails() {
         <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={status} />
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
               {tournament.sportName} · {tournament.ageCategory} · {tournament.format}
             </span>
           </div>
@@ -175,7 +175,7 @@ function TournamentDetails() {
                   ],
                 ].map(([k, v]) => (
                   <div key={k} className="rounded-md border border-border bg-background p-3">
-                    <dt className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                    <dt className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                       {k}
                     </dt>
                     <dd className="mt-1 text-sm font-semibold">{v}</dd>
@@ -264,7 +264,7 @@ function TournamentDetails() {
                     className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border bg-card p-5"
                   >
                     <div>
-                      <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
                         {m.round} · Match {m.matchNumber}
                       </p>
                       <p className="mt-1 font-display text-lg font-bold">

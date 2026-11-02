@@ -65,7 +65,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="font-display text-xl font-black tracking-tight">
               Khelo<span className="text-lime">Local</span>
             </span>
-            <span className="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground sm:inline-flex">
+            <span className="hidden items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground sm:inline-flex">
               <span aria-hidden="true" className="text-border">
                 |
               </span>
@@ -161,7 +161,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </nav>
             {profileItems.length ? (
               <div className="mt-3 border-t border-border pt-3">
-                <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                <p className="px-3 pb-1 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   Your workspace
                 </p>
                 {profileItems.map((item) => (
@@ -213,7 +213,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             to={item.to}
             aria-current={isActive(item.to) ? "page" : undefined}
             className={cn(
-              "py-3 text-center text-[11px] font-semibold uppercase tracking-wide",
+              "py-3 text-center text-xs font-semibold uppercase tracking-wide",
               isActive(item.to) ? "text-foreground" : "text-muted-foreground",
             )}
             onClick={() => setOpen(false)}
@@ -230,7 +230,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               ? "page"
               : undefined
           }
-          className="py-3 text-center text-[11px] font-semibold uppercase tracking-wide text-muted-foreground"
+          className="py-3 text-center text-xs font-semibold uppercase tracking-wide text-muted-foreground"
         >
           Profile
         </Link>
@@ -257,7 +257,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
               A connected network for grassroots sport and the people who make it happen.
             </p>
-            <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Play local. Prove your game.
             </p>
             <a
@@ -268,7 +268,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </a>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Explore
             </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
@@ -296,7 +296,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </nav>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Build the game
             </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
@@ -318,7 +318,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </nav>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               KheloLocal
             </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
@@ -349,7 +349,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </nav>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Legal
             </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
@@ -361,7 +361,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Link>
             </nav>
             <div className="mt-8 border-t border-border pt-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
                 Feedback
               </p>
               <Link
@@ -374,7 +374,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </div>
         <div className="border-t border-border px-4 py-7 sm:px-6">
-          <p className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
             Follow the local game
           </p>
           <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold">

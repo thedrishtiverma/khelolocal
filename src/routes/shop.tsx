@@ -49,7 +49,7 @@ function ShopPage() {
             >
               <div className="merch-card-art">
                 <ShoppingBag className="size-10" aria-hidden="true" />
-                <span className="font-ui text-[10px] font-bold uppercase tracking-[0.2em]">
+                <span className="font-ui text-xs font-bold uppercase tracking-[0.2em]">
                   Khelo<span className="text-lime">Local</span>
                 </span>
               </div>

@@ -96,7 +96,7 @@ function StoriesPage() {
               className={`story-card story-card-${tone} data-card flex min-h-[360px] flex-col rounded-2xl p-7 sm:p-8`}
             >
               <Icon className="size-7" />
-              <p className="mt-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
                 {eyebrow}
               </p>
               <h2 className="mt-3 font-display text-2xl font-black uppercase leading-tight">
@@ -114,7 +114,7 @@ function StoriesPage() {
         </div>
         <div className="mt-16 grid gap-6 border-t border-border pt-10 md:grid-cols-[1fr_auto] md:items-center">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Have a story?
             </p>
             <p className="mt-2 text-lg font-semibold">

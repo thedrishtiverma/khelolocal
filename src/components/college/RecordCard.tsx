@@ -32,7 +32,7 @@ export function RecordStatusChip({ status }: { status: RecordStatus }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider",
+        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider",
         meta.tone,
       )}
     >
@@ -56,11 +56,11 @@ export function RecordCard({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           {showAthlete ? (
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
               {record.athleteName} · {record.sportName}
             </p>
           ) : (
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
               {record.sportName}
             </p>
           )}
@@ -74,7 +74,7 @@ export function RecordCard({
 
       <p className="mt-3 text-sm leading-relaxed">{record.description}</p>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+      <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         <span className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-foreground">
           {LEVEL_LABELS[record.level] ?? record.level}
         </span>

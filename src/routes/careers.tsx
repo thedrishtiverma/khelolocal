@@ -93,7 +93,7 @@ function CareersPage() {
           <div className="grid gap-4 lg:grid-cols-3">
             {ROLES.map(([title, location, body]) => (
               <article key={title} className="data-card-muted rounded-2xl border border-border p-6">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-lime">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-lime">
                   {location}
                 </p>
                 <h2 className="mt-5 font-display text-2xl font-black uppercase">{title}</h2>

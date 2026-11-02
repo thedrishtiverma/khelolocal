@@ -269,7 +269,7 @@ function VolunteerDashboard() {
           {(zone?.localities ?? []).map((l) => (
             <span
               key={l}
-              className="rounded-full bg-primary-foreground/10 px-2.5 py-1 text-[11px] font-semibold"
+              className="rounded-full bg-primary-foreground/10 px-2.5 py-1 text-xs font-semibold"
             >
               {l}
             </span>
@@ -290,7 +290,7 @@ function VolunteerDashboard() {
               <span className={cn("h-1.5 rounded-full", done ? "bg-lime" : "bg-border")} />
               <span
                 className={cn(
-                  "flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide",
+                  "flex items-center gap-1 text-xs font-bold uppercase tracking-wide",
                   done ? "text-foreground" : "text-muted-foreground",
                 )}
               >
@@ -312,7 +312,7 @@ function VolunteerDashboard() {
           <div key={c.label} className="rounded-xl border border-border bg-card p-3">
             <c.icon className="size-4 text-muted-foreground" />
             <p className="stat-num mt-1 text-2xl">{c.value}</p>
-            <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
               {c.label}
             </p>
           </div>
@@ -380,7 +380,7 @@ function VolunteerDashboard() {
             <article key={rec.id} className="rounded-xl border border-border bg-card p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     {KIND_LABEL[rec.kind]}
                   </p>
                   <h3 className="truncate font-display text-base font-bold">{rec.title}</h3>
@@ -390,7 +390,7 @@ function VolunteerDashboard() {
                 </div>
                 <span
                   className={cn(
-                    "shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide",
+                    "shrink-0 rounded-full border px-2.5 py-1 text-xs font-bold uppercase tracking-wide",
                     STATUS_STYLE[rec.status],
                   )}
                 >
@@ -402,7 +402,7 @@ function VolunteerDashboard() {
                 <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{rec.notes}</p>
               ) : null}
 
-              <div className="mt-2 flex flex-wrap gap-3 text-[11px] text-muted-foreground">
+              <div className="mt-2 flex flex-wrap gap-3 text-xs text-muted-foreground">
                 {rec.gps ? (
                   <span className="flex items-center gap-1">
                     <Crosshair className="size-3" />

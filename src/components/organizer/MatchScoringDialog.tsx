@@ -104,7 +104,7 @@ export function MatchScoringDialog({
         </div>
 
         <div className="mt-2 space-y-3">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
             Player performances
           </p>
           {roster.map(({ athlete, teamId }) => {
@@ -201,7 +201,7 @@ function NumField({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+      <span className="mb-1 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">
         {label}
       </span>
       <Input type="number" min={0} value={value} onChange={(e) => onChange(Number(e.target.value))} />

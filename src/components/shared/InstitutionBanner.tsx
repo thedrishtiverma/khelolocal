@@ -7,7 +7,7 @@ export function InstitutionBanner({ college }: { college: College }) {
     <Link to="/college" className="institution-banner group block rounded-2xl p-6 sm:p-8">
       <div className="relative z-10 flex items-start justify-between gap-4">
         <Building2 className="size-8 text-lime" />
-        <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/70">
+        <span className="font-ui text-xs font-bold uppercase tracking-[0.18em] text-surface-foreground/70">
           Sports institution
         </span>
       </div>

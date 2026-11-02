@@ -166,7 +166,7 @@ function SportsMapPage() {
                   : null}
               </div>
               <div className="absolute bottom-6 left-6 z-10 max-w-xs sm:left-8">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   Network / {layer}
                 </p>
                 <p className="mt-2 font-display text-3xl font-black uppercase">
@@ -179,7 +179,7 @@ function SportsMapPage() {
             </div>
           </section>
           <section className="data-card rounded-2xl p-6 sm:p-8">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Selected area
             </p>
             <h2 className="mt-2 font-display text-3xl font-black uppercase">{zone?.name}</h2>
@@ -202,13 +202,13 @@ function SportsMapPage() {
             <div className="mt-8 grid grid-cols-2 gap-3 border-y border-border py-5">
               <div>
                 <p className="stat-num text-2xl">{records.length}</p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   Verified nearby
                 </p>
               </div>
               <div>
                 <p className="stat-num text-2xl">{tournaments.length}</p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   Tournaments
                 </p>
               </div>
@@ -217,7 +217,7 @@ function SportsMapPage() {
               {records.length ? (
                 records.map((record) => (
                   <article key={record.id} className="border-l-2 border-lime pl-4">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                       {record.kind}
                     </p>
                     <h3 className="mt-1 font-display text-lg font-bold">{record.title}</h3>

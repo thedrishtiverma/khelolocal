@@ -27,13 +27,13 @@ export function TournamentCard({
       <div className={`tournament-card-banner tournament-card-banner-${tournament.sportId} -mx-6 -mt-6 mb-5 flex min-h-28 items-end justify-between gap-4 px-6 pb-4`}>
         <div className="flex items-center gap-3 text-surface-foreground">
           <SportIcon sportId={tournament.sportId} className="size-8" aria-hidden="true" />
-          <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em]">{tournament.sportName}</span>
+          <span className="font-ui text-xs font-bold uppercase tracking-[0.18em]">{tournament.sportName}</span>
         </div>
-        <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground/70">Local event</span>
+        <span className="font-ui text-xs font-bold uppercase tracking-[0.18em] text-surface-foreground/70">Local event</span>
       </div>
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
-          <p className="font-ui text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+          <p className="font-ui text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
             {tournament.sportName} · {tournament.ageCategory}
           </p>
           <h3 className="mt-2 font-display text-xl font-bold leading-tight">{tournament.name}</h3>
@@ -65,7 +65,7 @@ export function TournamentCard({
       </dl>
 
       <div className="mt-5">
-        <div className="mb-1.5 flex items-center justify-between text-[11px] font-semibold uppercase tracking-widest text-muted-foreground font-ui">
+        <div className="mb-1.5 flex items-center justify-between text-xs font-semibold uppercase tracking-widest text-muted-foreground font-ui">
           <span>Spots filled</span>
           <span className="font-num">{filled}%</span>
         </div>

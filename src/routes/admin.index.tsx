@@ -125,7 +125,7 @@ function AdminConsole() {
       <section className="rounded-2xl border border-primary/15 bg-gradient-to-br from-blue-50 via-background to-orange-50 p-6 sm:p-9 dark:from-primary/15 dark:via-background dark:to-accent/10">
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               KheloLocal / private operations
             </p>
             <h1 className="mt-3 font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
@@ -140,7 +140,7 @@ function AdminConsole() {
             </p>
           </div>
           <div className="rounded-xl border border-border bg-background/80 px-4 py-3 text-right">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
               Signed in as
             </p>
             <p className="mt-1 text-sm font-bold">{currentUser.email}</p>
@@ -298,7 +298,7 @@ function AdminConsole() {
           ) : null}
           <div className="overflow-x-auto rounded-xl border border-border">
             <table className="min-w-[700px] w-full text-left text-sm">
-              <thead className="bg-secondary text-[11px] uppercase tracking-widest text-muted-foreground">
+              <thead className="bg-secondary text-xs uppercase tracking-widest text-muted-foreground">
                 <tr>
                   <th className="px-4 py-3">Tournament</th>
                   <th className="px-4 py-3">City / dates</th>
@@ -390,7 +390,7 @@ function AdminConsole() {
           />
           <div className="overflow-x-auto rounded-xl border border-border">
             <table className="min-w-[720px] w-full text-left text-sm">
-              <thead className="bg-secondary text-[11px] uppercase tracking-widest text-muted-foreground">
+              <thead className="bg-secondary text-xs uppercase tracking-widest text-muted-foreground">
                 <tr>
                   <th className="px-4 py-3">Athlete</th>
                   <th className="px-4 py-3">City / sport</th>
@@ -472,7 +472,7 @@ function AdminConsole() {
                 className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-5"
               >
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     {reportCityName(report)} · {report.kind}
                   </p>
                   <h3 className="mt-1 font-display text-xl font-bold">{report.title}</h3>
@@ -517,7 +517,7 @@ function AdminConsole() {
               />
               <div className="overflow-x-auto rounded-xl border border-border">
                 <table className="min-w-[680px] w-full text-left text-sm">
-                  <thead className="bg-secondary text-[11px] uppercase tracking-widest text-muted-foreground">
+                  <thead className="bg-secondary text-xs uppercase tracking-widest text-muted-foreground">
                     <tr>
                       <th className="px-4 py-3">Account</th>
                       <th className="px-4 py-3">Role</th>

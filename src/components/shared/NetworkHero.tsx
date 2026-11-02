@@ -159,7 +159,7 @@ export function NetworkHero({
   title,
   description,
   actions,
-  highlights: _highlights,
+  highlights,
   tone,
 }: {
   eyebrow: string;
@@ -185,6 +185,16 @@ export function NetworkHero({
           <p className="network-hero-description mt-7 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8">
             {description}
           </p>
+          <ul aria-label="Key highlights" className="mt-7 flex flex-wrap gap-2">
+            {highlights.map((highlight) => (
+              <li
+                key={highlight}
+                className="rounded-full border border-lime/50 bg-lime/10 px-3 py-1.5 font-ui text-xs font-bold tracking-wide text-foreground"
+              >
+                {highlight}
+              </li>
+            ))}
+          </ul>
           {actions ? <div className="mt-8 flex flex-wrap gap-3">{actions}</div> : null}
         </div>
       </div>

@@ -1,72 +1,48 @@
 import { useEffect, useState } from "react";
-import { Clock3, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 
 const KEY = "khelolocal.theme";
-type ThemeMode = "auto" | "dark" | "light";
+type ThemeMode = "dark" | "light";
 
-function apply(dark: boolean) {
-  document.documentElement.classList.toggle("dark", dark);
-}
-
-function isNightTime() {
-  const hour = new Date().getHours();
-  return hour >= 18 || hour < 6;
+function apply(mode: ThemeMode) {
+  document.documentElement.classList.toggle("dark", mode === "dark");
 }
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const [mode, setMode] = useState<ThemeMode>("auto");
+  const [mode, setMode] = useState<ThemeMode>("light");
   const [ready, setReady] = useState(false);
-  const dark = mode === "auto" ? isNightTime() : mode === "dark";
 
   useEffect(() => {
     const stored = localStorage.getItem(KEY);
-    const nextMode: ThemeMode =
-      stored === "dark" || stored === "light" || stored === "auto" ? stored : "auto";
+    const nextMode: ThemeMode = stored === "dark" ? "dark" : "light";
     setMode(nextMode);
-    apply(nextMode === "auto" ? isNightTime() : nextMode === "dark");
+    apply(nextMode);
+    if (stored === "auto") localStorage.setItem(KEY, nextMode);
     setReady(true);
   }, []);
 
-  useEffect(() => {
-    if (mode !== "auto") return;
-
-    const syncWithTime = () => apply(isNightTime());
-    syncWithTime();
-    const interval = window.setInterval(syncWithTime, 60_000);
-    document.addEventListener("visibilitychange", syncWithTime);
-
-    return () => {
-      window.clearInterval(interval);
-      document.removeEventListener("visibilitychange", syncWithTime);
-    };
-  }, [mode]);
-
   const toggle = () => {
-    const nextMode: ThemeMode = mode === "auto" ? "dark" : mode === "dark" ? "light" : "auto";
+    const nextMode: ThemeMode = mode === "dark" ? "light" : "dark";
     setMode(nextMode);
-    apply(nextMode === "auto" ? isNightTime() : nextMode === "dark");
+    apply(nextMode);
     localStorage.setItem(KEY, nextMode);
   };
 
-  const modeDescription =
-    mode === "auto" ? "automatic, dark from 6 PM to 6 AM" : mode === "dark" ? "dark" : "light";
-  const nextModeDescription = mode === "auto" ? "dark" : mode === "dark" ? "light" : "automatic";
+  const nextModeDescription = mode === "dark" ? "light" : "dark";
 
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label={`Theme is ${modeDescription}. Activate to switch to ${nextModeDescription} mode.`}
-      title={`Theme: ${modeDescription}. Click to switch to ${nextModeDescription} mode.`}
+      aria-label={`Theme is ${mode}. Activate to switch to ${nextModeDescription} mode.`}
+      title={`Theme: ${mode}. Click to switch to ${nextModeDescription} mode.`}
       className={
         "inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-accent hover:text-accent-ink " +
         (ready ? "" : "opacity-0 ") +
         (className ?? "")
       }
     >
-      {mode === "auto" ? (
-        <Clock3 aria-hidden="true" className="size-4" />
-      ) : dark ? (
+      {mode === "dark" ? (
         <Moon aria-hidden="true" className="size-4" />
       ) : (
         <Sun aria-hidden="true" className="size-4" />

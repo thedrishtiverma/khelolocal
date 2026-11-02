@@ -30,7 +30,7 @@ function FounderProfilePage() {
           <div className="surface-panel relative flex min-h-[360px] flex-col justify-between overflow-hidden p-6 sm:min-h-[480px] sm:p-10">
             <div className="profile-banner-lines pointer-events-none absolute inset-0 opacity-40" />
             <div className="relative z-10 flex items-start justify-between gap-4">
-              <p className="font-ui text-[10px] font-bold uppercase tracking-[0.2em] text-surface-foreground/65">
+              <p className="font-ui text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/65">
                 KheloLocal · Founders
               </p>
               <span className="font-num text-sm font-bold text-lime">
@@ -57,7 +57,7 @@ function FounderProfilePage() {
             </div>
           </div>
           <div className="flex flex-col justify-center bg-card p-6 sm:p-10 lg:p-12">
-            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.2em] text-lime">
+            <p className="font-ui text-xs font-bold uppercase tracking-[0.2em] text-lime">
               Role · {founder.focus}
             </p>
             <h1 className="mt-4 max-w-xl font-display text-4xl font-black uppercase leading-[0.95] sm:text-6xl">
@@ -77,7 +77,7 @@ function FounderProfilePage() {
 
         <section className="mt-10 grid gap-8 border-t border-border py-8 sm:grid-cols-[0.7fr_1.3fr] sm:gap-12 sm:py-10">
           <div>
-            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="font-ui text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Focus in practice
             </p>
             <h2 className="mt-3 font-display text-3xl font-black uppercase">{founder.focus}</h2>

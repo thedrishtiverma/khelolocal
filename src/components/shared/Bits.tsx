@@ -25,7 +25,7 @@ export function Stat({
       </span>
       <span
         className={cn(
-          "font-ui text-[11px] font-semibold uppercase tracking-widest",
+          "font-ui text-xs font-semibold uppercase tracking-widest",
           tone === "invert" ? "text-surface-foreground/60" : "text-muted-foreground",
         )}
       >
@@ -52,7 +52,7 @@ export function SectionHeading({
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
         {eyebrow ? (
-          <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="mb-1 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
             {eyebrow}
           </p>
         ) : null}

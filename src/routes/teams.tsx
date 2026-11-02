@@ -42,7 +42,7 @@ function TeamsPage() {
               >
                 <div className="relative z-10 flex items-center gap-3 text-surface-foreground">
                   <SportIcon sportId={team.sportId} className="size-8" aria-hidden="true" />
-                  <span className="font-ui text-[10px] font-bold uppercase tracking-[0.18em]">
+                  <span className="font-ui text-xs font-bold uppercase tracking-[0.18em]">
                     {team.sportName}
                   </span>
                 </div>

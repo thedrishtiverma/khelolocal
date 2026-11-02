@@ -86,7 +86,7 @@ function AthleteDashboard() {
       <section className="surface-panel rounded-xl p-6 sm:p-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
               Verified sports identity
             </p>
             <h2 className="mt-1 font-display text-2xl font-black">{athlete.name}</h2>

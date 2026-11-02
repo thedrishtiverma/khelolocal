@@ -33,7 +33,7 @@ function TeamPage() {
       />
       <Page className="py-14 sm:py-20">
         <div className="mb-10 rounded-2xl border border-border bg-secondary/35 p-6 sm:p-8">
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-muted-foreground">
             Our story
           </p>
           <h2 className="mt-4 max-w-3xl font-display text-3xl font-black uppercase leading-tight sm:text-5xl">

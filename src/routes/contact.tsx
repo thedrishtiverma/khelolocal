@@ -36,7 +36,7 @@ function ContactPage() {
             >
               <Mail className="mt-1 size-5" />
               <span>
-                <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   Email
                 </span>
                 <span className="mt-2 block font-semibold">khelolocal@gmail.com</span>
@@ -45,7 +45,7 @@ function ContactPage() {
             <div className="flex items-start gap-4 border-t border-border py-5">
               <MapPin className="mt-1 size-5" />
               <span>
-                <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   Based in
                 </span>
                 <span className="mt-2 block font-semibold">Grassroots sport across India</span>

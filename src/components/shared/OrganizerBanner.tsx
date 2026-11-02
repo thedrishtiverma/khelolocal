@@ -20,7 +20,7 @@ export function OrganizerBanner({
     >
       <div className="organizer-banner-art relative min-h-32 overflow-hidden px-5 py-6 sm:px-6">
         <div className="profile-banner-lines absolute inset-0" />
-        <p className="relative z-10 inline-flex rounded-full border border-white/20 bg-surface/70 px-2.5 py-1 font-ui text-[10px] font-bold uppercase tracking-[0.18em] text-surface-foreground">
+        <p className="relative z-10 inline-flex rounded-full border border-white/20 bg-surface/70 px-2.5 py-1 font-ui text-xs font-bold uppercase tracking-[0.18em] text-surface-foreground">
           {eventName ?? (sport ? `${sport} organizer` : "Tournament organizer")}
         </p>
       </div>

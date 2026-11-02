@@ -38,7 +38,7 @@ function TeamDashboard() {
   return (
     <Page className="py-10 sm:py-16">
       <section className="surface-panel rounded-2xl p-6 sm:p-8">
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
           Team workspace
         </p>
         <h1 className="mt-2 font-display text-4xl font-black uppercase">{team.name}</h1>
