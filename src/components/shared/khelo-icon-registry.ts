@@ -55,7 +55,10 @@ const SPORT_ID_ALIASES: Record<string, KheloSportId> = {
 };
 
 function compactSportId(value: string): string {
-  return value.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
 }
 
 export function canonicalSportId(value: string): KheloSportId | undefined {

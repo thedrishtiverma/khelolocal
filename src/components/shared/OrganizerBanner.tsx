@@ -48,7 +48,7 @@ export function OrganizerBanner({
           </div>
           <div className="min-w-0 flex-1 pb-0.5">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="font-display text-2xl font-black leading-none text-orange-600 transition-colors group-hover:text-lime dark:text-surface-foreground">
+              <h2 className="font-display text-2xl font-black leading-none text-lime transition-colors group-hover:text-lime dark:text-surface-foreground">
                 {organizer.organizationName}
               </h2>
               {organizer.verificationStatus === "VERIFIED" ? (

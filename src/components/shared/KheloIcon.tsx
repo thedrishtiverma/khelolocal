@@ -14,8 +14,15 @@ import type {
 
 type IconProps = Omit<SVGProps<SVGSVGElement>, "name">;
 
-function BrandFallback({ label, className, style, width, height, ...ariaProps }: IconProps & {
-  label?: string;
+function BrandFallback({
+  label,
+  className,
+  style,
+  width,
+  height,
+  ...ariaProps
+}: IconProps & {
+  label: string | undefined;
 }) {
   return (
     <svg

@@ -7,5 +7,5 @@
 <path d="M0 280Q240 215 480 275T960 260T1200 240V360H0Z" fill="#2EAF5B"/><path d="M90 255h1020M160 220h880" stroke="#F9F7EB" opacity=".55" stroke-width="4"/><g fill="#F9F7EB"><circle cx="260" cy="205" r="13"/><path d="m250 222 22 24-10 23-24-18Z"/><circle cx="420" cy="205" r="13"/><path d="m410 222 22 24-10 23-24-18Z"/><circle cx="580" cy="205" r="13"/><path d="m570 222 22 24-10 23-24-18Z"/></g><circle cx="820" cy="82" r="17" fill="#FF8C1A"/><path d="m815 105-34 55 38 23 45-37M781 160l-42 15-37 28M819 183l-10 63-43 33M819 183l54 31 48-6" stroke="#F9F7EB" stroke-width="16" stroke-linecap="round"/>
 <path d="M0 18H220" stroke="#2EAF5B" stroke-width="8"/><path d="M1000 0h200v70" fill="none" stroke="#2EAF5B" stroke-width="5" opacity=".85"/>
 <rect x="28" y="28" width="220" height="38" rx="19" fill="#061B35" opacity=".72" stroke="#F9F7EB" stroke-opacity=".35"/>
-<text x="48" y="54" fill="#F9F7EB" font-family="Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="2">KHO-KHO</text>
+
 </svg>

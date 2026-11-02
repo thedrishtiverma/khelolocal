@@ -17,17 +17,19 @@ The test command runs Vitest once. UI tests use jsdom and React Testing Library.
 
 ## KheloLocal icon and banner artwork
 
-The original sport, role, activity, and status SVGs are defined in
-`src/components/shared/KheloIcon.tsx`, with their named catalogs centralized in
-`src/components/shared/khelo-icon-registry.ts`. Sport-specific banner compositions live in
-`src/components/shared/BannerArtwork.tsx` and use the existing light/dark theme tokens.
+The supplied SVG kit lives in `src/assets/khelolocal/`, with its source manifest at
+`asset-manifest.json`. `src/components/shared/khelo-icon-registry.ts` maps supported sport IDs,
+aliases, icon URLs, role icons, activity/status icons, and role banner URLs. `SportIcon`,
+`KheloIcon`, and `BannerArtwork` render those files as individual image assets; banners stay
+decorative behind live profile text, photos, and logos.
 
-When adding a sport, add its canonical ID to `SPORT_CATALOG`, register its pictogram and display
-label in `SPORT_ICON_REGISTRY`, add a dedicated `SportGeometry` composition, and extend
-`KheloIcon.test.tsx`. Keep compatibility aliases in the registry when older data uses another ID.
-Role, activity, and status additions likewise belong in their registries and catalog coverage tests.
-The existing icon library remains appropriate for familiar interface controls; use the KheloLocal
-assets for sport, identity, network activity, status, and profile/banner visuals.
+When adding a sport, add its SVG icon and banner, canonical ID, display label, and aliases to the
+central registry, then extend `KheloIcon.test.tsx` to assert unique assets and alias resolution.
+Unknown or unavailable icons use an explicit KheloLocal brand fallback; do not map them to a
+different sport. Role, activity, and status additions belong in the same registries and asset
+coverage tests. Keep navigation, search, settings, and other familiar controls on the existing UI
+icon library. The supplied banner SVGs should remain free of visible baked-in labels so responsive
+HTML can provide the live role and profile information.
 
 ## Data and service boundaries
 

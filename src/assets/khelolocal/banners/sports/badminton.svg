@@ -7,5 +7,5 @@
 <path d="M0 270Q300 220 600 270T1200 240V360H0Z" fill="#0B6A58"/><path d="M0 170h1200M0 182h1200" stroke="#F9F7EB" stroke-width="3" opacity=".7"/><path d="M600 170v190" stroke="#FF8C1A" stroke-width="5"/><path d="M150 170v-80M150 90h900M1050 90v80" stroke="#F9F7EB" stroke-width="5" opacity=".75"/><path d="m830 55 40 42-35 26-40-26Z" fill="#F9F7EB"/><path d="m795 97-25 60M830 123l-4 52M870 97l25 60" stroke="#F9F7EB" stroke-width="5"/><circle cx="690" cy="70" r="12" fill="#FF8C1A"/><path d="M410 245q70-90 140-70" stroke="#FF8C1A" stroke-width="9" fill="none"/>
 <path d="M0 18H220" stroke="#FF8C1A" stroke-width="8"/><path d="M1000 0h200v70" fill="none" stroke="#FF8C1A" stroke-width="5" opacity=".85"/>
 <rect x="28" y="28" width="220" height="38" rx="19" fill="#061B35" opacity=".72" stroke="#F9F7EB" stroke-opacity=".35"/>
-<text x="48" y="54" fill="#F9F7EB" font-family="Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="2">BADMINTON</text>
+
 </svg>

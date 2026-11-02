@@ -7,5 +7,5 @@
 <circle cx="880" cy="155" r="90" fill="none" stroke="#F9F7EB" stroke-width="3" opacity=".4"/><circle cx="880" cy="155" r="65" fill="none" stroke="#FF8C1A" stroke-width="3" opacity=".8"/><path d="M0 275Q250 190 500 270T1000 260T1200 230V360H0Z" fill="#2EAF5B"/><path d="M0 310Q300 260 600 310T1200 280" fill="none" stroke="#F9F7EB" stroke-width="5" opacity=".4"/><circle cx="480" cy="110" r="19" fill="#F9F7EB"/><path d="M480 132v58M480 150l-72 30M480 150l72 30M480 190l-70 55M480 190l70 55M410 245h140" stroke="#F9F7EB" stroke-width="15" stroke-linecap="round"/>
 <path d="M0 18H220" stroke="#2EAF5B" stroke-width="8"/><path d="M1000 0h200v70" fill="none" stroke="#2EAF5B" stroke-width="5" opacity=".85"/>
 <rect x="28" y="28" width="220" height="38" rx="19" fill="#061B35" opacity=".72" stroke="#F9F7EB" stroke-opacity=".35"/>
-<text x="48" y="54" fill="#F9F7EB" font-family="Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="2">YOGA</text>
+
 </svg>

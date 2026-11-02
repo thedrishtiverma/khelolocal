@@ -7,5 +7,5 @@
 <path d="M0 275Q300 220 600 270T1200 240V360H0Z" fill="#08724E"/><path d="M0 160h1200M600 160v200" stroke="#F9F7EB" stroke-width="5" opacity=".7"/><path d="M820 45v120M820 45h300M1120 45v120" stroke="#F9F7EB" stroke-width="5"/><circle cx="650" cy="100" r="42" fill="#FF8C1A"/><path d="M608 100h84M650 58v84M620 70q30 30 60 60M680 70q-30 30-60 60" stroke="#082D5B" stroke-width="4" fill="none"/><circle cx="410" cy="80" r="16" fill="#F9F7EB"/><path d="m405 100-30 53 43 22 36-44M375 153l-40 20-34-4M418 175l-5 65-40 35M418 175l52 35 43-4" stroke="#F9F7EB" stroke-width="15" stroke-linecap="round"/>
 <path d="M0 18H220" stroke="#2EAF5B" stroke-width="8"/><path d="M1000 0h200v70" fill="none" stroke="#2EAF5B" stroke-width="5" opacity=".85"/>
 <rect x="28" y="28" width="220" height="38" rx="19" fill="#061B35" opacity=".72" stroke="#F9F7EB" stroke-opacity=".35"/>
-<text x="48" y="54" fill="#F9F7EB" font-family="Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="2">VOLLEYBALL</text>
+
 </svg>
