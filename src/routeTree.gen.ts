@@ -53,6 +53,7 @@ import { Route as OrganizerCreateRouteImport } from './routes/organizer.create'
 import { Route as OrganizerResultsRouteImport } from './routes/organizer.results'
 import { Route as ProfileSetupRouteImport } from './routes/profile.setup'
 import { Route as SportsSportRouteImport } from './routes/sports.$sport'
+import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as TeamMemberRouteImport } from './routes/team.$member'
 import { Route as TeamStoryRouteImport } from './routes/team.story'
 import { Route as TeamsDashboardRouteImport } from './routes/teams.dashboard'
@@ -283,6 +284,11 @@ const SportsSportRoute = SportsSportRouteImport.update({
   path: '/$sport',
   getParentRoute: () => SportsRoute,
 } as any)
+const TeamIndexRoute = TeamIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TeamRoute,
+} as any)
 const TeamMemberRoute = TeamMemberRouteImport.update({
   id: '/$member',
   path: '/$member',
@@ -380,6 +386,7 @@ export interface FileRoutesByFullPath {
   '/cities/': typeof CitiesIndexRoute
   '/college/': typeof CollegeIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
+  '/team/': typeof TeamIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
   '/volunteer/': typeof VolunteerIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
@@ -409,7 +416,6 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/sports': typeof SportsRouteWithChildren
   '/stories': typeof StoriesRoute
-  '/team': typeof TeamRouteWithChildren
   '/teams': typeof TeamsRouteWithChildren
   '/terms': typeof TermsRoute
   '/vision': typeof VisionRoute
@@ -434,6 +440,7 @@ export interface FileRoutesByTo {
   '/cities': typeof CitiesIndexRoute
   '/college': typeof CollegeIndexRoute
   '/organizer': typeof OrganizerIndexRoute
+  '/team': typeof TeamIndexRoute
   '/tournaments': typeof TournamentsIndexRoute
   '/volunteer': typeof VolunteerIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
@@ -490,6 +497,7 @@ export interface FileRoutesById {
   '/cities/': typeof CitiesIndexRoute
   '/college/': typeof CollegeIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
+  '/team/': typeof TeamIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
   '/volunteer/': typeof VolunteerIndexRoute
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
@@ -547,6 +555,7 @@ export interface FileRouteTypes {
     | '/cities/'
     | '/college/'
     | '/organizer/'
+    | '/team/'
     | '/tournaments/'
     | '/volunteer/'
     | '/organizer/manage/$id'
@@ -576,7 +585,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/sports'
     | '/stories'
-    | '/team'
     | '/teams'
     | '/terms'
     | '/vision'
@@ -601,6 +609,7 @@ export interface FileRouteTypes {
     | '/cities'
     | '/college'
     | '/organizer'
+    | '/team'
     | '/tournaments'
     | '/volunteer'
     | '/organizer/manage/$id'
@@ -656,6 +665,7 @@ export interface FileRouteTypes {
     | '/cities/'
     | '/college/'
     | '/organizer/'
+    | '/team/'
     | '/tournaments/'
     | '/volunteer/'
     | '/organizer/manage/$id'
@@ -1019,6 +1029,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SportsSportRouteImport
       parentRoute: typeof SportsRoute
     }
+    '/team/': {
+      id: '/team/'
+      path: '/'
+      fullPath: '/team/'
+      preLoaderRoute: typeof TeamIndexRouteImport
+      parentRoute: typeof TeamRoute
+    }
     '/team/$member': {
       id: '/team/$member'
       path: '/$member'
@@ -1126,11 +1143,13 @@ const SportsRouteWithChildren =
 interface TeamRouteChildren {
   TeamMemberRoute: typeof TeamMemberRoute
   TeamStoryRoute: typeof TeamStoryRoute
+  TeamIndexRoute: typeof TeamIndexRoute
 }
 
 const TeamRouteChildren: TeamRouteChildren = {
   TeamMemberRoute: TeamMemberRoute,
   TeamStoryRoute: TeamStoryRoute,
+  TeamIndexRoute: TeamIndexRoute,
 }
 
 const TeamRouteWithChildren = TeamRoute._addFileChildren(TeamRouteChildren)

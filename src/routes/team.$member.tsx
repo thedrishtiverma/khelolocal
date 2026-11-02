@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Page } from "@/components/shared/Bits";
+import { KeywordHighlight, Page } from "@/components/shared/Bits";
 import { FOUNDERS, founderBySlug } from "@/lib/founders";
 
 export const Route = createFileRoute("/team/$member")({
