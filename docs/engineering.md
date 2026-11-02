@@ -17,19 +17,15 @@ The test command runs Vitest once. UI tests use jsdom and React Testing Library.
 
 ## KheloLocal icon and banner artwork
 
-The supplied SVG kit lives in `src/assets/khelolocal/`, with its source manifest at
-`asset-manifest.json`. `src/components/shared/khelo-icon-registry.ts` maps supported sport IDs,
-aliases, icon URLs, role icons, activity/status icons, and role banner URLs. `SportIcon`,
-`KheloIcon`, and `BannerArtwork` render those files as individual image assets; banners stay
-decorative behind live profile text, photos, and logos.
+`src/components/shared/khelo-icon-registry.ts` maps supported sport IDs, aliases, role icons, and
+activity/status icons. `KheloIcon` draws icons inline and `BannerArtwork` draws decorative sports
+geometry behind live profile text, photos, and logos.
 
-When adding a sport, add its SVG icon and banner, canonical ID, display label, and aliases to the
-central registry, then extend `KheloIcon.test.tsx` to assert unique assets and alias resolution.
-Unknown or unavailable icons use an explicit KheloLocal brand fallback; do not map them to a
-different sport. Role, activity, and status additions belong in the same registries and asset
-coverage tests. Keep navigation, search, settings, and other familiar controls on the existing UI
-icon library. The supplied banner SVGs should remain free of visible baked-in labels so responsive
-HTML can provide the live role and profile information.
+When adding a sport, add its inline icon drawing, banner geometry, canonical ID, display label, and
+aliases to the shared components and registry, then extend `KheloIcon.test.tsx`. Unknown sports use
+the KheloLocal brand mark; do not map them to a different sport. Role, activity, and status icon
+drawings belong in `KheloIcon.tsx`. Keep navigation, search, settings, and other familiar controls
+on the existing UI icon library.
 
 ## Data and service boundaries
 

@@ -6,7 +6,6 @@ import {
   ACTIVITY_CATALOG,
   ACTIVITY_ICON_REGISTRY,
   canonicalSportId,
-  ROLE_BANNER_REGISTRY,
   ROLE_CATALOG,
   ROLE_ICON_REGISTRY,
   SPORT_CATALOG,
@@ -15,8 +14,6 @@ import {
   STATUS_ICON_REGISTRY,
   sportIconLabel,
   sportIconName,
-  resolveKheloBannerAsset,
-  resolveKheloIconAsset,
 } from "@/components/shared/khelo-icon-registry";
 import type { KheloIconName } from "@/components/shared/khelo-icon-registry";
 
@@ -29,30 +26,23 @@ const iconNames: KheloIconName[] = [
 ];
 
 describe("KheloLocal icons and banner artwork", () => {
-  it("maps every supported sport to a distinct supplied icon and banner asset", () => {
+  it("maps every supported sport to a distinct inline icon and banner geometry", () => {
     expect(SPORT_CATALOG).toHaveLength(11);
-    const iconPaths = new Set<string>();
-    const bannerPaths = new Set<string>();
+    const iconNames = new Set<string>();
 
     for (const sportId of SPORT_CATALOG) {
-      const { icon, label, iconPath, bannerPath } = SPORT_ICON_REGISTRY[sportId];
-      const iconUrl = resolveKheloIconAsset(icon);
-      const bannerUrl = resolveKheloBannerAsset(bannerPath);
+      const { icon, label } = SPORT_ICON_REGISTRY[sportId];
       const iconMarkup = renderToStaticMarkup(<KheloIcon name={icon} aria-label={label} />);
       const bannerMarkup = renderToStaticMarkup(<BannerArtwork sportId={sportId} />);
 
-      expect(iconUrl).toBeTruthy();
-      expect(bannerUrl).toBeTruthy();
       expect(iconMarkup).toContain(`data-khelo-icon="${icon}"`);
       expect(iconMarkup).toContain(`>${label}</title>`);
       expect(bannerMarkup).toContain("khelo-banner-geometry");
       expect(bannerMarkup).toContain(`data-sport-banner="${sportId}"`);
-      iconPaths.add(iconPath);
-      bannerPaths.add(bannerPath);
+      iconNames.add(icon);
     }
 
-    expect(iconPaths.size).toBe(11);
-    expect(bannerPaths.size).toBe(11);
+    expect(iconNames.size).toBe(11);
   });
 
   it("canonicalizes sport names, aliases, casing, and separators", () => {
@@ -65,53 +55,22 @@ describe("KheloLocal icons and banner artwork", () => {
     expect(sportIconLabel("Table Tennis")).toBe("Table Tennis");
   });
 
-  it("maps all role identities and role banners to separate supplied assets", () => {
+  it("maps all role identities to distinct inline icons", () => {
     expect(ROLE_CATALOG).toHaveLength(8);
     expect(Object.keys(ROLE_ICON_REGISTRY)).toEqual(ROLE_CATALOG);
     expect(new Set(Object.values(ROLE_ICON_REGISTRY)).size).toBe(ROLE_CATALOG.length);
-    expect(Object.keys(ROLE_BANNER_REGISTRY)).toEqual(ROLE_CATALOG);
-
-    const iconUrls = ROLE_CATALOG.map((role) => resolveKheloIconAsset(ROLE_ICON_REGISTRY[role]));
-    const bannerUrls = ROLE_CATALOG.map((role) =>
-      resolveKheloBannerAsset(ROLE_BANNER_REGISTRY[role]),
-    );
-    expect(iconUrls.every(Boolean)).toBe(true);
-    expect(bannerUrls.every(Boolean)).toBe(true);
-    expect(new Set(iconUrls).size).toBe(ROLE_CATALOG.length);
-    expect(new Set(bannerUrls).size).toBe(ROLE_CATALOG.length);
   });
 
-  it("uses supplied assets for the activity and status variants present in the kit", () => {
+  it("covers every activity and status icon with the inline registries", () => {
     expect(ACTIVITY_CATALOG).toHaveLength(12);
     expect(Object.keys(ACTIVITY_ICON_REGISTRY)).toEqual(ACTIVITY_CATALOG);
     expect(Object.keys(STATUS_ICON_REGISTRY)).toEqual(STATUS_CATALOG);
-
-    for (const name of Object.values(ACTIVITY_ICON_REGISTRY)) {
-      const url = resolveKheloIconAsset(name);
-      if (name !== "activity-roster") expect(url).toBeTruthy();
-    }
-    for (const name of Object.values(STATUS_ICON_REGISTRY)) {
-      const url = resolveKheloIconAsset(name);
-      if (
-        [
-          "status-live",
-          "status-upcoming",
-          "status-completed",
-          "status-verified",
-          "status-pending",
-          "status-full",
-        ].includes(name)
-      ) {
-        expect(url).toBeTruthy();
-      }
-    }
   });
 
-  it("uses the brand mark for unknown sports and renders missing icon drawings safely", () => {
+  it("uses the brand mark for unknown sports and safely renders unavailable icon drawings", () => {
     expect(canonicalSportId("Cricket")).toBeUndefined();
     expect(sportIconName("Cricket")).toBe("brand-local");
     expect(sportIconLabel("Cricket")).toBe("Uncatalogued sport: Cricket");
-    expect(resolveKheloIconAsset("activity-roster")).toBeUndefined();
     expect(() => renderToStaticMarkup(<KheloIcon name="activity-roster" />)).not.toThrow();
     expect(renderToStaticMarkup(<KheloIcon name="activity-roster" />)).toContain(
       'data-khelo-icon="activity-roster"',

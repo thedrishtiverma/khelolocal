@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
-<title id="title">Football</title><desc id="desc">A football with a distinct central pentagon and panel seams.</desc>
-<g fill="none" stroke="#0B2D5B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="64" cy="64" r="48"/><path d="M48 42 64 33 80 42 76 61 64 72 52 61Z"/><path d="m48 42-20-7M80 42l20-7M52 61 36 78l5 24M76 61l16 17-5 24M64 72v29M28 35l-8 21 16 22M100 35l8 21-16 22"/></g>
-</svg>
