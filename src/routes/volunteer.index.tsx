@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ClipboardCheck, MapPin, ShieldCheck, UsersRound } from "lucide-react";
+import { ArrowRight, ClipboardCheck, MapPin, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
@@ -67,7 +67,7 @@ function VolunteerPage() {
           }
         />
         <div className="grid gap-5 md:grid-cols-3">
-          {STEPS.map(([Icon, title, body], index) => (
+          {STEPS.map(([, title, body], index) => (
             <article key={title} className="data-card rounded-2xl p-6">
               <span className="font-num text-sm text-lime">0{index + 1}</span>
               {index === 0 ? (

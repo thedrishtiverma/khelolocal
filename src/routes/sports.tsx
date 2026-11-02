@@ -72,7 +72,7 @@ function SportsPage() {
                     className="relative z-10 size-10"
                     aria-hidden="true"
                   />
-                  <span className="relative z-10 ml-auto font-ui text-xs font-bold uppercase tracking-[0.18em]">
+                  <span className="relative z-10 font-ui text-xs font-bold uppercase tracking-[0.18em]">
                     {sport.name}
                   </span>
                 </div>

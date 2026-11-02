@@ -319,9 +319,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               KheloLocal
             </p>
             <nav className="mt-4 flex flex-col items-start gap-3 text-sm font-semibold">
-              <Link to="/vision" className="hover:text-lime">
-                About
-              </Link>
               <Link to="/how-it-works" className="hover:text-lime">
                 How it works
               </Link>

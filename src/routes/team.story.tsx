@@ -10,7 +10,8 @@ export const Route = createFileRoute("/team/story")({
       { title: "Our story | KheloLocal" },
       {
         name: "description",
-        content: "The story behind KheloLocal and the team building a network for grassroots sport.",
+        content:
+          "The story behind KheloLocal and the team building a network for grassroots sport.",
       },
     ],
   }),

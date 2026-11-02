@@ -206,7 +206,12 @@ function NumField({
       <span className="mb-1 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">
         {label}
       </span>
-      <Input type="number" min={0} value={value} onChange={(e) => onChange(Number(e.target.value))} />
+      <Input
+        type="number"
+        min={0}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+      />
     </label>
   );
 }

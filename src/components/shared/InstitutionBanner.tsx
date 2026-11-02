@@ -30,7 +30,8 @@ export function InstitutionBanner({ college }: { college: College }) {
         {college.sportsEventName}
       </p>
       <div className="relative z-10 mt-6 flex items-center gap-2 text-xs font-semibold text-surface-foreground/70">
-        <ActivityIcon activity="achievement" className="size-4 text-lime" /> Building a lasting sports record
+        <ActivityIcon activity="achievement" className="size-4 text-lime" /> Building a lasting
+        sports record
       </div>
     </Link>
   );

@@ -1,16 +1,19 @@
 import type { SVGProps } from "react";
-import { KheloIcon, sportIconLabel, sportIconName } from "@/components/shared/KheloIcon";
+import { KheloIcon } from "@/components/shared/KheloIcon";
+import { sportIconLabel, sportIconName } from "@/components/shared/khelo-icon-registry";
 
 export function SportIcon({
   sportId,
+  "aria-label": ariaLabel,
+  "aria-hidden": ariaHidden,
   ...props
 }: Omit<SVGProps<SVGSVGElement>, "name"> & { sportId: string }) {
-  const isDecorative = props["aria-hidden"] === true;
   return (
     <KheloIcon
       name={sportIconName(sportId)}
-      aria-label={isDecorative ? undefined : (props["aria-label"] ?? sportIconLabel(sportId))}
       {...props}
+      aria-hidden={ariaHidden}
+      aria-label={ariaLabel ?? (ariaHidden === true ? undefined : sportIconLabel(sportId))}
     />
   );
 }

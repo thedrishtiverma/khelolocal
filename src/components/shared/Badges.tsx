@@ -11,7 +11,13 @@ const STATUS_LABEL: Record<TournamentStatus, string> = {
   CANCELLED: "Cancelled",
 };
 
-export function StatusBadge({ status, className }: { status: TournamentStatus; className?: string }) {
+export function StatusBadge({
+  status,
+  className,
+}: {
+  status: TournamentStatus;
+  className?: string;
+}) {
   const tone =
     status === "LIVE"
       ? "bg-live/12 text-live border-live/35"
@@ -24,14 +30,14 @@ export function StatusBadge({ status, className }: { status: TournamentStatus; c
     status === "LIVE"
       ? "live"
       : status === "REGISTRATION_OPEN"
-          ? "open"
-          : status === "COMPLETED"
-            ? "completed"
-            : status === "CANCELLED"
-              ? "cancelled"
-              : status === "DRAFT"
-                ? "pending"
-                : "upcoming";
+        ? "open"
+        : status === "COMPLETED"
+          ? "completed"
+          : status === "CANCELLED"
+            ? "cancelled"
+            : status === "DRAFT"
+              ? "pending"
+              : "upcoming";
   return (
     <span
       className={cn(
@@ -75,13 +81,14 @@ export function ResultBadge({ status }: { status: ResultStatus }) {
     VERIFIED: "border-verified/30 bg-verified/10 text-verified",
     REJECTED: "border-destructive/30 bg-destructive/10 text-destructive",
   };
-  const label = status === "PENDING" ? "Pending verification" : status === "VERIFIED" ? "Verified" : "Rejected";
+  const label =
+    status === "PENDING" ? "Pending verification" : status === "VERIFIED" ? "Verified" : "Rejected";
   const iconStatus =
     status === "PENDING" ? "pending" : status === "VERIFIED" ? "verified" : "rejected";
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider",
+        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider",
         map[status],
       )}
     >

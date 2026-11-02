@@ -7,14 +7,17 @@ export type SportTone = "field" | "accent" | "navy";
 
 const TONE_BY_SPORT: Record<string, SportTone> = {
   football: "field",
+  cricket: "field",
   khokho: "field",
+  "kho-kho": "field",
   athletics: "field",
   kabaddi: "accent",
   boxing: "accent",
   badminton: "accent",
+  "table-tennis": "accent",
+  tennis: "accent",
   basketball: "navy",
   volleyball: "navy",
-  cricket: "navy",
   yoga: "navy",
 };
 

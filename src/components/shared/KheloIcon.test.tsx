@@ -25,6 +25,7 @@ const iconNames: KheloIconName[] = [
 describe("KheloLocal icon registry", () => {
   it("provides an original pictogram and banner composition for each sport", () => {
     expect(SPORT_CATALOG).toHaveLength(12);
+    const compositions = new Set<string>();
 
     for (const sportId of SPORT_CATALOG) {
       const { icon, label } = SPORT_ICON_REGISTRY[sportId];
@@ -35,18 +36,27 @@ describe("KheloLocal icon registry", () => {
       expect(markup).toContain(`aria-label="${label}"`);
       expect(markup).toMatch(/<(path|circle|rect|ellipse)\b/);
       expect(banner).toContain(`data-sport-banner="${sportId}"`);
+      const geometry = banner.match(
+        new RegExp(`<svg[^>]*data-sport-banner="${sportId}"[^>]*>(.*?)<\\/svg>`),
+      )?.[1];
+      expect(geometry).toMatch(/<(path|circle|rect|ellipse)\b/);
+      compositions.add(geometry ?? "");
     }
 
     expect(SPORT_ICON_REGISTRY.khokho).toEqual(SPORT_ICON_REGISTRY["kho-kho"]);
+    expect(compositions.size).toBe(SPORT_CATALOG.length);
   });
 
   it("defines unique role identities for all eight KheloLocal roles", () => {
     expect(ROLE_CATALOG).toHaveLength(8);
+    expect(Object.keys(ROLE_ICON_REGISTRY)).toEqual(ROLE_CATALOG);
     expect(new Set(Object.values(ROLE_ICON_REGISTRY)).size).toBe(ROLE_CATALOG.length);
   });
 
   it("defines sport-network activity and status icons", () => {
     expect(ACTIVITY_CATALOG).toHaveLength(12);
+    expect(Object.keys(ACTIVITY_ICON_REGISTRY)).toEqual(ACTIVITY_CATALOG);
+    expect(Object.keys(STATUS_ICON_REGISTRY)).toEqual(STATUS_CATALOG);
     expect(STATUS_CATALOG).toContain("full");
     expect(STATUS_CATALOG).toContain("live");
     expect(STATUS_CATALOG).toContain("verified");

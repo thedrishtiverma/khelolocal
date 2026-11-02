@@ -12,7 +12,9 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
   const motif = sportMotif(athlete.primarySport);
   return (
     <article className={`data-card overflow-hidden rounded-xl p-0 theme-fade ${motif}`}>
-      <div className={`athlete-card-banner athlete-card-banner-${athlete.primarySport} khelo-banner-surface relative min-h-28`}>
+      <div
+        className={`athlete-card-banner athlete-card-banner-${athlete.primarySport} khelo-banner-surface relative min-h-28`}
+      >
         <BannerArtwork sportId={athlete.primarySport} role="athlete" />
         <span className="athlete-card-sport">
           {sportLabel(athlete.primarySport)} · {athlete.cityName}

@@ -15,6 +15,20 @@ npm run build
 
 The test command runs Vitest once. UI tests use jsdom and React Testing Library.
 
+## KheloLocal icon and banner artwork
+
+The original sport, role, activity, and status SVGs are defined in
+`src/components/shared/KheloIcon.tsx`, with their named catalogs centralized in
+`src/components/shared/khelo-icon-registry.ts`. Sport-specific banner compositions live in
+`src/components/shared/BannerArtwork.tsx` and use the existing light/dark theme tokens.
+
+When adding a sport, add its canonical ID to `SPORT_CATALOG`, register its pictogram and display
+label in `SPORT_ICON_REGISTRY`, add a dedicated `SportGeometry` composition, and extend
+`KheloIcon.test.tsx`. Keep compatibility aliases in the registry when older data uses another ID.
+Role, activity, and status additions likewise belong in their registries and catalog coverage tests.
+The existing icon library remains appropriate for familiar interface controls; use the KheloLocal
+assets for sport, identity, network activity, status, and profile/banner visuals.
+
 ## Data and service boundaries
 
 - `src/lib/services/store.tsx` is the UI-facing application store and coordinates profile/auth operations, local demo storage, and updates to shared operational data.

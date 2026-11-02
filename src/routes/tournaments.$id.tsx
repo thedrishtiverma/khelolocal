@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { CalendarDays, MapPin, Trophy, Users } from "lucide-react";
+import { CalendarDays, MapPin, Trophy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -130,7 +130,7 @@ function TournamentDetails() {
               </span>
             ) : registrationClosed ? (
               <span className="inline-flex items-center gap-2 rounded-md border border-surface-foreground/20 bg-surface-foreground/10 px-4 py-2 text-sm font-semibold text-surface-foreground/65">
-                <StatusIcon status={isFull ? "full" : "cancelled"} className="size-4" />
+                <StatusIcon status={isFull ? "full" : "pending"} className="size-4" />
                 {registrationLabel}
               </span>
             ) : (
@@ -288,7 +288,10 @@ function TournamentDetails() {
                   >
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                        <ActivityIcon activity="match" className="mr-1.5 inline size-4 align-text-bottom" />
+                        <ActivityIcon
+                          activity="match"
+                          className="mr-1.5 inline size-4 align-text-bottom"
+                        />
                         {m.round} · Match {m.matchNumber}
                       </p>
                       <p className="mt-1 font-display text-lg font-bold">

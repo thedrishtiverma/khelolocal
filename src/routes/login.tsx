@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { KeywordHighlight } from "@/components/shared/Bits";
 import { useKhelo } from "@/lib/services/store";
 import { isSupabaseConfigured } from "@/integrations/supabase/client";
 
@@ -90,8 +89,8 @@ function LoginPage() {
 
   return (
     <div className="mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-6xl items-center gap-0 px-4 py-8 sm:px-6 lg:grid-cols-[1.08fr_.92fr] lg:py-12">
-      <div className="relative overflow-hidden rounded-t-2xl bg-primary p-7 text-primary-foreground sm:p-12 lg:min-h-[37rem] lg:rounded-l-2xl lg:rounded-tr-none">
-        <div className="absolute -right-20 -top-24 size-96 rounded-full border-[2rem] border-lime/20" />
+      <div className="relative overflow-hidden rounded-t-2xl bg-primary p-7 text-primary-foreground sm:p-12 lg:min-h-[37rem] lg:rounded-l-2xl lg:rounded-tr-none dark:bg-gradient-to-br dark:from-surface dark:via-background dark:to-surface dark:text-surface-foreground">
+        <div className="absolute -right-20 -top-24 size-96 rounded-full border-[2rem] border-lime/20 dark:border-lime/15" />
         <div className="absolute bottom-0 right-0 h-1/2 w-3/4 bg-[linear-gradient(145deg,transparent_48%,rgba(255,255,255,.12)_49%,transparent_50%)]" />
         <div className="relative flex h-full flex-col justify-between">
           <div>
@@ -108,7 +107,7 @@ function LoginPage() {
             </p>
           </div>
           <div className="mt-16 flex items-center gap-3 text-xs font-bold uppercase tracking-[.14em]">
-            <span className="grid size-9 place-items-center rounded-full border border-primary-foreground/25">
+            <span className="grid size-9 place-items-center rounded-full border border-primary-foreground/25 dark:border-surface-foreground/25">
               <LockKeyhole className="size-4" />
             </span>{" "}
             Secure local session
@@ -191,11 +190,11 @@ function LoginPage() {
               <button
                 key={d.email}
                 onClick={() => void doLogin(d.email, "")}
-                className="flex w-full items-center justify-between rounded-md border border-border bg-background px-4 py-3 text-left transition-colors hover:border-lime"
+                className="group flex w-full items-center justify-between rounded-md border border-border bg-background px-4 py-3 text-left transition-colors hover:border-lime"
               >
                 <span>
-                  <span className="block font-semibold">
-                    <KeywordHighlight text={d.label} />
+                  <span className="block font-semibold text-foreground transition-colors group-hover:text-lime">
+                    {d.label}
                   </span>
                   <span className="block text-xs text-muted-foreground">{d.email}</span>
                 </span>

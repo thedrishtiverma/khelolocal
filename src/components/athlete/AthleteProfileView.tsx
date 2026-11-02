@@ -38,7 +38,12 @@ export function AthleteProfileView({
         image={athlete.profileImage}
         eyebrow={`${sportName} · ${athlete.ageCategory}`}
         subtitle={`${athlete.position || "Position not set"}${athlete.collegeName ? ` · ${athlete.collegeName}` : ""}`}
-        meta={<span className="flex items-center gap-1.5"><MapPin className="size-4" />{athlete.cityName}</span>}
+        meta={
+          <span className="flex items-center gap-1.5">
+            <MapPin className="size-4" />
+            {athlete.cityName}
+          </span>
+        }
         status={<VerificationChip status={athlete.verificationStatus} />}
         actions={actions}
         accent={athlete.primarySport === "football" ? "field" : "accent"}

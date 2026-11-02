@@ -59,7 +59,7 @@ export function OrganizerBanner({
             </div>
             <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1">
-                <RoleIcon role="institution" className="size-3.5" /> {organizer.organizationType}
+                <RoleIcon role="organizer" className="size-3.5" /> {organizer.organizationType}
               </span>
               <span className="inline-flex items-center gap-1">
                 <MapPin className="size-3.5" /> {organizer.cityName}

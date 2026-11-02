@@ -201,7 +201,10 @@ function ManageTournament() {
                 <li key={m.id} className="flex flex-wrap items-center gap-4 p-4">
                   <div className="min-w-56 flex-1">
                     <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                      <ActivityIcon activity="match" className="mr-1.5 inline size-4 align-text-bottom" />
+                      <ActivityIcon
+                        activity="match"
+                        className="mr-1.5 inline size-4 align-text-bottom"
+                      />
                       {m.round} · Match {m.matchNumber}
                     </p>
                     <p className="mt-1 font-semibold">

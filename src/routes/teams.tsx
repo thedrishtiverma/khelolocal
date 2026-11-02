@@ -49,10 +49,10 @@ function TeamsPage() {
                     {team.sportName}
                   </span>
                 </div>
-                <RoleIcon role="team" className="relative z-10 size-7 text-lime" />
               </div>
               <div className="p-6">
-                <h2 className="team-card-name font-display text-2xl font-black uppercase transition-colors">
+                <h2 className="team-card-name flex items-center gap-2 font-display text-2xl font-black uppercase transition-colors">
+                  <RoleIcon role="team" className="size-6 shrink-0 text-lime" />
                   <KeywordHighlight text={team.name} />
                 </h2>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -85,15 +85,15 @@ function TeamsPage() {
           ].map(([Icon, title, body]) => {
             const IconComponent = Icon as React.ComponentType<{ className?: string }>;
             return (
-            <Link
-              key={title as string}
-              to="/athletes"
-              className="data-card-muted rounded-xl border border-border p-6"
-            >
-              <IconComponent className="size-5 text-lime" />
-              <h2 className="mt-7 font-display text-xl font-bold uppercase">{title as string}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">{body as string}</p>
-            </Link>
+              <Link
+                key={title as string}
+                to="/athletes"
+                className="data-card-muted rounded-xl border border-border p-6"
+              >
+                <IconComponent className="size-5 text-lime" />
+                <h2 className="mt-7 font-display text-xl font-bold uppercase">{title as string}</h2>
+                <p className="mt-2 text-sm text-muted-foreground">{body as string}</p>
+              </Link>
             );
           })}
         </section>

@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
-import { KheloIcon, sportIconName } from "@/components/shared/KheloIcon";
-import { ROLE_ICON_REGISTRY } from "@/components/shared/khelo-icon-registry";
+import { sportTone } from "@/lib/sport-visuals";
+import { KheloIcon } from "@/components/shared/KheloIcon";
+import { ROLE_ICON_REGISTRY, sportIconName } from "@/components/shared/khelo-icon-registry";
 import type { KheloRole } from "@/components/shared/khelo-icon-registry";
 
 function SportGeometry({ sportId }: { sportId: string }) {
@@ -123,7 +124,11 @@ export function BannerArtwork({
   const roleIcon = role ? ROLE_ICON_REGISTRY[role] : undefined;
 
   return (
-    <div className={cn("khelo-banner-art", className)} aria-hidden="true">
+    <div
+      className={cn("khelo-banner-art", className)}
+      data-sport-tone={sportId ? sportTone(sportId) : undefined}
+      aria-hidden="true"
+    >
       {sportId ? (
         <svg
           className="khelo-banner-geometry"
@@ -143,9 +148,6 @@ export function BannerArtwork({
         name={sportIcon ?? roleIcon ?? "brand-local"}
         className={sportId ? "khelo-banner-symbol" : "khelo-banner-symbol khelo-banner-symbol-role"}
       />
-      {role && sportId ? (
-        <KheloIcon name={roleIcon ?? "role-athlete"} className="khelo-banner-role-mark" />
-      ) : null}
     </div>
   );
 }

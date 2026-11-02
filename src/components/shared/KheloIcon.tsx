@@ -2,7 +2,6 @@ import type { ReactNode, SVGProps } from "react";
 import {
   ACTIVITY_ICON_REGISTRY,
   ROLE_ICON_REGISTRY,
-  SPORT_ICON_REGISTRY,
   STATUS_ICON_REGISTRY,
 } from "@/components/shared/khelo-icon-registry";
 import type {
@@ -340,10 +339,7 @@ function IconDrawing({ name }: { name: KheloIconName }): ReactNode {
   }
 }
 
-export function KheloIcon({
-  name,
-  ...props
-}: IconProps & { name: KheloIconName }) {
+export function KheloIcon({ name, ...props }: IconProps & { name: KheloIconName }) {
   const label = props["aria-label"];
   return (
     <svg
@@ -367,31 +363,22 @@ export function KheloIcon({
 
 export function RoleIcon({
   role,
+  "aria-label": ariaLabel,
   ...props
 }: IconProps & { role: KheloRole }) {
-  const label = props["aria-label"] ?? `${role} identity`;
-  return <KheloIcon name={ROLE_ICON_REGISTRY[role]} aria-label={label} {...props} />;
+  return (
+    <KheloIcon
+      name={ROLE_ICON_REGISTRY[role]}
+      aria-label={ariaLabel ?? `${role} identity`}
+      {...props}
+    />
+  );
 }
 
-export function ActivityIcon({
-  activity,
-  ...props
-}: IconProps & { activity: KheloActivity }) {
+export function ActivityIcon({ activity, ...props }: IconProps & { activity: KheloActivity }) {
   return <KheloIcon name={ACTIVITY_ICON_REGISTRY[activity]} {...props} />;
 }
 
-export function StatusIcon({
-  status,
-  ...props
-}: IconProps & { status: KheloStatus }) {
+export function StatusIcon({ status, ...props }: IconProps & { status: KheloStatus }) {
   return <KheloIcon name={STATUS_ICON_REGISTRY[status]} {...props} />;
-}
-
-export function sportIconName(sportId: string): KheloIconName {
-  return SPORT_ICON_REGISTRY[sportId as keyof typeof SPORT_ICON_REGISTRY]?.icon ?? "brand-local";
-}
-
-export function sportIconLabel(sportId: string): string {
-  return SPORT_ICON_REGISTRY[sportId as keyof typeof SPORT_ICON_REGISTRY]?.label
-    ?? `Uncatalogued sport: ${sportId}`;
 }

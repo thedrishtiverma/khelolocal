@@ -122,3 +122,14 @@ export type KheloIconName =
   | KheloRoleIconName
   | KheloActivityIconName
   | KheloStatusIconName;
+
+export function sportIconName(sportId: string): KheloIconName {
+  return SPORT_ICON_REGISTRY[sportId as keyof typeof SPORT_ICON_REGISTRY]?.icon ?? "brand-local";
+}
+
+export function sportIconLabel(sportId: string): string {
+  return (
+    SPORT_ICON_REGISTRY[sportId as keyof typeof SPORT_ICON_REGISTRY]?.label ??
+    `Uncatalogued sport: ${sportId}`
+  );
+}

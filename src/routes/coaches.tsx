@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { ActivityIcon, RoleIcon } from "@/components/shared/KheloIcon";
-import type { KheloActivity } from "@/components/shared/khelo-icon-registry";
+import { StatusIcon } from "@/components/shared/KheloIcon";
 
 export const Route = createFileRoute("/coaches")({
   head: () => ({
@@ -76,7 +76,7 @@ function CoachesPage() {
           {WORKFLOW.map(({ icon, title, body }, index) => (
             <li key={title} className="data-card rounded-xl border-t-2 border-lime p-6">
               <span className="font-num text-sm text-lime">0{index + 1}</span>
-              <ActivityIcon activity={icon as KheloActivity} className="mt-6 size-6 text-lime" />
+              <ActivityIcon activity={icon} className="mt-6 size-6 text-lime" />
               <h2 className="mt-5 font-display text-xl font-bold uppercase">{title}</h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
             </li>
@@ -98,7 +98,7 @@ function CoachesPage() {
           </Button>
         </div>
         <div className="mt-10 flex items-center gap-2 text-sm text-muted-foreground">
-          <BadgeCheck className="size-4 text-verified" />
+          <StatusIcon status="verified" className="size-4 text-verified" />
           Verification labels identify the source of a record; review each profile before making
           selection decisions.
         </div>
