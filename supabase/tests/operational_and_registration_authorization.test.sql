@@ -1,6 +1,6 @@
 begin;
 
-select plan(11);
+select plan(16);
 
 insert into auth.users (
   id, aud, role, email, encrypted_password, email_confirmed_at,
@@ -37,7 +37,22 @@ values
     'registration-security-draft',
     'e61a6827-04db-4f2d-9e85-4918c9c85202',
     '{"status":"DRAFT","maxParticipants":1}'::jsonb
+  ),
+  (
+    'registration-security-u17',
+    'e61a6827-04db-4f2d-9e85-4918c9c85202',
+    '{"status":"REGISTRATION_OPEN","maxParticipants":10,"ageCategory":"U-17"}'::jsonb
+  ),
+  (
+    'registration-security-gender',
+    'e61a6827-04db-4f2d-9e85-4918c9c85202',
+    '{"status":"REGISTRATION_OPEN","maxParticipants":10,"genderCategory":"MALE"}'::jsonb
   );
+
+update public.athlete_profiles
+set date_of_birth = (current_date - interval '17 years')::date,
+    gender = 'female'
+where auth_user_id = 'e61a6827-04db-4f2d-9e85-4918c9c85201';
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub', 'e61a6827-04db-4f2d-9e85-4918c9c85201', true);
@@ -72,6 +87,18 @@ select throws_ok(
   'Organizer access required',
   'participants cannot review registrations'
 );
+select throws_ok(
+  $$select public.register_for_tournament('registration-security-u17')$$,
+  'P0001',
+  'Athlete does not meet the age category',
+  'registration enforces the event age category'
+);
+select throws_ok(
+  $$select public.register_for_tournament('registration-security-gender')$$,
+  'P0001',
+  'Athlete does not meet the gender eligibility',
+  'registration enforces the event gender category'
+);
 
 select set_config('request.jwt.claim.sub', 'e61a6827-04db-4f2d-9e85-4918c9c85203', true);
 select throws_ok(
@@ -94,6 +121,47 @@ select is(
   )).status,
   'APPROVED',
   'the event organizer can approve a pending registration'
+);
+select is(
+  (select (payload ->> 'currentParticipants')::integer
+   from public.tournament_domain
+   where id = 'registration-security-event'),
+  1,
+  'approval updates the event participant count transactionally'
+);
+insert into public.match_results (
+  id, tournament_id, organizer_profile_id, payload
+)
+values (
+  'registration-security-match',
+  'registration-security-event',
+  'e61a6827-04db-4f2d-9e85-4918c9c85202',
+  '{"resultStatus":"PENDING"}'::jsonb
+);
+select throws_ok(
+  $$update public.match_results
+    set payload = '{"resultStatus":"VERIFIED"}'::jsonb
+    where id = 'registration-security-match'$$,
+  '42501',
+  'Only platform reviewers can verify results',
+  'event organizers cannot self-verify match results'
+);
+insert into public.match_performances (
+  id, match_id, athlete_profile_id, payload
+)
+values (
+  'registration-security-performance',
+  'registration-security-match',
+  'e61a6827-04db-4f2d-9e85-4918c9c85201',
+  '{"verified":false}'::jsonb
+);
+select throws_ok(
+  $$update public.match_performances
+    set payload = '{"verified":true}'::jsonb
+    where id = 'registration-security-performance'$$,
+  '42501',
+  'Only platform reviewers can verify performances',
+  'event organizers cannot self-verify athlete performances'
 );
 
 select set_config('request.jwt.claim.sub', 'e61a6827-04db-4f2d-9e85-4918c9c85201', true);

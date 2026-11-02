@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CalendarDays, MapPin, Trophy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,10 @@ import { EmptyState, Page, Stat } from "@/components/shared/Bits";
 import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
 import { ActivityIcon, StatusIcon } from "@/components/shared/KheloIcon";
 import { formatDate, formatDateRange, formatDateTime, formatINR } from "@/lib/format";
-import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
+import { useKhelo } from "@/lib/services/store";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
+import { getAthleteRegistration, getTournamentById } from "@/lib/services/tournament-backend";
+import type { Registration, Tournament } from "@/types";
 import {
   effectiveTournamentStatus,
   isAthletePubliclyDiscoverable,
@@ -40,11 +43,95 @@ export const Route = createFileRoute("/tournaments/$id")({
 function TournamentDetails() {
   const { id } = Route.useParams();
   const { db, register, currentUser } = useKhelo();
-  const athlete = useCurrentAthlete();
   const [tab, setTab] = useState("overview");
   const [registering, setRegistering] = useState(false);
+  const [loadedTournament, setLoadedTournament] = useState<Tournament | null>(null);
+  const [loadedTournamentId, setLoadedTournamentId] = useState("");
+  const [detailLoading, setDetailLoading] = useState(isSupabaseConfigured());
+  const [detailError, setDetailError] = useState("");
+  const [remoteRegistration, setRemoteRegistration] = useState<Registration | null>(null);
+  const [remoteRegistrationTournamentId, setRemoteRegistrationTournamentId] = useState("");
 
-  const tournament = db.tournaments.find((t) => t.id === id);
+  const localTournament = db.tournaments.find((t) => t.id === id);
+  useEffect(() => {
+    if (localTournament || !isSupabaseConfigured()) {
+      setDetailLoading(false);
+      return;
+    }
+
+    let active = true;
+    setDetailLoading(true);
+    setDetailError("");
+    void getTournamentById(id)
+      .then((result) => {
+        if (!active) return;
+        if (result) {
+          setLoadedTournament(result);
+          setLoadedTournamentId(id);
+        }
+      })
+      .catch((error: unknown) => {
+        if (active)
+          setDetailError(error instanceof Error ? error.message : "Could not load event.");
+      })
+      .finally(() => {
+        if (active) setDetailLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [id, localTournament]);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured() || currentUser?.role !== "ATHLETE") return;
+
+    let active = true;
+    void getAthleteRegistration(id, currentUser.id)
+      .then((registration) => {
+        if (active) {
+          setRemoteRegistration(registration);
+          setRemoteRegistrationTournamentId(id);
+        }
+      })
+      .catch((error: unknown) => {
+        if (active) {
+          toast.error(
+            error instanceof Error ? error.message : "Could not load registration status.",
+          );
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [id, currentUser]);
+
+  const tournament = localTournament ?? (loadedTournamentId === id ? loadedTournament : null);
+  if (!tournament && detailLoading) {
+    return (
+      <Page>
+        <p className="py-12 text-center text-sm text-muted-foreground" role="status">
+          Loading tournament…
+        </p>
+      </Page>
+    );
+  }
+  if (!tournament && detailError) {
+    return (
+      <Page>
+        <EmptyState
+          title="Tournament could not be loaded."
+          description={detailError}
+          action={
+            <Button asChild>
+              <Link to="/tournaments">Back to tournaments</Link>
+            </Button>
+          }
+        />
+      </Page>
+    );
+  }
   if (!tournament) throw notFound();
 
   const organizer = db.organizers.find((o) => o.id === tournament.organizerId);
@@ -58,7 +145,19 @@ function TournamentDetails() {
         verification.tournamentId === tournament.id && verification.status === "VERIFIED",
     )
     .sort((a, b) => b.verifiedAt.localeCompare(a.verifiedAt));
-  const myReg = athlete ? regs.find((r) => r.athleteId === athlete.id) : undefined;
+  const myReg =
+    (currentUser
+      ? regs.find(
+          (registration) =>
+            registration.athleteId === currentUser.id &&
+            (registration.status === "PENDING" || registration.status === "APPROVED"),
+        )
+      : undefined) ??
+    (remoteRegistrationTournamentId === id &&
+    remoteRegistration &&
+    (remoteRegistration.status === "PENDING" || remoteRegistration.status === "APPROVED")
+      ? remoteRegistration
+      : null);
   const teams = Array.from(new Set(regs.filter((r) => r.teamId).map((r) => r.teamId as string)));
   const registrationClosed =
     status !== "REGISTRATION_OPEN" || tournament.currentParticipants >= tournament.maxParticipants;
@@ -73,13 +172,13 @@ function TournamentDetails() {
   const isFull = tournament.currentParticipants >= tournament.maxParticipants;
 
   const handleRegister = async () => {
-    if (!athlete) {
+    if (currentUser?.role !== "ATHLETE") {
       toast.error("Log in as an athlete to register.");
       return;
     }
     setRegistering(true);
     try {
-      await register(tournament.id, athlete.id);
+      await register(tournament.id);
       toast.success("You're registered for this tournament.", {
         description: "The organizer will review your registration.",
       });

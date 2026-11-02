@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,6 +10,8 @@ import { MatchScoringDialog } from "@/components/organizer/MatchScoringDialog";
 import { VerifyDialog } from "@/components/organizer/VerifyDialog";
 import { formatDate, formatDateRange } from "@/lib/format";
 import { useKhelo } from "@/lib/services/store";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
+import { getTournamentById, getTournamentRegistrations } from "@/lib/services/tournament-backend";
 import {
   athleteById,
   effectiveTournamentStatus,
@@ -18,7 +20,7 @@ import {
   teamById,
   tournamentById,
 } from "@/lib/services/selectors";
-import type { Match } from "@/types";
+import type { Match, Registration, Tournament } from "@/types";
 
 export const Route = createFileRoute("/organizer/manage/$id")({
   head: () => ({
@@ -38,20 +40,97 @@ export const Route = createFileRoute("/organizer/manage/$id")({
 
 function ManageTournament() {
   const { id } = Route.useParams();
-  const { db, setRegistrationStatus, generateFixtures } = useKhelo();
+  const { db, currentUser, hydrated, setRegistrationStatus, generateFixtures } = useKhelo();
   const [scoring, setScoring] = useState<Match | null>(null);
   const [verifying, setVerifying] = useState<Match | null>(null);
   const [reviewingRegistrationId, setReviewingRegistrationId] = useState<string | null>(null);
-  const tournament = tournamentById(db, id);
+  const [remoteTournament, setRemoteTournament] = useState<Tournament | null>(null);
+  const [remoteRegistrations, setRemoteRegistrations] = useState<Registration[]>([]);
+  const [loadingRemoteData, setLoadingRemoteData] = useState(isSupabaseConfigured());
+  const [remoteError, setRemoteError] = useState("");
+  const localTournament = tournamentById(db, id);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured()) {
+      setLoadingRemoteData(false);
+      return;
+    }
+
+    let active = true;
+    setLoadingRemoteData(true);
+    setRemoteError("");
+    void Promise.all([
+      localTournament ? Promise.resolve(localTournament) : getTournamentById(id),
+      getTournamentRegistrations(id),
+    ])
+      .then(([event, registrations]) => {
+        if (!active) return;
+        setRemoteTournament(event);
+        setRemoteRegistrations(registrations);
+      })
+      .catch((error: unknown) => {
+        if (active) {
+          setRemoteError(
+            error instanceof Error ? error.message : "Could not load tournament data.",
+          );
+        }
+      })
+      .finally(() => {
+        if (active) setLoadingRemoteData(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [id, localTournament]);
+
+  const tournament = localTournament ?? remoteTournament;
+
+  if (isSupabaseConfigured() && !hydrated) {
+    return (
+      <Page>
+        <p className="py-12 text-center text-sm text-muted-foreground" role="status">
+          Checking your account…
+        </p>
+      </Page>
+    );
+  }
 
   if (!tournament) {
     return (
       <Page>
+        {loadingRemoteData ? (
+          <p className="py-12 text-center text-sm text-muted-foreground" role="status">
+            Loading tournament…
+          </p>
+        ) : (
+          <EmptyState
+            title={remoteError ? "Tournament could not be loaded." : "Tournament not found"}
+            description={remoteError || undefined}
+            action={
+              <Button asChild>
+                <Link to="/organizer">Back to dashboard</Link>
+              </Button>
+            }
+          />
+        )}
+      </Page>
+    );
+  }
+
+  if (
+    isSupabaseConfigured() &&
+    currentUser?.id !== tournament.organizerId &&
+    currentUser?.role !== "ADMIN"
+  ) {
+    return (
+      <Page>
         <EmptyState
-          title="Tournament not found"
+          title="You cannot manage this tournament."
+          description="Only its organizer or a platform administrator can manage registrations."
           action={
             <Button asChild>
-              <Link to="/organizer">Back to dashboard</Link>
+              <Link to="/tournaments">Browse tournaments</Link>
             </Button>
           }
         />
@@ -59,7 +138,9 @@ function ManageTournament() {
     );
   }
 
-  const registrations = registrationsOfTournament(db, tournament.id);
+  const registrations = isSupabaseConfigured()
+    ? remoteRegistrations
+    : registrationsOfTournament(db, tournament.id);
   const matches = matchesOfTournament(db, tournament.id);
   const pendingVerification = matches.filter(
     (m) => m.status === "COMPLETED" && m.resultStatus === "PENDING",
@@ -68,6 +149,11 @@ function ManageTournament() {
     setReviewingRegistrationId(registrationId);
     try {
       await setRegistrationStatus(registrationId, status);
+      setRemoteRegistrations((previous) =>
+        previous.map((registration) =>
+          registration.id === registrationId ? { ...registration, status } : registration,
+        ),
+      );
       if (status === "APPROVED") toast.success("Registration approved");
       else toast("Registration rejected");
     } catch (error) {
@@ -139,7 +225,9 @@ function ManageTournament() {
                 return (
                   <li key={r.id} className="flex flex-wrap items-center gap-4 p-4">
                     <div className="min-w-48 flex-1">
-                      <p className="font-semibold">{athlete?.name ?? "Unknown athlete"}</p>
+                      <p className="font-semibold">
+                        {athlete?.name ?? `Athlete ${r.athleteId.slice(0, 8)}`}
+                      </p>
                       <p className="text-xs text-muted-foreground">
                         {athlete?.position} · {athlete?.ageCategory} · applied{" "}
                         {formatDate(r.registrationDate)}

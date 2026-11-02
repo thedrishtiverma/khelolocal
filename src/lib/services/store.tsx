@@ -109,7 +109,7 @@ interface StoreValue {
     bio?: string;
   }) => Promise<User>;
   createTournament: (input: Partial<Tournament>) => Tournament;
-  register: (tournamentId: string, athleteId: string) => Promise<void>;
+  register: (tournamentId: string) => Promise<void>;
   setRegistrationStatus: (registrationId: string, status: "APPROVED" | "REJECTED") => Promise<void>;
   generateFixtures: (tournamentId: string) => number;
   saveMatch: (
@@ -698,18 +698,16 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   );
 
   const register: StoreValue["register"] = useCallback(
-    async (tournamentId, athleteId) => {
-      const tournament = db.tournaments.find((item) => item.id === tournamentId);
-      if (!tournament) throw new Error("Tournament not found");
+    async (tournamentId) => {
       if (isSupabaseConfigured()) {
-        if (currentUser?.role !== "ATHLETE" || currentUser.id !== athleteId) {
-          throw new Error("Sign in with the athlete account you want to register");
+        if (currentUser?.role !== "ATHLETE") {
+          throw new Error("Sign in with an athlete account to register");
         }
         if (
           db.registrations.some(
             (registration) =>
               registration.tournamentId === tournamentId &&
-              registration.athleteId === athleteId &&
+              registration.athleteId === currentUser.id &&
               (registration.status === "PENDING" || registration.status === "APPROVED"),
           )
         ) {
@@ -725,6 +723,13 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         return;
       }
 
+      const tournament = db.tournaments.find((item) => item.id === tournamentId);
+      if (!tournament) throw new Error("Tournament not found");
+      const athlete = currentUser
+        ? db.athletes.find((item) => item.userId === currentUser.id)
+        : undefined;
+      if (!athlete) throw new Error("Log in as an athlete to register");
+
       let created: Registration | null = null;
       commit((draft) => {
         const tournament = draft.tournaments.find((item) => item.id === tournamentId);
@@ -737,14 +742,14 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         if (tournament.currentParticipants >= tournament.maxParticipants) return;
         if (
           draft.registrations.some(
-            (r) => r.tournamentId === tournamentId && r.athleteId === athleteId,
+            (r) => r.tournamentId === tournamentId && r.athleteId === athlete.id,
           )
         )
           return;
         created = {
           id: uid("reg"),
           tournamentId,
-          athleteId,
+          athleteId: athlete.id,
           teamId: null,
           registrationDate: now(),
           status: "PENDING",
@@ -766,6 +771,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         commit((draft) => {
           const registration = draft.registrations.find((item) => item.id === registrationId);
           if (registration) registration.status = updated.status;
+          else draft.registrations.push(updated);
           const tournament = draft.tournaments.find((item) => item.id === updated.tournamentId);
           if (tournament) {
             tournament.currentParticipants = draft.registrations.filter(

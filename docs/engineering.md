@@ -39,6 +39,8 @@ Core relationships include `auth.users` to `profiles` (one-to-one), role-specifi
 
 The shared JSON document contains more data than should be available to ordinary users. The `20261103000000_secure_operational_and_registration_access.sql` migration therefore limits its read and write RPC to platform administrators. Regular registration creation and review use database RPCs that derive the participant from `auth.uid()`, lock the event while checking capacity, and restrict review to the event organizer. Direct registration table writes are revoked. These database changes intentionally do not make the legacy JSON document a suitable production API.
 
+The public tournament listing now queries published event records from Supabase with server-side filters and pagination. Event detail pages load records by ID, athlete registration history is read from the authenticated registration policy, and organizer management reads registrations through organizer-scoped RLS. These reads depend on tournament records having already been written to `tournament_domain`.
+
 ## Database migrations and authorization tests
 
 Apply migrations in order against a local Supabase stack:
@@ -53,7 +55,7 @@ The SQL tests use pgTAP and verify the profile-owner role and account-state guar
 
 Public profile data is exposed through restricted directory views; direct access to private profile tables is owner/admin scoped. External consumers that selected public data directly from these base tables must switch to the directory views. Database triggers prevent owners from changing their profile role, active state, or verification state on normalized role-profile tables. The database tests verify these guards, that directory views omit contact fields and exact birth dates, and that minors are not included. A separate pgTAP suite covers shared-state access and the registration RPC authorization, duplicate, and capacity rules.
 
-Some legacy application tables and UI flows still use browser state and lack equivalent normalized authorization rules. In particular, tournament creation, results, achievements, teams, notifications, and public discovery are not yet consistently hydrated from PostgreSQL. Supabase-mode non-admin changes must not be treated as durably persisted unless a dedicated database operation is confirmed. The shared operational document is administrator-only until it is replaced by scoped APIs.
+Some legacy application tables and UI flows still use browser state and lack equivalent normalized authorization rules. In particular, event creation is still initiated from the legacy store and persistence is currently fire-and-forget; matches/results, achievements, teams, notifications, and organizer dashboards are not consistently loaded from PostgreSQL. Supabase-mode non-admin changes must not be treated as durably persisted unless a dedicated database operation is confirmed. The shared operational document is administrator-only until it is replaced by scoped APIs.
 
 No storage buckets are declared in the checked-in migrations. If buckets are configured in the Supabase dashboard, manually verify each bucket's public setting and `storage.objects` policies; no claim about dashboard-only storage configuration can be made from this repository.
 
@@ -63,8 +65,9 @@ No storage buckets are declared in the checked-in migrations. If buckets are con
 - [x] Run baseline type-check, unit tests, lint, and production build.
 - [x] Restrict the legacy shared operational-state document and add server-enforced registration creation/review checks.
 - [x] Add pgTAP authorization tests for those database rules.
+- [x] Connect public tournament discovery, event detail reads, athlete registration history, and organizer registration review to Supabase.
 - [ ] Apply migrations to a disposable Supabase project and execute the database tests.
-- [ ] Replace legacy browser/JSON state with user-scoped relational reads and writes across the core workflows.
+- [ ] Replace legacy browser/JSON state with user-scoped relational reads and writes for event creation, results, teams, achievements, and notifications.
 - [ ] Verify authentication, storage, deployment, monitoring, backups, and end-to-end flows against configured live infrastructure.
 
 Baseline checks: TypeScript, unit tests, and production build passed. Repository-wide lint failed before implementation with 1,157 errors and 14 warnings; most reported errors are existing formatting violations. Supabase CLI and `psql` are not installed in the current environment, so migrations and pgTAP tests have not been executed here.

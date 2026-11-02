@@ -110,6 +110,10 @@ as $$
 declare
   event_row public.tournament_domain%rowtype;
   registration_row public.tournament_registrations%rowtype;
+  athlete_birth_date date;
+  athlete_gender public.gender_type;
+  event_gender text;
+  age_limit integer;
   capacity integer;
   active_registrations integer;
 begin
@@ -138,6 +142,30 @@ begin
   end if;
   if event_row.payload ->> 'status' is distinct from 'REGISTRATION_OPEN' then
     raise exception 'Registration is not open';
+  end if;
+  if event_row.payload ->> 'ageCategory' in ('U-17', 'U-19') then
+    age_limit := case event_row.payload ->> 'ageCategory'
+      when 'U-17' then 17
+      when 'U-19' then 19
+    end;
+    select ap.date_of_birth, ap.gender
+    into athlete_birth_date, athlete_gender
+    from public.athlete_profiles ap
+    where ap.auth_user_id = auth.uid();
+    if athlete_birth_date is null then
+      raise exception 'Date of birth is required for this age category';
+    end if;
+    if (timezone('Asia/Kolkata', now())::date) >=
+      (athlete_birth_date + make_interval(years => age_limit))::date
+    then
+      raise exception 'Athlete does not meet the age category';
+    end if;
+  end if;
+  event_gender := event_row.payload ->> 'genderCategory';
+  if event_gender in ('MALE', 'FEMALE') then
+    if athlete_gender is null or upper(athlete_gender::text) <> event_gender then
+      raise exception 'Athlete does not meet the gender eligibility';
+    end if;
   end if;
   if not coalesce(event_row.payload ->> 'maxParticipants' ~ '^[1-9][0-9]*$', false) then
     raise exception 'Tournament capacity is not configured';
@@ -190,7 +218,7 @@ begin
   if auth.uid() is null then
     raise exception 'Authentication required';
   end if;
-  if p_status not in ('APPROVED', 'REJECTED') then
+  if p_status is null or p_status not in ('APPROVED', 'REJECTED') then
     raise exception 'Invalid registration status';
   end if;
 
@@ -225,6 +253,20 @@ begin
   where r.id = p_registration_id
   returning * into registration_row;
 
+  update public.tournament_domain t
+  set payload = jsonb_set(
+        t.payload,
+        '{currentParticipants}',
+        to_jsonb((
+          select count(*)::integer
+          from public.tournament_registrations r
+          where r.tournament_id = event_id and r.status = 'APPROVED'
+        )),
+        true
+      ),
+      updated_at = now()
+  where t.id = event_id;
+
   return registration_row;
 end;
 $$;
@@ -233,6 +275,46 @@ revoke all on function public.register_for_tournament(text, text) from public, a
 revoke all on function public.review_tournament_registration(text, text) from public, anon;
 grant execute on function public.register_for_tournament(text, text) to authenticated;
 grant execute on function public.review_tournament_registration(text, text) to authenticated;
+
+create or replace function public.prevent_unverified_result_publication()
+returns trigger
+language plpgsql
+security definer
+set search_path = pg_catalog, public, pg_temp
+as $$
+begin
+  if auth.uid() is not null and not public.is_admin_user()
+    and new.payload ->> 'resultStatus' = 'VERIFIED'
+  then
+    raise exception 'Only platform reviewers can verify results' using errcode = '42501';
+  end if;
+  return new;
+end;
+$$;
+
+create trigger match_results_prevent_owner_verification
+before insert or update on public.match_results
+for each row execute function public.prevent_unverified_result_publication();
+
+create or replace function public.prevent_unverified_performance_publication()
+returns trigger
+language plpgsql
+security definer
+set search_path = pg_catalog, public, pg_temp
+as $$
+begin
+  if auth.uid() is not null and not public.is_admin_user()
+    and new.payload ->> 'verified' = 'true'
+  then
+    raise exception 'Only platform reviewers can verify performances' using errcode = '42501';
+  end if;
+  return new;
+end;
+$$;
+
+create trigger match_performances_prevent_owner_verification
+before insert or update on public.match_performances
+for each row execute function public.prevent_unverified_performance_publication();
 
 drop policy if exists "match_results_read" on public.match_results;
 drop policy if exists "match_results_owner_write" on public.match_results;
