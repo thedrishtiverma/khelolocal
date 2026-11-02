@@ -68,5 +68,5 @@
 * Date - **12-09-2026**
 * Day - **Saturday**
 * Time - **10 AM - 5 PM**
-* Places / Area - _tbd tommorow*_
+* Places / Area - **Abhay Prashal, Yeshwant Club, ITF, ISA**
 

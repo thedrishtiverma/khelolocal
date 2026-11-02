@@ -152,59 +152,58 @@
 }
 
 .dark {
-  /* deep navy canvas, navy elevated surfaces, warm white ink */
-  --background: oklch(0.168 0.046 262);
-  --foreground: oklch(0.962 0.012 92);
-  --card: oklch(0.232 0.05 262);
-  --card-foreground: oklch(0.962 0.012 92);
-  --popover: oklch(0.232 0.05 262);
-  --popover-foreground: oklch(0.962 0.012 92);
-  --primary: oklch(0.78 0.15 62);
-  --primary-foreground: oklch(0.2 0.06 60);
-  --secondary: oklch(0.285 0.048 262);
-  --secondary-foreground: oklch(0.962 0.012 92);
-  --muted: oklch(0.278 0.045 262);
-  --muted-foreground: oklch(0.755 0.028 262);
-  --accent: oklch(0.78 0.15 62);
-  --accent-foreground: oklch(0.2 0.06 60);
-  --accent-ink: oklch(0.855 0.1 72);
-  --lime: oklch(0.78 0.15 62);
-  --lime-foreground: oklch(0.2 0.06 60);
-  --field: oklch(0.7 0.155 143);
-  --field-foreground: oklch(0.16 0.05 142);
-  --surface: oklch(0.212 0.052 262);
-  --surface-foreground: oklch(0.962 0.012 92);
-  --live: oklch(0.69 0.17 32);
-  --live-foreground: oklch(0.18 0.05 30);
-  --verified: oklch(0.755 0.15 143);
-  --warning: oklch(0.83 0.12 72);
-  --warning-ink: oklch(0.86 0.11 78);
-  --upcoming: oklch(0.75 0.07 255);
-  --done: oklch(0.7 0.025 255);
-  --cream: oklch(0.262 0.05 262);
-  --cream-foreground: oklch(0.962 0.012 92);
+  /* Soft charcoal surfaces, warm text, and restrained saffron accents. */
+  --background: oklch(0.175 0.012 255);
+  --foreground: oklch(0.94 0.012 88);
+  --card: oklch(0.225 0.014 255);
+  --card-foreground: oklch(0.94 0.012 88);
+  --popover: oklch(0.245 0.014 255);
+  --popover-foreground: oklch(0.94 0.012 88);
+  --primary: oklch(0.79 0.135 74);
+  --primary-foreground: oklch(0.22 0.018 70);
+  --secondary: oklch(0.285 0.014 255);
+  --secondary-foreground: oklch(0.93 0.012 88);
+  --muted: oklch(0.27 0.014 255);
+  --muted-foreground: oklch(0.72 0.018 255);
+  --accent: oklch(0.79 0.135 74);
+  --accent-foreground: oklch(0.22 0.018 70);
+  --accent-ink: oklch(0.84 0.105 78);
+  --lime: oklch(0.79 0.135 74);
+  --lime-foreground: oklch(0.22 0.018 70);
+  --field: oklch(0.71 0.14 148);
+  --field-foreground: oklch(0.2 0.025 148);
+  --surface: oklch(0.205 0.014 255);
+  --surface-foreground: oklch(0.94 0.012 88);
+  --live: oklch(0.69 0.16 34);
+  --live-foreground: oklch(0.2 0.025 34);
+  --verified: oklch(0.75 0.13 148);
+  --warning: oklch(0.82 0.11 78);
+  --warning-ink: oklch(0.84 0.1 78);
+  --upcoming: oklch(0.75 0.035 255);
+  --done: oklch(0.7 0.015 255);
+  --cream: oklch(0.26 0.014 255);
+  --cream-foreground: oklch(0.94 0.012 88);
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.98 0.01 92);
-  /* subtle navy hairlines */
-  --border: oklch(0.335 0.045 262);
-  --input: oklch(0.365 0.045 262);
-  --ring: oklch(0.78 0.15 62);
-  --chart-1: oklch(0.78 0.15 62);
-  --chart-2: oklch(0.7 0.155 143);
-  --chart-3: oklch(0.72 0.09 262);
-  --chart-4: oklch(0.85 0.13 80);
-  --chart-5: oklch(0.7 0.11 200);
-  --sidebar: oklch(0.212 0.052 262);
-  --sidebar-foreground: oklch(0.962 0.012 92);
-  --sidebar-primary: oklch(0.78 0.15 62);
-  --sidebar-primary-foreground: oklch(0.2 0.06 60);
-  --sidebar-accent: oklch(0.285 0.048 262);
-  --sidebar-accent-foreground: oklch(0.962 0.012 92);
-  --sidebar-border: oklch(0.335 0.045 262);
-  --sidebar-ring: oklch(0.78 0.15 62);
-  --shadow-card: 0 1px 2px oklch(0.08 0.03 262 / 0.5), 0 10px 28px -18px oklch(0.05 0.02 262 / 0.7);
+  --border: oklch(0.36 0.014 255);
+  --input: oklch(0.4 0.014 255);
+  --ring: oklch(0.79 0.135 74);
+  --chart-1: oklch(0.79 0.135 74);
+  --chart-2: oklch(0.71 0.14 148);
+  --chart-3: oklch(0.72 0.035 255);
+  --chart-4: oklch(0.84 0.11 78);
+  --chart-5: oklch(0.7 0.1 210);
+  --sidebar: oklch(0.205 0.014 255);
+  --sidebar-foreground: oklch(0.94 0.012 88);
+  --sidebar-primary: oklch(0.79 0.135 74);
+  --sidebar-primary-foreground: oklch(0.22 0.018 70);
+  --sidebar-accent: oklch(0.285 0.014 255);
+  --sidebar-accent-foreground: oklch(0.93 0.012 88);
+  --sidebar-border: oklch(0.36 0.014 255);
+  --sidebar-ring: oklch(0.79 0.135 74);
+  --shadow-card: 0 1px 2px oklch(0.08 0.008 255 / 0.5), 0 10px 28px -18px oklch(0.05 0.008 255 / 0.7);
   --shadow-lift:
-    0 2px 6px oklch(0.08 0.03 262 / 0.55), 0 20px 40px -22px oklch(0.05 0.02 262 / 0.8);
+    0 2px 6px oklch(0.08 0.008 255 / 0.55), 0 20px 40px -22px oklch(0.05 0.008 255 / 0.8);
 }
 
 @layer base {

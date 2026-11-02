@@ -127,7 +127,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem("khelolocal.theme");var d=s==="dark"||(!s&&window.matchMedia("(prefers-color-scheme: dark)").matches);if(d)document.documentElement.classList.add("dark");}catch(e){}})();`,
+            __html: `(function(){try{var s=localStorage.getItem("khelolocal.theme");var h=new Date().getHours();var d=s==="dark"||(s!=="light"&&(h>=18||h<6));if(d)document.documentElement.classList.add("dark");}catch(e){}})();`,
           }}
         />
       </head>
