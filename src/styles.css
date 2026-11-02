@@ -43,7 +43,6 @@
   --color-verified: var(--verified);
   --color-warning: var(--warning);
   --color-warning-ink: var(--warning-ink);
-  --color-accent-ink: var(--accent-ink);
   --color-upcoming: var(--upcoming);
   --color-done: var(--done);
   --color-cream: var(--cream);
@@ -119,7 +118,6 @@
   --live: oklch(0.575 0.163 32);
   --live-foreground: oklch(0.99 0.003 110);
   --verified: oklch(0.492 0.13 143);
-  --accent-ink: oklch(0.52 0.13 58);
   --warning: oklch(0.6 0.13 62);
   --warning-ink: oklch(0.47 0.11 58);
   --upcoming: oklch(0.48 0.06 250);
@@ -167,7 +165,6 @@
   --muted-foreground: oklch(0.72 0.018 255);
   --accent: oklch(0.79 0.135 74);
   --accent-foreground: oklch(0.22 0.018 70);
-  --accent-ink: oklch(0.84 0.105 78);
   --lime: oklch(0.79 0.135 74);
   --lime-foreground: oklch(0.22 0.018 70);
   --field: oklch(0.71 0.14 148);
@@ -813,11 +810,11 @@
 
 .network-hero h1 .text-lime,
 .keyword-highlight {
-  color: var(--accent-ink);
+  color: var(--accent);
 }
 
 .surface-panel .keyword-highlight {
-  color: var(--lime);
+  color: var(--accent);
 }
 
 .network-hero-console {
@@ -2734,4 +2731,73 @@
     transform: translateY(14px) scale(1.25);
     opacity: 1;
   }
+}
+
+/* Original KheloLocal artwork overlays; semantic theme tokens handle both themes. */
+.khelo-banner-surface {
+  background-color: var(--surface);
+  color: var(--surface-foreground);
+}
+
+.khelo-banner-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.khelo-banner-geometry {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--lime);
+  opacity: 0.62;
+}
+
+.khelo-banner-symbol {
+  position: absolute;
+  top: 50%;
+  right: 7%;
+  width: clamp(5rem, 14vw, 9rem);
+  height: clamp(5rem, 14vw, 9rem);
+  color: var(--lime);
+  opacity: 0.52;
+  transform: translateY(-50%);
+}
+
+.khelo-banner-symbol-role {
+  width: clamp(5rem, 12vw, 8rem);
+  height: clamp(5rem, 12vw, 8rem);
+  color: var(--field);
+  opacity: 0.52;
+}
+
+.khelo-banner-role-mark {
+  position: absolute;
+  right: 3%;
+  bottom: 8%;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--field);
+  opacity: 0.84;
+}
+
+.profile-banner .profile-banner-art.khelo-banner-surface,
+.organizer-banner-art.khelo-banner-surface,
+.athlete-card-banner.khelo-banner-surface,
+.team-card-banner.khelo-banner-surface,
+.tournament-card-banner.khelo-banner-surface,
+.sport-card-banner.khelo-banner-surface {
+  background: var(--surface);
+}
+
+.athlete-card-sport {
+  position: relative;
+  z-index: 1;
+}
+
+.profile-role-mark {
+  color: var(--lime);
 }

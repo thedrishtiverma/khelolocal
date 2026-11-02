@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Search, ShieldCheck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
+import { RoleIcon } from "@/components/shared/KheloIcon";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { useKhelo } from "@/lib/services/store";
 import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
@@ -40,7 +41,8 @@ function ScoutDashboard() {
   return (
     <Page className="py-10 sm:py-16">
       <section className="surface-panel rounded-2xl p-6 sm:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
+        <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
+          <RoleIcon role="scout" className="size-5 text-lime" />
           Scout workspace
         </p>
         <h1 className="mt-2 font-display text-4xl font-black uppercase">

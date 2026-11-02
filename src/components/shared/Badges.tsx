@@ -1,5 +1,5 @@
-import { BadgeCheck, Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { StatusIcon } from "@/components/shared/KheloIcon";
 import type { ResultStatus, TournamentStatus, VerificationStatus } from "@/types";
 
 const STATUS_LABEL: Record<TournamentStatus, string> = {
@@ -20,6 +20,18 @@ export function StatusBadge({ status, className }: { status: TournamentStatus; c
         : status === "COMPLETED" || status === "CANCELLED"
           ? "bg-muted text-done border-border"
           : "bg-upcoming/10 text-upcoming border-upcoming/25";
+  const iconStatus =
+    status === "LIVE"
+      ? "live"
+      : status === "REGISTRATION_OPEN"
+          ? "open"
+          : status === "COMPLETED"
+            ? "completed"
+            : status === "CANCELLED"
+              ? "cancelled"
+              : status === "DRAFT"
+                ? "pending"
+                : "upcoming";
   return (
     <span
       className={cn(
@@ -28,7 +40,10 @@ export function StatusBadge({ status, className }: { status: TournamentStatus; c
         className,
       )}
     >
-      <Circle className={cn("size-2 fill-current", status === "LIVE" && "animate-pulse")} />
+      <StatusIcon
+        status={iconStatus}
+        className={cn("size-3.5", status === "LIVE" && "animate-pulse")}
+      />
       {STATUS_LABEL[status]}
     </span>
   );
@@ -48,7 +63,7 @@ export function VerifiedBadge({
         className,
       )}
     >
-      <BadgeCheck className="size-3.5" />
+      <StatusIcon status="verified" className="size-3.5" />
       {label}
     </span>
   );
@@ -61,6 +76,8 @@ export function ResultBadge({ status }: { status: ResultStatus }) {
     REJECTED: "border-destructive/30 bg-destructive/10 text-destructive",
   };
   const label = status === "PENDING" ? "Pending verification" : status === "VERIFIED" ? "Verified" : "Rejected";
+  const iconStatus =
+    status === "PENDING" ? "pending" : status === "VERIFIED" ? "verified" : "rejected";
   return (
     <span
       className={cn(
@@ -68,6 +85,7 @@ export function ResultBadge({ status }: { status: ResultStatus }) {
         map[status],
       )}
     >
+      <StatusIcon status={iconStatus} className="size-3.5" />
       {label}
     </span>
   );
@@ -77,6 +95,7 @@ export function VerificationChip({ status }: { status: VerificationStatus }) {
   if (status === "VERIFIED") return <VerifiedBadge label="Verified sports identity" />;
   return (
     <span className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+      <StatusIcon status="pending" className="mr-1 size-3.5" />
       {status === "PENDING" ? "Verification pending" : "Unverified"}
     </span>
   );

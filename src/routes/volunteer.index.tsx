@@ -3,6 +3,7 @@ import { ArrowRight, ClipboardCheck, MapPin, ShieldCheck, UsersRound } from "luc
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { ActivityIcon, RoleIcon } from "@/components/shared/KheloIcon";
 
 export const Route = createFileRoute("/volunteer/")({
   head: () => ({
@@ -69,7 +70,13 @@ function VolunteerPage() {
           {STEPS.map(([Icon, title, body], index) => (
             <article key={title} className="data-card rounded-2xl p-6">
               <span className="font-num text-sm text-lime">0{index + 1}</span>
-              <Icon className="mt-7 size-7 text-lime" />
+              {index === 0 ? (
+                <ActivityIcon activity="venue" className="mt-7 size-7 text-lime" />
+              ) : index === 1 ? (
+                <RoleIcon role="volunteer" className="mt-7 size-7 text-lime" />
+              ) : (
+                <ActivityIcon activity="verification" className="mt-7 size-7 text-lime" />
+              )}
               <h2 className="mt-6 font-display text-2xl font-black uppercase">{title}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p>
             </article>
@@ -77,7 +84,7 @@ function VolunteerPage() {
         </div>
         <section className="mt-16 flex flex-col gap-6 rounded-2xl border border-border bg-secondary/45 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-10">
           <div>
-            <UsersRound className="size-7 text-lime" />
+            <RoleIcon role="volunteer" className="size-7 text-lime" />
             <h2 className="mt-4 font-display text-3xl font-black uppercase">
               Already on the field?
             </h2>

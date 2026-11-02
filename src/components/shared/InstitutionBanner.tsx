@@ -1,12 +1,18 @@
-import { ArrowUpRight, Building2, Trophy } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { College } from "@/types";
+import { ActivityIcon, RoleIcon } from "@/components/shared/KheloIcon";
+import { BannerArtwork } from "@/components/shared/BannerArtwork";
 
 export function InstitutionBanner({ college }: { college: College }) {
   return (
-    <Link to="/college" className="institution-banner group block rounded-2xl p-6 sm:p-8">
+    <Link
+      to="/college"
+      className="institution-banner khelo-institution-banner group relative block overflow-hidden rounded-2xl p-6 sm:p-8"
+    >
+      <BannerArtwork role="institution" />
       <div className="relative z-10 flex items-start justify-between gap-4">
-        <Building2 className="size-8 text-lime" />
+        <RoleIcon role="institution" className="size-8 text-lime" />
         <span className="font-ui text-xs font-bold uppercase tracking-[0.18em] text-surface-foreground/70">
           Sports institution
         </span>
@@ -24,7 +30,7 @@ export function InstitutionBanner({ college }: { college: College }) {
         {college.sportsEventName}
       </p>
       <div className="relative z-10 mt-6 flex items-center gap-2 text-xs font-semibold text-surface-foreground/70">
-        <Trophy className="size-4 text-lime" /> Building a lasting sports record
+        <ActivityIcon activity="achievement" className="size-4 text-lime" /> Building a lasting sports record
       </div>
     </Link>
   );

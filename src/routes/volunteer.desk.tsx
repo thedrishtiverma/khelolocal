@@ -263,6 +263,7 @@ function VolunteerDashboard() {
           </span>
         }
         accent="field"
+        role="volunteer"
       />
       <section className="mt-4 rounded-xl border border-border bg-card p-5">
         <div className="mt-3 flex flex-wrap gap-1.5">

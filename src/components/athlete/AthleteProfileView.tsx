@@ -1,4 +1,4 @@
-import { Award, BadgeCheck, MapPin, Star, Trophy } from "lucide-react";
+import { BadgeCheck, MapPin } from "lucide-react";
 import { Stat } from "@/components/shared/Bits";
 import { ProfileBanner } from "@/components/shared/ProfileBanner";
 import { VerificationChip } from "@/components/shared/Badges";
@@ -8,13 +8,15 @@ import { achievementsOfAthlete, publicRecordsOfAthlete } from "@/lib/services/se
 import { RecordCard } from "@/components/college/RecordCard";
 import type { Athlete } from "@/types";
 import type { ReactNode } from "react";
+import { ActivityIcon } from "@/components/shared/KheloIcon";
+import type { KheloActivity } from "@/components/shared/khelo-icon-registry";
 
-const ICONS: Record<string, ReactNode> = {
-  TOURNAMENT_WIN: <Trophy className="size-4" />,
-  RUNNER_UP: <Award className="size-4" />,
-  PLAYER_OF_MATCH: <Star className="size-4" />,
-  TOP_SCORER: <Trophy className="size-4" />,
-  MATCH_PERFORMANCE: <Star className="size-4" />,
+const ICONS: Record<string, KheloActivity> = {
+  TOURNAMENT_WIN: "achievement",
+  RUNNER_UP: "achievement",
+  PLAYER_OF_MATCH: "achievement",
+  TOP_SCORER: "achievement",
+  MATCH_PERFORMANCE: "achievement",
 };
 
 export function AthleteProfileView({
@@ -41,6 +43,7 @@ export function AthleteProfileView({
         actions={actions}
         accent={athlete.primarySport === "football" ? "field" : "accent"}
         sport={athlete.primarySport}
+        role="athlete"
       />
       <section className="surface-panel rounded-xl p-6 sm:p-8">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
@@ -82,7 +85,10 @@ export function AthleteProfileView({
                 return (
                   <li key={a.id} className="relative">
                     <span className="absolute -left-[27px] top-1 flex size-4 items-center justify-center rounded-full bg-lime text-lime-foreground">
-                      {ICONS[a.achievementType]}
+                      <ActivityIcon
+                        activity={ICONS[a.achievementType] ?? "achievement"}
+                        className="size-3.5"
+                      />
                     </span>
                     <div className="rounded-md border border-border bg-background p-4">
                       <div className="flex flex-wrap items-center justify-between gap-2">

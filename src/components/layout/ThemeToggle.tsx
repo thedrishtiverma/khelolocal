@@ -49,7 +49,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={`Theme is ${mode}. Activate to switch to ${nextModeDescription} mode.`}
       title={`Theme: ${mode}. Click to switch to ${nextModeDescription} mode.`}
       className={
-        "inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-accent hover:text-accent-ink " +
+        "inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-accent hover:text-accent " +
         (ready ? "" : "opacity-0 ") +
         (className ?? "")
       }

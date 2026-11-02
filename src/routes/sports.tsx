@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Page } from "@/components/shared/Bits";
+import { BannerArtwork } from "@/components/shared/BannerArtwork";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { SportIcon } from "@/components/shared/SportIcon";
 import { useKhelo } from "@/lib/services/store";
@@ -64,8 +65,8 @@ function SportsPage() {
                 params={{ sport: sport.id }}
                 className={`sport-card sport-card-${sport.id} group overflow-hidden rounded-2xl border border-border bg-card p-0`}
               >
-                <div className="sport-card-banner">
-                  <div className="profile-banner-lines absolute inset-0" />
+                <div className="sport-card-banner khelo-banner-surface relative overflow-hidden">
+                  <BannerArtwork sportId={sport.id} />
                   <SportIcon
                     sportId={sport.id}
                     className="relative z-10 size-10"

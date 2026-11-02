@@ -38,7 +38,7 @@ export function sportTint(sportId?: string | null): string {
     case "field":
       return "bg-verified/15 text-verified";
     case "accent":
-      return "bg-accent/25 text-accent-ink";
+      return "bg-accent/25 text-accent";
     default:
       return "bg-primary/10 text-primary";
   }

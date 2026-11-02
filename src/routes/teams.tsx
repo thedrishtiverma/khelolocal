@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Shield, Trophy, Users } from "lucide-react";
+import { ArrowRight, Trophy, Users } from "lucide-react";
 import { KeywordHighlight, Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 import { SportIcon } from "@/components/shared/SportIcon";
+import { RoleIcon } from "@/components/shared/KheloIcon";
+import { BannerArtwork } from "@/components/shared/BannerArtwork";
 
 export const Route = createFileRoute("/teams")({
   head: () => ({
@@ -38,15 +40,16 @@ function TeamsPage() {
           {db.teams.map((team) => (
             <article key={team.id} className="team-card data-card overflow-hidden rounded-2xl p-0">
               <div
-                className={`team-card-banner team-card-banner-${team.sportId} relative flex min-h-32 items-end justify-between overflow-hidden px-6 pb-5`}
+                className={`team-card-banner team-card-banner-${team.sportId} khelo-banner-surface relative flex min-h-32 items-end justify-between overflow-hidden px-6 pb-5`}
               >
+                <BannerArtwork sportId={team.sportId} role="team" />
                 <div className="relative z-10 flex items-center gap-3 text-surface-foreground">
                   <SportIcon sportId={team.sportId} className="size-8" aria-hidden="true" />
                   <span className="font-ui text-xs font-bold uppercase tracking-[0.18em]">
                     {team.sportName}
                   </span>
                 </div>
-                <Shield className="relative z-10 size-7 text-lime" />
+                <RoleIcon role="team" className="relative z-10 size-7 text-lime" />
               </div>
               <div className="p-6">
                 <h2 className="team-card-name font-display text-2xl font-black uppercase transition-colors">

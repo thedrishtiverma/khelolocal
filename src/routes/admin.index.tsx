@@ -12,13 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  EmptyState,
-  KeywordHighlight,
-  Page,
-  SectionHeading,
-  Stat,
-} from "@/components/shared/Bits";
+import { EmptyState, KeywordHighlight, Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { StatusBadge, VerificationChip } from "@/components/shared/Badges";
 import { RecordCard } from "@/components/college/RecordCard";
 import { useKhelo } from "@/lib/services/store";
@@ -31,6 +25,7 @@ import {
 import { effectiveTournamentStatus, pendingAdminRecords } from "@/lib/services/selectors";
 import { formatDateRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { RoleIcon } from "@/components/shared/KheloIcon";
 import type { FieldSubmission } from "@/types";
 
 type Tab = "overview" | "approvals" | "organizations" | "athletes" | "operations";
@@ -134,12 +129,15 @@ function AdminConsole() {
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               KheloLocal / private operations
             </p>
-            <h1 className="mt-3 font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
-              <span className="text-blue-600">City</span>{" "}
-              <span className="text-orange-500">operations</span>
-              <br />
-              control room.
-            </h1>
+            <div className="mt-3 flex items-start gap-3">
+              <RoleIcon role="admin" className="mt-1 size-8 shrink-0 text-lime sm:size-10" />
+              <h1 className="font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
+                <span className="text-blue-600">City</span>{" "}
+                <span className="text-accent">operations</span>
+                <br />
+                control room.
+              </h1>
+            </div>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
               Manage the trusted local-sport network city by city: review data, support local teams
               and surface issues before they reach athletes.
