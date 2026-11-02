@@ -131,19 +131,23 @@ function ProfileSetupPage() {
       </div>
     );
 
-  const submit = async () => {
-    if (!name.trim() || !city) return toast.error("Add your name and city to continue.");
-    if (role === "ATHLETE" && !detail.trim())
-      return toast.error("Choose your primary sport to continue.");
+  const submit = async (): Promise<void> => {
+    if (!name.trim() || !city) {
+      toast.error("Add your name and city to continue.");
+      return;
+    }
+    if (role === "ATHLETE" && !detail.trim()) {
+      toast.error("Choose your primary sport to continue.");
+      return;
+    }
     setSaving(true);
     try {
       await updateMyProfile({
         name,
         cityId: city,
         area: role === "VOLUNTEER" ? detail : area || extra,
-        phone: role === "ORGANIZER" || role === "COLLEGE" ? extra : undefined,
-        primarySport: role === "ATHLETE" ? detail : undefined,
-        position: role === "ATHLETE" ? extra : undefined,
+        ...(role === "ORGANIZER" || role === "COLLEGE" ? { phone: extra } : {}),
+        ...(role === "ATHLETE" ? { primarySport: detail, position: extra } : {}),
         bio: role === "ATHLETE" ? bio : [detail, bio].filter(Boolean).join(" · "),
         visibility: role === "ATHLETE" ? visibility : "network",
       });

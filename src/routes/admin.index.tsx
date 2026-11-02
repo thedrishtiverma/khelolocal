@@ -25,6 +25,7 @@ import {
 import { effectiveTournamentStatus, pendingAdminRecords } from "@/lib/services/selectors";
 import { formatDateRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import type { FieldSubmission } from "@/types";
 
 type Tab = "overview" | "approvals" | "organizations" | "athletes" | "operations";
 
@@ -58,7 +59,9 @@ function AdminConsole() {
     setLoadingProfiles(true);
     void listManagedProfiles()
       .then(setManagedProfiles)
-      .catch((error) => toast.error(error instanceof Error ? error.message : "Unable to load accounts."))
+      .catch((error) =>
+        toast.error(error instanceof Error ? error.message : "Unable to load accounts."),
+      )
       .finally(() => setLoadingProfiles(false));
   }, [authorised]);
 
@@ -79,12 +82,18 @@ function AdminConsole() {
 
   const inCity = <T extends { cityId: string }>(item: T) =>
     cityId === "all" || item.cityId === cityId;
+  const reportCityId = (report: FieldSubmission) =>
+    db.zones.find((zone) => zone.id === report.zoneId)?.cityId;
+  const reportCityName = (report: FieldSubmission) =>
+    db.zones.find((zone) => zone.id === report.zoneId)?.cityName ?? report.zoneName;
   const city = db.cities.find((item) => item.id === cityId);
   const athletes = db.athletes.filter(inCity);
   const tournaments = db.tournaments.filter(inCity);
   const organizations = db.organizers.filter(inCity);
   const volunteers = db.volunteers.filter(inCity);
-  const reports = db.fieldSubmissions.filter(inCity);
+  const reports = db.fieldSubmissions.filter(
+    (report) => cityId === "all" || reportCityId(report) === cityId,
+  );
   const records = pendingAdminRecords(db).filter(
     (record) =>
       cityId === "all" ||
@@ -449,8 +458,8 @@ function AdminConsole() {
                       volunteers
                     </p>
                     <p className="mt-1">
-                      {pendingReports.filter((report) => report.cityId === item.id).length} reports
-                      awaiting review
+                      {pendingReports.filter((report) => reportCityId(report) === item.id).length}{" "}
+                      reports awaiting review
                     </p>
                   </div>
                 </article>
@@ -464,7 +473,7 @@ function AdminConsole() {
               >
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                    {report.cityName} · {report.kind}
+                    {reportCityName(report)} · {report.kind}
                   </p>
                   <h3 className="mt-1 font-display text-xl font-bold">{report.title}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">
@@ -509,30 +518,65 @@ function AdminConsole() {
               <div className="overflow-x-auto rounded-xl border border-border">
                 <table className="min-w-[680px] w-full text-left text-sm">
                   <thead className="bg-secondary text-[11px] uppercase tracking-widest text-muted-foreground">
-                    <tr><th className="px-4 py-3">Account</th><th className="px-4 py-3">Role</th><th className="px-4 py-3">Access</th><th className="px-4 py-3" /></tr>
+                    <tr>
+                      <th className="px-4 py-3">Account</th>
+                      <th className="px-4 py-3">Role</th>
+                      <th className="px-4 py-3">Access</th>
+                      <th className="px-4 py-3" />
+                    </tr>
                   </thead>
                   <tbody>
                     {managedProfiles.map((profile) => (
                       <tr key={profile.id} className="border-t border-border">
-                        <td className="px-4 py-3 font-semibold">{profile.name}<p className="text-xs font-normal text-muted-foreground">{profile.email}</p></td>
+                        <td className="px-4 py-3 font-semibold">
+                          {profile.name}
+                          <p className="text-xs font-normal text-muted-foreground">
+                            {profile.email}
+                          </p>
+                        </td>
                         <td className="px-4 py-3 capitalize">{profile.role}</td>
                         <td className="px-4 py-3">{profile.is_active ? "Active" : "Suspended"}</td>
-                        <td className="px-4 py-3 text-right"><Button size="sm" variant="outline" disabled={profile.id === currentUser.id} onClick={async () => {
-                          try {
-                            await setManagedProfileActive(profile.id, !profile.is_active);
-                            setManagedProfiles((items) => items.map((item) => item.id === profile.id ? { ...item, is_active: !item.is_active } : item));
-                            toast.success(profile.is_active ? "Account suspended" : "Account reactivated");
-                          } catch (error) {
-                            toast.error(error instanceof Error ? error.message : "Unable to update account access.");
-                          }
-                        }}>{profile.is_active ? "Suspend" : "Reactivate"}</Button></td>
+                        <td className="px-4 py-3 text-right">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled={profile.id === currentUser.id}
+                            onClick={async () => {
+                              try {
+                                await setManagedProfileActive(profile.id, !profile.is_active);
+                                setManagedProfiles((items) =>
+                                  items.map((item) =>
+                                    item.id === profile.id
+                                      ? { ...item, is_active: !item.is_active }
+                                      : item,
+                                  ),
+                                );
+                                toast.success(
+                                  profile.is_active ? "Account suspended" : "Account reactivated",
+                                );
+                              } catch (error) {
+                                toast.error(
+                                  error instanceof Error
+                                    ? error.message
+                                    : "Unable to update account access.",
+                                );
+                              }
+                            }}
+                          >
+                            {profile.is_active ? "Suspend" : "Reactivate"}
+                          </Button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              {!loadingProfiles && !managedProfiles.length ? <p className="mt-4 text-sm text-muted-foreground">No live accounts found.</p> : null}
-              {loadingProfiles ? <p className="mt-4 text-sm text-muted-foreground">Loading live accounts…</p> : null}
+              {!loadingProfiles && !managedProfiles.length ? (
+                <p className="mt-4 text-sm text-muted-foreground">No live accounts found.</p>
+              ) : null}
+              {loadingProfiles ? (
+                <p className="mt-4 text-sm text-muted-foreground">Loading live accounts…</p>
+              ) : null}
             </div>
           ) : null}
         </section>

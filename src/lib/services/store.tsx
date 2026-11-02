@@ -16,6 +16,7 @@ import type {
   Database,
   Match,
   PlayerPerformance,
+  Registration,
   Role,
   SelectionLevel,
   Tournament,
@@ -558,11 +559,11 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       if (client) {
         updated = await updateProfileRecord(currentUser.id, {
           name: input.name.trim(),
-          phone: input.phone,
-          cityId: input.cityId,
-          area: input.area,
-          profilePhotoUrl: input.profileImage,
-          profileVisibility: input.visibility,
+          ...(input.phone === undefined ? {} : { phone: input.phone }),
+          ...(input.cityId === undefined ? {} : { cityId: input.cityId }),
+          ...(input.area === undefined ? {} : { area: input.area }),
+          ...(input.profileImage === undefined ? {} : { profilePhotoUrl: input.profileImage }),
+          ...(input.visibility === undefined ? {} : { profileVisibility: input.visibility }),
         });
         const roleDetails =
           currentUser.role === "ATHLETE"

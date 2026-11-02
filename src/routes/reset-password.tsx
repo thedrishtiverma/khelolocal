@@ -16,15 +16,27 @@ function ResetPasswordPage() {
   const [password, setPassword] = useState("");
   const [confirmation, setConfirmation] = useState("");
   const [busy, setBusy] = useState(false);
-  const submit = async () => {
-    if (password.length < 8) return toast.error("Use at least 8 characters.");
-    if (password !== confirmation) return toast.error("Passwords do not match.");
+  const submit = async (): Promise<void> => {
+    if (password.length < 8) {
+      toast.error("Use at least 8 characters.");
+      return;
+    }
+    if (password !== confirmation) {
+      toast.error("Passwords do not match.");
+      return;
+    }
     const client = getSupabaseClientIfConfigured();
-    if (!client) return toast.error("Password reset is not configured.");
+    if (!client) {
+      toast.error("Password reset is not configured.");
+      return;
+    }
     setBusy(true);
     const { error } = await client.auth.updateUser({ password });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Password updated. You can log in now.");
     navigate({ to: "/login" });
   };
