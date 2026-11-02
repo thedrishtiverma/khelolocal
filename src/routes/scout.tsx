@@ -43,7 +43,9 @@ function ScoutDashboard() {
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
           Scout workspace
         </p>
-        <h1 className="mt-2 font-display text-4xl font-black uppercase">Find the next player.</h1>
+        <h1 className="mt-2 font-display text-4xl font-black uppercase">
+          Find the next <span className="keyword-highlight">player.</span>
+        </h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-surface-foreground/70">
           Search the KheloLocal athlete network, compare verified records and build a shortlist for
           your team.
@@ -72,7 +74,7 @@ function ScoutDashboard() {
         </Button>
       </div>
       <section className="mt-12">
-        <SectionHeading eyebrow="Your shortlist" title="Saved athlete profiles" />
+        <SectionHeading compact eyebrow="Your shortlist" title="Saved athlete profiles" />
         {saved.length ? (
           <div className="grid gap-4 md:grid-cols-3">
             {saved.map((athlete) => (

@@ -77,7 +77,7 @@ const sceneWords: Record<Scene, string> = {
   india: "CITY BY CITY",
   poster: "INDORE PLAYS",
   proof: "KNOW THE SOURCE",
-  journey: "PLAY → PROVE → GROW",
+  journey: "PLAY PROVE GROW",
   replay: "THE GAME TRAVELS",
   stories: "THE LOCAL GAME",
   clubhouse: "SHOW UP",

@@ -12,7 +12,13 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
+import {
+  EmptyState,
+  KeywordHighlight,
+  Page,
+  SectionHeading,
+  Stat,
+} from "@/components/shared/Bits";
 import { StatusBadge, VerificationChip } from "@/components/shared/Badges";
 import { RecordCard } from "@/components/college/RecordCard";
 import { useKhelo } from "@/lib/services/store";
@@ -200,6 +206,7 @@ function AdminConsole() {
         <section className="mt-9 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="rounded-2xl border border-border bg-card p-6">
             <SectionHeading
+              compact
               eyebrow="Today’s work"
               title="To-do list"
               subtitle={`Priorities for ${city?.name ?? "all operating cities"}.`}
@@ -231,7 +238,7 @@ function AdminConsole() {
           <div className="rounded-2xl border border-border bg-card p-6">
             <div className="flex items-center gap-2">
               <Bell className="size-5 text-orange-500" />
-              <h2 className="font-display text-2xl font-black uppercase">Notifications</h2>
+              <h2 className="font-display text-lg font-black uppercase">Notifications</h2>
             </div>
             <div className="mt-5 space-y-4">
               {alerts.length ? (
@@ -254,6 +261,7 @@ function AdminConsole() {
       {tab === "approvals" ? (
         <section className="mt-9 space-y-10">
           <SectionHeading
+            compact
             eyebrow="Trust & safety"
             title="Admin approvals"
             subtitle="Approve verified sporting data before it becomes a trusted public signal."
@@ -351,6 +359,7 @@ function AdminConsole() {
       {tab === "organizations" ? (
         <section className="mt-9">
           <SectionHeading
+            compact
             eyebrow="Partner network"
             title="New organizations"
             subtitle="Review the organizers and institutions growing the local sports network."
@@ -363,7 +372,7 @@ function AdminConsole() {
               >
                 <Building2 className="size-5 text-blue-600" />
                 <h2 className="mt-5 font-display text-xl font-bold uppercase">
-                  {organization.organizationName}
+                  <KeywordHighlight text={organization.organizationName} />
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {organization.organizationType} · {organization.cityName}
@@ -384,6 +393,7 @@ function AdminConsole() {
       {tab === "athletes" ? (
         <section className="mt-9">
           <SectionHeading
+            compact
             eyebrow="City athlete directory"
             title="Athletes across the city"
             subtitle="Audit identity status and keep discovery trustworthy."
@@ -402,7 +412,7 @@ function AdminConsole() {
                 {athletes.map((athlete) => (
                   <tr key={athlete.id} className="border-t border-border">
                     <td className="px-4 py-3 font-semibold">
-                      {athlete.name}
+                      <KeywordHighlight text={athlete.name} />
                       <p className="text-xs font-normal text-muted-foreground">
                         {athlete.collegeName ?? "Independent athlete"}
                       </p>
@@ -440,6 +450,7 @@ function AdminConsole() {
       {tab === "operations" ? (
         <section className="mt-9">
           <SectionHeading
+            compact
             eyebrow="On-the-ground coverage"
             title="City operations"
             subtitle="Review local coverage, field reports and operational readiness from one place."
@@ -511,6 +522,7 @@ function AdminConsole() {
           {isSupabaseConfigured() ? (
             <div className="mt-10">
               <SectionHeading
+                compact
                 eyebrow="Database management"
                 title="Live account access"
                 subtitle="These are real Supabase accounts. Suspend access without deleting a profile or its audit history."

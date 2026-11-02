@@ -29,7 +29,7 @@ function ConnectionsPage() {
 
   return (
     <Page>
-      <SectionHeading eyebrow="Outreach" title="Connection requests" />
+      <SectionHeading compact eyebrow="Outreach" title="Connection requests" />
       {connections.length === 0 ? (
         <EmptyState
           title="No requests sent yet."

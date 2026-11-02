@@ -28,7 +28,7 @@ function SavedPage() {
 
   return (
     <Page>
-      <SectionHeading eyebrow="Shortlist" title="Saved athletes" />
+      <SectionHeading compact eyebrow="Shortlist" title="Saved athletes" />
       {saved.length === 0 ? (
         <EmptyState
           title="No saved athletes yet."

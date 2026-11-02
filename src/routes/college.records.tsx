@@ -74,6 +74,7 @@ function CollegeRecordsPage() {
   return (
     <Page>
       <SectionHeading
+        compact
         eyebrow={college.shortName}
         title="Record book"
         subtitle="Every past performance from your annual sports event, plus the nodal → state → national selection trail."
@@ -203,7 +204,7 @@ function CollegeRecordsPage() {
       </form>
 
       <div className="mt-12">
-        <SectionHeading title={`All records (${records.length})`} />
+        <SectionHeading compact title={`All records (${records.length})`} />
         {records.length === 0 ? (
           <EmptyState title="No records on file yet." />
         ) : (

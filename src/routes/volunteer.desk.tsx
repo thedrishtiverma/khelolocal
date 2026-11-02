@@ -320,7 +320,7 @@ function VolunteerDashboard() {
       </div>
 
       {/* Add actions */}
-      <h2 className="mt-7 font-display text-lg font-bold">Add field data</h2>
+      <h2 className="mt-7 font-display text-[0.84375rem] font-bold">Add field data</h2>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
         {KINDS.map((k) => (
           <button
@@ -343,7 +343,7 @@ function VolunteerDashboard() {
       {/* My records */}
       <div className="mt-8 flex items-center gap-2">
         <ClipboardList className="size-4" />
-        <h2 className="font-display text-lg font-bold">My submitted records</h2>
+        <h2 className="font-display text-[0.84375rem] font-bold">My submitted records</h2>
       </div>
       <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1">
         {(

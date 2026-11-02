@@ -106,7 +106,7 @@ function MyProfile() {
         }}
       >
         <div>
-          <h2 className="font-display text-xl font-black">Edit profile</h2>
+          <h2 className="font-display text-[0.9375rem] font-black">Edit profile</h2>
           <p className="mt-1 text-sm text-muted-foreground">Your changes are saved to your account.</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">

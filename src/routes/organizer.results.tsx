@@ -54,6 +54,7 @@ function ResultsPage() {
   return (
     <Page>
       <SectionHeading
+        compact
         eyebrow="Verification"
         title="Results"
         subtitle="Verified results are the source of truth for every athlete profile on KheloLocal."

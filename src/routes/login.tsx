@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { KeywordHighlight } from "@/components/shared/Bits";
 import { useKhelo } from "@/lib/services/store";
 import { isSupabaseConfigured } from "@/integrations/supabase/client";
 
@@ -193,7 +194,9 @@ function LoginPage() {
                 className="flex w-full items-center justify-between rounded-md border border-border bg-background px-4 py-3 text-left transition-colors hover:border-lime"
               >
                 <span>
-                  <span className="block font-semibold">{d.label}</span>
+                  <span className="block font-semibold">
+                    <KeywordHighlight text={d.label} />
+                  </span>
                   <span className="block text-xs text-muted-foreground">{d.email}</span>
                 </span>
                 <span className="text-xs font-bold uppercase tracking-widest text-lime">Enter</span>

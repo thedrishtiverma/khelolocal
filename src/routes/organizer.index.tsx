@@ -71,7 +71,7 @@ function OrganizerDashboard() {
         }
       />
 
-      <SectionHeading title="Organizer dashboard" />
+      <SectionHeading compact title="Organizer dashboard" />
 
       <div className="surface-panel grid grid-cols-2 gap-6 rounded-xl p-6 sm:grid-cols-4">
         <Stat tone="invert" value={mine.length} label="Tournaments" />
@@ -96,7 +96,7 @@ function OrganizerDashboard() {
       ) : null}
 
       <div className="mt-12">
-        <SectionHeading title="Your tournaments" />
+        <SectionHeading compact title="Your tournaments" />
         {mine.length === 0 ? (
           <EmptyState
             title="No tournaments yet."

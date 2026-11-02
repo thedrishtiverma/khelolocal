@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Shield, Trophy, Users } from "lucide-react";
-import { Page, SectionHeading } from "@/components/shared/Bits";
+import { KeywordHighlight, Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 import { SportIcon } from "@/components/shared/SportIcon";
@@ -50,7 +50,7 @@ function TeamsPage() {
               </div>
               <div className="p-6">
                 <h2 className="team-card-name font-display text-2xl font-black uppercase transition-colors">
-                  {team.name}
+                  <KeywordHighlight text={team.name} />
                 </h2>
                 <p className="mt-2 text-sm text-muted-foreground">
                   {team.sportName} · {team.cityName}

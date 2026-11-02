@@ -44,6 +44,7 @@ import { Route as AthleteIndexRouteImport } from './routes/athlete.index'
 import { Route as AthleteProfileRouteImport } from './routes/athlete.profile'
 import { Route as AthleteTournamentsRouteImport } from './routes/athlete.tournaments'
 import { Route as AthletesIdRouteImport } from './routes/athletes.$id'
+import { Route as CitiesIndexRouteImport } from './routes/cities.index'
 import { Route as CitiesCityRouteImport } from './routes/cities.$city'
 import { Route as CitiesIndoreRouteImport } from './routes/cities.indore'
 import { Route as CollegeIndexRouteImport } from './routes/college.index'
@@ -237,6 +238,11 @@ const AthletesIdRoute = AthletesIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AthletesRoute,
 } as any)
+const CitiesIndexRoute = CitiesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CitiesRoute,
+} as any)
 const CitiesCityRoute = CitiesCityRouteImport.update({
   id: '/$city',
   path: '/$city',
@@ -371,6 +377,7 @@ export interface FileRoutesByFullPath {
   '/volunteer/desk': typeof VolunteerDeskRoute
   '/admin/': typeof AdminIndexRoute
   '/athlete/': typeof AthleteIndexRoute
+  '/cities/': typeof CitiesIndexRoute
   '/college/': typeof CollegeIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
@@ -381,7 +388,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
-  '/cities': typeof CitiesRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
@@ -425,6 +431,7 @@ export interface FileRoutesByTo {
   '/volunteer/desk': typeof VolunteerDeskRoute
   '/admin': typeof AdminIndexRoute
   '/athlete': typeof AthleteIndexRoute
+  '/cities': typeof CitiesIndexRoute
   '/college': typeof CollegeIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/tournaments': typeof TournamentsIndexRoute
@@ -480,6 +487,7 @@ export interface FileRoutesById {
   '/volunteer/desk': typeof VolunteerDeskRoute
   '/admin/': typeof AdminIndexRoute
   '/athlete/': typeof AthleteIndexRoute
+  '/cities/': typeof CitiesIndexRoute
   '/college/': typeof CollegeIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/tournaments/': typeof TournamentsIndexRoute
@@ -536,6 +544,7 @@ export interface FileRouteTypes {
     | '/volunteer/desk'
     | '/admin/'
     | '/athlete/'
+    | '/cities/'
     | '/college/'
     | '/organizer/'
     | '/tournaments/'
@@ -546,7 +555,6 @@ export interface FileRouteTypes {
     | '/'
     | '/athletes'
     | '/careers'
-    | '/cities'
     | '/coaches'
     | '/connections'
     | '/contact'
@@ -590,6 +598,7 @@ export interface FileRouteTypes {
     | '/volunteer/desk'
     | '/admin'
     | '/athlete'
+    | '/cities'
     | '/college'
     | '/organizer'
     | '/tournaments'
@@ -644,6 +653,7 @@ export interface FileRouteTypes {
     | '/volunteer/desk'
     | '/admin/'
     | '/athlete/'
+    | '/cities/'
     | '/college/'
     | '/organizer/'
     | '/tournaments/'
@@ -947,6 +957,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AthletesIdRouteImport
       parentRoute: typeof AthletesRoute
     }
+    '/cities/': {
+      id: '/cities/'
+      path: '/'
+      fullPath: '/cities/'
+      preLoaderRoute: typeof CitiesIndexRouteImport
+      parentRoute: typeof CitiesRoute
+    }
     '/cities/$city': {
       id: '/cities/$city'
       path: '/$city'
@@ -1084,11 +1101,13 @@ const AthletesRouteWithChildren = AthletesRoute._addFileChildren(
 interface CitiesRouteChildren {
   CitiesCityRoute: typeof CitiesCityRoute
   CitiesIndoreRoute: typeof CitiesIndoreRoute
+  CitiesIndexRoute: typeof CitiesIndexRoute
 }
 
 const CitiesRouteChildren: CitiesRouteChildren = {
   CitiesCityRoute: CitiesCityRoute,
   CitiesIndoreRoute: CitiesIndoreRoute,
+  CitiesIndexRoute: CitiesIndexRoute,
 }
 
 const CitiesRouteWithChildren =

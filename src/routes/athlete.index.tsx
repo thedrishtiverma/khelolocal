@@ -1,7 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
+import {
+  EmptyState,
+  KeywordHighlight,
+  Page,
+  SectionHeading,
+  Stat,
+} from "@/components/shared/Bits";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { formatDate, sportLabel } from "@/lib/format";
@@ -76,7 +82,8 @@ function AthleteDashboard() {
     <Page>
       <div className="mb-8">
         <h1 className="font-display text-3xl font-black sm:text-4xl">
-          {greeting()}, {athlete.name.split(" ")[0]}
+          {greeting()},{" "}
+          <span className="keyword-highlight">{athlete.name.split(" ")[0]}</span>
         </h1>
         <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
           <MapPin className="size-4" /> {athlete.cityName}
@@ -89,7 +96,9 @@ function AthleteDashboard() {
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
               Verified sports identity
             </p>
-            <h2 className="mt-1 font-display text-2xl font-black">{athlete.name}</h2>
+            <h2 className="mt-1 font-display text-2xl font-black">
+              <KeywordHighlight text={athlete.name} />
+            </h2>
             <p className="text-sm text-surface-foreground/70">
               {sportLabel(athlete.primarySport)} · {athlete.position}
             </p>
@@ -112,6 +121,7 @@ function AthleteDashboard() {
 
       <div className="mt-12">
         <SectionHeading
+          compact
           title="Your upcoming tournaments"
           action={
             <Button asChild variant="outline">
@@ -140,6 +150,7 @@ function AthleteDashboard() {
 
       <div className="mt-12">
         <SectionHeading
+          compact
           title="Local opportunities"
           subtitle="Open registrations for your sport in Indore."
         />
@@ -156,6 +167,7 @@ function AthleteDashboard() {
 
       <div className="mt-12">
         <SectionHeading
+          compact
           title="Your college record"
           subtitle="Past annual sports event performances, with their verification stage."
         />
@@ -171,7 +183,7 @@ function AthleteDashboard() {
       </div>
 
       <div className="mt-12">
-        <SectionHeading title="Recent achievements" />
+        <SectionHeading compact title="Recent achievements" />
         {achievements.length === 0 ? (
           <EmptyState title="No achievements yet." />
         ) : (

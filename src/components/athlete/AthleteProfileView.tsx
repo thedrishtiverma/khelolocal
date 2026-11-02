@@ -55,7 +55,7 @@ export function AthleteProfileView({
         <section className="rounded-xl border border-border bg-card p-6">
           {collegeRecords.length ? (
             <div className="mb-8">
-              <h2 className="font-display text-xl font-bold">College record (verified)</h2>
+              <h2 className="font-display text-[0.9375rem] font-bold">College record (verified)</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Past annual sports event results confirmed by {athlete.collegeName ?? "the college"}{" "}
                 and verified by KheloLocal.
@@ -67,7 +67,7 @@ export function AthleteProfileView({
               </div>
             </div>
           ) : null}
-          <h2 className="font-display text-xl font-bold">Verified achievements</h2>
+          <h2 className="font-display text-[0.9375rem] font-bold">Verified achievements</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Every record below was confirmed by the tournament organizer.
           </p>
@@ -108,7 +108,7 @@ export function AthleteProfileView({
 
         <div className="space-y-6">
           <section className="rounded-xl border border-border bg-card p-6">
-            <h2 className="font-display text-xl font-bold">Skills</h2>
+            <h2 className="font-display text-[0.9375rem] font-bold">Skills</h2>
             {athlete.skills.length ? (
               <ul className="mt-4 flex flex-wrap gap-2">
                 {athlete.skills.map((s) => (
@@ -126,7 +126,7 @@ export function AthleteProfileView({
           </section>
 
           <section className="rounded-xl border border-border bg-card p-6">
-            <h2 className="font-display text-xl font-bold">About</h2>
+            <h2 className="font-display text-[0.9375rem] font-bold">About</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               {athlete.bio || "This athlete hasn't added a bio yet."}
             </p>
@@ -134,7 +134,7 @@ export function AthleteProfileView({
 
           {athlete.primarySport === "football" ? (
             <section className="rounded-xl border border-border bg-card p-6">
-              <h2 className="font-display text-xl font-bold">Season numbers</h2>
+              <h2 className="font-display text-[0.9375rem] font-bold">Season numbers</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat value={athlete.goals} label="Goals" />
                 <Stat value={athlete.losses} label="Losses" />

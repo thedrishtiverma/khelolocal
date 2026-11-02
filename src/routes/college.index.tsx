@@ -97,6 +97,7 @@ function CollegeDashboard() {
 
       <div className="mt-12">
         <SectionHeading
+          compact
           eyebrow="Verification queue"
           title="Records awaiting college confirmation"
           subtitle="Confirm against your event result sheet. Confirmed records then go to the KheloLocal admin for final verification."
@@ -147,6 +148,7 @@ function CollegeDashboard() {
       {awaitingAdmin.length ? (
         <div className="mt-12">
           <SectionHeading
+            compact
             title="With the admin"
             subtitle="Confirmed by your college, waiting on platform verification."
           />
@@ -160,6 +162,7 @@ function CollegeDashboard() {
 
       <div className="mt-12">
         <SectionHeading
+          compact
           title="Your student athletes"
           subtitle="Profiles carrying your college's verified sporting record."
         />

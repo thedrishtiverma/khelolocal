@@ -820,10 +820,6 @@
   color: var(--lime);
 }
 
-.network-hero h1 .text-lime {
-  color: inherit;
-}
-
 .network-hero-console {
   border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
   background: color-mix(in oklab, var(--card) 76%, transparent);

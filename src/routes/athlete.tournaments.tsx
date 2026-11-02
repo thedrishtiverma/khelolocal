@@ -55,6 +55,7 @@ function MyTournaments() {
   return (
     <Page>
       <SectionHeading
+        compact
         eyebrow="My sports"
         title="Tournaments you're part of"
         action={

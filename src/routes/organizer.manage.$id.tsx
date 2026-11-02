@@ -4,7 +4,7 @@ import { BadgeCheck, ListOrdered, Pencil } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { EmptyState, Page, Stat } from "@/components/shared/Bits";
+import { EmptyState, KeywordHighlight, Page, Stat } from "@/components/shared/Bits";
 import { ResultBadge, StatusBadge } from "@/components/shared/Badges";
 import { MatchScoringDialog } from "@/components/organizer/MatchScoringDialog";
 import { VerifyDialog } from "@/components/organizer/VerifyDialog";
@@ -84,7 +84,9 @@ function ManageTournament() {
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
             Managing
           </p>
-          <h1 className="mt-1 font-display text-3xl font-black">{tournament.name}</h1>
+          <h1 className="mt-1 font-display text-3xl font-black">
+            <KeywordHighlight text={tournament.name} />
+          </h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {tournament.sportName} · {formatDateRange(tournament.startDate, tournament.endDate)} ·{" "}
             {tournament.venue}
