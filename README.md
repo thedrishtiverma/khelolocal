@@ -967,9 +967,14 @@ The goal is to demonstrate that the core KheloLocal network can work.
 ```bash
 git clone [https://github.com/thedrishtiverma/khelolocal.git](https://github.com/thedrishtiverma/khelolocal.git)
 cd khelolocal
-npm install
+npm ci
+cp .env.example .env.local
+# Set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY for a Supabase project.
 npm run dev
 ```
+
+See [Engineering setup and security notes](./docs/engineering.md) for type-check,
+test, migration, CI, architecture, and deployment guidance.
 
 ## Future Opportunities
 

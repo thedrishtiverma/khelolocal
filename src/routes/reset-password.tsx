@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getSupabaseClientIfConfigured } from "@/integrations/supabase/client";
+import { passwordResetValidationError } from "@/lib/validation";
 
 export const Route = createFileRoute("/reset-password")({
   head: () => ({ meta: [{ title: "Choose a new password | KheloLocal" }] }),
@@ -17,12 +18,9 @@ function ResetPasswordPage() {
   const [confirmation, setConfirmation] = useState("");
   const [busy, setBusy] = useState(false);
   const submit = async (): Promise<void> => {
-    if (password.length < 8) {
-      toast.error("Use at least 8 characters.");
-      return;
-    }
-    if (password !== confirmation) {
-      toast.error("Passwords do not match.");
+    const validationError = passwordResetValidationError(password, confirmation);
+    if (validationError) {
+      toast.error(validationError);
       return;
     }
     const client = getSupabaseClientIfConfigured();

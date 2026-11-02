@@ -1,0 +1,38 @@
+name: Quality checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      VITE_SUPABASE_URL: https://ci-placeholder.supabase.co
+      VITE_SUPABASE_PUBLISHABLE_KEY: sb_publishable_ci_placeholder
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        id: install
+        run: npm ci
+      - name: Lint
+        if: ${{ steps.install.outcome == 'success' && !cancelled() }}
+        run: npm run lint
+      - name: Type-check
+        if: ${{ steps.install.outcome == 'success' && !cancelled() }}
+        run: npm run typecheck
+      - name: Test
+        if: ${{ steps.install.outcome == 'success' && !cancelled() }}
+        run: npm test
+      - name: Build
+        if: ${{ steps.install.outcome == 'success' && !cancelled() }}
+        run: npm run build
