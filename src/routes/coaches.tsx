@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, Search, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { ActivityIcon, RoleIcon } from "@/components/shared/KheloIcon";
+import type { KheloActivity } from "@/components/shared/khelo-icon-registry";
 
 export const Route = createFileRoute("/coaches")({
   head: () => ({
@@ -19,21 +21,21 @@ export const Route = createFileRoute("/coaches")({
 
 const WORKFLOW = [
   {
-    icon: Search,
+    icon: "discovery",
     title: "Find players",
     body: "Narrow athlete discovery by sport, position, institution and age category.",
   },
   {
-    icon: ShieldCheck,
+    icon: "verification",
     title: "Review records",
     body: "Distinguish athlete-submitted claims from organizer- and institution-confirmed records.",
   },
   {
-    icon: Users,
+    icon: "connection",
     title: "Build a shortlist",
     body: "Save relevant profiles and request a connection through the local network.",
   },
-];
+] as const;
 
 function CoachesPage() {
   return (
@@ -71,10 +73,10 @@ function CoachesPage() {
           }
         />
         <ol className="grid gap-4 md:grid-cols-3">
-          {WORKFLOW.map(({ icon: Icon, title, body }, index) => (
+          {WORKFLOW.map(({ icon, title, body }, index) => (
             <li key={title} className="data-card rounded-xl border-t-2 border-lime p-6">
               <span className="font-num text-sm text-lime">0{index + 1}</span>
-              <Icon className="mt-6 size-6 text-lime" />
+              <ActivityIcon activity={icon as KheloActivity} className="mt-6 size-6 text-lime" />
               <h2 className="mt-5 font-display text-xl font-bold uppercase">{title}</h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
             </li>
@@ -82,7 +84,9 @@ function CoachesPage() {
         </ol>
         <div className="mt-12 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+            <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <RoleIcon role="coach" className="size-5 text-lime" />
+              <RoleIcon role="team" className="size-5 text-lime" />
               Coaches, clubs and teams
             </p>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">

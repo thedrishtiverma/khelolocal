@@ -40,6 +40,17 @@ export const ROLE_ICON_REGISTRY = {
   admin: "role-admin",
 } as const;
 
+export const ROLE_CATALOG = [
+  "athlete",
+  "team",
+  "coach",
+  "organizer",
+  "institution",
+  "scout",
+  "volunteer",
+  "admin",
+] as const;
+
 export type KheloRole = keyof typeof ROLE_ICON_REGISTRY;
 export type KheloSportIconName =
   (typeof SPORT_ICON_REGISTRY)[keyof typeof SPORT_ICON_REGISTRY]["icon"];
@@ -60,6 +71,21 @@ export const ACTIVITY_ICON_REGISTRY = {
   connection: "activity-connection",
 } as const;
 
+export const ACTIVITY_CATALOG = [
+  "tournament",
+  "match",
+  "fixture",
+  "score",
+  "result",
+  "achievement",
+  "verification",
+  "registration",
+  "roster",
+  "venue",
+  "discovery",
+  "connection",
+] as const;
+
 export type KheloActivity = keyof typeof ACTIVITY_ICON_REGISTRY;
 export type KheloActivityIconName = (typeof ACTIVITY_ICON_REGISTRY)[KheloActivity];
 
@@ -74,6 +100,18 @@ export const STATUS_ICON_REGISTRY = {
   cancelled: "status-cancelled",
   rejected: "status-rejected",
 } as const;
+
+export const STATUS_CATALOG = [
+  "live",
+  "upcoming",
+  "open",
+  "completed",
+  "verified",
+  "pending",
+  "full",
+  "cancelled",
+  "rejected",
+] as const;
 
 export type KheloStatus = keyof typeof STATUS_ICON_REGISTRY;
 export type KheloStatusIconName = (typeof STATUS_ICON_REGISTRY)[KheloStatus];

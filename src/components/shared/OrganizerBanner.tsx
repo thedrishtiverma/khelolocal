@@ -21,7 +21,7 @@ export function OrganizerBanner({
       className={`organizer-banner profile-banner-sport-${sport ?? "organizer"} overflow-hidden rounded-xl border border-border bg-card`}
     >
       <div className="organizer-banner-art khelo-banner-surface relative min-h-32 overflow-hidden px-5 py-6 sm:px-6">
-        <BannerArtwork sportId={sport} role="organizer" />
+        <BannerArtwork {...(sport !== undefined ? { sportId: sport } : {})} role="organizer" />
         <p className="relative z-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-surface/70 px-2.5 py-1 font-ui text-xs font-bold uppercase tracking-[0.18em] text-surface-foreground">
           <ActivityIcon activity="tournament" className="size-4 text-lime" />
           {eventName ?? (sport ? `${sport} organizer` : "Tournament organizer")}

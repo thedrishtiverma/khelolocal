@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { ActivityIcon } from "@/components/shared/KheloIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -72,7 +73,8 @@ export function MatchScoringDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="font-display">
+          <DialogTitle className="flex items-center gap-2 font-display">
+            <ActivityIcon activity="score" className="size-5 text-lime" />
             {teamById(db, match.teamAId)?.name} vs {teamById(db, match.teamBId)?.name}
           </DialogTitle>
           <DialogDescription>

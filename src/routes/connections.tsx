@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { EmptyState, Initials, Page, SectionHeading } from "@/components/shared/Bits";
+import { ActivityIcon } from "@/components/shared/KheloIcon";
 import { formatDate } from "@/lib/format";
 import { useKhelo } from "@/lib/services/store";
 import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
@@ -29,7 +30,16 @@ function ConnectionsPage() {
 
   return (
     <Page>
-      <SectionHeading compact eyebrow="Outreach" title="Connection requests" />
+      <SectionHeading
+        compact
+        eyebrow="Outreach"
+        title={
+          <span className="inline-flex items-center gap-2">
+            <ActivityIcon activity="connection" className="size-6 text-lime" />
+            Connection requests
+          </span>
+        }
+      />
       {connections.length === 0 ? (
         <EmptyState
           title="No requests sent yet."

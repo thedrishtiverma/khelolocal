@@ -37,7 +37,6 @@ import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TeamsRouteImport } from './routes/teams'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as VerificationRouteImport } from './routes/verification'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AthleteIndexRouteImport } from './routes/athlete.index'
@@ -55,6 +54,7 @@ import { Route as OrganizerResultsRouteImport } from './routes/organizer.results
 import { Route as ProfileSetupRouteImport } from './routes/profile.setup'
 import { Route as SportsSportRouteImport } from './routes/sports.$sport'
 import { Route as TeamMemberRouteImport } from './routes/team.$member'
+import { Route as TeamStoryRouteImport } from './routes/team.story'
 import { Route as TeamsDashboardRouteImport } from './routes/teams.dashboard'
 import { Route as TournamentsIndexRouteImport } from './routes/tournaments.index'
 import { Route as TournamentsIdRouteImport } from './routes/tournaments.$id'
@@ -203,11 +203,6 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
-const VerificationRoute = VerificationRouteImport.update({
-  id: '/verification',
-  path: '/verification',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const VisionRoute = VisionRouteImport.update({
   id: '/vision',
   path: '/vision',
@@ -293,6 +288,11 @@ const TeamMemberRoute = TeamMemberRouteImport.update({
   path: '/$member',
   getParentRoute: () => TeamRoute,
 } as any)
+const TeamStoryRoute = TeamStoryRouteImport.update({
+  id: '/story',
+  path: '/story',
+  getParentRoute: () => TeamRoute,
+} as any)
 const TeamsDashboardRoute = TeamsDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -358,7 +358,6 @@ export interface FileRoutesByFullPath {
   '/team': typeof TeamRouteWithChildren
   '/teams': typeof TeamsRouteWithChildren
   '/terms': typeof TermsRoute
-  '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
@@ -371,6 +370,7 @@ export interface FileRoutesByFullPath {
   '/profile/setup': typeof ProfileSetupRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
+  '/team/story': typeof TeamStoryRoute
   '/teams/dashboard': typeof TeamsDashboardRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
@@ -412,7 +412,6 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRouteWithChildren
   '/teams': typeof TeamsRouteWithChildren
   '/terms': typeof TermsRoute
-  '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
@@ -425,6 +424,7 @@ export interface FileRoutesByTo {
   '/profile/setup': typeof ProfileSetupRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
+  '/team/story': typeof TeamStoryRoute
   '/teams/dashboard': typeof TeamsDashboardRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
@@ -468,7 +468,6 @@ export interface FileRoutesById {
   '/team': typeof TeamRouteWithChildren
   '/teams': typeof TeamsRouteWithChildren
   '/terms': typeof TermsRoute
-  '/verification': typeof VerificationRoute
   '/vision': typeof VisionRoute
   '/athlete/profile': typeof AthleteProfileRoute
   '/athlete/tournaments': typeof AthleteTournamentsRoute
@@ -481,6 +480,7 @@ export interface FileRoutesById {
   '/profile/setup': typeof ProfileSetupRoute
   '/sports/$sport': typeof SportsSportRoute
   '/team/$member': typeof TeamMemberRoute
+  '/team/story': typeof TeamStoryRoute
   '/teams/dashboard': typeof TeamsDashboardRoute
   '/tournaments/$id': typeof TournamentsIdRoute
   '/tournaments/create': typeof TournamentsCreateRoute
@@ -525,7 +525,6 @@ export interface FileRouteTypes {
     | '/team'
     | '/teams'
     | '/terms'
-    | '/verification'
     | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
@@ -538,6 +537,7 @@ export interface FileRouteTypes {
     | '/profile/setup'
     | '/sports/$sport'
     | '/team/$member'
+    | '/team/story'
     | '/teams/dashboard'
     | '/tournaments/$id'
     | '/tournaments/create'
@@ -579,7 +579,6 @@ export interface FileRouteTypes {
     | '/team'
     | '/teams'
     | '/terms'
-    | '/verification'
     | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
@@ -592,6 +591,7 @@ export interface FileRouteTypes {
     | '/profile/setup'
     | '/sports/$sport'
     | '/team/$member'
+    | '/team/story'
     | '/teams/dashboard'
     | '/tournaments/$id'
     | '/tournaments/create'
@@ -634,7 +634,6 @@ export interface FileRouteTypes {
     | '/team'
     | '/teams'
     | '/terms'
-    | '/verification'
     | '/vision'
     | '/athlete/profile'
     | '/athlete/tournaments'
@@ -647,6 +646,7 @@ export interface FileRouteTypes {
     | '/profile/setup'
     | '/sports/$sport'
     | '/team/$member'
+    | '/team/story'
     | '/teams/dashboard'
     | '/tournaments/$id'
     | '/tournaments/create'
@@ -690,7 +690,6 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRouteWithChildren
   TeamsRoute: typeof TeamsRouteWithChildren
   TermsRoute: typeof TermsRoute
-  VerificationRoute: typeof VerificationRoute
   VisionRoute: typeof VisionRoute
   AthleteProfileRoute: typeof AthleteProfileRoute
   AthleteTournamentsRoute: typeof AthleteTournamentsRoute
@@ -908,13 +907,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/verification': {
-      id: '/verification'
-      path: '/verification'
-      fullPath: '/verification'
-      preLoaderRoute: typeof VerificationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/vision': {
       id: '/vision'
       path: '/vision'
@@ -1034,6 +1026,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamMemberRouteImport
       parentRoute: typeof TeamRoute
     }
+    '/team/story': {
+      id: '/team/story'
+      path: '/story'
+      fullPath: '/team/story'
+      preLoaderRoute: typeof TeamStoryRouteImport
+      parentRoute: typeof TeamRoute
+    }
     '/teams/dashboard': {
       id: '/teams/dashboard'
       path: '/dashboard'
@@ -1126,10 +1125,12 @@ const SportsRouteWithChildren =
 
 interface TeamRouteChildren {
   TeamMemberRoute: typeof TeamMemberRoute
+  TeamStoryRoute: typeof TeamStoryRoute
 }
 
 const TeamRouteChildren: TeamRouteChildren = {
   TeamMemberRoute: TeamMemberRoute,
+  TeamStoryRoute: TeamStoryRoute,
 }
 
 const TeamRouteWithChildren = TeamRoute._addFileChildren(TeamRouteChildren)
@@ -1173,7 +1174,6 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRouteWithChildren,
   TeamsRoute: TeamsRouteWithChildren,
   TermsRoute: TermsRoute,
-  VerificationRoute: VerificationRoute,
   VisionRoute: VisionRoute,
   AthleteProfileRoute: AthleteProfileRoute,
   AthleteTournamentsRoute: AthleteTournamentsRoute,

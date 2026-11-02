@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { BadgeCheck, ListOrdered, Pencil } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EmptyState, KeywordHighlight, Page, Stat } from "@/components/shared/Bits";
 import { ResultBadge, StatusBadge } from "@/components/shared/Badges";
+import { ActivityIcon, StatusIcon } from "@/components/shared/KheloIcon";
 import { MatchScoringDialog } from "@/components/organizer/MatchScoringDialog";
 import { VerifyDialog } from "@/components/organizer/VerifyDialog";
 import { formatDate, formatDateRange } from "@/lib/format";
@@ -115,9 +115,18 @@ function ManageTournament() {
 
       <Tabs defaultValue="registrations" className="mt-8">
         <TabsList>
-          <TabsTrigger value="registrations">Registrations</TabsTrigger>
-          <TabsTrigger value="fixtures">Fixtures & scoring</TabsTrigger>
-          <TabsTrigger value="verify">Verify results</TabsTrigger>
+          <TabsTrigger value="registrations">
+            <ActivityIcon activity="registration" className="mr-1.5 size-4" />
+            Registrations
+          </TabsTrigger>
+          <TabsTrigger value="fixtures">
+            <ActivityIcon activity="fixture" className="mr-1.5 size-4" />
+            Fixtures & scoring
+          </TabsTrigger>
+          <TabsTrigger value="verify">
+            <ActivityIcon activity="verification" className="mr-1.5 size-4" />
+            Verify results
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="registrations" className="mt-6">
@@ -179,7 +188,7 @@ function ManageTournament() {
                 );
               }}
             >
-              <ListOrdered className="size-4" />
+              <ActivityIcon activity="fixture" className="size-4" />
               Generate fixtures
             </Button>
           </div>
@@ -192,6 +201,7 @@ function ManageTournament() {
                 <li key={m.id} className="flex flex-wrap items-center gap-4 p-4">
                   <div className="min-w-56 flex-1">
                     <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                      <ActivityIcon activity="match" className="mr-1.5 inline size-4 align-text-bottom" />
                       {m.round} · Match {m.matchNumber}
                     </p>
                     <p className="mt-1 font-semibold">
@@ -206,7 +216,7 @@ function ManageTournament() {
                   </span>
                   <ResultBadge status={m.resultStatus} />
                   <Button size="sm" variant="outline" onClick={() => setScoring(m)}>
-                    <Pencil className="size-4" />
+                    <ActivityIcon activity="score" className="size-4" />
                     {m.status === "COMPLETED" ? "Edit score" : "Enter score"}
                   </Button>
                 </li>
@@ -241,7 +251,7 @@ function ManageTournament() {
                     </p>
                   </div>
                   <Button onClick={() => setVerifying(m)}>
-                    <BadgeCheck className="size-4" />
+                    <StatusIcon status="verified" className="size-4" />
                     Verify result
                   </Button>
                 </li>

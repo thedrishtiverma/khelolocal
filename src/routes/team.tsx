@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Mail, Users } from "lucide-react";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { Button } from "@/components/ui/button";
 import { FOUNDERS } from "@/lib/founders";
 
 export const Route = createFileRoute("/team")({
@@ -46,6 +47,9 @@ function TeamPage() {
             athletes, organizers, teams and institutions turn local participation into visible
             opportunity, trust and momentum.
           </p>
+          <Button asChild className="mt-6">
+            <Link to="/team/story">Read our story</Link>
+          </Button>
         </div>
         <SectionHeading
           eyebrow="Founders team"

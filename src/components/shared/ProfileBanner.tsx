@@ -41,7 +41,10 @@ export function ProfileBanner({
       )}
     >
       <div className="profile-banner-art khelo-banner-surface relative h-44 overflow-hidden sm:h-52">
-        <BannerArtwork sportId={sport} role={role} />
+        <BannerArtwork
+          {...(sport !== undefined ? { sportId: sport } : {})}
+          {...(role !== undefined ? { role } : {})}
+        />
         <span className="profile-banner-eyebrow absolute left-5 top-5 z-10 sm:left-8 sm:top-6">
           {eyebrow}
         </span>

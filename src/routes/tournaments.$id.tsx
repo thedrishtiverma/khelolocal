@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { ResultBadge, StatusBadge, VerifiedBadge } from "@/components/shared/Badges";
 import { EmptyState, Page, Stat } from "@/components/shared/Bits";
 import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
+import { ActivityIcon, StatusIcon } from "@/components/shared/KheloIcon";
 import { formatDate, formatDateRange, formatDateTime, formatINR } from "@/lib/format";
 import { useCurrentAthlete, useKhelo } from "@/lib/services/store";
 import {
@@ -69,6 +70,7 @@ function TournamentDetails() {
         : status === "COMPLETED"
           ? "Tournament completed"
           : "Registration closed";
+  const isFull = tournament.currentParticipants >= tournament.maxParticipants;
 
   const handleRegister = async () => {
     if (!athlete) {
@@ -127,11 +129,13 @@ function TournamentDetails() {
                 Registered · {myReg.status.toLowerCase()}
               </span>
             ) : registrationClosed ? (
-              <span className="rounded-md border border-surface-foreground/20 bg-surface-foreground/10 px-4 py-2 text-sm font-semibold text-surface-foreground/65">
+              <span className="inline-flex items-center gap-2 rounded-md border border-surface-foreground/20 bg-surface-foreground/10 px-4 py-2 text-sm font-semibold text-surface-foreground/65">
+                <StatusIcon status={isFull ? "full" : "cancelled"} className="size-4" />
                 {registrationLabel}
               </span>
             ) : (
               <Button size="lg" onClick={handleRegister} disabled={registering}>
+                <ActivityIcon activity="registration" className="size-4" />
                 {registering ? "Submitting…" : "Register now"}
               </Button>
             )}
@@ -153,10 +157,22 @@ function TournamentDetails() {
         <Tabs value={tab} onValueChange={setTab}>
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="teams">Teams</TabsTrigger>
-            <TabsTrigger value="fixtures">Fixtures</TabsTrigger>
-            <TabsTrigger value="results">Results</TabsTrigger>
-            <TabsTrigger value="verification">Verification</TabsTrigger>
+            <TabsTrigger value="teams">
+              <ActivityIcon activity="roster" className="mr-1.5 size-4" />
+              Teams
+            </TabsTrigger>
+            <TabsTrigger value="fixtures">
+              <ActivityIcon activity="fixture" className="mr-1.5 size-4" />
+              Fixtures
+            </TabsTrigger>
+            <TabsTrigger value="results">
+              <ActivityIcon activity="result" className="mr-1.5 size-4" />
+              Results
+            </TabsTrigger>
+            <TabsTrigger value="verification">
+              <ActivityIcon activity="verification" className="mr-1.5 size-4" />
+              Verification
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
@@ -198,7 +214,7 @@ function TournamentDetails() {
                     value={`${tournament.currentParticipants}/${tournament.maxParticipants}`}
                     label="Participants"
                   />
-                  <Users className="size-6 text-muted-foreground" />
+                  <ActivityIcon activity="roster" className="size-6 text-muted-foreground" />
                 </div>
                 <Progress
                   className="mt-4"
@@ -272,6 +288,7 @@ function TournamentDetails() {
                   >
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                        <ActivityIcon activity="match" className="mr-1.5 inline size-4 align-text-bottom" />
                         {m.round} · Match {m.matchNumber}
                       </p>
                       <p className="mt-1 font-display text-lg font-bold">
