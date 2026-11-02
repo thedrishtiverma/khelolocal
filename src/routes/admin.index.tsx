@@ -104,10 +104,10 @@ function AdminConsole() {
   const newOrganizations = organizations.filter((item) => item.verificationStatus !== "VERIFIED");
   const pendingReports = reports.filter((item) => item.status === "SUBMITTED");
   const alerts = [
-    [records.length, "athlete records awaiting approval", "text-orange-500"],
-    [newOrganizations.length, "new organizations to review", "text-blue-600"],
-    [unverifiedTournaments.length, "tournament listings to check", "text-orange-500"],
-    [pendingReports.length, "field reports awaiting moderation", "text-blue-600"],
+    [records.length, "athlete records awaiting approval", "text-lime"],
+    [newOrganizations.length, "new organizations to review", "text-lime"],
+    [unverifiedTournaments.length, "tournament listings to check", "text-lime"],
+    [pendingReports.length, "field reports awaiting moderation", "text-lime"],
   ].filter(([count]) => count) as [number, string, string][];
   const tabs: { id: Tab; label: string; count?: number }[] = [
     { id: "overview", label: "Overview" },
@@ -123,7 +123,7 @@ function AdminConsole() {
 
   return (
     <Page className="py-6 sm:py-10">
-      <section className="rounded-2xl border border-primary/15 bg-gradient-to-br from-blue-50 via-background to-orange-50 p-6 sm:p-9 dark:from-primary/15 dark:via-background dark:to-accent/10">
+      <section className="rounded-2xl border border-primary/15 bg-gradient-to-br from-background via-background to-accent/10 p-6 sm:p-9">
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -132,7 +132,7 @@ function AdminConsole() {
             <div className="mt-3 flex items-start gap-3">
               <RoleIcon role="admin" className="mt-1 size-8 shrink-0 text-lime sm:size-10" />
               <h1 className="font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
-                <span className="text-blue-600">City</span>{" "}
+                <span className="text-lime">City</span>{" "}
                 <span className="text-accent">operations</span>
                 <br />
                 control room.
@@ -223,10 +223,10 @@ function AdminConsole() {
                   className="flex w-full items-center justify-between rounded-xl border border-border p-4 text-left hover:border-primary"
                 >
                   <span className="flex items-center gap-3 font-semibold">
-                    <ClipboardCheck className="size-5 text-blue-600" />
+                    <ClipboardCheck className="size-5 text-lime" />
                     {label}
                   </span>
-                  <span className="rounded-full bg-orange-100 px-2.5 py-1 text-xs font-bold text-orange-700 dark:bg-orange-500/15 dark:text-orange-300">
+                  <span className="rounded-full bg-lime/10 px-2.5 py-1 text-xs font-bold text-lime">
                     {count}
                   </span>
                 </button>
@@ -235,7 +235,7 @@ function AdminConsole() {
           </div>
           <div className="rounded-2xl border border-border bg-card p-6">
             <div className="flex items-center gap-2">
-              <Bell className="size-5 text-orange-500" />
+              <Bell className="size-5 text-lime" />
               <h2 className="font-display text-lg font-black uppercase">Notifications</h2>
             </div>
             <div className="mt-5 space-y-4">
@@ -368,7 +368,7 @@ function AdminConsole() {
                 key={organization.id}
                 className="group rounded-xl border border-border bg-card p-5"
               >
-                <Building2 className="size-5 text-blue-600" />
+                <Building2 className="size-5 text-lime" />
                 <h2 className="mt-5 font-display text-xl font-bold uppercase transition-colors group-hover:text-lime">
                   {organization.organizationName}
                 </h2>
@@ -458,7 +458,7 @@ function AdminConsole() {
               .filter((item) => cityId === "all" || item.id === cityId)
               .map((item) => (
                 <article key={item.id} className="rounded-xl border border-border bg-card p-5">
-                  <MapPin className="size-5 text-orange-500" />
+                  <MapPin className="size-5 text-lime" />
                   <h2 className="mt-5 font-display text-2xl font-black uppercase">{item.name}</h2>
                   <p className="text-sm text-muted-foreground">{item.state}</p>
                   <div className="mt-5 border-t border-border pt-4 text-sm">

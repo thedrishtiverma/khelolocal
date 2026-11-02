@@ -28,7 +28,7 @@ const iconNames: KheloIconName[] = [
   ...Object.values(STATUS_ICON_REGISTRY),
 ];
 
-describe("KheloLocal SVG asset registry", () => {
+describe("KheloLocal icons and banner artwork", () => {
   it("maps every supported sport to a distinct supplied icon and banner asset", () => {
     expect(SPORT_CATALOG).toHaveLength(11);
     const iconPaths = new Set<string>();
@@ -43,10 +43,9 @@ describe("KheloLocal SVG asset registry", () => {
 
       expect(iconUrl).toBeTruthy();
       expect(bannerUrl).toBeTruthy();
-      expect(iconMarkup).toContain(' src="');
       expect(iconMarkup).toContain(`data-khelo-icon="${icon}"`);
-      expect(iconMarkup).toContain(`alt="${label}"`);
-      expect(bannerMarkup).toContain(' src="');
+      expect(iconMarkup).toContain(`>${label}</title>`);
+      expect(bannerMarkup).toContain("khelo-banner-geometry");
       expect(bannerMarkup).toContain(`data-sport-banner="${sportId}"`);
       iconPaths.add(iconPath);
       bannerPaths.add(bannerPath);
@@ -108,30 +107,27 @@ describe("KheloLocal SVG asset registry", () => {
     }
   });
 
-  it("uses an explicit brand fallback for unknown sports and unavailable icons", () => {
+  it("uses the brand mark for unknown sports and renders missing icon drawings safely", () => {
     expect(canonicalSportId("Cricket")).toBeUndefined();
     expect(sportIconName("Cricket")).toBe("brand-local");
     expect(sportIconLabel("Cricket")).toBe("Uncatalogued sport: Cricket");
     expect(resolveKheloIconAsset("activity-roster")).toBeUndefined();
     expect(() => renderToStaticMarkup(<KheloIcon name="activity-roster" />)).not.toThrow();
     expect(renderToStaticMarkup(<KheloIcon name="activity-roster" />)).toContain(
-      'data-icon-fallback="brand-local"',
+      'data-khelo-icon="activity-roster"',
     );
-    expect(renderToStaticMarkup(<BannerArtwork sportId="Cricket" />)).not.toContain(
-      "data-sport-banner",
+    expect(renderToStaticMarkup(<BannerArtwork sportId="Cricket" />)).toContain(
+      'data-khelo-icon="brand-local"',
     );
     expect(renderToStaticMarkup(<BannerArtwork sportId="Cricket" role="team" />)).toContain(
-      'data-role-banner="team"',
+      'data-khelo-icon="brand-local"',
     );
   });
 
-  it.each([...new Set(iconNames)])("renders an asset or brand fallback for %s", (name) => {
+  it.each([...new Set(iconNames)])("renders an inline vector for %s", (name) => {
     const markup = renderToStaticMarkup(<KheloIcon name={name} />);
 
-    expect(markup).toContain(
-      name === "brand-local" || !resolveKheloIconAsset(name)
-        ? 'data-icon-fallback="brand-local"'
-        : `data-khelo-icon="${name}"`,
-    );
+    expect(markup).toContain("<svg");
+    expect(markup).toContain(`data-khelo-icon="${name}"`);
   });
 });
