@@ -1,7 +1,7 @@
 import { createSeedDatabase } from "@/data/seed";
 import { sportLabel } from "@/lib/format";
 
-export const SITE_URL = "https://khelolocal.lovable.app";
+export const SITE_URL = "https://khelolocal.in";
 
 let cached: ReturnType<typeof createSeedDatabase> | null = null;
 function catalog() {
