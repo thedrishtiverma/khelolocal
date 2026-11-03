@@ -236,7 +236,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </Link>
       </nav>
 
-      <footer className="border-t border-border bg-card pb-20 md:pb-0">
+      <footer className="hidden border-t border-border bg-card md:block">
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.35fr_1fr_1fr_1fr_0.9fr] md:py-16">
           <div className="max-w-xs">
             <Link
@@ -402,11 +402,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <p>© 2026 KheloLocal. Built for grassroots sport.</p>
             <p className="made-with-love font-ui text-sm font-semibold text-foreground">
-              Made with{" "}
-              <span className="brand-inline">
-                Khelo<span>Local</span>
-              </span>{" "}
-              <span aria-label="love">♥</span>
+              Made with <span aria-label="love">♥</span>
             </p>
             <p>Play local. Connect everywhere.</p>
           </div>

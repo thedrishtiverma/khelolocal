@@ -49,16 +49,44 @@ function CitiesPage() {
                 key={city.id}
                 to="/cities/$city"
                 params={{ city: city.id }}
-                className="data-card group rounded-2xl p-7"
+                className="city-network-card data-card group rounded-2xl"
               >
-                <MapPin className="size-7 text-lime" />
-                <h2 className="mt-12 font-display text-3xl font-black uppercase">{city.name}</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {city.state}, {city.country}
-                </p>
-                <span className="mt-8 inline-flex items-center gap-2 text-sm font-bold group-hover:text-lime">
-                  Explore this city <ArrowRight className="size-4" />
-                </span>
+                <div className={`city-card-banner city-card-banner-${city.id}`}>
+                  <div className="city-card-map-art" aria-hidden="true" />
+                  <span className="city-card-location">
+                    <MapPin className="size-4" />
+                    {city.state}, {city.country}
+                  </span>
+                  <svg
+                    className="city-card-skyline"
+                    viewBox="0 0 420 150"
+                    preserveAspectRatio="xMaxYMax meet"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M0 148V92h29V67h20v81h21V83h30v65h15V51h25v97h17V75h30v73h22V37h27v111h19V69h31v79h22V91h26v57h25V57h26v91h34v2H0z"
+                      fill="currentColor"
+                      opacity=".2"
+                    />
+                    <path
+                      d="M0 148h420M108 148v-43h29v43m96 0V80h30v68m49 0V98h29v50m43 0v-62h27v62"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      opacity=".45"
+                    />
+                  </svg>
+                  <span className="city-card-banner-label">CITY NETWORK · 01</span>
+                </div>
+                <div className="p-6">
+                  <h2 className="font-display text-3xl font-black uppercase">{city.name}</h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {city.state}, {city.country}
+                  </p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold group-hover:text-lime">
+                    Explore this city <ArrowRight className="size-4" />
+                  </span>
+                </div>
               </Link>
             ))}
         </div>

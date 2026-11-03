@@ -1540,6 +1540,93 @@
   background-color: color-mix(in oklab, var(--color-card) 72%, var(--color-secondary));
 }
 
+.city-network-card {
+  overflow: hidden;
+  padding: 0;
+}
+
+.city-card-banner {
+  position: relative;
+  display: flex;
+  min-height: 12rem;
+  align-items: flex-start;
+  overflow: hidden;
+  padding: 1.5rem;
+  isolation: isolate;
+  color: var(--surface-foreground);
+  background:
+    radial-gradient(
+      circle at 78% 24%,
+      color-mix(in oklab, var(--lime) 36%, transparent),
+      transparent 26%
+    ),
+    linear-gradient(130deg, var(--surface), color-mix(in oklab, var(--field) 38%, var(--surface)));
+}
+
+.city-card-map-art {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.3;
+  background:
+    linear-gradient(
+      148deg,
+      transparent 0 43%,
+      color-mix(in oklab, var(--surface-foreground) 34%, transparent) 43.3% 43.8%,
+      transparent 44.1%
+    ),
+    linear-gradient(
+      28deg,
+      transparent 0 57%,
+      color-mix(in oklab, var(--lime) 48%, transparent) 57.3% 57.8%,
+      transparent 58.1%
+    ),
+    radial-gradient(circle, color-mix(in oklab, var(--surface-foreground) 45%, transparent) 1px, transparent 1.5px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    22px 22px;
+}
+
+.city-card-location {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 28%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--surface) 72%, transparent);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.city-card-location svg {
+  color: var(--lime);
+}
+
+.city-card-skyline {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  width: min(94%, 28rem);
+  height: 82%;
+  color: var(--surface-foreground);
+}
+
+.city-card-banner-label {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.1rem;
+  color: color-mix(in oklab, var(--surface-foreground) 68%, transparent);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
 .team-card-media {
   box-shadow: 0 0 0 1px color-mix(in oklab, var(--lime) 20%, transparent);
   transition:
@@ -2525,6 +2612,35 @@
 .dark .sport-card-banner,
 .dark .merch-card-art {
   color: var(--surface-foreground);
+}
+
+.sport-card {
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.sport-card:hover,
+.sport-card:focus-visible {
+  border-color: color-mix(in oklab, var(--lime) 58%, var(--color-border));
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--lime) 18%, transparent),
+    0 0 24px -8px color-mix(in oklab, var(--lime) 48%, transparent);
+  transform: translateY(-2px);
+}
+
+.sport-card .sport-discovery-name {
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.sport-card:hover .sport-discovery-name,
+.sport-card:focus-visible .sport-discovery-name {
+  color: var(--lime);
+  text-shadow: 0 0 16px color-mix(in oklab, var(--lime) 38%, transparent);
 }
 
 @media (max-width: 640px) {
