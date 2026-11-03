@@ -262,7 +262,6 @@ function VolunteerDashboard() {
             Zone locked to {volunteer.zoneName}
           </span>
         }
-        accent="field"
         role="volunteer"
       />
       <section className="mt-4 rounded-xl border border-border bg-card p-5">

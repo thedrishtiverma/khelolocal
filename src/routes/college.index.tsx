@@ -71,7 +71,6 @@ function CollegeDashboard() {
             </span>
           ) : null
         }
-        accent="navy"
         role="institution"
       />
       <section className="surface-panel rounded-xl p-6 sm:p-8">

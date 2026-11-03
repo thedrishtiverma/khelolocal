@@ -3,26 +3,19 @@ import { Button } from "@/components/ui/button";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { Initials } from "@/components/shared/Bits";
 import { RoleIcon } from "@/components/shared/KheloIcon";
-import { BannerArtwork } from "@/components/shared/BannerArtwork";
 import { sportLabel } from "@/lib/format";
-import { sportMotif, sportTint } from "@/lib/sport-visuals";
+import { sportTint } from "@/lib/sport-visuals";
 import type { Athlete } from "@/types";
 
 export function AthleteCard({ athlete }: { athlete: Athlete }) {
-  const motif = sportMotif(athlete.primarySport);
   return (
-    <article className={`data-card group overflow-hidden rounded-xl p-0 theme-fade ${motif}`}>
-      <div
-        className={`athlete-card-banner athlete-card-banner-${athlete.primarySport} khelo-banner-surface relative min-h-28`}
-      >
-        <BannerArtwork sportId={athlete.primarySport} role="athlete" />
-        <span className="athlete-card-sport">
-          {sportLabel(athlete.primarySport)} · {athlete.cityName}
-        </span>
+    <article className="data-card group rounded-xl p-6 theme-fade">
+      <div className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        {sportLabel(athlete.primarySport)} · {athlete.cityName}
       </div>
-      <div className="relative px-6 pb-6 pt-6">
+      <div>
         <div className="flex items-start gap-4">
-          <div className="relative -mt-12 size-16 shrink-0">
+          <div className="relative size-16 shrink-0">
             <Initials
               name={athlete.name}
               tint={sportTint(athlete.primarySport)}
@@ -48,7 +41,7 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
 
         <div className="mt-5 flex min-h-6 items-center justify-between gap-2">
           {athlete.verificationStatus === "VERIFIED" ? (
-            <VerifiedBadge label="Institution verified" />
+            <VerifiedBadge label="Institution verified" className="text-[0.7125rem]" />
           ) : (
             <span className="text-xs text-muted-foreground">Verification pending</span>
           )}

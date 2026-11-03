@@ -74,7 +74,7 @@ function SportsPage() {
                   />
                 </div>
                 <div className="p-6">
-                  <h2 className="sport-discovery-name font-display text-2xl font-black uppercase transition-colors group-hover:text-lime">
+                  <h2 className="sport-discovery-name font-display text-2xl font-black uppercase">
                     {sport.name}
                   </h2>
                   <p className="mt-2 text-sm text-muted-foreground">

@@ -206,8 +206,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       <main className="flex-1 pb-20 md:pb-0">{children}</main>
 
       {/* Mobile bottom navigation */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t border-border bg-background/95 backdrop-blur md:hidden">
-        {PUBLIC_NAV.slice(0, 4).map((item) => (
+      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-border bg-background/95 backdrop-blur md:hidden">
+        {PUBLIC_NAV.slice(0, 3).map((item) => (
           <Link
             key={item.to}
             to={item.to}
@@ -400,11 +400,11 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
         <div className="border-t border-border">
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <p>© 2026 KheloLocal. Built for grassroots sport.</p>
+            <p>© 2026 KheloLocal. All rights reserved.</p>
             <p className="made-with-love font-ui text-sm font-semibold text-foreground">
               Made with <span aria-label="love">♥</span>
             </p>
-            <p>Play local. Connect everywhere.</p>
+            <p>Built for grassroots sport.</p>
           </div>
         </div>
       </footer>

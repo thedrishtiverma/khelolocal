@@ -5,7 +5,6 @@ import { NetworkHero } from "@/components/shared/NetworkHero";
 import { useKhelo } from "@/lib/services/store";
 import { SportIcon } from "@/components/shared/SportIcon";
 import { RoleIcon } from "@/components/shared/KheloIcon";
-import { BannerArtwork } from "@/components/shared/BannerArtwork";
 
 export const Route = createFileRoute("/teams")({
   head: () => ({
@@ -38,34 +37,29 @@ function TeamsPage() {
       <Page className="py-14 sm:py-20">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {db.teams.map((team) => (
-            <article key={team.id} className="team-card data-card overflow-hidden rounded-2xl p-0">
-              <div
-                className={`team-card-banner team-card-banner-${team.sportId} khelo-banner-surface relative flex min-h-32 items-end justify-between overflow-hidden px-6 pb-5`}
-              >
-                <BannerArtwork sportId={team.sportId} role="team" />
-                <div className="relative z-10 flex items-center gap-3 text-surface-foreground">
-                  <SportIcon sportId={team.sportId} className="size-8" aria-hidden="true" />
+            <article key={team.id} className="team-card data-card rounded-2xl p-6">
+              <div className="flex items-start gap-4">
+                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-secondary text-foreground">
+                  <SportIcon sportId={team.sportId} className="size-6" aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <h2 className="team-card-name flex items-center gap-2 font-display text-2xl font-black uppercase transition-colors">
+                    <RoleIcon role="team" className="size-6 shrink-0 text-lime" />
+                    {team.name}
+                  </h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {team.sportName} · {team.cityName}
+                  </p>
                 </div>
               </div>
-              <div className="p-6">
-                <h2 className="team-card-name flex items-center gap-2 font-display text-2xl font-black uppercase transition-colors">
-                  <RoleIcon role="team" className="size-6 shrink-0 text-lime" />
-                  {team.name}
-                </h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {team.sportName} · {team.cityName}
-                </p>
-                <div className="mt-7 flex gap-6 border-t border-border pt-5 text-sm">
-                  <span>
-                    <strong>{team.players.length}</strong> players
-                  </span>
-                  <span>
-                    <strong>
-                      {db.tournaments.filter((t) => t.sportId === team.sportId).length}
-                    </strong>{" "}
-                    tournaments
-                  </span>
-                </div>
+              <div className="mt-7 flex gap-6 border-t border-border pt-5 text-sm">
+                <span>
+                  <strong>{team.players.length}</strong> players
+                </span>
+                <span>
+                  <strong>{db.tournaments.filter((t) => t.sportId === team.sportId).length}</strong>{" "}
+                  tournaments
+                </span>
               </div>
             </article>
           ))}

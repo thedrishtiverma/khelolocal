@@ -1899,8 +1899,7 @@
   color: var(--surface-foreground);
 }
 
-.tournament-card-banner::after,
-.institution-banner::after {
+.tournament-card-banner::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1946,18 +1945,6 @@
     color-mix(in oklab, var(--accent) 58%, var(--surface)),
     var(--primary)
   );
-}
-
-.institution-banner {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  background: linear-gradient(
-    125deg,
-    color-mix(in oklab, var(--field) 35%, var(--surface)),
-    var(--primary)
-  );
-  color: var(--surface-foreground);
 }
 
 /* Profile banners deliberately have separate treatments per appearance mode.
@@ -2629,18 +2616,6 @@
     0 0 0 1px color-mix(in oklab, var(--lime) 18%, transparent),
     0 0 24px -8px color-mix(in oklab, var(--lime) 48%, transparent);
   transform: translateY(-2px);
-}
-
-.sport-card .sport-discovery-name {
-  transition:
-    color 180ms ease,
-    text-shadow 180ms ease;
-}
-
-.sport-card:hover .sport-discovery-name,
-.sport-card:focus-visible .sport-discovery-name {
-  color: var(--lime);
-  text-shadow: 0 0 16px color-mix(in oklab, var(--lime) 38%, transparent);
 }
 
 @media (max-width: 640px) {
