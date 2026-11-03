@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { MapPin } from "lucide-react";
 import { Initials, KeywordHighlight } from "@/components/shared/Bits";
 import { ActivityIcon, RoleIcon, StatusIcon } from "@/components/shared/KheloIcon";
+import { SimpleBanner } from "@/components/shared/SimpleBanner";
 import type { Organizer } from "@/types";
 
 export function OrganizerBanner({
@@ -17,10 +18,10 @@ export function OrganizerBanner({
 }) {
   return (
     <section className="organizer-banner group data-card rounded-xl p-5 sm:p-6">
-      <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-        <ActivityIcon activity="tournament" className="size-3 text-lime" />
-        {eventName ?? (sport ? `${sport} organizer` : "Tournament organizer")}
-      </p>
+      <SimpleBanner
+        label={eventName ?? (sport ? `${sport} organizer` : "Tournament organizer")}
+        icon={<ActivityIcon activity="tournament" className="size-4" />}
+      />
       <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
         <div className="relative size-16 shrink-0 sm:size-18">
           {organizer.logo ? (

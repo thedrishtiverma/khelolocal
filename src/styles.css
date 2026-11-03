@@ -359,6 +359,56 @@
   color: var(--lime);
 }
 
+.simple-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  border-radius: 0.9rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--card) 94%, var(--field)) 0%,
+    color-mix(in oklab, var(--card) 82%, var(--accent)) 100%
+  );
+  padding: 0.72rem 0.9rem;
+}
+
+.simple-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0%, color-mix(in oklab, var(--lime) 16%, transparent) 100%);
+}
+
+.simple-banner-mark,
+.simple-banner-label {
+  position: relative;
+  z-index: 1;
+}
+
+.simple-banner-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent);
+  border-radius: 0.8rem;
+  background: color-mix(in oklab, var(--card) 86%, var(--lime));
+  color: var(--foreground);
+}
+
+.simple-banner-label {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--foreground) 82%, transparent);
+}
+
 .prose-content p {
   margin-top: 0.75rem;
   max-width: 48rem;

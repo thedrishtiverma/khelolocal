@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { Initials } from "@/components/shared/Bits";
 import { RoleIcon } from "@/components/shared/KheloIcon";
+import { SimpleBanner } from "@/components/shared/SimpleBanner";
 import { sportLabel } from "@/lib/format";
 import { sportTint } from "@/lib/sport-visuals";
 import type { Athlete } from "@/types";
@@ -10,10 +11,11 @@ import type { Athlete } from "@/types";
 export function AthleteCard({ athlete }: { athlete: Athlete }) {
   return (
     <article className="data-card group rounded-xl p-6 theme-fade">
-      <div className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-        {sportLabel(athlete.primarySport)} · {athlete.cityName}
-      </div>
-      <div>
+      <SimpleBanner
+        label={`${sportLabel(athlete.primarySport)} · ${athlete.cityName}`}
+        icon={<RoleIcon role="athlete" className="size-4" />}
+      />
+      <div className="mt-5">
         <div className="flex items-start gap-4">
           <div className="relative size-16 shrink-0">
             <Initials

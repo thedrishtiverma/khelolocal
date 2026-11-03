@@ -26,6 +26,7 @@ import { effectiveTournamentStatus, pendingAdminRecords } from "@/lib/services/s
 import { formatDateRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { RoleIcon } from "@/components/shared/KheloIcon";
+import { SimpleBanner } from "@/components/shared/SimpleBanner";
 import type { FieldSubmission } from "@/types";
 
 type Tab = "overview" | "approvals" | "organizations" | "athletes" | "operations";
@@ -123,7 +124,11 @@ function AdminConsole() {
 
   return (
     <Page className="py-6 sm:py-10">
-      <section className="rounded-2xl border border-primary/15 bg-gradient-to-br from-background via-background to-accent/10 p-6 sm:p-9">
+      <SimpleBanner
+        label="Private operations"
+        icon={<RoleIcon role="admin" className="size-4" />}
+      />
+      <section className="mt-5 rounded-2xl border border-primary/15 bg-gradient-to-br from-background via-background to-accent/10 p-6 sm:p-9">
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">

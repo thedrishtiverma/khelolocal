@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Page } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
+import { SimpleBanner } from "@/components/shared/SimpleBanner";
+import { SportIcon } from "@/components/shared/SportIcon";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/sports")({
@@ -64,7 +66,11 @@ function SportsPage() {
                 className={`sport-card sport-card-${sport.id} group overflow-hidden rounded-2xl border border-border bg-card p-0`}
               >
                 <div className="p-6">
-                  <h2 className="sport-discovery-name font-display text-2xl font-black uppercase">
+                  <SimpleBanner
+                    label={sport.name}
+                    icon={<SportIcon sportId={sport.id} className="size-4" aria-hidden="true" />}
+                  />
+                  <h2 className="sport-discovery-name mt-5 font-display text-2xl font-black uppercase">
                     {sport.name}
                   </h2>
                   <p className="mt-2 text-sm text-muted-foreground">

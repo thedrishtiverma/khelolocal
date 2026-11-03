@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Initials } from "@/components/shared/Bits";
 import { RoleIcon } from "@/components/shared/KheloIcon";
 import type { KheloRole } from "@/components/shared/khelo-icon-registry";
+import { SimpleBanner } from "@/components/shared/SimpleBanner";
 
 interface ProfileBannerProps {
   name: string;
@@ -28,9 +29,10 @@ export function ProfileBanner({
 }: ProfileBannerProps) {
   return (
     <section className="profile-banner group data-card rounded-2xl p-5 sm:p-8">
-      <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
-        {eyebrow}
-      </p>
+      <SimpleBanner
+        label={eyebrow}
+        icon={role ? <RoleIcon role={role} className="size-4" /> : undefined}
+      />
       <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center">
         <div className="relative size-24 shrink-0 sm:size-28">
           {image ? (
