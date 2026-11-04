@@ -21,6 +21,7 @@ export function OrganizerBanner({
       <SimpleBanner
         label={eventName ?? (sport ? `${sport} organizer` : "Tournament organizer")}
         icon={<ActivityIcon activity="tournament" className="size-4" />}
+        tone="organizer"
       />
       <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
         <div className="relative size-16 shrink-0 sm:size-18">

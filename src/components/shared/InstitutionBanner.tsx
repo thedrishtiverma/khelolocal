@@ -10,6 +10,7 @@ export function InstitutionBanner({ college }: { college: College }) {
       <SimpleBanner
         label="Sports institution"
         icon={<RoleIcon role="institution" className="size-4" />}
+        tone="institution"
       />
       <div className="mt-8 flex items-center justify-between gap-4">
         <h2 className="font-display text-3xl font-black uppercase transition-colors group-hover:text-lime">

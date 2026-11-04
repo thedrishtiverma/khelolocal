@@ -14,6 +14,7 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
       <SimpleBanner
         label={`${sportLabel(athlete.primarySport)} · ${athlete.cityName}`}
         icon={<RoleIcon role="athlete" className="size-4" />}
+        tone="athlete"
       />
       <div className="mt-5">
         <div className="flex items-start gap-4">

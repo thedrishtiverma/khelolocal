@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { InstitutionBanner } from "@/components/shared/InstitutionBanner";
+import { SimpleBanner } from "@/components/shared/SimpleBanner";
+import { RoleIcon } from "@/components/shared/KheloIcon";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/institutions")({
@@ -61,6 +63,12 @@ function InstitutionsPage() {
         }
       />
       <Page className="py-14 sm:py-20">
+        <SimpleBanner
+          label="Sports institutions"
+          icon={<RoleIcon role="institution" className="size-4" />}
+          tone="institution"
+          className="mb-6"
+        />
         <SectionHeading
           eyebrow="A lasting sporting record"
           title={<>Everything your <span className="text-lime">sports cell</span> needs.</>}

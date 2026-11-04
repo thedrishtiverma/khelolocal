@@ -127,6 +127,7 @@ function AdminConsole() {
       <SimpleBanner
         label="Private operations"
         icon={<RoleIcon role="admin" className="size-4" />}
+        tone="admin"
       />
       <section className="mt-5 rounded-2xl border border-primary/15 bg-gradient-to-br from-background via-background to-accent/10 p-6 sm:p-9">
         <div className="flex flex-wrap items-start justify-between gap-5">

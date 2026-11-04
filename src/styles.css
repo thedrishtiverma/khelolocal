@@ -373,6 +373,7 @@
     color-mix(in oklab, var(--card) 82%, var(--accent)) 100%
   );
   padding: 0.72rem 0.9rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .simple-banner::before {
@@ -380,6 +381,62 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(120deg, transparent 0%, color-mix(in oklab, var(--lime) 16%, transparent) 100%);
+}
+
+.simple-banner--athlete {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--card) 96%, var(--primary)) 0%,
+    color-mix(in oklab, var(--card) 82%, var(--accent)) 100%
+  );
+}
+
+.simple-banner--organizer {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--card) 97%, var(--field)) 0%,
+    color-mix(in oklab, var(--card) 88%, var(--lime)) 100%
+  );
+}
+
+.simple-banner--institution {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--card) 98%, var(--primary)) 0%,
+    color-mix(in oklab, var(--card) 84%, var(--field)) 100%
+  );
+}
+
+.simple-banner--volunteer {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--card) 95%, var(--field)) 0%,
+    color-mix(in oklab, var(--card) 80%, var(--accent)) 100%
+  );
+}
+
+.simple-banner--admin {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--card) 94%, var(--surface)) 0%,
+    color-mix(in oklab, var(--card) 84%, var(--primary)) 100%
+  );
+}
+
+.simple-banner--sport {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--card) 95%, var(--accent)) 0%,
+    color-mix(in oklab, var(--card) 82%, var(--field)) 100%
+  );
+}
+
+.simple-banner--community {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--card) 95%, var(--cream)) 0%,
+    color-mix(in oklab, var(--card) 80%, var(--primary)) 100%
+  );
 }
 
 .simple-banner-mark,

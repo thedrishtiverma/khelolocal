@@ -4,6 +4,8 @@ import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { Button } from "@/components/ui/button";
 import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
+import { SimpleBanner } from "@/components/shared/SimpleBanner";
+import { RoleIcon } from "@/components/shared/KheloIcon";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/organizers")({
@@ -56,6 +58,12 @@ function OrganizersPage() {
         }
       />
       <Page className="py-14 sm:py-24">
+        <SimpleBanner
+          label="Tournament organizers"
+          icon={<RoleIcon role="organizer" className="size-4" />}
+          tone="organizer"
+          className="mb-6"
+        />
         <SectionHeading
           eyebrow="One workflow"
           title={

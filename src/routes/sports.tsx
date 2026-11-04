@@ -69,6 +69,7 @@ function SportsPage() {
                   <SimpleBanner
                     label={sport.name}
                     icon={<SportIcon sportId={sport.id} className="size-4" aria-hidden="true" />}
+                    tone="sport"
                   />
                   <h2 className="sport-discovery-name mt-5 font-display text-2xl font-black uppercase">
                     {sport.name}

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Page, SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { ActivityIcon, RoleIcon } from "@/components/shared/KheloIcon";
+import { SimpleBanner } from "@/components/shared/SimpleBanner";
 
 export const Route = createFileRoute("/volunteer/")({
   head: () => ({
@@ -58,6 +59,12 @@ function VolunteerPage() {
         }
       />
       <Page className="py-14 sm:py-20">
+        <SimpleBanner
+          label="Local volunteers"
+          icon={<RoleIcon role="volunteer" className="size-4" />}
+          tone="volunteer"
+          className="mb-6"
+        />
         <SectionHeading
           eyebrow="A stronger sporting city"
           title={

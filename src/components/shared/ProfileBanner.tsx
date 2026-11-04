@@ -32,6 +32,19 @@ export function ProfileBanner({
       <SimpleBanner
         label={eyebrow}
         icon={role ? <RoleIcon role={role} className="size-4" /> : undefined}
+        tone={
+          role === "athlete"
+            ? "athlete"
+            : role === "organizer"
+              ? "organizer"
+              : role === "institution"
+                ? "institution"
+                : role === "volunteer"
+                  ? "volunteer"
+                  : role === "admin"
+                    ? "admin"
+                    : "default"
+        }
       />
       <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center">
         <div className="relative size-24 shrink-0 sm:size-28">
