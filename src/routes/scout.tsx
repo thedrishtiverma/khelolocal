@@ -6,6 +6,7 @@ import { RoleIcon } from "@/components/shared/KheloIcon";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { useKhelo } from "@/lib/services/store";
 import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
+import { canViewProfile } from "@/lib/services/relationships";
 
 export const Route = createFileRoute("/scout")({
   head: () => ({ meta: [{ title: "Scout dashboard | KheloLocal" }] }),
@@ -14,9 +15,17 @@ export const Route = createFileRoute("/scout")({
 
 function ScoutDashboard() {
   const { db, currentUser } = useKhelo();
+  const savedIds = new Set(
+    (db.savedProfiles ?? [])
+      .filter((item) => item.profileId === currentUser?.id)
+      .map((item) => item.targetProfileId),
+  );
   const saved = db.athletes
     .filter(
-      (athlete) => isAthletePubliclyDiscoverable(athlete) && db.savedAthletes.includes(athlete.id),
+      (athlete) =>
+        isAthletePubliclyDiscoverable(athlete) &&
+        savedIds.has(athlete.userId) &&
+        canViewProfile(db, currentUser?.id ?? null, athlete.userId),
     )
     .slice(0, 3);
   const verified = db.athletes.filter(

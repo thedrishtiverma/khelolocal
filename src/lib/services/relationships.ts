@@ -204,7 +204,7 @@ export function removeProfileConnection(db: Database, actorProfileId: string, ot
 }
 
 export function toggleSavedProfile(db: Database, profileId: string, targetProfileId: string) {
-  assertCanInteract(db, profileId, targetProfileId);
+  activeUser(db, profileId);
   const { saved } = profileArrays(db);
   const existing = saved.find(
     (item) => item.profileId === profileId && item.targetProfileId === targetProfileId,
@@ -215,6 +215,7 @@ export function toggleSavedProfile(db: Database, profileId: string, targetProfil
     );
     return false;
   }
+  assertCanInteract(db, profileId, targetProfileId);
   saved.push({ profileId, targetProfileId, createdAt: now() });
   return true;
 }
@@ -268,4 +269,3 @@ export function unblockProfile(db: Database, blockerProfileId: string, blockedPr
   );
   return db.profileBlocks.length !== previous;
 }
-

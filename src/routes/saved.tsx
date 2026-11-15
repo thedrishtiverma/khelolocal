@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading } from "@/components/shared/Bits";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { useKhelo } from "@/lib/services/store";
-import { isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
+import { canViewProfile } from "@/lib/services/relationships";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/saved")({
   head: () => ({
@@ -21,14 +22,31 @@ export const Route = createFileRoute("/saved")({
 });
 
 function SavedPage() {
-  const { db } = useKhelo();
-  const saved = db.athletes.filter(
-    (a) => db.savedAthletes.includes(a.id) && isAthletePubliclyDiscoverable(a),
+  const { db, currentUser } = useKhelo();
+  const savedIds = new Set(
+    (db.savedProfiles ?? [])
+      .filter((item) => item.profileId === currentUser?.id)
+      .map((item) => item.targetProfileId),
   );
+  const saved = db.athletes.filter(
+    (athlete) => savedIds.has(athlete.userId) && canViewProfile(db, currentUser?.id ?? null, athlete.userId),
+  );
+
+  if (isSupabaseConfigured()) {
+    return (
+      <Page>
+        <SectionHeading compact eyebrow="Shortlist" title="Saved profiles" />
+        <EmptyState
+          title="Saved profiles are temporarily unavailable"
+          description="Persistent relationships will be enabled after the hosted database schema is confirmed."
+        />
+      </Page>
+    );
+  }
 
   return (
     <Page>
-      <SectionHeading compact eyebrow="Shortlist" title="Saved athletes" />
+      <SectionHeading compact eyebrow="Shortlist" title="Saved profiles" />
       {saved.length === 0 ? (
         <EmptyState
           title="No saved athletes yet."

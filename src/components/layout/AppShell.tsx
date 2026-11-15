@@ -26,6 +26,7 @@ const PUBLIC_NAV: NavItem[] = [
   { to: "/explore", label: "Explore" },
   { to: "/tournaments", label: "Tournaments" },
   { to: "/athletes", label: "Athletes" },
+  { to: "/connections", label: "Network" },
 ];
 
 const ORGANIZATION_NAV: NavItem[] = [
@@ -37,24 +38,34 @@ const ORGANIZATION_NAV: NavItem[] = [
 
 const PROFILE_NAV: Record<Role, NavItem[]> = {
   ATHLETE: [
+    { to: "/connections", label: "My network" },
+    { to: "/saved", label: "Saved profiles" },
     { to: "/athlete/profile", label: "My profile" },
     { to: "/athlete/tournaments", label: "My tournaments" },
   ],
   ORGANIZER: [
+    { to: "/connections", label: "My network" },
     { to: "/organizer", label: "Organizer dashboard" },
     { to: "/organizer/results", label: "Results" },
   ],
   SCOUT: [
+    { to: "/connections", label: "My network" },
     { to: "/scout", label: "Scout dashboard" },
     { to: "/saved", label: "Saved athletes" },
-    { to: "/connections", label: "Connections" },
   ],
   COLLEGE: [
+    { to: "/connections", label: "My network" },
     { to: "/college", label: "Institution dashboard" },
     { to: "/college/records", label: "Records" },
   ],
-  VOLUNTEER: [{ to: "/volunteer/desk", label: "Field desk" }],
-  ADMIN: [{ to: "/admin", label: "Admin console" }],
+  VOLUNTEER: [
+    { to: "/connections", label: "My network" },
+    { to: "/volunteer/desk", label: "Field desk" },
+  ],
+  ADMIN: [
+    { to: "/connections", label: "My network" },
+    { to: "/admin", label: "Admin console" },
+  ],
 };
 
 export function AppShell({ children }: { children: ReactNode }) {
