@@ -118,8 +118,8 @@
   --live: oklch(0.575 0.163 32);
   --live-foreground: oklch(0.99 0.003 110);
   --verified: oklch(0.492 0.13 143);
-  --warning: oklch(0.6 0.13 62);
-  --warning-ink: oklch(0.47 0.11 58);
+  --warning: var(--accent);
+  --warning-ink: var(--foreground);
   --upcoming: oklch(0.48 0.06 250);
   --done: oklch(0.65 0.02 250);
   --cream: oklch(0.94 0.035 92);
@@ -174,8 +174,8 @@
   --live: oklch(0.69 0.16 34);
   --live-foreground: oklch(0.2 0.025 34);
   --verified: oklch(0.75 0.13 148);
-  --warning: oklch(0.82 0.11 78);
-  --warning-ink: oklch(0.84 0.1 78);
+  --warning: var(--accent);
+  --warning-ink: var(--foreground);
   --upcoming: oklch(0.75 0.035 255);
   --done: oklch(0.7 0.015 255);
   --cream: oklch(0.26 0.014 255);
@@ -3821,7 +3821,7 @@
   border: 1px solid color-mix(in oklab, var(--accent) 40%, var(--color-border));
   border-radius: 9999px;
   padding: 0.2rem 0.55rem;
-  color: var(--warning-ink);
+  color: var(--accent);
   font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -3915,7 +3915,7 @@
   border: 1px solid color-mix(in oklab, var(--accent) 40%, var(--border));
   border-radius: 0.85rem;
   background: color-mix(in oklab, var(--accent) 16%, var(--card));
-  color: var(--warning-ink);
+  color: var(--accent);
 }
 
 .organization-feature-status {
@@ -3945,7 +3945,7 @@
   align-items: center;
   gap: 0.45rem;
   margin-top: 1.5rem;
-  color: var(--warning-ink);
+  color: var(--accent);
   font-size: 0.85rem;
   font-weight: 800;
   transition: gap 180ms ease;

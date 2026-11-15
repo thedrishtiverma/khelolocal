@@ -14,7 +14,7 @@ export function renderErrorPage(): string {
       header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
       .brand { display: inline-flex; align-items: center; gap: .75rem; color: inherit; font-size: 1.3rem; font-weight: 900; letter-spacing: -.05em; text-decoration: none; }
       .brand img { width: 2.5rem; height: 2.5rem; border: 2px solid #f4a340; border-radius: 50%; }
-      .brand span span { color: #d88720; }
+      .brand span span { color: #f4a340; }
       .location, .eyebrow, .score-label, .score-note, footer { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; letter-spacing: .14em; }
       .location { color: #586679; font-size: .65rem; font-weight: 700; line-height: 1.7; text-align: right; }
       main { flex: 1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(2rem, 7vw, 6rem); padding-block: 4rem; }
@@ -34,7 +34,7 @@ export function renderErrorPage(): string {
       a.button, button { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; border: 1px solid transparent; border-radius: .5rem; padding: .75rem 1.25rem; font: inherit; font-size: .875rem; font-weight: 800; cursor: pointer; text-decoration: none; }
       .primary { background: #12345b; color: #fff; }
       .secondary { border-color: rgba(18,52,91,.2) !important; color: #12345b; background: #fffdf8; }
-      a:focus-visible, button:focus-visible { outline: 3px solid #d88720; outline-offset: 3px; }
+      a:focus-visible, button:focus-visible { outline: 3px solid #f4a340; outline-offset: 3px; }
       footer { border-top: 1px solid rgba(18,52,91,.15); padding-top: 1.25rem; color: #586679; font-size: .6rem; font-weight: 700; }
       @media (max-width: 700px) { main { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 3rem; } .scoreboard { min-height: min(78vw, 24rem); } .copy { margin-inline: auto; } }
       @media (prefers-reduced-motion: no-preference) { .scoreboard { animation: field-arrive .45s ease-out both; } @keyframes field-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } } }
