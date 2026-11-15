@@ -22,6 +22,7 @@ export interface User {
   role: Role;
   cityId: string;
   profileImage: string;
+  profileVisibility?: "private" | "public" | "network";
   guardianConsentAt?: string;
   createdAt: string;
   updatedAt: string;
@@ -259,6 +260,46 @@ export interface ConnectionRequest {
   status: "SENT";
 }
 
+export type ProfileConnectionStatus = "PENDING" | "ACCEPTED" | "DECLINED" | "CANCELLED";
+
+export interface ProfileFollow {
+  id: string;
+  followerProfileId: string;
+  followedProfileId: string;
+  createdAt: string;
+}
+
+export interface ProfileConnectionRequest {
+  id: string;
+  requesterProfileId: string;
+  recipientProfileId: string;
+  status: ProfileConnectionStatus;
+  introductionNote: string;
+  createdAt: string;
+  respondedAt: string | null;
+  updatedAt: string;
+}
+
+export interface ProfileConnection {
+  id: string;
+  profileAId: string;
+  profileBId: string;
+  createdAt: string;
+}
+
+export interface ProfileBlock {
+  id: string;
+  blockerProfileId: string;
+  blockedProfileId: string;
+  createdAt: string;
+}
+
+export interface SavedProfile {
+  profileId: string;
+  targetProfileId: string;
+  createdAt: string;
+}
+
 /** A field-data zone of the city a volunteer is assigned to. */
 export interface Zone {
   id: string;
@@ -335,4 +376,9 @@ export interface Database {
   achievements: Achievement[];
   connections: ConnectionRequest[];
   savedAthletes: string[];
+  profileFollows?: ProfileFollow[];
+  profileConnectionRequests?: ProfileConnectionRequest[];
+  profileConnections?: ProfileConnection[];
+  profileBlocks?: ProfileBlock[];
+  savedProfiles?: SavedProfile[];
 }
