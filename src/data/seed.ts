@@ -1410,7 +1410,7 @@ const fieldSubmissions: Database["fieldSubmissions"] = [
 
 export function createSeedDatabase(): Database {
   return structuredClone({
-    users,
+    users: users.map((user) => ({ ...user, profileVisibility: "public" })),
     zones,
     volunteers,
     fieldSubmissions,
@@ -1429,6 +1429,11 @@ export function createSeedDatabase(): Database {
     achievements,
     connections: [],
     savedAthletes: [],
+    profileFollows: [],
+    profileConnectionRequests: [],
+    profileConnections: [],
+    profileBlocks: [],
+    savedProfiles: [],
   }) as Database;
 }
 

@@ -18,6 +18,36 @@ export function loadDatabase(): Database {
     const parsed = JSON.parse(raw) as Database;
     if (!parsed?.athletes?.length || !parsed?.colleges || !parsed?.zones)
       return createSeedDatabase();
+    parsed.profileFollows ??= [];
+    parsed.profileConnectionRequests ??= (parsed.connections ?? [])
+      .filter((connection) => connection.status === "SENT")
+      .flatMap((connection) => {
+        const requester = parsed.users.find(
+          (user) => user.id === connection.scoutUserId || user.id === connection.scoutUserId,
+        );
+        const athlete = parsed.athletes.find((item) => item.id === connection.athleteId);
+        if (!requester || !athlete) return [];
+        return [
+          {
+            id: connection.id,
+            requesterProfileId: requester.id,
+            recipientProfileId: athlete.userId,
+            status: "PENDING" as const,
+            introductionNote: "",
+            createdAt: connection.createdAt,
+            respondedAt: null,
+            updatedAt: connection.createdAt,
+          },
+        ];
+      });
+    parsed.profileConnections ??= [];
+    parsed.profileBlocks ??= [];
+    parsed.savedProfiles ??= (parsed.savedAthletes ?? []).flatMap((athleteId) => {
+      const athlete = parsed.athletes.find((item) => item.id === athleteId);
+      return athlete
+        ? [{ profileId: "u_scout", targetProfileId: athlete.userId, createdAt: new Date().toISOString() }]
+        : [];
+    });
     return parsed;
   } catch {
     return createSeedDatabase();

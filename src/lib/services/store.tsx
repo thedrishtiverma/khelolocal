@@ -44,6 +44,17 @@ import {
   registerForTournament,
   reviewTournamentRegistration,
 } from "./tournament-backend";
+import {
+  blockProfile,
+  cancelConnectionRequest,
+  followProfile,
+  removeProfileConnection,
+  requestProfileConnection,
+  respondToConnectionRequest,
+  toggleSavedProfile,
+  unblockProfile,
+  unfollowProfile,
+} from "./relationships";
 import { athleteById, effectiveTournamentStatus, matchById, tournamentById } from "./selectors";
 
 const now = () => new Date().toISOString();
@@ -125,6 +136,17 @@ interface StoreValue {
   verifyMatch: (matchId: string, note?: string) => VerifyOutcome | null;
   toggleSaveAthlete: (athleteId: string) => void;
   requestConnection: (athleteId: string) => void;
+  toggleProfileFollow: (targetProfileId: string) => void;
+  requestProfileConnection: (targetProfileId: string, introductionNote?: string) => void;
+  respondToProfileConnection: (
+    requestId: string,
+    decision: "ACCEPTED" | "DECLINED",
+  ) => void;
+  cancelProfileConnection: (requestId: string) => void;
+  removeProfileConnection: (targetProfileId: string) => void;
+  toggleSavedProfile: (targetProfileId: string) => void;
+  blockProfile: (targetProfileId: string) => void;
+  unblockProfile: (targetProfileId: string) => void;
   submitCollegeRecord: (input: {
     athleteId: string;
     sportId: string;
@@ -158,6 +180,14 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   const operationalStateVersion = useRef<number | null>(null);
   const backendWrite = useRef<Promise<void>>(Promise.resolve());
+  const requireLocalRelationshipMode = useCallback(() => {
+    if (isSupabaseConfigured()) {
+      throw new Error(
+        "Relationship actions are paused until the hosted Supabase schema is confirmed and safely migrated.",
+      );
+    }
+    if (!currentUser) throw new Error("Log in to use profile relationships.");
+  }, [currentUser]);
 
   useEffect(() => {
     const hydrate = async () => {
