@@ -3999,21 +3999,17 @@
 }
 
 .home-field-card-tagline {
-  display: grid;
+  display: block;
   flex: 0 0 auto;
-  gap: 0.1rem;
+  max-width: 8rem;
   color: color-mix(in oklab, var(--surface-foreground) 70%, transparent);
   font-family: var(--font-ui);
   font-size: 0.48rem;
   font-weight: 700;
   letter-spacing: 0;
-  line-height: 1.35;
+  line-height: 1.4;
   text-align: right;
   text-transform: none;
-}
-
-.home-field-card-tagline span:first-child {
-  color: var(--lime);
 }
 
 .home-field {

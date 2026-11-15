@@ -132,10 +132,7 @@ function Landing() {
           >
             <div className="home-field-card-top">
               <span>INDIA&apos;S LOCAL SPORTS, UNITED</span>
-              <span className="home-field-card-tagline">
-                <span>Explore KheloLocal</span>
-                <span>Fixtures across your city</span>
-              </span>
+              <span className="home-field-card-tagline">Your City&apos;s Sports Network</span>
             </div>
             <div className="home-field" aria-hidden="true">
               <span className="home-field-halfway" />
