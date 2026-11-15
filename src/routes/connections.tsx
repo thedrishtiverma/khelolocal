@@ -46,10 +46,10 @@ function ConnectionsPage() {
     cancelProfileConnection,
     removeProfileConnection,
     toggleProfileFollow,
+    toggleSavedProfile,
     unblockProfile,
   } = useKhelo();
   const [tab, setTab] = useState<NetworkTab>("requests");
-  const actorId = currentUser?.id;
   const requests = db.profileConnectionRequests ?? [];
   const follows = db.profileFollows ?? [];
   const connections = db.profileConnections ?? [];
@@ -73,6 +73,7 @@ function ConnectionsPage() {
     );
   }
 
+  const actorId = currentUser.id;
   const incoming = requests.filter(
     (request) => request.recipientProfileId === actorId && request.status === "PENDING",
   );
@@ -82,20 +83,16 @@ function ConnectionsPage() {
   const myConnections = connections
     .map((connection) =>
       connection.profileAId === actorId ? connection.profileBId : connection.profileAId,
-    )
-    .filter((profileId) => canViewProfile(db, actorId, profileId));
+    );
   const following = follows
     .filter((follow) => follow.followerProfileId === actorId)
-    .map((follow) => follow.followedProfileId)
-    .filter((profileId) => canViewProfile(db, actorId, profileId));
+    .map((follow) => follow.followedProfileId);
   const followers = follows
     .filter((follow) => follow.followedProfileId === actorId)
-    .map((follow) => follow.followerProfileId)
-    .filter((profileId) => canViewProfile(db, actorId, profileId));
+    .map((follow) => follow.followerProfileId);
   const savedProfiles = saved
     .filter((item) => item.profileId === actorId)
-    .map((item) => item.targetProfileId)
-    .filter((profileId) => canViewProfile(db, actorId, profileId));
+    .map((item) => item.targetProfileId);
   const blocked = blocks
     .filter((item) => item.blockerProfileId === actorId)
     .map((item) => item.blockedProfileId);
@@ -110,12 +107,16 @@ function ConnectionsPage() {
   };
 
   const profileName = (profileId: string) =>
-    db.users.find((user) => user.id === profileId)?.name ?? "Unavailable profile";
+    canViewProfile(db, actorId, profileId)
+      ? (db.users.find((user) => user.id === profileId)?.name ?? "Unavailable profile")
+      : "Private profile";
   const profileRole = (profileId: string) =>
-    db.users.find((user) => user.id === profileId)?.role ?? "PROFILE";
+    canViewProfile(db, actorId, profileId)
+      ? (db.users.find((user) => user.id === profileId)?.role ?? "PROFILE")
+      : "PROFILE";
   const profileLink = (profileId: string) => {
     const athlete = db.athletes.find((item) => item.userId === profileId);
-    return athlete ? (
+    return athlete && canViewProfile(db, actorId, profileId) ? (
       <Button asChild variant="outline" size="sm">
         <Link to="/athletes/$id" params={{ id: athlete.id }}>
           View profile
@@ -301,7 +302,22 @@ function ConnectionsPage() {
               ) : null,
             )
           : null}
-        {tab === "saved" ? renderProfiles(savedProfiles) : null}
+        {tab === "saved"
+          ? renderProfiles(savedProfiles, (profileId) => (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  notifyAction(
+                    () => toggleSavedProfile(profileId),
+                    "Profile removed from saved",
+                  )
+                }
+              >
+                Remove saved
+              </Button>
+            ))
+          : null}
         {tab === "blocked"
           ? renderProfiles(blocked, (profileId) => (
               <Button

@@ -18,6 +18,11 @@ export function loadDatabase(): Database {
     const parsed = JSON.parse(raw) as Database;
     if (!parsed?.athletes?.length || !parsed?.colleges || !parsed?.zones)
       return createSeedDatabase();
+    parsed.users = parsed.users.map((user) => ({
+      ...user,
+      profileVisibility:
+        user.profileVisibility ?? (user.email.endsWith(".demo") ? "public" : "private"),
+    }));
     parsed.profileFollows ??= [];
     parsed.profileConnectionRequests ??= (parsed.connections ?? [])
       .filter((connection) => connection.status === "SENT")
