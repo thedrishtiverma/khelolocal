@@ -83,7 +83,7 @@ export const FOUNDERS: Founder[] = [
       "Reliable event-to-result handoffs",
     ],
     impact: "Keeping the game moving, on and off the field.",
-        socials: {
+    socials: {
       github: "https://github.com/gauravmadavi",
       linkedin: "https://www.linkedin.com/in/gauravmadavi",
       instagram: "https://www.instagram.com/gauravmadavi",

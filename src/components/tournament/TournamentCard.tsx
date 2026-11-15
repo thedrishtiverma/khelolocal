@@ -21,14 +21,16 @@ export function TournamentCard({
 
   return (
     <article
-      className={`data-card flex flex-col rounded-xl p-6 theme-fade ${sportMotif(tournament.sportId)}`}
+      className={`data-card group flex flex-col rounded-xl p-6 theme-fade ${sportMotif(tournament.sportId)}`}
     >
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <p className="font-ui text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
             {tournament.sportName} · {tournament.ageCategory}
           </p>
-          <h3 className="mt-2 font-display text-xl font-bold leading-tight">{tournament.name}</h3>
+          <h3 className="mt-2 font-display text-xl font-bold leading-tight transition-colors group-hover:text-lime">
+            {tournament.name}
+          </h3>
         </div>
         <StatusBadge status={status} />
       </div>

@@ -115,9 +115,7 @@ export function performancesOfMatch(db: Database, matchId: string) {
 export function teamRoster(db: Database, teamId: string): Athlete[] {
   const team = teamById(db, teamId);
   if (!team) return [];
-  return team.players
-    .map((id) => athleteById(db, id))
-    .filter((a): a is Athlete => Boolean(a));
+  return team.players.map((id) => athleteById(db, id)).filter((a): a is Athlete => Boolean(a));
 }
 
 export interface TournamentFilters {
@@ -139,9 +137,7 @@ export function searchTournaments(db: Database, f: TournamentFilters): Tournamen
     .filter((t) => (f.genderCategory ? t.genderCategory === f.genderCategory : true))
     .filter((t) => (f.status ? effectiveTournamentStatus(t) === f.status : true))
     .filter((t) => (f.fromDate ? t.endDate >= f.fromDate : true))
-    .filter((t) =>
-      f.query ? t.name.toLowerCase().includes(f.query.toLowerCase().trim()) : true,
-    )
+    .filter((t) => (f.query ? t.name.toLowerCase().includes(f.query.toLowerCase().trim()) : true))
     .sort((a, b) => {
       const aStatus = effectiveTournamentStatus(a);
       const bStatus = effectiveTournamentStatus(b);
@@ -171,9 +167,7 @@ export function searchAthletes(db: Database, f: AthleteFilters): Athlete[] {
     .filter((a) => (f.ageCategory ? a.ageCategory === f.ageCategory : true))
     .filter((a) => (f.positionGroup ? a.positionGroup === f.positionGroup : true))
     .filter((a) => (f.collegeId ? a.collegeId === f.collegeId : true))
-    .filter((a) =>
-      f.hasCollegeRecords ? publicRecordsOfAthlete(db, a.id).length > 0 : true,
-    )
+    .filter((a) => (f.hasCollegeRecords ? publicRecordsOfAthlete(db, a.id).length > 0 : true))
     .filter((a) =>
       f.minVerifiedTournaments ? a.tournamentsPlayed >= f.minVerifiedTournaments : true,
     )

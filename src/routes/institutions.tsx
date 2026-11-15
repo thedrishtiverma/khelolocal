@@ -71,7 +71,11 @@ function InstitutionsPage() {
         />
         <SectionHeading
           eyebrow="A lasting sporting record"
-          title={<>Everything your <span className="text-lime">sports cell</span> needs.</>}
+          title={
+            <>
+              Everything your <span className="text-lime">sports cell</span> needs.
+            </>
+          }
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {AREAS.map(([Icon, title, body]) => (
@@ -82,7 +86,13 @@ function InstitutionsPage() {
             </article>
           ))}
         </div>
-        {db.colleges.length ? <section className="mt-16 grid gap-5 sm:grid-cols-2">{db.colleges.map((college) => <InstitutionBanner key={college.id} college={college} />)}</section> : null}
+        {db.colleges.length ? (
+          <section className="mt-16 grid gap-5 sm:grid-cols-2">
+            {db.colleges.map((college) => (
+              <InstitutionBanner key={college.id} college={college} />
+            ))}
+          </section>
+        ) : null}
       </Page>
     </div>
   );

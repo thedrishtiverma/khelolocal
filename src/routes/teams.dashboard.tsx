@@ -1,12 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays, Shield, UserPlus, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  EmptyState,
-  Page,
-  SectionHeading,
-  Stat,
-} from "@/components/shared/Bits";
+import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { useKhelo } from "@/lib/services/store";
 
 export const Route = createFileRoute("/teams/dashboard")({

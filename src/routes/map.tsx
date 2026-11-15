@@ -168,7 +168,7 @@ function SportsMapPage() {
                   Network / {layer}
                 </p>
                 <p className="mt-2 font-display text-3xl font-black uppercase">
-                  Play is everywhere.
+                  The city is your playing field.
                 </p>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">
                   Choose an area or layer to see what is happening across the city.
@@ -176,11 +176,13 @@ function SportsMapPage() {
               </div>
             </div>
           </section>
-          <section className="data-card rounded-2xl p-6 sm:p-8">
+          <section className="data-card group rounded-2xl p-6 sm:p-8">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Selected area
             </p>
-            <h2 className="mt-2 font-display text-3xl font-black uppercase">{zone?.name}</h2>
+            <h2 className="mt-2 font-display text-3xl font-black uppercase transition-colors group-hover:text-lime">
+              {zone?.name}
+            </h2>
             <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
               <MapPin className="size-4 text-lime" /> {zone?.localities.join(" · ")}
             </p>

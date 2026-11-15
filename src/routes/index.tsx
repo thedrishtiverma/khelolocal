@@ -229,11 +229,7 @@ function Landing() {
                 "See how a match becomes a trusted sporting record.",
                 "/how-it-works",
               ],
-              [
-                "Our cities",
-                "Explore the people and places building the network.",
-                "/cities",
-              ],
+              ["Our cities", "Explore the people and places building the network.", "/cities"],
               ["Sports map", "Focus an area, then reveal its events and athletes.", "/map"],
               ["Sports", "Choose a game and find its local network.", "/sports"],
               [

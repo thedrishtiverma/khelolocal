@@ -107,26 +107,89 @@ function MyProfile() {
       >
         <div>
           <h2 className="font-display text-[0.9375rem] font-black">Edit profile</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Your changes are saved to your account.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Your changes are saved to your account.
+          </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-2"><Label htmlFor="profile-name">Full name</Label><Input id="profile-name" value={name} onChange={(event) => setName(event.target.value)} required /></div>
-          <div className="space-y-2"><Label htmlFor="profile-phone">Phone</Label><Input id="profile-phone" value={phone} onChange={(event) => setPhone(event.target.value)} inputMode="tel" /></div>
-          <div className="space-y-2"><Label htmlFor="profile-city">City</Label><Input id="profile-city" value={city} onChange={(event) => setCity(event.target.value)} placeholder="Indore" /></div>
-          <div className="space-y-2"><Label htmlFor="profile-area">Area</Label><Input id="profile-area" value={area} onChange={(event) => setArea(event.target.value)} placeholder="Vijay Nagar" /></div>
-          <div className="space-y-2"><Label htmlFor="profile-sport">Primary sport</Label><Input id="profile-sport" value={sport} onChange={(event) => setSport(event.target.value)} /></div>
-          <div className="space-y-2"><Label htmlFor="profile-position">Position</Label><Input id="profile-position" value={position} onChange={(event) => setPosition(event.target.value)} /></div>
+          <div className="space-y-2">
+            <Label htmlFor="profile-name">Full name</Label>
+            <Input
+              id="profile-name"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="profile-phone">Phone</Label>
+            <Input
+              id="profile-phone"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+              inputMode="tel"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="profile-city">City</Label>
+            <Input
+              id="profile-city"
+              value={city}
+              onChange={(event) => setCity(event.target.value)}
+              placeholder="Indore"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="profile-area">Area</Label>
+            <Input
+              id="profile-area"
+              value={area}
+              onChange={(event) => setArea(event.target.value)}
+              placeholder="Vijay Nagar"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="profile-sport">Primary sport</Label>
+            <Input
+              id="profile-sport"
+              value={sport}
+              onChange={(event) => setSport(event.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="profile-position">Position</Label>
+            <Input
+              id="profile-position"
+              value={position}
+              onChange={(event) => setPosition(event.target.value)}
+            />
+          </div>
         </div>
-        <div className="space-y-2"><Label htmlFor="profile-bio">About your game</Label><Textarea id="profile-bio" value={bio} onChange={(event) => setBio(event.target.value)} placeholder="Your strengths, experience and goals" /></div>
+        <div className="space-y-2">
+          <Label htmlFor="profile-bio">About your game</Label>
+          <Textarea
+            id="profile-bio"
+            value={bio}
+            onChange={(event) => setBio(event.target.value)}
+            placeholder="Your strengths, experience and goals"
+          />
+        </div>
         <div className="space-y-2">
           <Label htmlFor="profile-visibility">Profile visibility</Label>
-          <select id="profile-visibility" value={visibility} onChange={(event) => setVisibility(event.target.value as typeof visibility)} className="h-9 rounded-md border border-input bg-background px-3 text-sm">
+          <select
+            id="profile-visibility"
+            value={visibility}
+            onChange={(event) => setVisibility(event.target.value as typeof visibility)}
+            className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+          >
             <option value="private">Private — only me and admins</option>
             <option value="network">Network — signed-in community</option>
             <option value="public">Public — visible in discovery</option>
           </select>
         </div>
-        <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save profile"}</Button>
+        <Button type="submit" disabled={saving}>
+          {saving ? "Saving…" : "Save profile"}
+        </Button>
       </form>
     </Page>
   );

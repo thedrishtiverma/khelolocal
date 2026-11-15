@@ -3212,11 +3212,6 @@
   color: var(--lime);
 }
 
-.map-pin:hover {
-  border-color: var(--lime);
-  color: var(--lime);
-}
-
 @media (max-width: 767px) {
   .network-hero-artwork {
     display: none;

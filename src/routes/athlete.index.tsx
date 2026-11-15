@@ -1,12 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  EmptyState,
-  Page,
-  SectionHeading,
-  Stat,
-} from "@/components/shared/Bits";
+import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
 import { ProfileBanner, ProfileContactLink } from "@/components/shared/ProfileBanner";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
@@ -29,7 +24,10 @@ export const Route = createFileRoute("/athlete/")({
         content: "Your verified sporting identity, upcoming tournaments and recent achievements.",
       },
       { property: "og:title", content: "Athlete home | KheloLocal" },
-      { property: "og:description", content: "Track your matches, wins and verified achievements." },
+      {
+        property: "og:description",
+        content: "Track your matches, wins and verified achievements.",
+      },
     ],
   }),
   component: AthleteDashboard,
@@ -107,7 +105,11 @@ function AthleteDashboard() {
           <Stat tone="invert" value={athlete.tournamentsPlayed} label="Tournaments" />
           <Stat tone="invert" value={athlete.matchesPlayed} label="Matches" />
           <Stat tone="invert" value={athlete.wins} label="Wins" />
-          <Stat tone="accent" value={athlete.verifiedAchievementsCount} label="Verified achievements" />
+          <Stat
+            tone="accent"
+            value={athlete.verifiedAchievementsCount}
+            label="Verified achievements"
+          />
         </div>
       </section>
 
@@ -164,7 +166,10 @@ function AthleteDashboard() {
           subtitle="Past annual sports event performances, with their verification stage."
         />
         {collegeRecords.length === 0 ? (
-          <EmptyState title="No college records yet." description="Your college can add past results from its record book." />
+          <EmptyState
+            title="No college records yet."
+            description="Your college can add past results from its record book."
+          />
         ) : (
           <div className="grid gap-4 lg:grid-cols-2">
             {collegeRecords.map((r) => (

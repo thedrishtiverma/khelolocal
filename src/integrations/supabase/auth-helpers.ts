@@ -1,4 +1,6 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { isSupabaseConfigured, supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 import type { Role, User } from "@/types";
 
 export type AppRole = "athlete" | "organizer" | "institution" | "volunteer" | "scout" | "admin";
@@ -23,6 +25,128 @@ export type ManagedProfile = Pick<
   ProfileRow,
   "id" | "email" | "name" | "role" | "is_active" | "created_at" | "updated_at"
 >;
+
+type ProfileVisibility = "private" | "public" | "network";
+type VerificationState = "pending" | "verified" | "rejected";
+type AuthTable<Row, Required extends keyof Row = never> = {
+  Row: Row;
+  Insert: Partial<Row> & Pick<Row, Required>;
+  Update: Partial<Row>;
+  Relationships: [];
+};
+type AuthProfileTables = {
+  profiles: AuthTable<ProfileRow, "id" | "auth_user_id" | "email" | "role">;
+  athlete_profiles: AuthTable<
+    {
+      id: string;
+      profile_id: string;
+      auth_user_id: string;
+      city: string | null;
+      area: string | null;
+      institution: string | null;
+      primary_sport: string | null;
+      secondary_sports: string[];
+      position: string | null;
+      position_group: string | null;
+      age_group: string | null;
+      bio: string | null;
+      date_of_birth: string | null;
+      gender: "male" | "female" | "other" | null;
+      contact_visibility: string | null;
+      profile_visibility: ProfileVisibility;
+      verification_status: VerificationState;
+      profile_photo_url: string | null;
+      created_at: string;
+      updated_at: string;
+    },
+    "id" | "profile_id" | "auth_user_id"
+  >;
+  organizer_profiles: AuthTable<
+    {
+      id: string;
+      profile_id: string;
+      auth_user_id: string;
+      organization_name: string;
+      organizer_type: string;
+      city: string | null;
+      area: string | null;
+      phone: string | null;
+      email: string | null;
+      description: string | null;
+      verification_status: VerificationState;
+      profile_photo_url: string | null;
+      created_at: string;
+      updated_at: string;
+    },
+    "id" | "profile_id" | "auth_user_id"
+  >;
+  institution_profiles: AuthTable<
+    {
+      id: string;
+      profile_id: string;
+      auth_user_id: string;
+      institution_name: string;
+      institution_type: string;
+      city: string | null;
+      area: string | null;
+      address: string | null;
+      phone: string | null;
+      email: string | null;
+      description: string | null;
+      verification_status: VerificationState;
+      profile_photo_url: string | null;
+      created_at: string;
+      updated_at: string;
+    },
+    "id" | "profile_id" | "auth_user_id"
+  >;
+  volunteer_profiles: AuthTable<
+    {
+      id: string;
+      profile_id: string;
+      auth_user_id: string;
+      city: string | null;
+      area: string | null;
+      role: string | null;
+      active: boolean;
+      profile_photo_url: string | null;
+      created_at: string;
+      updated_at: string;
+    },
+    "id" | "profile_id" | "auth_user_id"
+  >;
+};
+type AuthDatabase = Omit<Database, "public"> & {
+  public: Omit<Database["public"], "Tables"> & {
+    Tables: Database["public"]["Tables"] & AuthProfileTables;
+  };
+};
+const authSupabase = supabase as SupabaseClient<AuthDatabase>;
+
+function readString(details: Record<string, unknown>, key: string, fallback = "") {
+  const value = details[key];
+  return typeof value === "string" ? value : fallback;
+}
+
+function readStringArray(details: Record<string, unknown>, key: string) {
+  const value = details[key];
+  return Array.isArray(value) && value.every((item) => typeof item === "string") ? value : [];
+}
+
+function readVerificationState(details: Record<string, unknown>): VerificationState {
+  const value = details["verification_status"];
+  return value === "verified" || value === "rejected" ? value : "pending";
+}
+
+function readProfileVisibility(details: Record<string, unknown>): ProfileVisibility {
+  const value = details["profile_visibility"];
+  return value === "public" || value === "network" ? value : "private";
+}
+
+function readGender(details: Record<string, unknown>): "male" | "female" | "other" {
+  const value = details["gender"];
+  return value === "female" || value === "other" ? value : "male";
+}
 
 export function normalizeRole(role?: string | null): Role {
   switch ((role ?? "").toLowerCase()) {
@@ -82,7 +206,7 @@ export function profileToUser(row: Partial<ProfileRow> | null | undefined): User
 export async function getProfileByAuthId(authUserId: string): Promise<User | null> {
   if (!isSupabaseConfigured()) return null;
 
-  const { data, error } = await (supabase as any)
+  const { data, error } = await authSupabase
     .from("profiles")
     .select("*")
     .eq("auth_user_id", authUserId)
@@ -93,7 +217,7 @@ export async function getProfileByAuthId(authUserId: string): Promise<User | nul
     return null;
   }
 
-  return profileToUser(data as Partial<ProfileRow>);
+  return profileToUser(data);
 }
 
 export async function createProfileRecord(input: {
@@ -125,7 +249,7 @@ export async function createProfileRecord(input: {
     updated_at: new Date().toISOString(),
   };
 
-  const { data, error } = await (supabase as any)
+  const { data, error } = await authSupabase
     .from("profiles")
     .upsert(payload, { onConflict: "id" })
     .select()
@@ -135,7 +259,7 @@ export async function createProfileRecord(input: {
     throw new Error(error.message);
   }
 
-  const user = profileToUser(data as Partial<ProfileRow>);
+  const user = profileToUser(data);
   if (!user) {
     throw new Error("Supabase profile creation did not return a profile");
   }
@@ -173,7 +297,7 @@ export async function updateProfileRecord(
     updated_at: new Date().toISOString(),
   };
 
-  const { data, error } = await (supabase as any)
+  const { data, error } = await authSupabase
     .from("profiles")
     .update(payload)
     .eq("auth_user_id", authUserId)
@@ -181,7 +305,7 @@ export async function updateProfileRecord(
     .single();
   if (error) throw new Error(error.message);
 
-  const user = profileToUser(data as Partial<ProfileRow>);
+  const user = profileToUser(data);
   if (!user) throw new Error("Supabase profile update did not return a profile");
   return user;
 }
@@ -192,78 +316,90 @@ export async function updateRoleSpecificProfile(
   details: Record<string, unknown>,
 ): Promise<void> {
   if (!isSupabaseConfigured()) return;
-  const tableMap: Partial<Record<Role, string>> = {
-    ATHLETE: "athlete_profiles",
-    ORGANIZER: "organizer_profiles",
-    COLLEGE: "institution_profiles",
-    VOLUNTEER: "volunteer_profiles",
-  };
-  const table = tableMap[role];
-  if (!table) return;
+  const updatedAt = new Date().toISOString();
+  const city = readString(details, "city");
+  const area = readString(details, "area");
+  const profilePhotoUrl = readString(details, "profile_photo_url");
+  let error: { message: string } | null = null;
 
-  const allowed =
-    role === "ATHLETE"
-      ? [
-          "city",
-          "area",
-          "institution",
-          "primary_sport",
-          "secondary_sports",
-          "position",
-          "bio",
-          "profile_visibility",
-          "profile_photo_url",
-        ]
-      : role === "ORGANIZER"
-        ? [
-            "city",
-            "area",
-            "phone",
-            "email",
-            "description",
-            "organization_name",
-            "organizer_type",
-            "profile_photo_url",
-          ]
-        : role === "COLLEGE"
-          ? [
-              "city",
-              "area",
-              "phone",
-              "email",
-              "description",
-              "institution_name",
-              "institution_type",
-              "profile_photo_url",
-            ]
-          : ["city", "area", "role", "profile_photo_url"];
-  const payload = Object.fromEntries(
-    Object.entries(details).filter(([key]) => allowed.includes(key)),
-  );
-  if (!Object.keys(payload).length) return;
+  if (role === "ATHLETE") {
+    ({ error } = await authSupabase
+      .from("athlete_profiles")
+      .update({
+        city,
+        area,
+        institution: readString(details, "institution"),
+        primary_sport: readString(details, "primary_sport"),
+        secondary_sports: readStringArray(details, "secondary_sports"),
+        position: readString(details, "position"),
+        bio: readString(details, "bio"),
+        profile_visibility: readProfileVisibility(details),
+        profile_photo_url: profilePhotoUrl,
+        updated_at: updatedAt,
+      })
+      .eq("auth_user_id", authUserId));
+  } else if (role === "ORGANIZER") {
+    ({ error } = await authSupabase
+      .from("organizer_profiles")
+      .update({
+        city,
+        area,
+        phone: readString(details, "phone"),
+        email: readString(details, "email"),
+        description: readString(details, "description"),
+        organization_name: readString(details, "organization_name"),
+        organizer_type: readString(details, "organizer_type"),
+        profile_photo_url: profilePhotoUrl,
+        updated_at: updatedAt,
+      })
+      .eq("auth_user_id", authUserId));
+  } else if (role === "COLLEGE") {
+    ({ error } = await authSupabase
+      .from("institution_profiles")
+      .update({
+        city,
+        area,
+        phone: readString(details, "phone"),
+        email: readString(details, "email"),
+        description: readString(details, "description"),
+        institution_name: readString(details, "institution_name"),
+        institution_type: readString(details, "institution_type", "College"),
+        profile_photo_url: profilePhotoUrl,
+        updated_at: updatedAt,
+      })
+      .eq("auth_user_id", authUserId));
+  } else if (role === "VOLUNTEER") {
+    ({ error } = await authSupabase
+      .from("volunteer_profiles")
+      .update({
+        city,
+        area,
+        profile_photo_url: profilePhotoUrl,
+        updated_at: updatedAt,
+      })
+      .eq("auth_user_id", authUserId));
+  } else {
+    return;
+  }
 
-  const { error } = await (supabase as any)
-    .from(table)
-    .update({ ...payload, updated_at: new Date().toISOString() })
-    .eq("auth_user_id", authUserId);
   if (error) throw new Error(error.message);
 }
 
 /** Admin-only account inventory. RLS is the authorization boundary here. */
 export async function listManagedProfiles(): Promise<ManagedProfile[]> {
   if (!isSupabaseConfigured()) return [];
-  const { data, error } = await (supabase as any)
+  const { data, error } = await authSupabase
     .from("profiles")
     .select("id, email, name, role, is_active, created_at, updated_at")
     .order("created_at", { ascending: false })
     .limit(100);
   if (error) throw new Error(error.message);
-  return (data ?? []) as ManagedProfile[];
+  return data ?? [];
 }
 
 export async function setManagedProfileActive(profileId: string, isActive: boolean): Promise<void> {
   if (!isSupabaseConfigured()) throw new Error("Supabase is not configured");
-  const { error } = await (supabase as any)
+  const { error } = await authSupabase
     .from("profiles")
     .update({ is_active: isActive })
     .eq("id", profileId);
@@ -277,98 +413,85 @@ export async function createRoleSpecificProfile(
 ): Promise<void> {
   if (!isSupabaseConfigured()) return;
 
-  const tableMap: Record<Role, string> = {
-    ATHLETE: "athlete_profiles",
-    ORGANIZER: "organizer_profiles",
-    COLLEGE: "institution_profiles",
-    VOLUNTEER: "volunteer_profiles",
-    ADMIN: "profiles",
-    SCOUT: "profiles",
-  };
+  const basePayload = { id: authUserId, profile_id: authUserId, auth_user_id: authUserId };
+  const updatedAt = new Date().toISOString();
+  let error: { message: string } | null = null;
 
-  const table = tableMap[role];
-  if (!table || table === "profiles") return;
+  if (role === "ATHLETE") {
+    ({ error } = await authSupabase.from("athlete_profiles").upsert(
+      {
+        ...basePayload,
+        city: readString(details, "city"),
+        area: readString(details, "area"),
+        institution: readString(details, "institution"),
+        primary_sport: readString(details, "primary_sport", "football"),
+        secondary_sports: readStringArray(details, "secondary_sports"),
+        position: readString(details, "position"),
+        position_group: readString(details, "position_group", "FORWARD"),
+        age_group: readString(details, "age_group", "OPEN"),
+        bio: readString(details, "bio"),
+        date_of_birth: readString(details, "date_of_birth") || null,
+        gender: readGender(details),
+        contact_visibility: readString(details, "contact_visibility", "private"),
+        profile_visibility: readProfileVisibility(details),
+        verification_status: readVerificationState(details),
+        profile_photo_url: readString(details, "profile_photo_url"),
+        updated_at: updatedAt,
+      },
+      { onConflict: "id" },
+    ));
+  } else if (role === "ORGANIZER") {
+    ({ error } = await authSupabase.from("organizer_profiles").upsert(
+      {
+        ...basePayload,
+        organization_name: readString(details, "organization_name"),
+        organizer_type: readString(details, "organizer_type", "Club"),
+        city: readString(details, "city"),
+        area: readString(details, "area"),
+        phone: readString(details, "phone"),
+        email: readString(details, "email"),
+        description: readString(details, "description"),
+        verification_status: readVerificationState(details),
+        profile_photo_url: readString(details, "profile_photo_url"),
+        updated_at: updatedAt,
+      },
+      { onConflict: "id" },
+    ));
+  } else if (role === "COLLEGE") {
+    ({ error } = await authSupabase.from("institution_profiles").upsert(
+      {
+        ...basePayload,
+        institution_name: readString(details, "institution_name"),
+        institution_type: readString(details, "institution_type", "College"),
+        city: readString(details, "city"),
+        area: readString(details, "area"),
+        address: readString(details, "address"),
+        phone: readString(details, "phone"),
+        email: readString(details, "email"),
+        description: readString(details, "description"),
+        verification_status: readVerificationState(details),
+        profile_photo_url: readString(details, "profile_photo_url"),
+        updated_at: updatedAt,
+      },
+      { onConflict: "id" },
+    ));
+  } else if (role === "VOLUNTEER") {
+    ({ error } = await authSupabase.from("volunteer_profiles").upsert(
+      {
+        ...basePayload,
+        city: readString(details, "city"),
+        area: readString(details, "area"),
+        role: readString(details, "role", "field-volunteer"),
+        active: details["active"] !== false,
+        profile_photo_url: readString(details, "profile_photo_url"),
+        updated_at: updatedAt,
+      },
+      { onConflict: "id" },
+    ));
+  } else {
+    return;
+  }
 
-  const basePayload = {
-    id: authUserId,
-    profile_id: authUserId,
-    auth_user_id: authUserId,
-    updated_at: new Date().toISOString(),
-  };
-
-  const payloadByRole: Record<Role, Record<string, unknown>> = {
-    ATHLETE: {
-      city: details["city"] ?? "",
-      area: details["area"] ?? "",
-      institution: details["institution"] ?? "",
-      primary_sport: details["primary_sport"] ?? "football",
-      secondary_sports: details["secondary_sports"] ?? [],
-      position: details["position"] ?? "",
-      position_group: details["position_group"] ?? "FORWARD",
-      age_group: details["age_group"] ?? "OPEN",
-      bio: details["bio"] ?? "",
-      date_of_birth: details["date_of_birth"] ?? null,
-      gender: details["gender"] ?? "male",
-      contact_visibility: details["contact_visibility"] ?? "private",
-      profile_visibility: details["profile_visibility"] ?? "private",
-      verification_status: details["verification_status"] ?? "pending",
-      profile_photo_url: details["profile_photo_url"] ?? "",
-      latitude: details["latitude"] ?? null,
-      longitude: details["longitude"] ?? null,
-      geo_point: details["geo_point"] ?? null,
-    },
-    ORGANIZER: {
-      organization_name: details["organization_name"] ?? "",
-      organizer_type: details["organizer_type"] ?? "Club",
-      city: details["city"] ?? "",
-      area: details["area"] ?? "",
-      phone: details["phone"] ?? "",
-      email: details["email"] ?? "",
-      description: details["description"] ?? "",
-      verification_status: details["verification_status"] ?? "pending",
-      profile_photo_url: details["profile_photo_url"] ?? "",
-      latitude: details["latitude"] ?? null,
-      longitude: details["longitude"] ?? null,
-      geo_point: details["geo_point"] ?? null,
-    },
-    COLLEGE: {
-      institution_name: details["institution_name"] ?? "",
-      institution_type: details["institution_type"] ?? "College",
-      city: details["city"] ?? "",
-      area: details["area"] ?? "",
-      address: details["address"] ?? "",
-      phone: details["phone"] ?? "",
-      email: details["email"] ?? "",
-      description: details["description"] ?? "",
-      verification_status: details["verification_status"] ?? "pending",
-      profile_photo_url: details["profile_photo_url"] ?? "",
-      latitude: details["latitude"] ?? null,
-      longitude: details["longitude"] ?? null,
-      geo_point: details["geo_point"] ?? null,
-    },
-    VOLUNTEER: {
-      city: details["city"] ?? "",
-      area: details["area"] ?? "",
-      role: details["role"] ?? "field-volunteer",
-      active: details["active"] ?? true,
-      profile_photo_url: details["profile_photo_url"] ?? "",
-      latitude: details["latitude"] ?? null,
-      longitude: details["longitude"] ?? null,
-      geo_point: details["geo_point"] ?? null,
-    },
-    ADMIN: {
-      city: details["city"] ?? "",
-      area: details["area"] ?? "",
-    },
-    SCOUT: {
-      city: details["city"] ?? "",
-      area: details["area"] ?? "",
-    },
-  };
-
-  const payload = { ...basePayload, ...payloadByRole[role] };
-
-  const { error } = await (supabase as any).from(table).upsert(payload, { onConflict: "id" });
   if (error) {
     throw new Error(error.message);
   }
