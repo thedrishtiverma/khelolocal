@@ -9,6 +9,7 @@ import {
   Crosshair,
   Dumbbell,
   MapPin,
+  Mail,
   Megaphone,
   Paperclip,
   Pencil,
@@ -31,7 +32,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { EmptyState, LoadingBlock } from "@/components/shared/Bits";
-import { ProfileBanner } from "@/components/shared/ProfileBanner";
+import { ProfileBanner, ProfileContactLink } from "@/components/shared/ProfileBanner";
 import { cn } from "@/lib/utils";
 import { useCurrentVolunteer, useKhelo, type SubmissionDraft } from "@/lib/services/store";
 import type { FieldSubmission, SubmissionKind, SubmissionStatus } from "@/types";
@@ -261,6 +262,15 @@ function VolunteerDashboard() {
             <MapPin className="size-4" />
             Zone locked to {volunteer.zoneName}
           </span>
+        }
+        contacts={
+          currentUser.email ? (
+            <ProfileContactLink
+              href={`mailto:${currentUser.email}`}
+              label={currentUser.email}
+              icon={<Mail className="size-4 shrink-0" aria-hidden="true" />}
+            />
+          ) : null
         }
         role="volunteer"
       />

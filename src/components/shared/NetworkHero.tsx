@@ -161,6 +161,7 @@ export function NetworkHero({
   actions,
   highlights,
   tone,
+  artwork,
 }: {
   eyebrow: string;
   title: ReactNode;
@@ -168,6 +169,7 @@ export function NetworkHero({
   actions?: ReactNode;
   highlights: [string, string, string];
   tone: HeroTone;
+  artwork?: ReactNode;
 }) {
   const scene = sceneByEyebrow[eyebrow] ?? (eyebrow.endsWith("× Indore") ? "surface" : "city");
   return (
@@ -176,6 +178,11 @@ export function NetworkHero({
       <div className="network-hero-grid" aria-hidden="true" />
       <div className="network-hero-orbit network-hero-orbit-one" aria-hidden="true" />
       <div className="network-hero-orbit network-hero-orbit-two" aria-hidden="true" />
+      {artwork ? (
+        <div className="network-hero-artwork" aria-hidden="true">
+          {artwork}
+        </div>
+      ) : null}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
         <div className="max-w-4xl">
           <p className="network-hero-eyebrow">{eyebrow}</p>

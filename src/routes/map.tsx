@@ -46,9 +46,7 @@ function SportsMapPage() {
       (filter === "ALL" || record.kind === filter),
   );
   const tournaments = db.tournaments;
-  const athletes = db.athletes.filter(
-    isAthletePubliclyDiscoverable,
-  );
+  const athletes = db.athletes.filter(isAthletePubliclyDiscoverable);
   const organizers = db.organizers;
 
   return (
@@ -235,7 +233,14 @@ function SportsMapPage() {
           </section>
         </div>
         <section className="mt-14 border-t border-border pt-10">
-          <SectionHeading eyebrow="The local network" title="What the Indore map connects" />
+          <SectionHeading
+            eyebrow="The local network"
+            title={
+              <>
+                What the <span className="text-lime">Indore map connects</span>
+              </>
+            }
+          />
           <div className="grid gap-4 sm:grid-cols-3">
             {[
               [

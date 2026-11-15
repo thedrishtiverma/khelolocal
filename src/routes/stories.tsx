@@ -86,7 +86,11 @@ function StoriesPage() {
       <Page className="py-14 sm:py-24">
         <SectionHeading
           eyebrow="From the network"
-          title="Small stories. A stronger network."
+          title={
+            <>
+              Small stories. <span className="text-lime">A stronger network.</span>
+            </>
+          }
           subtitle={`${college?.shortName ?? "Local institutions"} and the wider sports community are building the first layer of a trusted city-to-city sports record.`}
         />
         <div className="grid gap-6 lg:grid-cols-3">

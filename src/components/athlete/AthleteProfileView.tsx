@@ -37,6 +37,7 @@ export function AthleteProfileView({
         name={athlete.name}
         image={athlete.profileImage}
         eyebrow={`${sportName} · ${athlete.ageCategory}`}
+        sportId={athlete.primarySport}
         subtitle={`${athlete.position || "Position not set"}${athlete.collegeName ? ` · ${athlete.collegeName}` : ""}`}
         meta={
           <span className="flex items-center gap-1.5">
@@ -61,7 +62,9 @@ export function AthleteProfileView({
         <section className="rounded-xl border border-border bg-card p-6">
           {collegeRecords.length ? (
             <div className="mb-8">
-              <h2 className="font-display text-[0.9375rem] font-bold">College record (verified)</h2>
+              <h2 className="athlete-profile-section-heading font-display text-xl font-bold sm:text-2xl">
+                College record (verified)
+              </h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Past annual sports event results confirmed by {athlete.collegeName ?? "the college"}{" "}
                 and verified by KheloLocal.
@@ -73,7 +76,9 @@ export function AthleteProfileView({
               </div>
             </div>
           ) : null}
-          <h2 className="font-display text-[0.9375rem] font-bold">Verified achievements</h2>
+          <h2 className="athlete-profile-section-heading font-display text-xl font-bold sm:text-2xl">
+            Verified achievements
+          </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Every record below was confirmed by the tournament organizer.
           </p>
@@ -117,7 +122,9 @@ export function AthleteProfileView({
 
         <div className="space-y-6">
           <section className="rounded-xl border border-border bg-card p-6">
-            <h2 className="font-display text-[0.9375rem] font-bold">Skills</h2>
+            <h2 className="athlete-profile-section-heading font-display text-xl font-bold sm:text-2xl">
+              Skills
+            </h2>
             {athlete.skills.length ? (
               <ul className="mt-4 flex flex-wrap gap-2">
                 {athlete.skills.map((s) => (
@@ -135,7 +142,9 @@ export function AthleteProfileView({
           </section>
 
           <section className="rounded-xl border border-border bg-card p-6">
-            <h2 className="font-display text-[0.9375rem] font-bold">About</h2>
+            <h2 className="athlete-profile-section-heading font-display text-xl font-bold sm:text-2xl">
+              About
+            </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               {athlete.bio || "This athlete hasn't added a bio yet."}
             </p>

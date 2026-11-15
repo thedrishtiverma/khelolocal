@@ -3005,3 +3005,220 @@
 .profile-role-mark {
   color: var(--lime);
 }
+
+.profile-banner,
+.organizer-banner,
+.institution-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  box-shadow: var(--shadow-card);
+}
+
+.profile-banner {
+  background:
+    radial-gradient(circle at 8% 100%, color-mix(in oklab, var(--field) 12%, transparent), transparent 34%),
+    color-mix(in oklab, var(--card) 92%, var(--cream));
+}
+
+.profile-banner--athlete {
+  background:
+    linear-gradient(115deg, color-mix(in oklab, var(--accent) 18%, var(--card)), transparent 62%),
+    color-mix(in oklab, var(--card) 92%, var(--cream));
+}
+
+.profile-banner--organizer {
+  background:
+    linear-gradient(125deg, color-mix(in oklab, var(--field) 22%, var(--card)), transparent 70%),
+    color-mix(in oklab, var(--card) 88%, var(--primary));
+}
+
+.profile-banner--institution {
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--primary) 16%, var(--card)), transparent 68%),
+    color-mix(in oklab, var(--card) 90%, var(--field));
+}
+
+.profile-banner--volunteer {
+  background:
+    linear-gradient(120deg, color-mix(in oklab, var(--field) 19%, var(--card)), transparent 64%),
+    color-mix(in oklab, var(--card) 90%, var(--accent));
+}
+
+.profile-banner--admin {
+  background:
+    linear-gradient(120deg, color-mix(in oklab, var(--surface) 30%, var(--card)), transparent 68%),
+    color-mix(in oklab, var(--card) 90%, var(--primary));
+}
+
+.profile-banner-content,
+.profile-banner-aside {
+  position: relative;
+  z-index: 1;
+}
+
+.banner-contact-link {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent);
+  border-radius: 0.625rem;
+  background: color-mix(in oklab, var(--card) 78%, transparent);
+  padding: 0.5rem 0.75rem;
+  color: var(--foreground);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.banner-contact-link:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+.profile-banner-artwork {
+  opacity: 0.19;
+}
+
+.profile-banner--athlete .khelo-banner-symbol,
+.profile-banner--volunteer .khelo-banner-symbol {
+  color: var(--accent);
+}
+
+.profile-banner--organizer .khelo-banner-symbol,
+.profile-banner--institution .khelo-banner-symbol {
+  color: var(--field);
+}
+
+.profile-banner--admin .khelo-banner-symbol {
+  color: var(--lime);
+}
+
+.profile-banner-eyebrow {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--muted-foreground);
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.organizer-banner .profile-banner-content {
+  align-items: flex-start;
+}
+
+.organizer-banner-aside {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.institution-card {
+  background:
+    linear-gradient(145deg, color-mix(in oklab, var(--field) 14%, var(--card)), transparent 72%),
+    var(--card);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.institution-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+
+.institution-banner-art {
+  position: relative;
+  height: 8rem;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  background:
+    linear-gradient(125deg, color-mix(in oklab, var(--primary) 26%, var(--surface)), var(--surface)),
+    var(--surface);
+}
+
+.institution-banner-art .khelo-banner-symbol {
+  color: var(--field);
+  opacity: 0.58;
+}
+
+.institution-banner-label {
+  position: absolute;
+  z-index: 1;
+  top: 0.85rem;
+  left: 0.85rem;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 28%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  padding: 0.35rem 0.6rem;
+  color: var(--surface-foreground);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-hero .khelo-banner-art {
+  opacity: 0.16;
+}
+
+.admin-hero > *:not(.khelo-banner-art) {
+  position: relative;
+  z-index: 1;
+}
+
+.admin-hero .khelo-banner-symbol {
+  color: var(--accent);
+  opacity: 0.38;
+}
+
+.network-hero-artwork {
+  position: absolute;
+  top: 50%;
+  right: max(1.5rem, calc((100vw - 72rem) / 2));
+  z-index: 1;
+  width: clamp(18rem, 34vw, 32rem);
+  height: 13rem;
+  opacity: 0.36;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.network-hero-artwork .khelo-banner-geometry {
+  opacity: 0.8;
+}
+
+.athlete-profile-section-heading {
+  color: var(--lime);
+}
+
+.dark .athlete-profile-section-heading {
+  color: var(--foreground);
+}
+
+.process-flow-step:hover h2 {
+  color: var(--lime);
+}
+
+.map-pin:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+@media (max-width: 767px) {
+  .network-hero-artwork {
+    display: none;
+  }
+}

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   EmptyState,
@@ -7,6 +7,7 @@ import {
   SectionHeading,
   Stat,
 } from "@/components/shared/Bits";
+import { ProfileBanner, ProfileContactLink } from "@/components/shared/ProfileBanner";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { formatDate, sportLabel } from "@/lib/format";
@@ -34,15 +35,8 @@ export const Route = createFileRoute("/athlete/")({
   component: AthleteDashboard,
 });
 
-function greeting() {
-  const h = new Date().getHours();
-  if (h < 12) return "Good morning";
-  if (h < 17) return "Good afternoon";
-  return "Good evening";
-}
-
 function AthleteDashboard() {
-  const { db, hydrated } = useKhelo();
+  const { db, hydrated, currentUser } = useKhelo();
   const athlete = useCurrentAthlete();
 
   if (!athlete) {
@@ -79,43 +73,42 @@ function AthleteDashboard() {
 
   return (
     <Page>
-      <div className="mb-8">
-        <h1 className="font-display text-3xl font-black sm:text-4xl">
-          {greeting()},{" "}
-          {athlete.name.split(" ")[0]}
-        </h1>
-        <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
-          <MapPin className="size-4" /> {athlete.cityName}
-        </p>
-      </div>
-
-      <section className="surface-panel rounded-xl p-6 sm:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-surface-foreground/60">
-              Verified sports identity
-            </p>
-            <h2 className="mt-1 font-display text-2xl font-black">
-              {athlete.name}
-            </h2>
-            <p className="text-sm text-surface-foreground/70">
-              {sportLabel(athlete.primarySport)} · {athlete.position}
-            </p>
-            {athlete.collegeName ? (
-              <p className="text-sm text-surface-foreground/70">{athlete.collegeName}</p>
-            ) : null}
-          </div>
-          {athlete.verificationStatus === "VERIFIED" ? <VerifiedBadge /> : null}
-        </div>
+      <ProfileBanner
+        name={athlete.name}
+        image={athlete.profileImage}
+        eyebrow="Verified sports identity"
+        sportId={athlete.primarySport}
+        subtitle={`${sportLabel(athlete.primarySport)} · ${athlete.position}${athlete.collegeName ? ` · ${athlete.collegeName}` : ""}`}
+        meta={
+          <span className="flex items-center gap-1.5">
+            <MapPin className="size-4" />
+            {athlete.cityName}
+          </span>
+        }
+        status={athlete.verificationStatus === "VERIFIED" ? <VerifiedBadge /> : null}
+        contacts={
+          currentUser?.email ? (
+            <ProfileContactLink
+              href={`mailto:${currentUser.email}`}
+              label={currentUser.email}
+              icon={<Mail className="size-4 shrink-0" aria-hidden="true" />}
+            />
+          ) : null
+        }
+        actions={
+          <Button asChild>
+            <Link to="/athlete/profile">View full profile</Link>
+          </Button>
+        }
+        role="athlete"
+      />
+      <section className="surface-panel mt-4 rounded-xl p-6 sm:p-8">
         <div className="mt-8 grid grid-cols-2 gap-6 border-t border-surface-foreground/15 pt-6 sm:grid-cols-4">
           <Stat tone="invert" value={athlete.tournamentsPlayed} label="Tournaments" />
           <Stat tone="invert" value={athlete.matchesPlayed} label="Matches" />
           <Stat tone="invert" value={athlete.wins} label="Wins" />
           <Stat tone="accent" value={athlete.verifiedAchievementsCount} label="Verified achievements" />
         </div>
-        <Button asChild className="mt-6" variant="secondary">
-          <Link to="/athlete/profile">View full profile</Link>
-        </Button>
       </section>
 
       <div className="mt-12">

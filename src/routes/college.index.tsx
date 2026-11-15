@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptyState, Page, SectionHeading, Stat } from "@/components/shared/Bits";
-import { ProfileBanner } from "@/components/shared/ProfileBanner";
+import { ProfileBanner, ProfileContactLink } from "@/components/shared/ProfileBanner";
 import { RecordCard } from "@/components/college/RecordCard";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { useCurrentCollege, useKhelo } from "@/lib/services/store";
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/college/")({
 });
 
 function CollegeDashboard() {
-  const { db, hydrated, collegeReviewRecord } = useKhelo();
+  const { db, hydrated, currentUser, collegeReviewRecord } = useKhelo();
   const college = useCurrentCollege();
 
   if (!college) {
@@ -64,6 +65,15 @@ function CollegeDashboard() {
         eyebrow={`${college.sportsEventName} · ${college.cityName}`}
         title={college.shortName}
         subtitle={college.sportsEventName}
+        contacts={
+          currentUser?.email ? (
+            <ProfileContactLink
+              href={`mailto:${currentUser.email}`}
+              label={currentUser.email}
+              icon={<Mail className="size-4 shrink-0" aria-hidden="true" />}
+            />
+          ) : null
+        }
         status={
           college.verificationStatus === "VERIFIED" ? (
             <span className="rounded-full border border-verified/30 bg-verified/10 px-2.5 py-1 text-xs font-semibold text-verified">

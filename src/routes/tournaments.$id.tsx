@@ -278,7 +278,7 @@ function TournamentDetails() {
 
           <TabsContent value="overview" className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
             <div className="rounded-xl border border-border bg-card p-6">
-              <h2 className="font-display text-xl font-bold">About this tournament</h2>
+              <h2 className="font-display text-2xl font-bold">About this tournament</h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {tournament.description}
               </p>
@@ -309,7 +309,7 @@ function TournamentDetails() {
             </div>
             <div className="space-y-6">
               <div className="rounded-xl border border-border bg-card p-6">
-                <h2 className="font-display text-lg font-bold">Participation</h2>
+                <h2 className="font-display text-2xl font-bold">Participation</h2>
                 <div className="mt-4 flex items-end justify-between">
                   <Stat
                     value={`${tournament.currentParticipants}/${tournament.maxParticipants}`}
@@ -323,7 +323,7 @@ function TournamentDetails() {
                 />
               </div>
               <div className="rounded-xl border border-border bg-card p-6">
-                <h2 className="font-display text-lg font-bold">Prize pool</h2>
+                <h2 className="font-display text-2xl font-bold">Prize pool</h2>
                 <p className="stat-num mt-3 text-4xl text-lime">
                   {formatINR(tournament.prizePool)}
                 </p>

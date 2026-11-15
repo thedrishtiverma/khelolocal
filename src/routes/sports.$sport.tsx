@@ -6,7 +6,7 @@ import { TournamentCard } from "@/components/tournament/TournamentCard";
 import { useKhelo } from "@/lib/services/store";
 import { effectiveTournamentStatus, isAthletePubliclyDiscoverable } from "@/lib/services/selectors";
 import { NetworkHero } from "@/components/shared/NetworkHero";
-import { SportIcon } from "@/components/shared/SportIcon";
+import { BannerArtwork } from "@/components/shared/BannerArtwork";
 
 export const Route = createFileRoute("/sports/$sport")({
   head: () => ({ meta: [{ title: "Sport | KheloLocal" }] }),
@@ -60,11 +60,11 @@ function SportHub() {
     <div>
       <NetworkHero
         tone="sports"
-        eyebrow={`${name} × Indore`}
+        eyebrow="Local sports network"
+        artwork={<BannerArtwork sportId={sport} />}
         title={
           <>
-            <SportIcon sportId={sport} className="mb-2 inline-block size-10 align-middle text-lime" aria-hidden="true" /> {name}{" "}
-            <span className="text-lime">in Indore.</span>
+            {name} <span className="text-lime">in Indore.</span>
           </>
         }
         description={`The local ${name.toLowerCase()} network: players, competitions and the organizations behind them.`}

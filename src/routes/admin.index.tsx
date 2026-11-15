@@ -7,6 +7,7 @@ import {
   Building2,
   CheckCircle2,
   ClipboardCheck,
+  Mail,
   MapPin,
   ShieldCheck,
   Users,
@@ -26,7 +27,7 @@ import { effectiveTournamentStatus, pendingAdminRecords } from "@/lib/services/s
 import { formatDateRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { RoleIcon } from "@/components/shared/KheloIcon";
-import { SimpleBanner } from "@/components/shared/SimpleBanner";
+import { BannerArtwork } from "@/components/shared/BannerArtwork";
 import type { FieldSubmission } from "@/types";
 
 type Tab = "overview" | "approvals" | "organizations" | "athletes" | "operations";
@@ -124,12 +125,8 @@ function AdminConsole() {
 
   return (
     <Page className="py-6 sm:py-10">
-      <SimpleBanner
-        label="Private operations"
-        icon={<RoleIcon role="admin" className="size-4" />}
-        tone="admin"
-      />
-      <section className="mt-5 rounded-2xl border border-primary/15 bg-gradient-to-br from-background via-background to-accent/10 p-6 sm:p-9">
+      <section className="admin-hero profile-banner--admin relative isolate mt-5 overflow-hidden rounded-2xl border border-primary/15 p-6 sm:p-9">
+        <BannerArtwork role="admin" className="profile-banner-artwork" />
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -151,9 +148,15 @@ function AdminConsole() {
           </div>
           <div className="rounded-xl border border-border bg-background/80 px-4 py-3 text-right">
             <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <Mail className="mr-1 inline size-3.5" />
               Signed in as
             </p>
-            <p className="mt-1 text-sm font-bold">{currentUser.email}</p>
+            <a
+              href={`mailto:${currentUser.email}`}
+              className="mt-1 inline-flex items-center gap-1 text-sm font-bold transition-colors hover:text-lime"
+            >
+              {currentUser.email}
+            </a>
           </div>
         </div>
         <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border/70 pt-5">

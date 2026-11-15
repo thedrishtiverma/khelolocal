@@ -1,18 +1,19 @@
 import type { ReactNode } from "react";
 import { Initials } from "@/components/shared/Bits";
-import { RoleIcon } from "@/components/shared/KheloIcon";
+import { BannerArtwork } from "@/components/shared/BannerArtwork";
 import type { KheloRole } from "@/components/shared/khelo-icon-registry";
-import { SimpleBanner } from "@/components/shared/SimpleBanner";
 
 interface ProfileBannerProps {
   name: string;
   image?: string;
   eyebrow: string;
+  sportId?: string;
   title?: string;
   subtitle?: string;
   meta?: ReactNode;
   status?: ReactNode;
   actions?: ReactNode;
+  contacts?: ReactNode;
   role?: KheloRole;
 }
 
@@ -20,33 +21,27 @@ export function ProfileBanner({
   name,
   image,
   eyebrow,
+  sportId,
   title,
   subtitle,
   meta,
   status,
   actions,
+  contacts,
   role,
 }: ProfileBannerProps) {
+  const bannerRole = role ?? "default";
+
   return (
-    <section className="profile-banner group data-card rounded-2xl p-5 sm:p-8">
-      <SimpleBanner
-        label={eyebrow}
-        icon={role ? <RoleIcon role={role} className="size-4" /> : undefined}
-        tone={
-          role === "athlete"
-            ? "athlete"
-            : role === "organizer"
-              ? "organizer"
-              : role === "institution"
-                ? "institution"
-                : role === "volunteer"
-                  ? "volunteer"
-                  : role === "admin"
-                    ? "admin"
-                    : "default"
-        }
+    <section
+      className={`profile-banner profile-banner--${bannerRole} group rounded-2xl p-5 sm:p-8`}
+    >
+      <BannerArtwork
+        {...(sportId ? { sportId } : {})}
+        {...(role ? { role } : {})}
+        className="profile-banner-artwork"
       />
-      <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center">
+      <div className="profile-banner-content flex flex-col gap-5 sm:flex-row sm:items-center">
         <div className="relative size-24 shrink-0 sm:size-28">
           {image ? (
             <img
@@ -57,18 +52,14 @@ export function ProfileBanner({
           ) : (
             <Initials
               name={name}
-              className="profile-banner-avatar size-24 rounded-2xl border-4 bg-lime text-3xl text-lime-foreground shadow-lg sm:size-28"
+              className="profile-banner-avatar size-24 rounded-2xl border-4 bg-primary text-3xl text-primary-foreground shadow-lg sm:size-28"
             />
           )}
-          {role ? (
-            <span className="profile-role-mark absolute -bottom-2 -right-2 grid size-9 place-items-center rounded-full border-2 border-card bg-surface text-lime shadow-md">
-              <RoleIcon role={role} className="size-5" />
-            </span>
-          ) : null}
         </div>
         <div className="min-w-0 flex-1 pb-0.5">
+          <p className="profile-banner-eyebrow">{eyebrow}</p>
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="font-display text-3xl font-black leading-none transition-colors group-hover:text-lime sm:text-4xl">
+            <h1 className="mt-2 font-display text-3xl font-black leading-none transition-colors group-hover:text-lime sm:text-4xl">
               {title ?? name}
             </h1>
             {status}
@@ -78,8 +69,30 @@ export function ProfileBanner({
           ) : null}
           {meta ? <div className="mt-2 text-sm text-muted-foreground">{meta}</div> : null}
         </div>
-        {actions ? <div className="flex flex-wrap gap-2 sm:pb-1">{actions}</div> : null}
+        {contacts || actions ? (
+          <div className="profile-banner-aside flex flex-wrap gap-2 sm:max-w-56 sm:flex-col sm:items-stretch">
+            {contacts}
+            {actions}
+          </div>
+        ) : null}
       </div>
     </section>
+  );
+}
+
+export function ProfileContactLink({
+  href,
+  label,
+  icon,
+}: {
+  href: string;
+  label: string;
+  icon: ReactNode;
+}) {
+  return (
+    <a href={href} className="banner-contact-link">
+      {icon}
+      <span className="truncate">{label}</span>
+    </a>
   );
 }

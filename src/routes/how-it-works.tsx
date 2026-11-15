@@ -48,13 +48,15 @@ function HowItWorksPage() {
           {STEPS.map(([number, title, body, Icon], index) => (
             <li
               key={title}
-              className="process-flow-step relative rounded-2xl border border-border bg-card p-6"
+              className="process-flow-step group relative rounded-2xl border border-border bg-card p-6"
             >
               <span className="process-flow-number flex size-10 items-center justify-center rounded-full bg-lime font-num text-xs font-bold text-lime-foreground">
                 {number}
               </span>
               <Icon className="mt-7 size-6 text-lime" />
-              <h2 className="mt-5 font-display text-2xl font-bold uppercase">{title}</h2>
+              <h2 className="mt-5 font-display text-2xl font-bold uppercase transition-colors group-hover:text-lime">
+                {title}
+              </h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
               {index < STEPS.length - 1 ? (
                 <ArrowRight className="process-flow-arrow absolute -right-4 top-1/2 z-10 hidden size-7 -translate-y-1/2 rounded-full border border-lime bg-background p-1 text-lime lg:block" />
