@@ -141,8 +141,8 @@ function Landing() {
                 icon: <Trophy className="size-5" />,
                 title: "Organizers",
                 body: "Run tournaments, manage fixtures and verify results in one place.",
-                to: "/tournaments/create" as const,
-                cta: "Host a tournament",
+                to: "/organizers" as const,
+                cta: "Organizer tools",
               },
               {
                 icon: <Building2 className="size-5" />,
@@ -238,6 +238,16 @@ function Landing() {
                 "/institutions",
               ],
               ["For organizers", "Publish, manage and verify the next tournament.", "/organizers"],
+              [
+                "Academies & clubs",
+                "Discover local athletes and connect with players.",
+                "/academies-clubs",
+              ],
+              [
+                "Sponsors & partners",
+                "Support the people and events growing grassroots sport.",
+                "/partners",
+              ],
               ["Volunteer", "Put the sport you know on the city map.", "/volunteer"],
               ["KheloLocal merch", "Carry the local game beyond the boundary.", "/shop"],
             ].map(([title, body, to]) => (

@@ -1,6 +1,16 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { ChevronDown, Github, Instagram, Linkedin, LogOut, Menu, UserRound, X } from "lucide-react";
+import {
+  Building2,
+  ChevronDown,
+  Github,
+  Instagram,
+  Linkedin,
+  LogOut,
+  Menu,
+  UserRound,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
@@ -16,7 +26,13 @@ const PUBLIC_NAV: NavItem[] = [
   { to: "/explore", label: "Explore" },
   { to: "/tournaments", label: "Tournaments" },
   { to: "/athletes", label: "Athletes" },
-  { to: "/organizers", label: "For organizers" },
+];
+
+const ORGANIZATION_NAV: NavItem[] = [
+  { to: "/organizers", label: "Tournament organizers" },
+  { to: "/institutions", label: "Schools & institutions" },
+  { to: "/academies-clubs", label: "Academies & clubs" },
+  { to: "/partners", label: "Sponsors & partners" },
 ];
 
 const PROFILE_NAV: Record<Role, NavItem[]> = {
@@ -87,6 +103,37 @@ export function AppShell({ children }: { children: ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            <details className="group relative">
+              <summary
+                className={cn(
+                  "flex cursor-pointer list-none items-center gap-1 rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-foreground",
+                  ORGANIZATION_NAV.some((item) => isActive(item.to)) &&
+                    "bg-card text-foreground shadow-sm ring-1 ring-border",
+                )}
+              >
+                <Building2 className="size-4" aria-hidden="true" />
+                For organisations
+                <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="absolute left-0 top-11 z-50 min-w-64 rounded-xl border border-border bg-card p-2 shadow-xl">
+                <p className="px-3 pb-2 pt-1 text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">
+                  Grow the local game
+                </p>
+                {ORGANIZATION_NAV.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    aria-current={isActive(item.to) ? "page" : undefined}
+                    className={cn(
+                      "mt-1 block rounded-md px-3 py-2 text-sm font-semibold transition-colors hover:bg-secondary",
+                      isActive(item.to) && "text-lime",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </details>
           </nav>
 
           <div className="ml-auto hidden items-center gap-2 md:flex">
@@ -159,6 +206,25 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </Link>
               ))}
             </nav>
+            <div className="mt-3 border-t border-border pt-3">
+              <p className="px-3 pb-1 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                For organisations & partners
+              </p>
+              {ORGANIZATION_NAV.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  aria-current={isActive(item.to) ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "block rounded px-3 py-2.5 text-sm font-semibold",
+                    isActive(item.to) ? "bg-secondary text-foreground" : "text-muted-foreground",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
             {profileItems.length ? (
               <div className="mt-3 border-t border-border pt-3">
                 <p className="px-3 pb-1 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -308,6 +374,12 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Link>
               <Link to="/coaches" className="hover:text-lime">
                 For coaches and teams
+              </Link>
+              <Link to="/academies-clubs" className="hover:text-lime">
+                Academies & clubs
+              </Link>
+              <Link to="/partners" className="hover:text-lime">
+                Sponsors & partners
               </Link>
               <Link to="/volunteer" className="hover:text-lime">
                 Volunteer with us

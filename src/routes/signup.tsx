@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GraduationCap, MapPin, Search, Trophy, User } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,12 @@ import { isSupabaseConfigured } from "@/integrations/supabase/client";
 import type { Role } from "@/types";
 
 export const Route = createFileRoute("/signup")({
+  validateSearch: (search: Record<string, unknown>) => {
+    const role = search["role"];
+    return {
+      role: role === "ORGANIZER" || role === "COLLEGE" || role === "SCOUT" ? role : undefined,
+    };
+  },
   head: () => ({
     meta: [
       { title: "Join KheloLocal — Athlete, organizer or scout" },
@@ -61,7 +67,8 @@ const ROLES: { role: Role; title: string; body: string; icon: typeof User }[] = 
 function SignupPage() {
   const { signup } = useKhelo();
   const navigate = useNavigate();
-  const [role, setRole] = useState<Role | null>(null);
+  const { role: requestedRole } = Route.useSearch();
+  const [role, setRole] = useState<Role | null>(() => requestedRole ?? null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,6 +77,12 @@ function SignupPage() {
   const [guardianAcknowledged, setGuardianAcknowledged] = useState(false);
   const athleteAge = ageFromDob(dateOfBirth);
   const guardianConsentRequired = role === "ATHLETE" && athleteAge !== null && athleteAge < 18;
+
+  useEffect(() => {
+    if (requestedRole) {
+      setRole(requestedRole);
+    }
+  }, [requestedRole]);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:py-16">

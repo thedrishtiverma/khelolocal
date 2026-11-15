@@ -38,6 +38,7 @@ type Scene =
 
 const sceneByEyebrow: Record<string, Scene> = {
   "Started in Indore, Madhya Pradesh.": "city",
+  "For academies and clubs": "clubhouse",
   "Explore KheloLocal": "trail",
   "Athlete discovery": "tunnel",
   "Team discovery": "formation",

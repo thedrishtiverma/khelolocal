@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AcademiesClubsRouteImport } from './routes/academies-clubs'
 import { Route as AthletesRouteImport } from './routes/athletes'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CitiesRouteImport } from './routes/cities'
@@ -26,6 +27,7 @@ import { Route as InstitutionsRouteImport } from './routes/institutions'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as OrganizersRouteImport } from './routes/organizers'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SavedRouteImport } from './routes/saved'
@@ -67,6 +69,11 @@ import { Route as OrganizerManageIdRouteImport } from './routes/organizer.manage
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademiesClubsRoute = AcademiesClubsRouteImport.update({
+  id: '/academies-clubs',
+  path: '/academies-clubs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AthletesRoute = AthletesRouteImport.update({
@@ -147,6 +154,11 @@ const MapRoute = MapRouteImport.update({
 const OrganizersRoute = OrganizersRouteImport.update({
   id: '/organizers',
   path: '/organizers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -337,6 +349,7 @@ const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/cities': typeof CitiesRouteWithChildren
@@ -353,6 +366,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
+  '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
@@ -393,6 +407,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/coaches': typeof CoachesRoute
@@ -408,6 +423,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
+  '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
@@ -448,6 +464,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/cities': typeof CitiesRouteWithChildren
@@ -464,6 +481,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/organizers': typeof OrganizersRoute
+  '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
@@ -506,6 +524,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/academies-clubs'
     | '/athletes'
     | '/careers'
     | '/cities'
@@ -522,6 +541,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/organizers'
+    | '/partners'
     | '/privacy'
     | '/reset-password'
     | '/saved'
@@ -562,6 +582,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/academies-clubs'
     | '/athletes'
     | '/careers'
     | '/coaches'
@@ -577,6 +598,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/organizers'
+    | '/partners'
     | '/privacy'
     | '/reset-password'
     | '/saved'
@@ -616,6 +638,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/academies-clubs'
     | '/athletes'
     | '/careers'
     | '/cities'
@@ -632,6 +655,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/organizers'
+    | '/partners'
     | '/privacy'
     | '/reset-password'
     | '/saved'
@@ -673,6 +697,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcademiesClubsRoute: typeof AcademiesClubsRoute
   AthletesRoute: typeof AthletesRouteWithChildren
   CareersRoute: typeof CareersRoute
   CitiesRoute: typeof CitiesRouteWithChildren
@@ -689,6 +714,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   OrganizersRoute: typeof OrganizersRoute
+  PartnersRoute: typeof PartnersRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SavedRoute: typeof SavedRoute
@@ -726,6 +752,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academies-clubs': {
+      id: '/academies-clubs'
+      path: '/academies-clubs'
+      fullPath: '/academies-clubs'
+      preLoaderRoute: typeof AcademiesClubsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/athletes': {
@@ -838,6 +871,13 @@ declare module '@tanstack/react-router' {
       path: '/organizers'
       fullPath: '/organizers'
       preLoaderRoute: typeof OrganizersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -1166,6 +1206,7 @@ const TeamsRouteWithChildren = TeamsRoute._addFileChildren(TeamsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcademiesClubsRoute: AcademiesClubsRoute,
   AthletesRoute: AthletesRouteWithChildren,
   CareersRoute: CareersRoute,
   CitiesRoute: CitiesRouteWithChildren,
@@ -1182,6 +1223,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   OrganizersRoute: OrganizersRoute,
+  PartnersRoute: PartnersRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SavedRoute: SavedRoute,

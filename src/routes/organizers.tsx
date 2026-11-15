@@ -1,10 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BadgeCheck, Megaphone, Pencil, Trophy } from "lucide-react";
-import { Page, SectionHeading } from "@/components/shared/Bits";
+import { Activity, BadgeCheck, CalendarPlus, Megaphone, Search, Users } from "lucide-react";
+import { SectionHeading } from "@/components/shared/Bits";
 import { NetworkHero } from "@/components/shared/NetworkHero";
 import { Button } from "@/components/ui/button";
 import { OrganizerBanner } from "@/components/shared/OrganizerBanner";
 import { useKhelo } from "@/lib/services/store";
+import {
+  OrganizationFeatureGrid,
+  OrganizationLinks,
+  OrganizationPage,
+} from "@/components/organization/OrganizationPageSections";
 
 export const Route = createFileRoute("/organizers")({
   head: () => ({
@@ -19,16 +24,57 @@ export const Route = createFileRoute("/organizers")({
   component: OrganizersPage,
 });
 
-const WORKFLOW = [
-  { icon: Pencil, title: "Publish", body: "Create and promote your tournament." },
-  { icon: Megaphone, title: "Reach", body: "Get discovered by relevant athletes and teams." },
+const ORGANIZER_FEATURES = [
   {
-    icon: Trophy,
-    title: "Manage",
-    body: "Keep participants, schedules and information organized.",
+    icon: Search,
+    title: "Reach local athletes",
+    description: "Help nearby players find your competition through the tournament network.",
+    available: true,
+    to: "/athletes",
+    action: "Discover athletes",
   },
-  { icon: BadgeCheck, title: "Record", body: "Turn results into verified sporting achievements." },
-];
+  {
+    icon: CalendarPlus,
+    title: "Create and publish",
+    description: "Publish an event with its sport, dates, venue, eligibility and entry details.",
+    available: true,
+    to: "/tournaments/create",
+    action: "List your tournament",
+  },
+  {
+    icon: Users,
+    title: "Manage registrations",
+    description: "Review participation and keep tournament operations in one organizer workspace.",
+    available: true,
+    to: "/organizer",
+    action: "Open organizer dashboard",
+  },
+  {
+    icon: Megaphone,
+    title: "Featured listings",
+    description:
+      "Featured placement is not self-serve yet. Ask the team about ways to spotlight an event.",
+    available: false,
+    href: "mailto:khelolocal@gmail.com?subject=Tournament%20featured%20listing",
+    action: "Ask about promotion",
+  },
+  {
+    icon: Activity,
+    title: "Track activity and results",
+    description: "Review tournament activity and submit completed results for verification.",
+    available: true,
+    to: "/organizer/results",
+    action: "Manage results",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Show up in the local fixture list",
+    description: "Help athletes and supporters discover competitions happening across the city.",
+    available: true,
+    to: "/tournaments",
+    action: "Browse tournaments",
+  },
+] as const;
 
 function OrganizersPage() {
   const { db } = useKhelo();
@@ -39,46 +85,56 @@ function OrganizersPage() {
         eyebrow="For organizers"
         title={
           <>
-            Run the game. <span className="text-lime">Grow its record.</span>
+            Run Better Tournaments. <span className="text-lime">Reach More Athletes.</span>
           </>
         }
-        description="Publish tournaments, reach relevant athletes, manage participation and preserve verified results."
-        highlights={["Publish", "Manage", "Verify"]}
+        description="One local workflow to publish fixtures, connect with athletes, manage entries and build a verified record of every result."
+        highlights={["Create", "Connect", "Verify"]}
         actions={
           <>
             <Button asChild size="lg">
-              <Link to="/tournaments/create">Create a tournament</Link>
+              <Link to="/tournaments/create">List Your Tournament</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="network-hero-secondary-action">
-              <Link to="/contact">Talk to KheloLocal</Link>
+              <Link to="/explore">Explore KheloLocal</Link>
             </Button>
           </>
         }
       />
-      <Page className="py-14 sm:py-24">
+      <OrganizationPage>
         <SectionHeading
-          eyebrow="One workflow"
+          eyebrow="The organizer toolkit"
           title={
             <>
-              From announcement to <span className="text-lime">sporting record.</span>
+              Every matchday detail. <span className="text-lime">One place.</span>
             </>
           }
+          subtitle="Use the tools already live in KheloLocal, and ask us about promotional options still taking shape."
         />
-        <div className="grid gap-5 md:grid-cols-4">
-          {WORKFLOW.map(({ icon: Icon, title, body }) => (
-            <article key={title} className="data-card rounded-xl border-t-2 border-lime p-6">
-              <Icon className="size-6 text-lime" />
-              <h2 className="mt-8 font-display text-2xl font-bold uppercase">{title}</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p>
-            </article>
-          ))}
+        <OrganizationFeatureGrid features={[...ORGANIZER_FEATURES]} />
+
+        <div className="organization-dashboard-cta mt-8 flex flex-col gap-4 rounded-2xl p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-lime">
+              Already on KheloLocal?
+            </p>
+            <h2 className="mt-2 font-display text-2xl font-black uppercase">
+              Pick up where your tournament left off.
+            </h2>
+          </div>
+          <Button asChild variant="outline">
+            <Link to="/organizer">Open organizer dashboard</Link>
+          </Button>
         </div>
+
+        <OrganizationLinks current="/organizers" />
+
         <section className="mt-16">
           <SectionHeading
-            eyebrow="The people behind the fixtures"
+            eyebrow="Already part of the network"
             title={
               <>
-                Organizations <span className="text-lime">in Indore.</span>
+                Local organizers <span className="text-lime">in Indore.</span>
               </>
             }
           />
@@ -88,7 +144,7 @@ function OrganizersPage() {
             ))}
           </div>
         </section>
-      </Page>
+      </OrganizationPage>
     </div>
   );
 }
