@@ -92,7 +92,7 @@ function OrganizersPage() {
           />
           <div className="grid gap-5 lg:grid-cols-2">
             {db.organizers.map((organizer) => (
-              <OrganizerBanner key={organizer.id} organizer={organizer} />
+              <OrganizerBanner key={organizer.id} organizer={organizer} showContacts={false} />
             ))}
           </div>
         </section>

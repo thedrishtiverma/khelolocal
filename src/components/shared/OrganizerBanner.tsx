@@ -11,11 +11,13 @@ export function OrganizerBanner({
   actions,
   sport,
   eventName,
+  showContacts = true,
 }: {
   organizer: Organizer;
   actions?: ReactNode;
   sport?: string;
   eventName?: string;
+  showContacts?: boolean;
 }) {
   return (
     <section className="organizer-banner profile-banner--organizer group rounded-xl p-5 sm:p-6">
@@ -62,23 +64,25 @@ export function OrganizerBanner({
             </span>
           </p>
         </div>
-        <div className="organizer-banner-aside flex flex-wrap gap-2 sm:max-w-56 sm:flex-col sm:items-stretch">
-          {organizer.email ? (
-            <ProfileContactLink
-              href={`mailto:${organizer.email}`}
-              label={organizer.email}
-              icon={<Mail className="size-4 shrink-0" aria-hidden="true" />}
-            />
-          ) : null}
-          {organizer.phone ? (
-            <ProfileContactLink
-              href={`tel:${organizer.phone}`}
-              label={organizer.phone}
-              icon={<Phone className="size-4 shrink-0" aria-hidden="true" />}
-            />
-          ) : null}
-          {actions}
-        </div>
+        {showContacts || actions ? (
+          <div className="organizer-banner-aside flex flex-wrap gap-2 sm:max-w-56 sm:flex-col sm:items-stretch">
+            {showContacts && organizer.email ? (
+              <ProfileContactLink
+                href={`mailto:${organizer.email}`}
+                label={organizer.email}
+                icon={<Mail className="size-4 shrink-0" aria-hidden="true" />}
+              />
+            ) : null}
+            {showContacts && organizer.phone ? (
+              <ProfileContactLink
+                href={`tel:${organizer.phone}`}
+                label={organizer.phone}
+                icon={<Phone className="size-4 shrink-0" aria-hidden="true" />}
+              />
+            ) : null}
+            {actions}
+          </div>
+        ) : null}
       </div>
       <p className="mt-4 text-sm leading-6 text-muted-foreground">{organizer.description}</p>
     </section>

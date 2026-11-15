@@ -87,7 +87,11 @@ function CareersPage() {
         <section className="mt-16">
           <SectionHeading
             eyebrow="Open to conversations"
-            title="Find your place in the network."
+            title={
+              <>
+                Find your <span className="text-lime">place</span> in the network.
+              </>
+            }
             subtitle="These are early opportunities. If you see a different way to help, write to us."
           />
           <div className="grid gap-4 lg:grid-cols-3">

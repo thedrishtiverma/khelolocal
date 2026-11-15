@@ -182,7 +182,7 @@ function Landing() {
       <section className="surface-panel">
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[0.75fr_1.25fr] lg:items-end lg:gap-20">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-lime">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-lime dark:text-muted-foreground">
               Starting in Indore
             </p>
             <h2 className="mt-4 font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
@@ -212,7 +212,7 @@ function Landing() {
         <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <div className="max-w-2xl">
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-lime">
-              <span className="text-primary">Start here</span>
+              <span className="text-primary dark:text-muted-foreground">Start here</span>
             </p>
             <h2 className="mt-3 font-display text-4xl font-black uppercase leading-none sm:text-6xl">
               <span className="text-lime">One home ground.</span> Every way in.

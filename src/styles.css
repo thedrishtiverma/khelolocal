@@ -2708,6 +2708,106 @@
   color: var(--surface-foreground);
 }
 
+.directory-search-panel {
+  max-width: 42rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: color-mix(in oklab, var(--color-card) 88%, var(--color-secondary));
+  padding: 1rem;
+}
+
+.directory-search {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--color-input);
+  border-radius: 0.75rem;
+  background: var(--color-background);
+  padding: 0 0.75rem;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.directory-search:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);
+}
+
+.merch-card {
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.data-card.merch-card:hover,
+.data-card.merch-card:focus-within {
+  border-color: color-mix(in oklab, var(--accent) 58%, var(--color-border));
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--accent) 16%, transparent),
+    0 12px 32px -14px color-mix(in oklab, var(--accent) 48%, transparent);
+  transform: translateY(-2px);
+}
+
+.social-feature {
+  position: relative;
+  display: flex;
+  min-height: 19rem;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      color-mix(in oklab, var(--social-tint) 18%, transparent),
+      transparent 42%
+    ),
+    var(--color-card);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.social-feature:hover,
+.social-feature:focus-visible {
+  border-color: color-mix(in oklab, var(--social-tint) 58%, var(--color-border));
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--social-tint) 18%, transparent),
+    0 16px 38px -20px color-mix(in oklab, var(--social-tint) 55%, transparent);
+  transform: translateY(-3px);
+}
+
+.social-feature-instagram {
+  --social-tint: var(--accent);
+}
+
+.social-feature-linkedin {
+  --social-tint: var(--upcoming);
+}
+
+.social-feature-icon {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 1px solid color-mix(in oklab, var(--social-tint) 35%, var(--color-border));
+  border-radius: 1rem;
+  background: color-mix(in oklab, var(--social-tint) 12%, var(--color-card));
+  color: var(--social-tint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .merch-card,
+  .social-feature {
+    transition: none;
+  }
+}
+
 .sport-card {
   box-shadow: var(--shadow-card);
   transition:

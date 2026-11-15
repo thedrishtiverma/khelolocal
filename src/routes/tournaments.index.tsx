@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -30,7 +31,8 @@ export const Route = createFileRoute("/tournaments/")({
   component: ExploreTournaments,
 });
 
-const SELECT = "h-10 w-full rounded-md border border-input bg-background px-3 text-sm font-medium";
+const SELECT =
+  "h-10 w-full rounded-lg border border-input bg-background px-3 text-sm font-medium transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20";
 
 function ExploreTournaments() {
   const { db } = useKhelo();
@@ -172,98 +174,128 @@ function ExploreTournaments() {
           ))}
         </div>
 
-        <div className="mb-8 grid gap-3 rounded-lg border border-border bg-card p-4 md:grid-cols-3 lg:grid-cols-6">
-          <Input
-            placeholder="Search tournaments…"
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setPage(0);
-            }}
-            className="lg:col-span-2"
-          />
-          <Input
-            list="tournament-cities"
-            placeholder="City"
-            value={cityName}
-            onChange={(event) => {
-              setCityName(event.target.value);
-              setQuick("All");
-              setPage(0);
-            }}
-          />
-          <datalist id="tournament-cities">
-            {db.cities.map((city) => (
-              <option key={city.id} value={city.name} />
-            ))}
-          </datalist>
-          <select
-            className={SELECT}
-            value={sportId}
-            onChange={(e) => {
-              setSportId(e.target.value);
-              setPage(0);
-            }}
-          >
-            <option value="">Sport</option>
-            {db.sports.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-          <select
-            className={SELECT}
-            value={ageCategory}
-            onChange={(e) => {
-              setAgeCategory(e.target.value);
-              setPage(0);
-            }}
-          >
-            <option value="">Age group</option>
-            <option value="U-17">U-17</option>
-            <option value="U-19">U-19</option>
-            <option value="OPEN">Open</option>
-          </select>
-          <select
-            className={SELECT}
-            value={genderCategory}
-            onChange={(e) => {
-              setGenderCategory(e.target.value);
-              setPage(0);
-            }}
-          >
-            <option value="">Eligibility</option>
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
-            <option value="MIXED">Mixed</option>
-          </select>
-          <select
-            className={SELECT}
-            value={status}
-            onChange={(e) => {
-              setStatus(e.target.value);
-              setQuick("All");
-              setPage(0);
-            }}
-          >
-            <option value="">Registration status</option>
-            <option value="REGISTRATION_OPEN">Registration open</option>
-            <option value="UPCOMING">Upcoming</option>
-            <option value="LIVE">Live</option>
-            <option value="COMPLETED">Completed</option>
-          </select>
-          <Input
-            type="date"
-            value={fromDate}
-            onChange={(e) => {
-              setFromDate(e.target.value);
-              setPage(0);
-            }}
-          />
-          <Button variant="ghost" onClick={reset}>
-            Clear filters
-          </Button>
+        <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+            <div className="shrink-0">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                Find your next fixture
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Search tournaments by name or organizer
+              </p>
+            </div>
+            <label className="directory-search w-full sm:max-w-sm">
+              <Search className="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+              <Input
+                placeholder="Search tournaments"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setPage(0);
+                }}
+                aria-label="Search tournaments"
+                className="h-10 border-0 bg-transparent px-0 shadow-none focus-visible:ring-0"
+              />
+              {query ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery("");
+                    setPage(0);
+                  }}
+                  aria-label="Clear tournament search"
+                  className="grid size-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                >
+                  <X className="size-4" />
+                </button>
+              ) : null}
+            </label>
+          </div>
+          <div className="grid gap-3 border-t border-border bg-secondary/25 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <Input
+              list="tournament-cities"
+              placeholder="City"
+              value={cityName}
+              onChange={(event) => {
+                setCityName(event.target.value);
+                setQuick("All");
+                setPage(0);
+              }}
+            />
+            <datalist id="tournament-cities">
+              {db.cities.map((city) => (
+                <option key={city.id} value={city.name} />
+              ))}
+            </datalist>
+            <select
+              className={SELECT}
+              value={sportId}
+              onChange={(e) => {
+                setSportId(e.target.value);
+                setPage(0);
+              }}
+            >
+              <option value="">Sport</option>
+              {db.sports.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+            <select
+              className={SELECT}
+              value={ageCategory}
+              onChange={(e) => {
+                setAgeCategory(e.target.value);
+                setPage(0);
+              }}
+            >
+              <option value="">Age group</option>
+              <option value="U-17">U-17</option>
+              <option value="U-19">U-19</option>
+              <option value="OPEN">Open</option>
+            </select>
+            <select
+              className={SELECT}
+              value={genderCategory}
+              onChange={(e) => {
+                setGenderCategory(e.target.value);
+                setPage(0);
+              }}
+            >
+              <option value="">Eligibility</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="MIXED">Mixed</option>
+            </select>
+            <select
+              className={SELECT}
+              value={status}
+              onChange={(e) => {
+                setStatus(e.target.value);
+                setQuick("All");
+                setPage(0);
+              }}
+            >
+              <option value="">Registration status</option>
+              <option value="REGISTRATION_OPEN">Registration open</option>
+              <option value="UPCOMING">Upcoming</option>
+              <option value="LIVE">Live</option>
+              <option value="COMPLETED">Completed</option>
+            </select>
+            <Input
+              type="date"
+              value={fromDate}
+              onChange={(e) => {
+                setFromDate(e.target.value);
+                setPage(0);
+              }}
+              aria-label="Start date"
+            />
+            <Button variant="ghost" className="h-10 justify-start rounded-lg" onClick={reset}>
+              Clear filters
+            </Button>
+          </div>
         </div>
 
         {loadError ? (

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AthleteCard } from "@/components/athlete/AthleteCard";
 import { EmptyState, Page, SectionHeading } from "@/components/shared/Bits";
@@ -64,14 +64,40 @@ function AthletesPage() {
         highlights={["Sport", "Experience", "Verified"]}
       />
       <Page className="py-14 sm:py-20">
-        <div className="relative mt-10 max-w-2xl">
-          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search athletes, sports, institutions..."
-            className="h-12 pl-10"
-          />
+        <div className="directory-search-panel mt-10">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                Find a player
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Search names, sports, or institutions
+              </p>
+            </div>
+            <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold text-muted-foreground">
+              {results.length} {results.length === 1 ? "athlete" : "athletes"}
+            </span>
+          </div>
+          <label className="directory-search mt-4">
+            <Search className="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Try a name, sport, or college"
+              aria-label="Search athletes"
+              className="h-11 border-0 bg-transparent px-0 shadow-none focus-visible:ring-0"
+            />
+            {query ? (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Clear athlete search"
+                className="grid size-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              >
+                <X className="size-4" />
+              </button>
+            ) : null}
+          </label>
         </div>
         <div className="mt-5 flex flex-wrap gap-2">
           <select className={select} value={sport} onChange={(e) => setSport(e.target.value)}>

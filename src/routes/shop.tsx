@@ -38,14 +38,18 @@ function ShopPage() {
       <Page className="py-14 sm:py-20">
         <SectionHeading
           eyebrow="First drop"
-          title="Built for the home ground."
+          title={
+            <>
+              Built for the <span className="text-lime">home ground.</span>
+            </>
+          }
           subtitle="Demo merch collection — checkout will open soon."
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {ITEMS.map(([name, detail, price, visual]) => (
             <article
               key={name}
-              className={`merch-card merch-card-${visual} data-card overflow-hidden rounded-2xl p-0`}
+              className={`merch-card group merch-card-${visual} data-card overflow-hidden rounded-2xl p-0`}
             >
               <div className="merch-card-art">
                 <ShoppingBag className="size-10" aria-hidden="true" />
@@ -54,10 +58,14 @@ function ShopPage() {
                 </span>
               </div>
               <div className="p-6">
-                <h2 className="font-display text-2xl font-black uppercase">{name}</h2>
+                <h2 className="font-display text-2xl font-black uppercase transition-colors duration-200 group-hover:text-lime">
+                  {name}
+                </h2>
                 <p className="mt-2 text-sm text-muted-foreground">{detail}</p>
                 <div className="mt-6 flex items-center justify-between gap-3">
-                  <span className="font-num text-xl font-bold">{price}</span>
+                  <span className="font-num text-xl font-bold transition-colors duration-200 group-hover:text-lime">
+                    {price}
+                  </span>
                   <Button size="sm" variant="outline">
                     Coming soon
                   </Button>
