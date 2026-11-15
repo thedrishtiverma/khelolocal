@@ -110,6 +110,7 @@ export function unfollowProfile(
   followerProfileId: string,
   followedProfileId: string,
 ) {
+  activeUser(db, followerProfileId);
   const { follows } = profileArrays(db);
   const existing = follows.length;
   db.profileFollows = follows.filter(
@@ -330,6 +331,7 @@ export function blockProfile(db: Database, blockerProfileId: string, blockedProf
 }
 
 export function unblockProfile(db: Database, blockerProfileId: string, blockedProfileId: string) {
+  activeUser(db, blockerProfileId);
   const { blocks } = profileArrays(db);
   const previous = blocks.length;
   db.profileBlocks = blocks.filter(

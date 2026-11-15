@@ -1,13 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Building2,
-  MapPinned,
-  Search,
-  Trophy,
-  Users,
-} from "lucide-react";
+import { ArrowRight, BadgeCheck, Building2, MapPinned, Search, Trophy, Users } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -108,10 +100,20 @@ function Landing() {
               <span className="home-kicker-dot" />
               Starting in Indore. Built for every home ground.
             </p>
+            <p className="home-tagline">
+              <span className="home-tagline-mark" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+              Your City&apos;s Sports Network
+            </p>
             <h1>
               The local game
               <br />
-              deserves a <span>bigger stage.</span>
+              deserves a
+              <br />
+              <span>bigger stage.</span>
             </h1>
             <p className="home-hero-description">
               Find your next game, meet your sporting community, and make every verified result
@@ -131,10 +133,13 @@ function Landing() {
             </p>
           </div>
 
-          <div className="home-field-card" aria-label="KheloLocal brings local sport together">
+          <div
+            className="home-field-card"
+            role="img"
+            aria-label="A local playing field connecting players, games, and community."
+          >
             <div className="home-field-card-top">
-              <span>THE LOCAL GAME, CONNECTED</span>
-              <span className="home-live-indicator">INDORE / MP</span>
+              <span>INDIA&apos;S LOCAL SPORTS, UNITED</span>
             </div>
             <div className="home-field" aria-hidden="true">
               <span className="home-field-halfway" />
@@ -146,10 +151,11 @@ function Landing() {
               <span className="home-field-node home-field-node-three" />
               <span className="home-field-connector home-field-connector-one" />
               <span className="home-field-connector home-field-connector-two" />
+              <span className="home-field-connector home-field-connector-three" />
               <span className="home-field-label home-field-label-one">PLAYERS</span>
               <span className="home-field-label home-field-label-two">GAMES</span>
               <span className="home-field-label home-field-label-three">COMMUNITY</span>
-              <span className="home-field-center-mark">KL</span>
+              <span className="home-field-center-mark">PLAY</span>
             </div>
             <div className="home-field-card-bottom">
               <span>ONE CITY AT A TIME</span>
@@ -201,17 +207,11 @@ function Landing() {
                 <span>you to the game?</span>
               </h2>
             </div>
-            <p>
-              Whether you play, organize, teach, or coach, start with the path that fits you.
-            </p>
+            <p>Whether you play, organize, teach, or coach, start with the path that fits you.</p>
           </div>
           <div className="home-paths">
             {PATHS.map((path) => (
-              <Link
-                className={`home-path home-path-${path.accent}`}
-                key={path.title}
-                to={path.to}
-              >
+              <Link className={`home-path home-path-${path.accent}`} key={path.title} to={path.to}>
                 <div className="home-path-top">
                   <span className="home-path-icon">{path.icon}</span>
                   <span className="home-path-number">{path.number}</span>
@@ -268,7 +268,13 @@ function Landing() {
           </div>
           <div className="home-local-stamp" aria-hidden="true">
             <span>MADE FOR</span>
-            <strong>THE<br />HOME<br />GROUND</strong>
+            <strong>
+              THE
+              <br />
+              HOME
+              <br />
+              GROUND
+            </strong>
             <span>INDORE / INDIA</span>
           </div>
         </div>

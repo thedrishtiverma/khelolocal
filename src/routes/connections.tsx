@@ -80,9 +80,11 @@ function ConnectionsPage() {
   const sent = requests.filter(
     (request) => request.requesterProfileId === actorId && request.status === "PENDING",
   );
-  const myConnections = connections.map((connection) =>
-    connection.profileAId === actorId ? connection.profileBId : connection.profileAId,
-  );
+  const myConnections = connections
+    .filter((connection) => connection.profileAId === actorId || connection.profileBId === actorId)
+    .map((connection) =>
+      connection.profileAId === actorId ? connection.profileBId : connection.profileAId,
+    );
   const following = follows
     .filter((follow) => follow.followerProfileId === actorId)
     .map((follow) => follow.followedProfileId);

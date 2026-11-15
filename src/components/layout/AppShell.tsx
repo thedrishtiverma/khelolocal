@@ -456,7 +456,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </p>
           <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold">
             <a
-              href="https://www.instagram.com/khelolocal"
+              href="https://www.instagram.com/khelolocal.in/"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 hover:text-lime"
@@ -464,7 +464,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Instagram className="size-4" /> Instagram
             </a>
             <a
-              href="https://www.linkedin.com/company/khelolocal"
+              href="https://www.linkedin.com/in/khelolocal/"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 hover:text-lime"

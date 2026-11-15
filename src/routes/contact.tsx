@@ -84,7 +84,7 @@ function ContactPage() {
           </p>
           <div className="grid gap-4 md:grid-cols-2">
             <a
-              href="https://www.instagram.com/khelolocal"
+              href="https://www.instagram.com/khelolocal/"
               target="_blank"
               rel="noreferrer"
               className="social-feature social-feature-instagram group rounded-2xl p-6 sm:p-8"
@@ -109,7 +109,7 @@ function ContactPage() {
               </span>
             </a>
             <a
-              href="https://www.linkedin.com/company/khelolocal"
+              href="https://www.linkedin.com/in/khelolocal/"
               target="_blank"
               rel="noreferrer"
               className="social-feature social-feature-linkedin group rounded-2xl p-6 sm:p-8"
