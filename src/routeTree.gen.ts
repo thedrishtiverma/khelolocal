@@ -9,11 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademiesClubsRouteImport } from './routes/academies-clubs'
 import { Route as AthletesRouteImport } from './routes/athletes'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CitiesRouteImport } from './routes/cities'
 import { Route as CoachesRouteImport } from './routes/coaches'
+import { Route as ConnectionsRouteImport } from './routes/connections'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as DiscoverRouteImport } from './routes/discover'
@@ -64,6 +66,11 @@ import { Route as VolunteerIndexRouteImport } from './routes/volunteer.index'
 import { Route as VolunteerDeskRouteImport } from './routes/volunteer.desk'
 import { Route as OrganizerManageIdRouteImport } from './routes/organizer.manage.$id'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AcademiesClubsRoute = AcademiesClubsRouteImport.update({
   id: '/academies-clubs',
   path: '/academies-clubs',
@@ -87,6 +94,11 @@ const CitiesRoute = CitiesRouteImport.update({
 const CoachesRoute = CoachesRouteImport.update({
   id: '/coaches',
   path: '/coaches',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectionsRoute = ConnectionsRouteImport.update({
+  id: '/connections',
+  path: '/connections',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -336,11 +348,13 @@ const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/cities': typeof CitiesRouteWithChildren
   '/coaches': typeof CoachesRoute
+  '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
@@ -392,10 +406,12 @@ export interface FileRoutesByFullPath {
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/coaches': typeof CoachesRoute
+  '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
@@ -447,11 +463,13 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
   '/cities': typeof CitiesRouteWithChildren
   '/coaches': typeof CoachesRoute
+  '/connections': typeof ConnectionsRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
   '/discover': typeof DiscoverRoute
@@ -505,11 +523,13 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/academies-clubs'
     | '/athletes'
     | '/careers'
     | '/cities'
     | '/coaches'
+    | '/connections'
     | '/contact'
     | '/demo'
     | '/discover'
@@ -561,10 +581,12 @@ export interface FileRouteTypes {
     | '/organizer/manage/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/academies-clubs'
     | '/athletes'
     | '/careers'
     | '/coaches'
+    | '/connections'
     | '/contact'
     | '/demo'
     | '/discover'
@@ -615,11 +637,13 @@ export interface FileRouteTypes {
     | '/organizer/manage/$id'
   id:
     | '__root__'
+    | '/'
     | '/academies-clubs'
     | '/athletes'
     | '/careers'
     | '/cities'
     | '/coaches'
+    | '/connections'
     | '/contact'
     | '/demo'
     | '/discover'
@@ -672,11 +696,13 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AcademiesClubsRoute: typeof AcademiesClubsRoute
   AthletesRoute: typeof AthletesRouteWithChildren
   CareersRoute: typeof CareersRoute
   CitiesRoute: typeof CitiesRouteWithChildren
   CoachesRoute: typeof CoachesRoute
+  ConnectionsRoute: typeof ConnectionsRoute
   ContactRoute: typeof ContactRoute
   DemoRoute: typeof DemoRoute
   DiscoverRoute: typeof DiscoverRoute
@@ -721,6 +747,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/academies-clubs': {
       id: '/academies-clubs'
       path: '/academies-clubs'
@@ -754,6 +787,13 @@ declare module '@tanstack/react-router' {
       path: '/coaches'
       fullPath: '/coaches'
       preLoaderRoute: typeof CoachesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connections': {
+      id: '/connections'
+      path: '/connections'
+      fullPath: '/connections'
+      preLoaderRoute: typeof ConnectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -1165,11 +1205,13 @@ const TeamsRouteChildren: TeamsRouteChildren = {
 const TeamsRouteWithChildren = TeamsRoute._addFileChildren(TeamsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AcademiesClubsRoute: AcademiesClubsRoute,
   AthletesRoute: AthletesRouteWithChildren,
   CareersRoute: CareersRoute,
   CitiesRoute: CitiesRouteWithChildren,
   CoachesRoute: CoachesRoute,
+  ConnectionsRoute: ConnectionsRoute,
   ContactRoute: ContactRoute,
   DemoRoute: DemoRoute,
   DiscoverRoute: DiscoverRoute,
