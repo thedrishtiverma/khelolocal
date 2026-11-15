@@ -490,6 +490,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         role,
         cityId: "",
         profileImage: "",
+        profileVisibility: "private",
         ...(role === "ATHLETE" && guardianConsent ? { guardianConsentAt: now() } : {}),
         createdAt: now(),
         updatedAt: now(),

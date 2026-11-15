@@ -45,7 +45,7 @@ function AthletesPage() {
           (!age || a.ageCategory === age) &&
           (!verified || a.verificationStatus === "VERIFIED"),
       ),
-    [db.athletes, query, sport, position, institution, age, verified],
+    [db, query, sport, position, institution, age, verified],
   );
   const select = "h-10 rounded-md border border-input bg-background px-3 text-sm font-medium";
   const positions = Array.from(new Set(db.athletes.map((a) => a.positionGroup)));

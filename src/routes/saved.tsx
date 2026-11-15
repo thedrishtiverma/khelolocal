@@ -12,10 +12,10 @@ export const Route = createFileRoute("/saved")({
       { title: "Saved athletes | KheloLocal" },
       {
         name: "description",
-        content: "Your shortlist of verified local athletes on KheloLocal.",
+        content: "Your private shortlist of local profiles on KheloLocal.",
       },
       { property: "og:title", content: "Saved athletes | KheloLocal" },
-      { property: "og:description", content: "Shortlisted talent, ready to contact." },
+      { property: "og:description", content: "Your private profile shortlist." },
     ],
   }),
   component: SavedPage,
@@ -51,7 +51,7 @@ function SavedPage() {
       {saved.length === 0 ? (
         <EmptyState
           title="No saved athletes yet."
-          description="Save athletes from discovery to build a shortlist."
+          description="Save public athlete profiles to build a private shortlist."
           action={
             <Button asChild>
               <Link to="/athletes">Discover talent</Link>

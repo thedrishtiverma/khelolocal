@@ -112,6 +112,16 @@ function AthletePublicProfile() {
           item.recipientProfileId === currentUser?.id)),
   );
   const blocked = currentUser ? isProfileBlocked(db, currentUser.id, athlete.userId) : false;
+  const followerCount = (db.profileFollows ?? []).filter(
+    (follow) => follow.followedProfileId === athlete.userId,
+  ).length;
+  const followingCount = (db.profileFollows ?? []).filter(
+    (follow) => follow.followerProfileId === athlete.userId,
+  ).length;
+  const connectionCount = (db.profileConnections ?? []).filter(
+    (connection) =>
+      connection.profileAId === athlete.userId || connection.profileBId === athlete.userId,
+  ).length;
   const localMode = !isSupabaseConfigured();
   const unavailableTitle = localMode
     ? undefined
@@ -133,6 +143,9 @@ function AthletePublicProfile() {
         actions={
           !isOwner && currentUser ? (
             <div className="flex flex-col gap-3">
+              <p className="text-xs font-semibold text-muted-foreground" aria-label="Profile network statistics">
+                {followerCount} followers · {followingCount} following · {connectionCount} connections
+              </p>
               {!localMode ? (
                 <p className="max-w-sm text-xs text-muted-foreground" role="status">
                   Relationship actions are temporarily unavailable while the hosted data model is
@@ -277,7 +290,11 @@ function AthletePublicProfile() {
                 </label>
               ) : null}
             </div>
-          ) : null
+          ) : (
+            <p className="text-xs font-semibold text-muted-foreground" aria-label="Profile network statistics">
+              {followerCount} followers · {followingCount} following · {connectionCount} connections
+            </p>
+          )
         }
       />
     </Page>
