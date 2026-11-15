@@ -3764,6 +3764,997 @@
   }
 }
 
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 79% 46%,
+      color-mix(in oklab, var(--field) 26%, transparent),
+      transparent 31%
+    ),
+    linear-gradient(
+      120deg,
+      var(--surface) 0%,
+      color-mix(in oklab, var(--surface) 90%, var(--primary)) 54%,
+      color-mix(in oklab, var(--surface) 76%, var(--field)) 100%
+    );
+  color: var(--surface-foreground);
+}
+
+.home-hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.27;
+  background-image:
+    linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--surface-foreground) 11%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--surface-foreground) 11%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 46px 46px;
+  mask-image: linear-gradient(90deg, black, transparent 88%);
+  pointer-events: none;
+}
+
+.home-hero-inner {
+  display: grid;
+  width: min(100% - 3rem, 76rem);
+  min-height: 41rem;
+  margin-inline: auto;
+  padding-block: clamp(4.5rem, 9vw, 8rem);
+  grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.9fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+}
+
+.home-hero-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.home-kicker,
+.home-live-indicator,
+.home-field-card-top,
+.home-field-card-bottom,
+.home-hero-footer,
+.home-path-number,
+.home-step-number,
+.home-local-stamp > span {
+  font-family: var(--font-mono);
+}
+
+.home-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: color-mix(in oklab, var(--surface-foreground) 72%, transparent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.home-kicker-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  border-radius: 9999px;
+  background: var(--lime);
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--lime) 14%, transparent);
+}
+
+.home-hero h1 {
+  max-width: 11ch;
+  margin-top: 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(3.75rem, 7.2vw, 7.25rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 0.83;
+  text-transform: uppercase;
+}
+
+.home-hero h1 span,
+.home-entry-heading h2 span,
+.home-local h2 span {
+  color: var(--lime);
+}
+
+.home-hero-description {
+  max-width: 37rem;
+  margin-top: 1.8rem;
+  color: color-mix(in oklab, var(--surface-foreground) 78%, transparent);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.75;
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.7rem;
+}
+
+.home-button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1.1rem;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 800;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.home-button svg,
+.home-path-link svg,
+.home-discover-links svg,
+.home-local-story > a svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  transition: transform 160ms ease;
+}
+
+.home-button:hover,
+.home-path:hover {
+  transform: translateY(-3px);
+}
+
+.home-button-primary {
+  background: var(--lime);
+  color: var(--surface);
+}
+
+.home-button-primary:hover {
+  background: color-mix(in oklab, var(--lime) 86%, white);
+}
+
+.home-button-secondary {
+  border-color: color-mix(in oklab, var(--surface-foreground) 28%, transparent);
+  background: color-mix(in oklab, var(--surface-foreground) 5%, transparent);
+  color: var(--surface-foreground);
+}
+
+.home-button-secondary:hover {
+  border-color: color-mix(in oklab, var(--surface-foreground) 55%, transparent);
+  background: color-mix(in oklab, var(--surface-foreground) 10%, transparent);
+}
+
+.home-button:hover svg,
+.home-path:hover .home-path-link svg,
+.home-discover-links a:hover svg,
+.home-local-story > a:hover svg {
+  transform: translateX(3px);
+}
+
+.home-hero-note {
+  display: flex;
+  max-width: 34rem;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 1.55rem;
+  color: color-mix(in oklab, var(--surface-foreground) 62%, transparent);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.home-hero-note svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  margin-top: 0.1rem;
+  color: var(--lime);
+}
+
+.home-field-card {
+  position: relative;
+  z-index: 1;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 22%, transparent);
+  border-radius: 0.85rem;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      color-mix(in oklab, var(--field) 10%, transparent),
+      transparent 54%
+    ),
+    color-mix(in oklab, var(--surface) 68%, transparent);
+  box-shadow:
+    0 30px 70px -38px oklch(0 0 0 / 0.75),
+    inset 0 1px 0 color-mix(in oklab, var(--surface-foreground) 10%, transparent);
+  padding: 1rem 1.15rem 0.85rem;
+  transform: rotate(1.5deg);
+}
+
+.home-field-card-top,
+.home-field-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: color-mix(in oklab, var(--surface-foreground) 54%, transparent);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.home-live-indicator {
+  color: var(--lime);
+}
+
+.home-field {
+  position: relative;
+  height: clamp(15rem, 27vw, 21rem);
+  margin: 1.15rem 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 48%, transparent);
+  border-radius: 46% / 8%;
+  background-image:
+    linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--surface-foreground) 4%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--surface-foreground) 4%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 22px 22px;
+}
+
+.home-field-halfway {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  border-top: 1px solid color-mix(in oklab, var(--surface-foreground) 35%, transparent);
+}
+
+.home-field-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 27%;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 35%, transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home-field-box {
+  position: absolute;
+  left: 50%;
+  width: 34%;
+  height: 16%;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 32%, transparent);
+  transform: translateX(-50%);
+}
+
+.home-field-box-top {
+  top: 0;
+  border-top: 0;
+}
+
+.home-field-box-bottom {
+  bottom: 0;
+  border-bottom: 0;
+}
+
+.home-field-node {
+  position: absolute;
+  z-index: 1;
+  width: 0.7rem;
+  aspect-ratio: 1;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--lime) 16%, transparent);
+}
+
+.home-field-node-one {
+  top: 27%;
+  left: 30%;
+}
+
+.home-field-node-two {
+  top: 48%;
+  right: 25%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 16%, transparent);
+}
+
+.home-field-node-three {
+  bottom: 23%;
+  left: 42%;
+}
+
+.home-field-connector {
+  position: absolute;
+  z-index: 0;
+  width: 30%;
+  border-top: 1px dashed color-mix(in oklab, var(--lime) 68%, transparent);
+  transform-origin: left center;
+}
+
+.home-field-connector-one {
+  top: 30%;
+  left: 31%;
+  transform: rotate(34deg);
+}
+
+.home-field-connector-two {
+  top: 53%;
+  left: 48%;
+  transform: rotate(140deg);
+}
+
+.home-field-label {
+  position: absolute;
+  border: 1px solid color-mix(in oklab, var(--surface-foreground) 19%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--surface) 78%, transparent);
+  padding: 0.35rem 0.5rem;
+  color: color-mix(in oklab, var(--surface-foreground) 76%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.home-field-label-one {
+  top: 19%;
+  right: 16%;
+}
+
+.home-field-label-two {
+  top: 44%;
+  left: 12%;
+}
+
+.home-field-label-three {
+  right: 12%;
+  bottom: 15%;
+}
+
+.home-field-center-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 2.4rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid color-mix(in oklab, var(--lime) 50%, transparent);
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  color: var(--lime);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 900;
+  transform: translate(-50%, -50%);
+}
+
+.home-hero-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid color-mix(in oklab, var(--surface-foreground) 16%, transparent);
+  padding: 0.9rem max(1.5rem, calc((100vw - 76rem) / 2));
+  color: color-mix(in oklab, var(--surface-foreground) 46%, transparent);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.home-journey,
+.home-entry-inner,
+.home-local-inner {
+  width: min(100% - 3rem, 76rem);
+  margin-inline: auto;
+}
+
+.home-journey {
+  padding-block: clamp(4.5rem, 8vw, 7.5rem);
+}
+
+.home-section-heading,
+.home-entry-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+
+.home-eyebrow {
+  margin-bottom: 0.8rem;
+  color: var(--field);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.home-section-heading h2,
+.home-entry-heading h2,
+.home-local h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.home-section-heading > p,
+.home-entry-heading > p {
+  max-width: 24rem;
+  margin-bottom: 0.25rem;
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.home-steps {
+  position: relative;
+  display: grid;
+  margin-top: 3.2rem;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+}
+
+.home-steps::before {
+  position: absolute;
+  top: 1.05rem;
+  right: 9%;
+  left: 9%;
+  height: 1px;
+  background: var(--border);
+  content: "";
+}
+
+.home-step {
+  position: relative;
+  padding: 0 0.75rem 0 0;
+}
+
+.home-step-number {
+  display: grid;
+  width: 2.15rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--background);
+  color: var(--field);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.home-step h3 {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.home-step p {
+  max-width: 15rem;
+  margin-top: 0.35rem;
+  color: var(--muted-foreground);
+  font-size: 0.83rem;
+  line-height: 1.65;
+}
+
+.home-entry {
+  border-block: 1px solid var(--border);
+  background:
+    radial-gradient(
+      circle at 92% 10%,
+      color-mix(in oklab, var(--lime) 11%, transparent),
+      transparent 25%
+    ),
+    color-mix(in oklab, var(--secondary) 62%, var(--background));
+}
+
+.home-entry-inner {
+  padding-block: clamp(4.5rem, 8vw, 7.5rem);
+}
+
+.home-entry-heading h2 span {
+  color: var(--field);
+}
+
+.home-paths {
+  display: grid;
+  margin-top: 3rem;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.home-path {
+  --path-accent: var(--lime);
+  display: flex;
+  min-height: 17.5rem;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--path-accent);
+  border-radius: 0.65rem;
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem;
+  color: var(--card-foreground);
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.home-path-athlete {
+  --path-accent: var(--lime);
+}
+
+.home-path-organizer {
+  --path-accent: var(--accent);
+}
+
+.home-path-institution {
+  --path-accent: var(--field);
+}
+
+.home-path-team {
+  --path-accent: var(--primary);
+}
+
+.dark .home-path-team {
+  --path-accent: var(--surface-foreground);
+}
+
+.home-path:hover {
+  border-color: color-mix(in oklab, var(--path-accent) 54%, var(--border));
+  box-shadow: var(--shadow-lift);
+}
+
+.home-path-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-path-icon {
+  display: grid;
+  width: 2.75rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 0.55rem;
+  background: color-mix(in oklab, var(--path-accent) 17%, var(--card));
+  color: color-mix(in oklab, var(--path-accent) 74%, var(--foreground));
+}
+
+.home-path-icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.home-path-number {
+  color: var(--muted-foreground);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.home-path h3 {
+  margin-top: 1.55rem;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.home-path p {
+  flex: 1;
+  margin-top: 0.65rem;
+  color: var(--muted-foreground);
+  font-size: 0.81rem;
+  line-height: 1.65;
+}
+
+.home-path-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.15rem;
+  color: var(--foreground);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.home-path-link svg {
+  color: var(--path-accent);
+}
+
+.home-discover {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.3rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.1rem;
+}
+
+.home-discover-label,
+.home-discover-links,
+.home-discover-links a {
+  display: flex;
+  align-items: center;
+}
+
+.home-discover-label {
+  flex: 0 0 auto;
+  gap: 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.home-discover-label svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--field);
+}
+
+.home-discover-links {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem 1.4rem;
+}
+
+.home-discover-links a {
+  gap: 0.35rem;
+  color: var(--foreground);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.home-discover-links a:hover {
+  color: var(--field);
+}
+
+.home-discover-links svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--field);
+}
+
+.home-local {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 88% 55%,
+      color-mix(in oklab, var(--field) 22%, transparent),
+      transparent 26%
+    ),
+    var(--surface);
+  color: var(--surface-foreground);
+}
+
+.home-local-inner {
+  position: relative;
+  display: grid;
+  min-height: 25rem;
+  align-items: center;
+  gap: 3rem;
+  grid-template-columns: 1fr 1fr auto;
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+}
+
+.home-local .home-eyebrow {
+  color: var(--lime);
+}
+
+.home-local h2 {
+  font-size: clamp(2.8rem, 4.8vw, 4.75rem);
+}
+
+.home-local-story {
+  max-width: 28rem;
+}
+
+.home-local-story > p {
+  color: color-mix(in oklab, var(--surface-foreground) 82%, transparent);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.home-trust-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-top: 1.3rem;
+  border-top: 1px solid color-mix(in oklab, var(--surface-foreground) 18%, transparent);
+  padding-top: 1rem;
+}
+
+.home-trust-note svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  margin-top: 0.1rem;
+  color: var(--lime);
+}
+
+.home-trust-note p {
+  color: color-mix(in oklab, var(--surface-foreground) 62%, transparent);
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
+
+.home-local-story > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  color: var(--lime);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.home-local-stamp {
+  display: flex;
+  width: clamp(8.25rem, 14vw, 11rem);
+  aspect-ratio: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in oklab, var(--lime) 52%, transparent);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.6rem color-mix(in oklab, var(--lime) 5%, transparent),
+    0 0 0 1.2rem color-mix(in oklab, var(--lime) 3%, transparent);
+  color: var(--lime);
+  text-align: center;
+  transform: rotate(-9deg);
+}
+
+.home-local-stamp > span {
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.home-local-stamp strong {
+  margin-block: 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 0.78;
+}
+
+@media (max-width: 1023px) {
+  .home-hero-inner {
+    min-height: auto;
+    gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.82fr);
+  }
+
+  .home-paths {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-local-inner {
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .home-local-stamp {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 1.2rem;
+    width: 7rem;
+    opacity: 0.65;
+  }
+
+  .home-local-story {
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-hero-inner,
+  .home-journey,
+  .home-entry-inner,
+  .home-local-inner {
+    width: min(100% - 2rem, 76rem);
+  }
+
+  .home-hero-inner {
+    padding-block: 4.25rem 3.5rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-hero h1 {
+    font-size: clamp(3.45rem, 12vw, 5rem);
+  }
+
+  .home-field-card {
+    width: min(100%, 31rem);
+    justify-self: center;
+    transform: rotate(0.75deg);
+  }
+
+  .home-field {
+    height: clamp(15rem, 62vw, 19rem);
+  }
+
+  .home-hero-footer {
+    overflow: hidden;
+    gap: 1.4rem;
+    padding-inline: 1rem;
+    white-space: nowrap;
+  }
+
+  .home-section-heading,
+  .home-entry-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .home-section-heading h2,
+  .home-entry-heading h2 {
+    font-size: clamp(2.8rem, 10vw, 4.2rem);
+  }
+
+  .home-section-heading > p,
+  .home-entry-heading > p {
+    max-width: 34rem;
+  }
+
+  .home-steps {
+    gap: 1.5rem 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-steps::before {
+    display: none;
+  }
+
+  .home-paths {
+    margin-top: 2rem;
+    gap: 0.75rem;
+  }
+
+  .home-path {
+    min-height: 16rem;
+    padding: 1rem;
+  }
+
+  .home-path h3 {
+    font-size: 1.55rem;
+  }
+
+  .home-discover {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .home-discover-links {
+    justify-content: flex-start;
+    gap: 0.8rem 1.1rem;
+  }
+
+  .home-local-inner {
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 4.5rem;
+  }
+
+  .home-local h2 {
+    font-size: clamp(2.8rem, 10vw, 4.2rem);
+  }
+
+  .home-local-story {
+    max-width: 38rem;
+    padding-right: 0;
+  }
+
+  .home-local-stamp {
+    top: 2rem;
+    right: 0.25rem;
+    bottom: auto;
+    width: 5.25rem;
+  }
+
+  .home-local-stamp > span {
+    font-size: 0.34rem;
+  }
+
+  .home-local-stamp strong {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .home-kicker {
+    max-width: 19rem;
+    font-size: 0.58rem;
+  }
+
+  .home-hero h1 {
+    font-size: 3.25rem;
+  }
+
+  .home-hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .home-button {
+    justify-content: center;
+  }
+
+  .home-field-card {
+    padding-inline: 0.75rem;
+  }
+
+  .home-field-card-top,
+  .home-field-card-bottom {
+    font-size: 0.46rem;
+  }
+
+  .home-paths {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-path {
+    min-height: 14rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-button,
+  .home-button svg,
+  .home-path,
+  .home-path-link svg,
+  .home-discover-links a,
+  .home-discover-links svg,
+  .home-local-story > a svg {
+    transition: none;
+  }
+
+  .home-button:hover,
+  .home-path:hover {
+    transform: none;
+  }
+}
+
 .organizer-banner {
   position: relative;
   overflow: hidden;

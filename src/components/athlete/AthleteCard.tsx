@@ -1,5 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { Bookmark, BookmarkCheck, Heart } from "lucide-react";
+import { toast } from "sonner";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
+import { useKhelo } from "@/lib/services/store";
+import { canViewProfile } from "@/lib/services/relationships";
 import { VerifiedBadge } from "@/components/shared/Badges";
 import { Initials } from "@/components/shared/Bits";
 import { RoleIcon } from "@/components/shared/KheloIcon";
@@ -9,6 +14,28 @@ import { sportTint } from "@/lib/sport-visuals";
 import type { Athlete } from "@/types";
 
 export function AthleteCard({ athlete }: { athlete: Athlete }) {
+  const { db, currentUser, toggleProfileFollow, toggleSavedProfile } = useKhelo();
+  const following = (db.profileFollows ?? []).some(
+    (follow) =>
+      follow.followerProfileId === currentUser?.id &&
+      follow.followedProfileId === athlete.userId,
+  );
+  const saved = (db.savedProfiles ?? []).some(
+    (item) => item.profileId === currentUser?.id && item.targetProfileId === athlete.userId,
+  );
+  const isOwner = currentUser?.id === athlete.userId;
+  const relationshipActionsAvailable = !isSupabaseConfigured();
+  const canInteract = currentUser && !isOwner && canViewProfile(db, currentUser.id, athlete.userId);
+
+  const runAction = (action: () => void, message: string) => {
+    try {
+      action();
+      toast.success(message);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "The action could not be completed.");
+    }
+  };
+
   return (
     <article className="data-card group rounded-xl p-6 theme-fade">
       <SimpleBanner
@@ -55,11 +82,54 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
           achievements
         </p>
 
-        <Button asChild variant="secondary" className="mt-5">
-          <Link to="/athletes/$id" params={{ id: athlete.id }}>
-            View profile
-          </Link>
-        </Button>
+        <div className="mt-5 flex flex-wrap gap-2">
+          <Button asChild variant="secondary">
+            <Link to="/athletes/$id" params={{ id: athlete.id }}>
+              View profile
+            </Link>
+          </Button>
+          {canInteract ? (
+            <>
+              <Button
+                size="sm"
+                variant={following ? "outline" : "default"}
+                disabled={!relationshipActionsAvailable}
+                title={
+                  relationshipActionsAvailable
+                    ? undefined
+                    : "Relationship actions are paused until the hosted database schema is confirmed."
+                }
+                onClick={() =>
+                  runAction(
+                    () => toggleProfileFollow(athlete.userId),
+                    following ? "Profile unfollowed" : "Following athlete",
+                  )
+                }
+              >
+                <Heart className="size-4" />
+                {following ? "Following" : "Follow"}
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={!relationshipActionsAvailable}
+                onClick={() =>
+                  runAction(
+                    () => toggleSavedProfile(athlete.userId),
+                    saved ? "Removed from saved profiles" : "Athlete saved",
+                  )
+                }
+                aria-label={saved ? `Unsave ${athlete.name}` : `Save ${athlete.name}`}
+              >
+                {saved ? (
+                  <BookmarkCheck className="size-4" />
+                ) : (
+                  <Bookmark className="size-4" />
+                )}
+              </Button>
+            </>
+          ) : null}
+        </div>
       </div>
     </article>
   );
