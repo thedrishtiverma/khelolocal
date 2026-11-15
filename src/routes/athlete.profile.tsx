@@ -42,6 +42,7 @@ function MyProfile() {
     setName(athlete?.name ?? currentUser.name);
     setPhone(currentUser.phone);
     setCity(athlete?.cityId ?? currentUser.cityId);
+    setVisibility(currentUser.profileVisibility ?? "private");
     setSport(athlete?.primarySport ?? "football");
     setPosition(athlete?.position ?? "");
     setBio(athlete?.bio ?? "");
