@@ -376,10 +376,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                 For coaches and teams
               </Link>
               <Link to="/academies-clubs" className="hover:text-lime">
-                Academies & clubs
+                For academies and clubs
               </Link>
               <Link to="/partners" className="hover:text-lime">
-                Sponsors & partners
+                For sponsors and partners
               </Link>
               <Link to="/volunteer" className="hover:text-lime">
                 Volunteer with us

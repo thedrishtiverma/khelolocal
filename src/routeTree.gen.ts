@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademiesClubsRouteImport } from './routes/academies-clubs'
 import { Route as AthletesRouteImport } from './routes/athletes'
 import { Route as CareersRouteImport } from './routes/careers'
@@ -65,11 +64,6 @@ import { Route as VolunteerIndexRouteImport } from './routes/volunteer.index'
 import { Route as VolunteerDeskRouteImport } from './routes/volunteer.desk'
 import { Route as OrganizerManageIdRouteImport } from './routes/organizer.manage.$id'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AcademiesClubsRoute = AcademiesClubsRouteImport.update({
   id: '/academies-clubs',
   path: '/academies-clubs',
@@ -342,7 +336,6 @@ const OrganizerManageIdRoute = OrganizerManageIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
@@ -399,7 +392,6 @@ export interface FileRoutesByFullPath {
   '/organizer/manage/$id': typeof OrganizerManageIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
@@ -455,7 +447,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/academies-clubs': typeof AcademiesClubsRoute
   '/athletes': typeof AthletesRouteWithChildren
   '/careers': typeof CareersRoute
@@ -514,7 +505,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/academies-clubs'
     | '/athletes'
     | '/careers'
@@ -571,7 +561,6 @@ export interface FileRouteTypes {
     | '/organizer/manage/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/academies-clubs'
     | '/athletes'
     | '/careers'
@@ -626,7 +615,6 @@ export interface FileRouteTypes {
     | '/organizer/manage/$id'
   id:
     | '__root__'
-    | '/'
     | '/academies-clubs'
     | '/athletes'
     | '/careers'
@@ -684,7 +672,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AcademiesClubsRoute: typeof AcademiesClubsRoute
   AthletesRoute: typeof AthletesRouteWithChildren
   CareersRoute: typeof CareersRoute
@@ -734,13 +721,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/academies-clubs': {
       id: '/academies-clubs'
       path: '/academies-clubs'
@@ -1185,7 +1165,6 @@ const TeamsRouteChildren: TeamsRouteChildren = {
 const TeamsRouteWithChildren = TeamsRoute._addFileChildren(TeamsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AcademiesClubsRoute: AcademiesClubsRoute,
   AthletesRoute: AthletesRouteWithChildren,
   CareersRoute: CareersRoute,
