@@ -22,9 +22,7 @@ export function loadDatabase(): Database {
     parsed.profileConnectionRequests ??= (parsed.connections ?? [])
       .filter((connection) => connection.status === "SENT")
       .flatMap((connection) => {
-        const requester = parsed.users.find(
-          (user) => user.id === connection.scoutUserId || user.id === connection.scoutUserId,
-        );
+        const requester = parsed.users.find((user) => user.id === connection.scoutUserId);
         const athlete = parsed.athletes.find((item) => item.id === connection.athleteId);
         if (!requester || !athlete) return [];
         return [
@@ -45,7 +43,13 @@ export function loadDatabase(): Database {
     parsed.savedProfiles ??= (parsed.savedAthletes ?? []).flatMap((athleteId) => {
       const athlete = parsed.athletes.find((item) => item.id === athleteId);
       return athlete
-        ? [{ profileId: "u_scout", targetProfileId: athlete.userId, createdAt: new Date().toISOString() }]
+        ? [
+            {
+              profileId: "u_scout",
+              targetProfileId: athlete.userId,
+              createdAt: new Date().toISOString(),
+            },
+          ]
         : [];
     });
     return parsed;

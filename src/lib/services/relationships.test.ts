@@ -52,9 +52,9 @@ describe("local profile relationships", () => {
     expect(() =>
       requestProfileConnection(db, "u_scout", athleteProfileId, "Second request"),
     ).toThrow("A connection request is already pending.");
-    expect(() =>
-      respondToConnectionRequest(db, "u_scout", request.id, "ACCEPTED"),
-    ).toThrow("This request is no longer available.");
+    expect(() => respondToConnectionRequest(db, "u_scout", request.id, "ACCEPTED")).toThrow(
+      "This request is no longer available.",
+    );
 
     respondToConnectionRequest(db, athleteProfileId, request.id, "ACCEPTED");
     expect(areProfilesConnected(db, athleteProfileId, "u_scout")).toBe(true);
@@ -133,9 +133,7 @@ describe("local profile relationships", () => {
     expect(toggleSavedProfile(db, "u_scout", athleteProfileId)).toBe(true);
     expect(toggleSavedProfile(db, "u_college", athleteProfileId)).toBe(true);
     expect(db.savedProfiles).toHaveLength(2);
-    expect(
-      db.savedProfiles?.filter((item) => item.profileId === "u_scout"),
-    ).toHaveLength(1);
+    expect(db.savedProfiles?.filter((item) => item.profileId === "u_scout")).toHaveLength(1);
 
     const target = db.users.find((user) => user.id === athleteProfileId);
     if (!target) throw new Error("Seed profile is missing.");

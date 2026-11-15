@@ -51,7 +51,11 @@ export function areProfilesConnected(db: Database, profileAId: string, profileBI
   );
 }
 
-export function canViewProfile(db: Database, viewerProfileId: string | null, targetProfileId: string) {
+export function canViewProfile(
+  db: Database,
+  viewerProfileId: string | null,
+  targetProfileId: string,
+) {
   const target = db.users.find((user) => user.id === targetProfileId && user.isActive);
   if (!target) return false;
   if (viewerProfileId === targetProfileId) return true;
@@ -72,7 +76,8 @@ export function canViewProfile(db: Database, viewerProfileId: string | null, tar
 function assertCanInteract(db: Database, actorProfileId: string, targetProfileId: string) {
   activeUser(db, actorProfileId);
   activeUser(db, targetProfileId);
-  if (actorProfileId === targetProfileId) throw new Error("You cannot interact with your own profile.");
+  if (actorProfileId === targetProfileId)
+    throw new Error("You cannot interact with your own profile.");
   if (isProfileBlocked(db, actorProfileId, targetProfileId))
     throw new Error("This relationship is unavailable.");
   if (!canViewProfile(db, actorProfileId, targetProfileId))
@@ -82,7 +87,13 @@ function assertCanInteract(db: Database, actorProfileId: string, targetProfileId
 export function followProfile(db: Database, followerProfileId: string, followedProfileId: string) {
   assertCanInteract(db, followerProfileId, followedProfileId);
   const { follows } = profileArrays(db);
-  if (follows.some((follow) => follow.followerProfileId === followerProfileId && follow.followedProfileId === followedProfileId)) {
+  if (
+    follows.some(
+      (follow) =>
+        follow.followerProfileId === followerProfileId &&
+        follow.followedProfileId === followedProfileId,
+    )
+  ) {
     return false;
   }
   follows.push({
@@ -94,12 +105,17 @@ export function followProfile(db: Database, followerProfileId: string, followedP
   return true;
 }
 
-export function unfollowProfile(db: Database, followerProfileId: string, followedProfileId: string) {
+export function unfollowProfile(
+  db: Database,
+  followerProfileId: string,
+  followedProfileId: string,
+) {
   const { follows } = profileArrays(db);
   const existing = follows.length;
   db.profileFollows = follows.filter(
     (follow) =>
-      follow.followerProfileId !== followerProfileId || follow.followedProfileId !== followedProfileId,
+      follow.followerProfileId !== followerProfileId ||
+      follow.followedProfileId !== followedProfileId,
   );
   return db.profileFollows.length !== existing;
 }
@@ -181,7 +197,11 @@ export function respondToConnectionRequest(
   return request;
 }
 
-export function cancelConnectionRequest(db: Database, requesterProfileId: string, requestId: string) {
+export function cancelConnectionRequest(
+  db: Database,
+  requesterProfileId: string,
+  requestId: string,
+) {
   activeUser(db, requesterProfileId);
   const request = (db.profileConnectionRequests ?? []).find((item) => item.id === requestId);
   if (!request || request.requesterProfileId !== requesterProfileId || request.status !== "PENDING")
@@ -192,7 +212,11 @@ export function cancelConnectionRequest(db: Database, requesterProfileId: string
   return request;
 }
 
-export function removeProfileConnection(db: Database, actorProfileId: string, otherProfileId: string) {
+export function removeProfileConnection(
+  db: Database,
+  actorProfileId: string,
+  otherProfileId: string,
+) {
   activeUser(db, actorProfileId);
   const { connections } = profileArrays(db);
   const [a, b] = canonicalPair(actorProfileId, otherProfileId);
@@ -225,7 +249,12 @@ export function blockProfile(db: Database, blockerProfileId: string, blockedProf
   activeUser(db, blockedProfileId);
   if (blockerProfileId === blockedProfileId) throw new Error("You cannot block your own profile.");
   const { follows, requests, connections, blocks } = profileArrays(db);
-  if (blocks.some((block) => block.blockerProfileId === blockerProfileId && block.blockedProfileId === blockedProfileId)) {
+  if (
+    blocks.some(
+      (block) =>
+        block.blockerProfileId === blockerProfileId && block.blockedProfileId === blockedProfileId,
+    )
+  ) {
     return false;
   }
   const createdAt = now();
@@ -239,8 +268,10 @@ export function blockProfile(db: Database, blockerProfileId: string, blockedProf
   db.profileFollows = follows.filter(
     (follow) =>
       !(
-        (follow.followerProfileId === blockerProfileId && follow.followedProfileId === blockedProfileId) ||
-        (follow.followerProfileId === blockedProfileId && follow.followedProfileId === blockerProfileId)
+        (follow.followerProfileId === blockerProfileId &&
+          follow.followedProfileId === blockedProfileId) ||
+        (follow.followerProfileId === blockedProfileId &&
+          follow.followedProfileId === blockerProfileId)
       ),
   );
   const [a, b] = canonicalPair(blockerProfileId, blockedProfileId);
@@ -249,8 +280,10 @@ export function blockProfile(db: Database, blockerProfileId: string, blockedProf
   );
   for (const request of requests) {
     const related =
-      (request.requesterProfileId === blockerProfileId && request.recipientProfileId === blockedProfileId) ||
-      (request.requesterProfileId === blockedProfileId && request.recipientProfileId === blockerProfileId);
+      (request.requesterProfileId === blockerProfileId &&
+        request.recipientProfileId === blockedProfileId) ||
+      (request.requesterProfileId === blockedProfileId &&
+        request.recipientProfileId === blockerProfileId);
     if (related && request.status === "PENDING") {
       request.status = "CANCELLED";
       request.respondedAt = createdAt;

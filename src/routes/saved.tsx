@@ -29,7 +29,8 @@ function SavedPage() {
       .map((item) => item.targetProfileId),
   );
   const saved = db.athletes.filter(
-    (athlete) => savedIds.has(athlete.userId) && canViewProfile(db, currentUser?.id ?? null, athlete.userId),
+    (athlete) =>
+      savedIds.has(athlete.userId) && canViewProfile(db, currentUser?.id ?? null, athlete.userId),
   );
 
   if (isSupabaseConfigured()) {

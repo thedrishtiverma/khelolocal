@@ -12,7 +12,8 @@ import {
   isProfileBlocked,
 } from "@/lib/services/relationships";
 
-type NetworkTab = "requests" | "sent" | "connections" | "following" | "followers" | "saved" | "blocked";
+type NetworkTab =
+  "requests" | "sent" | "connections" | "following" | "followers" | "saved" | "blocked";
 
 const TABS: { id: NetworkTab; label: string }[] = [
   { id: "requests", label: "Requests" },
@@ -200,10 +201,7 @@ function ConnectionsPage() {
                     size="sm"
                     variant="outline"
                     onClick={() =>
-                      notifyAction(
-                        () => cancelProfileConnection(request.id),
-                        "Request cancelled",
-                      )
+                      notifyAction(() => cancelProfileConnection(request.id), "Request cancelled")
                     }
                   >
                     Cancel request
@@ -274,10 +272,7 @@ function ConnectionsPage() {
                 size="sm"
                 variant="outline"
                 onClick={() =>
-                  notifyAction(
-                    () => removeProfileConnection(profileId),
-                    "Connection removed",
-                  )
+                  notifyAction(() => removeProfileConnection(profileId), "Connection removed")
                 }
               >
                 Remove
@@ -312,9 +307,7 @@ function ConnectionsPage() {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() =>
-                  notifyAction(() => unblockProfile(profileId), "Profile unblocked")
-                }
+                onClick={() => notifyAction(() => unblockProfile(profileId), "Profile unblocked")}
               >
                 Unblock
               </Button>

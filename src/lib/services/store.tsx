@@ -136,10 +136,7 @@ interface StoreValue {
   verifyMatch: (matchId: string, note?: string) => VerifyOutcome | null;
   toggleProfileFollow: (targetProfileId: string) => void;
   requestProfileConnection: (targetProfileId: string, introductionNote?: string) => void;
-  respondToProfileConnection: (
-    requestId: string,
-    decision: "ACCEPTED" | "DECLINED",
-  ) => void;
+  respondToProfileConnection: (requestId: string, decision: "ACCEPTED" | "DECLINED") => void;
   cancelProfileConnection: (requestId: string) => void;
   removeProfileConnection: (targetProfileId: string) => void;
   toggleSavedProfile: (targetProfileId: string) => void;
@@ -1107,7 +1104,12 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to respond to requests.");
-      respondToConnectionRequest(structuredClone(db) as Database, actorProfileId, requestId, decision);
+      respondToConnectionRequest(
+        structuredClone(db) as Database,
+        actorProfileId,
+        requestId,
+        decision,
+      );
       commit((draft) => respondToConnectionRequest(draft, actorProfileId, requestId, decision));
     },
     [commit, currentUser, db, requireLocalRelationshipMode],

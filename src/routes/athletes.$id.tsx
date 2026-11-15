@@ -100,8 +100,7 @@ function AthletePublicProfile() {
   );
   const following = (db.profileFollows ?? []).some(
     (follow) =>
-      follow.followerProfileId === currentUser?.id &&
-      follow.followedProfileId === athlete.userId,
+      follow.followerProfileId === currentUser?.id && follow.followedProfileId === athlete.userId,
   );
   const connected = currentUser ? areProfilesConnected(db, currentUser.id, athlete.userId) : false;
   const request = (db.profileConnectionRequests ?? []).find(
@@ -131,153 +130,155 @@ function AthletePublicProfile() {
     <Page>
       <AthleteProfileView
         athlete={athlete}
-        actions={!isOwner && currentUser ? (
-          <div className="flex flex-col gap-3">
-            {!localMode ? (
-              <p className="max-w-sm text-xs text-muted-foreground" role="status">
-                Relationship actions are temporarily unavailable while the hosted data model is
-                being confirmed.
-              </p>
-            ) : null}
-            <div className="flex flex-wrap gap-2">
-              <Button
-                variant={following ? "secondary" : "outline"}
-                disabled={!localMode || blocked}
-                title={unavailableTitle}
-                onClick={() =>
-                  notifyAction(
-                    () => toggleProfileFollow(athlete.userId),
-                    following ? "Profile unfollowed" : "Following athlete",
-                  )
-                }
-              >
-                <Heart className="size-4" />
-                {following ? "Following" : "Follow"}
-              </Button>
-              <Button
-                variant="secondary"
-                disabled={!localMode || blocked}
-                title={unavailableTitle}
-                onClick={() =>
-                  notifyAction(
-                    () => toggleSavedProfile(athlete.userId),
-                    saved ? "Removed from saved profiles" : "Athlete saved",
-                  )
-                }
-              >
-                {saved ? <BookmarkCheck className="size-4" /> : <Bookmark className="size-4" />}
-                {saved ? "Saved" : "Save"}
-              </Button>
-              {connected ? (
+        actions={
+          !isOwner && currentUser ? (
+            <div className="flex flex-col gap-3">
+              {!localMode ? (
+                <p className="max-w-sm text-xs text-muted-foreground" role="status">
+                  Relationship actions are temporarily unavailable while the hosted data model is
+                  being confirmed.
+                </p>
+              ) : null}
+              <div className="flex flex-wrap gap-2">
                 <Button
-                  variant="outline"
-                  disabled={!localMode}
+                  variant={following ? "secondary" : "outline"}
+                  disabled={!localMode || blocked}
                   title={unavailableTitle}
                   onClick={() =>
                     notifyAction(
-                      () => removeProfileConnection(athlete.userId),
-                      "Connection removed",
+                      () => toggleProfileFollow(athlete.userId),
+                      following ? "Profile unfollowed" : "Following athlete",
                     )
                   }
                 >
-                  <UserCheck className="size-4" /> Connected
+                  <Heart className="size-4" />
+                  {following ? "Following" : "Follow"}
                 </Button>
-              ) : request?.requesterProfileId === currentUser.id ? (
                 <Button
-                  variant="outline"
-                  disabled={!localMode}
+                  variant="secondary"
+                  disabled={!localMode || blocked}
                   title={unavailableTitle}
                   onClick={() =>
                     notifyAction(
-                      () => cancelProfileConnection(request.id),
-                      "Connection request cancelled",
+                      () => toggleSavedProfile(athlete.userId),
+                      saved ? "Removed from saved profiles" : "Athlete saved",
                     )
                   }
                 >
-                  <X className="size-4" /> Cancel request
+                  {saved ? <BookmarkCheck className="size-4" /> : <Bookmark className="size-4" />}
+                  {saved ? "Saved" : "Save"}
                 </Button>
-              ) : request ? (
-                <>
-                  <Button
-                    disabled={!localMode}
-                    title={unavailableTitle}
-                    onClick={() =>
-                      notifyAction(
-                        () => respondToProfileConnection(request.id, "ACCEPTED"),
-                        "Connection accepted",
-                      )
-                    }
-                  >
-                    <UserCheck className="size-4" /> Accept request
-                  </Button>
+                {connected ? (
                   <Button
                     variant="outline"
                     disabled={!localMode}
                     title={unavailableTitle}
                     onClick={() =>
                       notifyAction(
-                        () => respondToProfileConnection(request.id, "DECLINED"),
-                        "Request declined",
+                        () => removeProfileConnection(athlete.userId),
+                        "Connection removed",
                       )
                     }
                   >
-                    Decline
+                    <UserCheck className="size-4" /> Connected
                   </Button>
-                </>
-              ) : (
-                <Button
-                  disabled={!localMode || blocked}
-                  title={unavailableTitle}
-                  onClick={() =>
-                    notifyAction(
-                      () => requestProfileConnection(athlete.userId, introduction),
-                      "Connection request sent",
-                    )
-                  }
-                >
-                  <UserPlus className="size-4" />
-                  Connect
-                </Button>
-              )}
-              {blocked ? (
-                <Button
-                  variant="outline"
-                  disabled={!localMode}
-                  onClick={() =>
-                    notifyAction(() => unblockProfile(athlete.userId), "Profile unblocked")
-                  }
-                >
-                  Unblock
-                </Button>
-              ) : (
-                <Button
-                  variant="ghost"
-                  disabled={!localMode}
-                  title={unavailableTitle}
-                  onClick={() =>
-                    notifyAction(() => blockProfile(athlete.userId), "Profile blocked")
-                  }
-                >
-                  Block
-                </Button>
-              )}
+                ) : request?.requesterProfileId === currentUser.id ? (
+                  <Button
+                    variant="outline"
+                    disabled={!localMode}
+                    title={unavailableTitle}
+                    onClick={() =>
+                      notifyAction(
+                        () => cancelProfileConnection(request.id),
+                        "Connection request cancelled",
+                      )
+                    }
+                  >
+                    <X className="size-4" /> Cancel request
+                  </Button>
+                ) : request ? (
+                  <>
+                    <Button
+                      disabled={!localMode}
+                      title={unavailableTitle}
+                      onClick={() =>
+                        notifyAction(
+                          () => respondToProfileConnection(request.id, "ACCEPTED"),
+                          "Connection accepted",
+                        )
+                      }
+                    >
+                      <UserCheck className="size-4" /> Accept request
+                    </Button>
+                    <Button
+                      variant="outline"
+                      disabled={!localMode}
+                      title={unavailableTitle}
+                      onClick={() =>
+                        notifyAction(
+                          () => respondToProfileConnection(request.id, "DECLINED"),
+                          "Request declined",
+                        )
+                      }
+                    >
+                      Decline
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    disabled={!localMode || blocked}
+                    title={unavailableTitle}
+                    onClick={() =>
+                      notifyAction(
+                        () => requestProfileConnection(athlete.userId, introduction),
+                        "Connection request sent",
+                      )
+                    }
+                  >
+                    <UserPlus className="size-4" />
+                    Connect
+                  </Button>
+                )}
+                {blocked ? (
+                  <Button
+                    variant="outline"
+                    disabled={!localMode}
+                    onClick={() =>
+                      notifyAction(() => unblockProfile(athlete.userId), "Profile unblocked")
+                    }
+                  >
+                    Unblock
+                  </Button>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    disabled={!localMode}
+                    title={unavailableTitle}
+                    onClick={() =>
+                      notifyAction(() => blockProfile(athlete.userId), "Profile blocked")
+                    }
+                  >
+                    Block
+                  </Button>
+                )}
+              </div>
+              {!request && !connected ? (
+                <label className="max-w-lg space-y-1 text-xs font-semibold text-muted-foreground">
+                  Optional introduction
+                  <textarea
+                    value={introduction}
+                    onChange={(event) => setIntroduction(event.target.value.slice(0, 280))}
+                    maxLength={280}
+                    rows={2}
+                    placeholder="Add a short note with your request"
+                    disabled={!localMode || blocked}
+                    className="w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-sm font-normal text-foreground"
+                  />
+                </label>
+              ) : null}
             </div>
-            {!request && !connected ? (
-              <label className="max-w-lg space-y-1 text-xs font-semibold text-muted-foreground">
-                Optional introduction
-                <textarea
-                  value={introduction}
-                  onChange={(event) => setIntroduction(event.target.value.slice(0, 280))}
-                  maxLength={280}
-                  rows={2}
-                  placeholder="Add a short note with your request"
-                  disabled={!localMode || blocked}
-                  className="w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-sm font-normal text-foreground"
-                />
-              </label>
-            ) : null}
-          </div>
-        ) : null}
+          ) : null
+        }
       />
     </Page>
   );
