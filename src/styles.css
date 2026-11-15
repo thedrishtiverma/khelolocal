@@ -334,7 +334,7 @@
 }
 
 @utility font-ui {
-  font-family: var(--font-ui);
+  font-family: var(--font-mono);
 }
 
 @utility font-heading {
@@ -3864,6 +3864,7 @@
 }
 
 .home-hero h1 span,
+.home-section-heading h2 span,
 .home-entry-heading h2 span,
 .home-local h2 span {
   color: var(--lime);

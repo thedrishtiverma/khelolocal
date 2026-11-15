@@ -172,7 +172,7 @@ function Landing() {
             <h2 id="home-journey-title">
               From first whistle
               <br />
-              to a record that lasts.
+              to a <span>record that lasts.</span>
             </h2>
           </div>
           <p>
