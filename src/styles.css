@@ -3852,42 +3852,9 @@
   box-shadow: 0 0 0 5px color-mix(in oklab, var(--lime) 14%, transparent);
 }
 
-.home-tagline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin-top: 1.15rem;
-  border: 1px solid color-mix(in oklab, var(--lime) 42%, transparent);
-  border-radius: 9999px;
-  background: color-mix(in oklab, var(--lime) 8%, transparent);
-  padding: 0.5rem 0.8rem;
-  color: var(--surface-foreground);
-  font-family: var(--font-ui);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-}
-
-.home-tagline-mark {
-  display: flex;
-  align-items: center;
-  gap: 0.16rem;
-}
-
-.home-tagline-mark span {
-  width: 0.28rem;
-  height: 0.75rem;
-  border-radius: 9999px;
-  background: var(--lime);
-}
-
-.home-tagline-mark span:nth-child(2) {
-  height: 1rem;
-}
-
 .home-hero h1 {
   max-width: 100%;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   font-family: var(--font-display);
   font-size: clamp(3.75rem, 7.2vw, 7.25rem);
   font-weight: 900;
@@ -4028,6 +3995,24 @@
 }
 
 .home-live-indicator {
+  color: var(--lime);
+}
+
+.home-field-card-tagline {
+  display: grid;
+  flex: 0 0 auto;
+  gap: 0.1rem;
+  color: color-mix(in oklab, var(--surface-foreground) 70%, transparent);
+  font-family: var(--font-ui);
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.35;
+  text-align: right;
+  text-transform: none;
+}
+
+.home-field-card-tagline span:first-child {
   color: var(--lime);
 }
 

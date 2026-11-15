@@ -1,16 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import {
-  Building2,
-  ChevronDown,
-  Github,
-  Instagram,
-  Linkedin,
-  LogOut,
-  Menu,
-  UserRound,
-  X,
-} from "lucide-react";
+import { ChevronDown, Github, Instagram, Linkedin, LogOut, Menu, UserRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useKhelo } from "@/lib/services/store";
@@ -122,7 +112,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                     "bg-card text-foreground shadow-sm ring-1 ring-border",
                 )}
               >
-                <Building2 className="size-4" aria-hidden="true" />
                 For organisations
                 <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
               </summary>
@@ -456,7 +445,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </p>
           <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold">
             <a
-              href="https://www.instagram.com/khelolocal.in/"
+              href="https://www.instagram.com/khelolocal/"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 hover:text-lime"

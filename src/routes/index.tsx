@@ -100,14 +100,6 @@ function Landing() {
               <span className="home-kicker-dot" />
               Starting in Indore. Built for every home ground.
             </p>
-            <p className="home-tagline">
-              <span className="home-tagline-mark" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </span>
-              Your City&apos;s Sports Network
-            </p>
             <h1>
               The local game
               <br />
@@ -136,10 +128,14 @@ function Landing() {
           <div
             className="home-field-card"
             role="img"
-            aria-label="A local playing field connecting players, games, and community."
+            aria-label="India's local sports, united. Explore KheloLocal for fixtures across your city. A playing field connecting players, games, and community."
           >
             <div className="home-field-card-top">
               <span>INDIA&apos;S LOCAL SPORTS, UNITED</span>
+              <span className="home-field-card-tagline">
+                <span>Explore KheloLocal</span>
+                <span>Fixtures across your city</span>
+              </span>
             </div>
             <div className="home-field" aria-hidden="true">
               <span className="home-field-halfway" />
