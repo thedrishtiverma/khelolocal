@@ -151,7 +151,9 @@ function Landing() {
               <span className="home-field-label home-field-label-one">PLAYERS</span>
               <span className="home-field-label home-field-label-two">GAMES</span>
               <span className="home-field-label home-field-label-three">COMMUNITY</span>
-              <span className="home-field-center-mark">PLAY</span>
+              <span className="home-field-center-mark">
+                <img src="/android-chrome-192x192.png" alt="" />
+              </span>
             </div>
             <div className="home-field-card-bottom">
               <span>ONE CITY AT A TIME</span>
