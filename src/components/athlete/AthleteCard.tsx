@@ -17,8 +17,7 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
   const { db, currentUser, toggleProfileFollow, toggleSavedProfile } = useKhelo();
   const following = (db.profileFollows ?? []).some(
     (follow) =>
-      follow.followerProfileId === currentUser?.id &&
-      follow.followedProfileId === athlete.userId,
+      follow.followerProfileId === currentUser?.id && follow.followedProfileId === athlete.userId,
   );
   const saved = (db.savedProfiles ?? []).some(
     (item) => item.profileId === currentUser?.id && item.targetProfileId === athlete.userId,
@@ -121,11 +120,7 @@ export function AthleteCard({ athlete }: { athlete: Athlete }) {
                 }
                 aria-label={saved ? `Unsave ${athlete.name}` : `Save ${athlete.name}`}
               >
-                {saved ? (
-                  <BookmarkCheck className="size-4" />
-                ) : (
-                  <Bookmark className="size-4" />
-                )}
+                {saved ? <BookmarkCheck className="size-4" /> : <Bookmark className="size-4" />}
               </Button>
             </>
           ) : null}

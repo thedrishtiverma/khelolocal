@@ -156,6 +156,20 @@ export function requestProfileConnection(
     active.status = "ACCEPTED";
     active.respondedAt = now();
     active.updatedAt = active.respondedAt;
+    for (const duplicate of requests) {
+      if (
+        duplicate.id !== active.id &&
+        duplicate.status === "PENDING" &&
+        ((duplicate.requesterProfileId === requesterProfileId &&
+          duplicate.recipientProfileId === recipientProfileId) ||
+          (duplicate.requesterProfileId === recipientProfileId &&
+            duplicate.recipientProfileId === requesterProfileId))
+      ) {
+        duplicate.status = "CANCELLED";
+        duplicate.respondedAt = active.respondedAt;
+        duplicate.updatedAt = active.updatedAt;
+      }
+    }
     createAcceptedConnection(connections, requesterProfileId, recipientProfileId);
     return active;
   }
@@ -192,8 +206,23 @@ export function respondToConnectionRequest(
   request.status = decision;
   request.respondedAt = now();
   request.updatedAt = request.respondedAt;
-  if (decision === "ACCEPTED")
+  if (decision === "ACCEPTED") {
+    for (const duplicate of requests) {
+      if (
+        duplicate.id !== request.id &&
+        duplicate.status === "PENDING" &&
+        ((duplicate.requesterProfileId === request.requesterProfileId &&
+          duplicate.recipientProfileId === request.recipientProfileId) ||
+          (duplicate.requesterProfileId === request.recipientProfileId &&
+            duplicate.recipientProfileId === request.requesterProfileId))
+      ) {
+        duplicate.status = "CANCELLED";
+        duplicate.respondedAt = request.respondedAt;
+        duplicate.updatedAt = request.updatedAt;
+      }
+    }
     createAcceptedConnection(connections, request.requesterProfileId, recipientProfileId);
+  }
   return request;
 }
 
@@ -248,7 +277,7 @@ export function blockProfile(db: Database, blockerProfileId: string, blockedProf
   activeUser(db, blockerProfileId);
   activeUser(db, blockedProfileId);
   if (blockerProfileId === blockedProfileId) throw new Error("You cannot block your own profile.");
-  const { follows, requests, connections, blocks } = profileArrays(db);
+  const { follows, requests, connections, blocks, saved } = profileArrays(db);
   if (
     blocks.some(
       (block) =>
@@ -277,6 +306,13 @@ export function blockProfile(db: Database, blockerProfileId: string, blockedProf
   const [a, b] = canonicalPair(blockerProfileId, blockedProfileId);
   db.profileConnections = connections.filter(
     (connection) => connection.profileAId !== a || connection.profileBId !== b,
+  );
+  db.savedProfiles = saved.filter(
+    (item) =>
+      !(
+        (item.profileId === blockerProfileId && item.targetProfileId === blockedProfileId) ||
+        (item.profileId === blockedProfileId && item.targetProfileId === blockerProfileId)
+      ),
   );
   for (const request of requests) {
     const related =

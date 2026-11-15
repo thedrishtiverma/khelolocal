@@ -1058,18 +1058,6 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to follow profiles.");
-      const validationDb = structuredClone(db) as Database;
-      if (
-        (validationDb.profileFollows ?? []).some(
-          (follow) =>
-            follow.followerProfileId === actorProfileId &&
-            follow.followedProfileId === targetProfileId,
-        )
-      ) {
-        unfollowProfile(validationDb, actorProfileId, targetProfileId);
-      } else {
-        followProfile(validationDb, actorProfileId, targetProfileId);
-      }
       commit((draft) => {
         if (
           (draft.profileFollows ?? []).some(
@@ -1084,7 +1072,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
         }
       });
     },
-    [commit, currentUser, db, requireLocalRelationshipMode],
+    [commit, currentUser, requireLocalRelationshipMode],
   );
 
   const requestProfileConnectionAction: StoreValue["requestProfileConnection"] = useCallback(
@@ -1092,17 +1080,11 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to connect with profiles.");
-      requestProfileConnection(
-        structuredClone(db) as Database,
-        actorProfileId,
-        targetProfileId,
-        introductionNote,
-      );
       commit((draft) =>
         requestProfileConnection(draft, actorProfileId, targetProfileId, introductionNote),
       );
     },
-    [commit, currentUser, db, requireLocalRelationshipMode],
+    [commit, currentUser, requireLocalRelationshipMode],
   );
 
   const respondToProfileConnectionAction: StoreValue["respondToProfileConnection"] = useCallback(
@@ -1110,15 +1092,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to respond to requests.");
-      respondToConnectionRequest(
-        structuredClone(db) as Database,
-        actorProfileId,
-        requestId,
-        decision,
-      );
       commit((draft) => respondToConnectionRequest(draft, actorProfileId, requestId, decision));
     },
-    [commit, currentUser, db, requireLocalRelationshipMode],
+    [commit, currentUser, requireLocalRelationshipMode],
   );
 
   const cancelProfileConnectionAction: StoreValue["cancelProfileConnection"] = useCallback(
@@ -1126,10 +1102,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to cancel requests.");
-      cancelConnectionRequest(structuredClone(db) as Database, actorProfileId, requestId);
       commit((draft) => cancelConnectionRequest(draft, actorProfileId, requestId));
     },
-    [commit, currentUser, db, requireLocalRelationshipMode],
+    [commit, currentUser, requireLocalRelationshipMode],
   );
 
   const removeProfileConnectionAction: StoreValue["removeProfileConnection"] = useCallback(
@@ -1137,10 +1112,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to manage connections.");
-      removeProfileConnection(structuredClone(db) as Database, actorProfileId, targetProfileId);
       commit((draft) => removeProfileConnection(draft, actorProfileId, targetProfileId));
     },
-    [commit, currentUser, db, requireLocalRelationshipMode],
+    [commit, currentUser, requireLocalRelationshipMode],
   );
 
   const toggleSavedProfileAction: StoreValue["toggleSavedProfile"] = useCallback(
@@ -1148,10 +1122,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to save profiles.");
-      toggleSavedProfile(structuredClone(db) as Database, actorProfileId, targetProfileId);
       commit((draft) => toggleSavedProfile(draft, actorProfileId, targetProfileId));
     },
-    [commit, currentUser, db, requireLocalRelationshipMode],
+    [commit, currentUser, requireLocalRelationshipMode],
   );
 
   const blockProfileAction: StoreValue["blockProfile"] = useCallback(
@@ -1159,10 +1132,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to block profiles.");
-      blockProfile(structuredClone(db) as Database, actorProfileId, targetProfileId);
       commit((draft) => blockProfile(draft, actorProfileId, targetProfileId));
     },
-    [commit, currentUser, db, requireLocalRelationshipMode],
+    [commit, currentUser, requireLocalRelationshipMode],
   );
 
   const unblockProfileAction: StoreValue["unblockProfile"] = useCallback(
@@ -1170,10 +1142,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       requireLocalRelationshipMode();
       const actorProfileId = currentUser?.id;
       if (!actorProfileId) throw new Error("Log in to manage blocked profiles.");
-      unblockProfile(structuredClone(db) as Database, actorProfileId, targetProfileId);
       commit((draft) => unblockProfile(draft, actorProfileId, targetProfileId));
     },
-    [commit, currentUser, db, requireLocalRelationshipMode],
+    [commit, currentUser, requireLocalRelationshipMode],
   );
 
   const resetDemo = useCallback(() => {

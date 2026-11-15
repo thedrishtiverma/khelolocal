@@ -143,8 +143,12 @@ function AthletePublicProfile() {
         actions={
           !isOwner && currentUser ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-semibold text-muted-foreground" aria-label="Profile network statistics">
-                {followerCount} followers · {followingCount} following · {connectionCount} connections
+              <p
+                className="text-xs font-semibold text-muted-foreground"
+                aria-label="Profile network statistics"
+              >
+                {followerCount} followers · {followingCount} following · {connectionCount}{" "}
+                connections
               </p>
               {!localMode ? (
                 <p className="max-w-sm text-xs text-muted-foreground" role="status">
@@ -291,7 +295,10 @@ function AthletePublicProfile() {
               ) : null}
             </div>
           ) : (
-            <p className="text-xs font-semibold text-muted-foreground" aria-label="Profile network statistics">
+            <p
+              className="text-xs font-semibold text-muted-foreground"
+              aria-label="Profile network statistics"
+            >
               {followerCount} followers · {followingCount} following · {connectionCount} connections
             </p>
           )
