@@ -170,6 +170,7 @@ const StoreContext = createContext<StoreValue | null>(null);
 
 export function KheloProvider({ children }: { children: ReactNode }) {
   const [db, setDb] = useState<Database>(() => createSeedDatabase());
+  const dbRef = useRef(db);
   const [userId, setUserId] = useState<string | null>(null);
   const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
   const [hydrated, setHydrated] = useState(false);
@@ -181,7 +182,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
       if (isSupabaseConfigured()) {
         const client = getSupabaseClientIfConfigured();
         if (!client) {
-          setDb(loadDatabase());
+          const localDb = loadDatabase();
+          dbRef.current = localDb;
+          setDb(localDb);
           setUserId(loadSession());
           setSupabaseUser(null);
           setHydrated(true);
@@ -197,6 +200,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           try {
             const state = await loadOperationalState();
             if (state) {
+              dbRef.current = state.db;
               setDb(state.db);
               saveDatabase(state.db);
               operationalStateVersion.current = state.version;
@@ -212,7 +216,9 @@ export function KheloProvider({ children }: { children: ReactNode }) {
           saveSession(null);
         }
       } else {
-        setDb(loadDatabase());
+        const localDb = loadDatabase();
+        dbRef.current = localDb;
+        setDb(localDb);
         setUserId(loadSession());
         setSupabaseUser(null);
       }
@@ -225,24 +231,23 @@ export function KheloProvider({ children }: { children: ReactNode }) {
 
   const commit = useCallback(
     (updater: (draft: Database) => void) => {
-      setDb((prev) => {
-        const next = structuredClone(prev) as Database;
-        updater(next);
-        saveDatabase(next);
-        if (isSupabaseConfigured() && supabaseUser?.role === "ADMIN") {
-          backendWrite.current = backendWrite.current
-            .then(async () => {
-              operationalStateVersion.current = await saveOperationalState(
-                next,
-                operationalStateVersion.current,
-              );
-            })
-            .catch((stateError) => {
-              console.warn("Could not save shared operational state:", stateError);
-            });
-        }
-        return next;
-      });
+      const next = structuredClone(dbRef.current) as Database;
+      updater(next);
+      dbRef.current = next;
+      saveDatabase(next);
+      if (isSupabaseConfigured() && supabaseUser?.role === "ADMIN") {
+        backendWrite.current = backendWrite.current
+          .then(async () => {
+            operationalStateVersion.current = await saveOperationalState(
+              next,
+              operationalStateVersion.current,
+            );
+          })
+          .catch((stateError) => {
+            console.warn("Could not save shared operational state:", stateError);
+          });
+      }
+      setDb(next);
     },
     [supabaseUser?.role],
   );
@@ -1174,6 +1179,7 @@ export function KheloProvider({ children }: { children: ReactNode }) {
   const resetDemo = useCallback(() => {
     clearDatabase();
     const fresh = createSeedDatabase();
+    dbRef.current = fresh;
     setDb(fresh);
     saveDatabase(fresh);
   }, []);
